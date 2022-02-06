@@ -1,5 +1,4 @@
 import AddProductView from "./AddProductView";
-import ArchivedProductsView from "./ArchivedProductsView";
 import ModifyProductsView from "./ModifyProductsView";
 import ViewOrdersView from "./ViewOrdersView";
 import ArchivedOrdersView from "./ArchivedOrdersView";
@@ -15,12 +14,9 @@ export default function PageView({ selected }){
                 return <ModifyProductsView />
                 break;
             case 3:
-                return <ArchivedProductsView />
-                break;
-            case 4:
                 return <ViewOrdersView />
                 break;
-            case 5:
+            case 4:
                 return <ArchivedOrdersView />
                 break;
             default:
