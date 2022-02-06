@@ -48,7 +48,7 @@ export default function AddProductView(){
                 {form.sizes.map((item,index) => {
                     return (<div className="w-full flex flex-nowrap justify-center items-center my-1">
                                 <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center" />
-                                <Image src={remove} alt="remove" width={20} height={20} layout="fixed" onClick={e => handleRemove(index)}/>
+                                <Image src={remove} alt="remove" width={20} height={20} layout="fixed" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>
                             </div>
                     )
                 })}
