@@ -2,7 +2,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import add from '../assets/add.png'
 import addselected from '../assets/plusselected.png'
-
+//test
 export default function AddProduct(props){
 
     const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
