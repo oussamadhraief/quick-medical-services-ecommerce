@@ -5,3 +5,5 @@ module.exports = {
   //   path: 'https://res.cloudinary.com/dwvwjxizk/image/upload/pfe/',
   // },
 }
+
+
