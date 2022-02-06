@@ -1,18 +1,22 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import searchIcon from '../assets/searchIcon.png'
 import Image from "next/image"
+import { ProductsContext } from "../utils/ProductsContext"
 
 
 export default function AdminSearchField(){
 
     const [search,setSearch] = useState('')
-
+    // const {value,setValue} = useContext(ProductsContext)
+ 
     function handleChange(e){
         setSearch(e.target.value)
     }
 
     function handleClick(){
         document.getElementById('modifyProducts').click()
+        
+
         setSearch('')
     }
 
