@@ -4,7 +4,7 @@ import remove from '../assets/remove.png'
 
 export default function AddProductView(){
 
-    const [form,setForm] = useState({name:'',description:'',sizes:[0],reference:'',category:'',subcategory:'',})
+    const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:''})
 
     function handleChange(event){
         setForm({
@@ -39,9 +39,37 @@ export default function AddProductView(){
         })
     }
 
+    const handleSubmit = async () => {
+        try {
+            let produit = {
+                reference: '1.1.1.1',
+                type: 'product',
+                ...form
+            }
+            const res = await fetch('api/products', {
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(produit)
+            }).then((res) =>{
+                console.log(res.status);
+            }
+            )
+            
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md">
-            <form className="grid w-full h-fit bg-gray-800 sm:w-4/6 xl:w-2/6 p-10 mx-auto rounded-xl mt-10 mb-10">
+            <form className="grid w-full h-fit bg-gray-800 sm:w-4/6 xl:w-2/6 p-10 mx-auto rounded-xl mt-10 mb-10" action="submit" onSubmit={e => {
+                e.preventDefault()
+                handleSubmit()
+            }}>
                 <p className="text-white font-medium">Nom:</p>
                 <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none" />
                 <p className="text-white font-medium mt-5">Taille&#40;s&#41;:</p>
