@@ -8,6 +8,7 @@ export default function AddProductView(){
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState(product)
+    const [preview,setPreview] = useState({name:'Instrument m&eacute;dical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur Aper&ccedil;u',availability:'available',productImage: ProductPreview})
 
     function handleChange(event){
         setForm({
@@ -84,13 +85,23 @@ export default function AddProductView(){
         reader.readAsDataURL(e.target.files[0]);
     }
 
+    function handlePreview(){
+        setPreview({
+            name: form.name,
+            sizes: form.sizes,
+            description: form.description,
+            availability: availability,
+            productImage: productImage
+        })
+    }
+
     return (
         <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
-            <form className="grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 p-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 handleSubmit()
             }}>
-                <div className="w-full h-fit flex flex-nowrap justify-between items-center">
+                <div className="w-full h-fit flex flex-nowrap justify-between mt-1 items-center">
                     
                 <p className="text-gray-bg-gray-700 font-medium">Nom:</p>
                 <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" />
@@ -144,10 +155,11 @@ export default function AddProductView(){
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
+                <button className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">Ajouter le produit</button>
                 </div></div>
             </form>
-            <ProductPreview productImage={productImage} sizes={form.sizes} />
+            <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />
         </div>
     )
 }
