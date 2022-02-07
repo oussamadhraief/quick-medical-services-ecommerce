@@ -9,7 +9,9 @@ export default function ProductPreview({name,productImage,sizes,description,avai
             <div className="w-4/6 h-fit grid">
                 <p className="font-bold text-2xl text-gray-700">{name}</p>
                 <p className="font-medium text-zinc-600 text-md">Tailles:&nbsp;</p>
+                <div className="flex flex-wrap">
                 {sizes.map(item => <p className="border-[1px] border-gray-700 h-fit w-fit py-2 px-1 font-medium text-sm">{item} mm</p>)}
+                </div>
                 <p className="font-medium text-zinc-600 text-md">Description:&nbsp;</p>
                 <p>{description}</p>
                 {availability == 'available' ? <p className="font-medium text-md mt-2 text-green-700">Disponible</p> : <p className="font-medium text-md mt-2 text-red-500">Sur commande</p>}

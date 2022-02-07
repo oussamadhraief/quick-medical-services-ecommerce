@@ -8,7 +8,7 @@ export default function AddProductView(){
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState(product)
-    const [preview,setPreview] = useState({name:'Instrument m&eacute;dical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur Aper&ccedil;u',availability:'available',productImage: ProductPreview})
+    const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur Aperçu',availability:'available',productImage: product})
 
     function handleChange(event){
         setForm({
