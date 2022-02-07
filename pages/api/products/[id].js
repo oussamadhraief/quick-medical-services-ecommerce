@@ -4,35 +4,39 @@ import Product, { db } from "../../../models/Product";
 dbConnect();
 
 export default async (req, res) => {
-    switch (req.method) {
+    const {
+        query: { id },
+        method,
+    } = req;
+
+    switch (method) {
         case "GET":
             try {
-                const products = await Product.find({});
-
-                res.status(200).json({ success: true, data: products });
-            } catch (error) {
-                res.status(400).json({ success: false });
-            }
-            break;
-        case "POST":
-            try {
-                const data = await db
-                    .collection("products")
-                    .insertOne(req.body);
-
-                res.status(201).json({ success: true, data: data });
+                const product = await Product.findOne({ reference: id });
+                if (!product) {
+                    return res.status(400).json({ success: false });
+                }
+                return res.status(400).json({ success: true, data: product });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
             break;
         case "PUT":
             try {
-                const product = await Product.findOneAndUpdate(
-                    { reference: req.body.reference },
+                const modifiedProduct = await Product.findOneAndUpdate(
+                    { reference: id },
                     req.body,
-                    { new: true }
+                    { new: true, runValidators: true }
                 );
-                res.status(200).json({ success: true, data: product });
+
+                if (!modifiedProduct) {
+                    return res
+                        .status(400)
+                        .json({ success: false, data: modifiedProduct });
+                }
+                return res
+                    .status(200)
+                    .json({ succes: true, data: modifiedProduct });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
@@ -40,7 +44,7 @@ export default async (req, res) => {
         case "DELETE":
             try {
                 const deletedProduct = await Product.deleteOne({
-                    reference: req.body.reference,
+                    reference: id,
                 });
                 if (!deletedProduct) {
                     return res.status(400).json({ success: false });
@@ -49,9 +53,6 @@ export default async (req, res) => {
             } catch (error) {
                 return res.status(400).json({ success: false });
             }
-            break;
-        default:
-            res.status(400).json({ success: false });
             break;
     }
 };
