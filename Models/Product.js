@@ -36,8 +36,12 @@ const ProductSchema = new mongoose.Schema({
         unique: false,
         trim: true,
         minlength: [4, 'La sous-catégorie doit être au moins 4 caractères']
+    },
+    availability: {
+        type: String,
+        required: [true, 'Insérez la disponibilité'],
+        unique: false,
     }
-
 })
 
 module.exports = mongoose.models.Product || mongoose.model('Product', ProductSchema)

@@ -1,10 +1,13 @@
 import { useState } from "react"
 import Image from "next/image"
 import remove from '../assets/remove.png'
+import ProductPreview from './ProductPreview'
+import product from '../assets/productPreview.png'
 
 export default function AddProductView(){
 
-    const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:''})
+    const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
+    const [productImage,setProductImage] = useState(product)
 
     function handleChange(event){
         setForm({
@@ -64,18 +67,42 @@ export default function AddProductView(){
         }
     }
 
+    function handleRadioChange(e){
+        setForm({
+            ...form,
+            availability: e.target.value
+        })
+        console.log(e.target.value);
+    }
+
+    function handleImageInput(e){
+
+        const reader = new FileReader();
+        reader.onload = function () {
+            setProductImage(reader.result)
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
     return (
-        <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md">
-            <form className="grid w-full h-fit bg-gray-800 sm:w-4/6 xl:w-2/6 p-10 mx-auto rounded-xl mt-10 mb-10" action="submit" onSubmit={e => {
+        <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
+            <form className="grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 p-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 handleSubmit()
             }}>
-                <p className="text-white font-medium">Nom:</p>
-                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none" />
-                <p className="text-white font-medium mt-5">Taille&#40;s&#41;:</p>
+                <div className="w-full h-fit flex flex-nowrap justify-between items-center">
+                    
+                <p className="text-gray-bg-gray-700 font-medium">Nom:</p>
+                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" />
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-between mt-5">
+                <p className="text-gray-bg-gray-700 font-medium mt-3">Taille&#40;s&#41;:</p>
+                <div className="grid w-4/5 h-fit">
+                    
+               
                 {form.sizes.map((item,index) => {
                     return (<div className="w-full flex flex-nowrap justify-center items-center my-1">
-                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center" />
+                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border-2 border-gray-700" />
                                 <Image src={remove} alt="remove" width={20} height={20} layout="fixed" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>
                             </div>
                     )
@@ -83,17 +110,44 @@ export default function AddProductView(){
                 <button onClick={e => { 
                     e.preventDefault()
                     handleClick()
-                    }} className="w-fit mx-auto bg-white px-3 font-bold text-zinc-700 py-1 rounded-lg h-fit" >+</button>
-                <p className="text-white font-medium mt-5">Description:</p>
-                <input type="text" name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none" />
-                <label for="images" className="mx-auto bg-yellow-600 mt-5 rounded-lg px-3 py-2 text-white text-xs font-medium hover:cursor-pointer hover:bg-gray-500 hover:scale-105">Ajouter une image</label>
-                <input type="file" name="images" id="images" value="" className="hidden" onChange={e => handleImageInput()} />
-                <p className="text-white font-medium mt-5">Categorie:</p>
-                <input type="text" name="category" value={form.category} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none" />
-                <p className="text-white font-medium mt-5">Sous-categorie:</p>
-                <input type="text" name="subcategory" value={form.subcategory} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none" />
-                <button type="submit" className="mx-auto h-fit w-fit bg-emerald-700 p-3 rounded-lg font-medium text-lg hover:bg-green-700 hover:scale-105 text-white mt-5">Ajouter le produit</button>
+                    }} className="w-fit mx-auto bg-gray-700 px-3 font-bold text-white py-1 rounded-lg h-fit" >+</button>
+                     </div>
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-between mt-10">
+                <p className="text-gray-bg-gray-700 font-medium">Description:</p>
+                <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border-2 w-4/5 border-gray-700" ></textarea>
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
+                <div className="w-4/5 h-fit flex justify-center">
+
+                    <label for="images" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">Ajouter une image</label>
+                    <input type="file" name="images" id="images" value="" className="hidden" onChange={e => handleImageInput(e)} />
+                </div>
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
+                <p className="text-gray-bg-gray-700 font-medium">Categorie:</p>
+                <input type="text" name="category" value={form.category} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700" />
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
+                <p className="text-gray-bg-gray-700 font-medium">Sous-categorie:</p>
+                <input type="text" name="subcategory" value={form.subcategory} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-gray-700" />
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
+                <p className="text-gray-bg-gray-700 font-medium">Disponibilité:</p>
+                <div className="w-4/5 flex flex-nowrap justify-evenly">
+                <label for="available" className="text-gray-bg-gray-700">
+                <input type="radio" id="available" name="availability" value='available' className="mr-1 ml-3" checked={form.availability === 'available'} onChange={e => handleRadioChange(e)} />Disponible
+                </label>
+                <label for="unavailable" className="text-gray-bg-gray-700">
+                <input type="radio" id="unavailable" name="availability" value='unavailable' className="mr-1 ml-3" checked={form.availability === 'unavailable'} onChange={e => handleRadioChange(e)} />Sur commande</label>
+                </div>
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
+                <div className="w-4/5 h-fit flex justify-center">
+                <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">Ajouter le produit</button>
+                </div></div>
             </form>
+            <ProductPreview productImage={productImage} sizes={form.sizes} />
         </div>
     )
 }

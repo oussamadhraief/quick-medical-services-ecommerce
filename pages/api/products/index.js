@@ -17,8 +17,7 @@ export default async (req,res) => {
             break
         case 'POST':
             try {
-                db.createCollection("products")
-                // const product = await db.products.Product.create(req.body)
+                const products = await Product.create(req.body)
 
                 res.status(200).json({ success: true, data: req.body})
             } catch (error) {

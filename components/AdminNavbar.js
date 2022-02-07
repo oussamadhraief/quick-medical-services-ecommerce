@@ -11,7 +11,7 @@ import AdminSearchField from './AdminSearchField'
 export default function AdminNavbar(props){
 
     const [menu,setMenu] = useState(true)
-    const [classes,setClasses] = useState("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-56 pt-1")
+    const [classes,setClasses] = useState("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
 
     const handleClick = (event) => {
         setMenu(!menu)
@@ -21,7 +21,7 @@ export default function AdminNavbar(props){
         }
         else{
             event.target.style.transform = 'rotateY(0deg)'
-            setClasses("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-56 pt-1")
+            setClasses("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
         }
     }
 
