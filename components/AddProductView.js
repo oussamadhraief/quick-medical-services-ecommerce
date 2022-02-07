@@ -49,7 +49,6 @@ export default function AddProductView(){
                 reference: '1.1.1.1',
                 ...form
             }
-            console.log(produit);
             const res = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
@@ -58,9 +57,6 @@ export default function AddProductView(){
                 },
                 body: JSON.stringify(produit)
             })
-            const {dataa} = res.json()    
-            
-            console.log(dataa);
         } catch (error) {
             console.error(error)
         }
@@ -71,7 +67,6 @@ export default function AddProductView(){
             ...form,
             availability: e.target.value
         })
-        console.log(e.target.value);
     }
 
     function handleImageInput(e){
@@ -84,13 +79,14 @@ export default function AddProductView(){
     }
 
     function handlePreview(){
-        setPreview({
-            name: form.name,
-            sizes: form.sizes,
-            description: form.description,
-            availability: form.availability,
-            productImage: productImage
-        })
+        let previewObject = {
+            availability: form.availability
+        }
+        if(form.name != '') {previewObject.name = form.name} else {previewObject.name = preview.name}
+        if(form.description != '') {previewObject.description = form.description} else {previewObject.description = preview.description}
+        if(form.sizes.length > 1 || form.sizes[0] != 0) {previewObject.sizes = form.sizes} else {previewObject.sizes = preview.sizes}
+        if(productImage != product) {previewObject.productImage = productImage} else {previewObject.productImage = preview.productImage}
+        setPreview(previewObject)
     }
 
     return (
@@ -102,7 +98,7 @@ export default function AddProductView(){
                 <div className="w-full h-fit flex flex-nowrap justify-between mt-1 items-center">
                     
                 <p className="text-gray-bg-gray-700 font-medium">Nom:</p>
-                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" />
+                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" required minLength={2} />
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between mt-5">
                 <p className="text-gray-bg-gray-700 font-medium mt-3">Taille&#40;s&#41;:</p>
@@ -111,7 +107,7 @@ export default function AddProductView(){
                
                 {form.sizes.map((item,index) => {
                     return (<div className="w-full flex flex-nowrap justify-center items-center my-1">
-                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border-2 border-gray-700" />
+                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border-2 border-gray-700" required />
                                 <Image src={remove} alt="remove" width={20} height={20} layout="fixed" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>
                             </div>
                     )
@@ -135,11 +131,11 @@ export default function AddProductView(){
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Categorie:</p>
-                <input type="text" name="category" value={form.category} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700" />
+                <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700" />
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Sous-categorie:</p>
-                <input type="text" name="subcategory" value={form.subcategory} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-gray-700" />
+                <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-gray-700" />
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Disponibilité:</p>
