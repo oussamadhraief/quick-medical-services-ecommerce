@@ -8,7 +8,7 @@ export default function AddProductView(){
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState(product)
-    const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur Aperçu',availability:'available',productImage: product})
+    const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
 
     function handleChange(event){
         setForm({
@@ -47,22 +47,20 @@ export default function AddProductView(){
         try {
             let produit = {
                 reference: '1.1.1.1',
-                type: 'product',
                 ...form
             }
-            const res = await fetch('api/products', {
+            console.log(produit);
+            const res = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(produit)
-            }).then((res) =>{
-                console.log(res.status);
-            }
-            )
+            })
+            const {dataa} = res.json()    
             
-            
+            console.log(dataa);
         } catch (error) {
             console.error(error)
         }
@@ -90,7 +88,7 @@ export default function AddProductView(){
             name: form.name,
             sizes: form.sizes,
             description: form.description,
-            availability: availability,
+            availability: form.availability,
             productImage: productImage
         })
     }

@@ -4,28 +4,32 @@ import Product from "../../../models/Product";
 dbConnect();
 
 export default async (req, res) => {
-    const { method } = req;
-    switch (method) {
-        case "GET":
-            try {
-                const products = await Product.find({});
+    // switch (method) {
+    //     case 'GET':
+    //         try {
+    //             const products = await Product.find({});
 
-                res.status(200).json({ success: true, data: products });
+    //             res.status(200).json({ success: true, data: products });
+    //         } catch (error) {
+    //             res.status(400).json({ success: false });
+    //         }
+    //         break;
+        // case 'POST':
+            try {
+                
+                const data = await Product.create(req.body,function (err, small) {
+                    if (err) return handleError(err);
+                    // saved!
+                  })
+
+                res.status(201).json({ success: true, data: data })
+
             } catch (error) {
                 res.status(400).json({ success: false });
             }
-            break;
-        case "POST":
-            try {
-                const products = await Product.create(req.body);
-
-                res.status(200).json({ success: true, data: req.body });
-            } catch (error) {
-                res.status(400).json({ success: false });
-            }
-            break;
-        default:
-            res.status(400).json({ success: false });
-            break;
-    }
+            // break;
+    //     default:
+    //         res.status(400).json({ success: false });
+    //         break;
+    // }
 };

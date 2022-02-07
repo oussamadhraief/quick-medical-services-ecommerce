@@ -10,11 +10,12 @@ export default function ProductPreview({name,productImage,sizes,description,avai
                 <p className="font-bold text-2xl text-gray-700">{name}</p>
                 <p className="font-medium text-zinc-600 text-md">Tailles:&nbsp;</p>
                 <div className="flex flex-wrap">
-                {sizes.map(item => <p className="border-[1px] border-gray-700 h-fit w-fit py-2 px-1 font-medium text-sm">{item} mm</p>)}
+                {sizes.map(item => <p className="border-[1px] border-gray-700 ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm">{item} mm</p>)}
                 </div>
                 <p className="font-medium text-zinc-600 text-md">Description:&nbsp;</p>
                 <p>{description}</p>
-                {availability == 'available' ? <p className="font-medium text-md mt-2 text-green-700">Disponible</p> : <p className="font-medium text-md mt-2 text-red-500">Sur commande</p>}
+                <p className="font-medium text-zinc-600 mt-2 text-md">Disponibilité:&nbsp;</p>
+                {availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
                 <input type="number" name="quantity" value="1" min={1} className='border-2 border-gray-700 rounded-lg mx-auto h-fit w-fit mt-5' />
                 <button className="mt-5 bg-gray-700 w-fit h-fit px-3 py-3 rounded-lg mx-auto text-white font-medium"> Ajouter au panier</button>
             </div>
