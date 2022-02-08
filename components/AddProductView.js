@@ -11,7 +11,8 @@ export default function AddProductView(props){
     const [productImage,setProductImage] = useState('')
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
-    const [value,setValue] = useContext(ProductsContext)
+    const [reference,setReference] = useState('')
+    const {value,setValue} = useContext(ProductsContext)
 
     function handleChange(event){
         setForm({
@@ -73,19 +74,62 @@ export default function AddProductView(props){
         }
     }
 
+    const handleReference = () => {
+        const categoryArray = value.map(item => item.category)
+        const categoryExists = categoryArray.some(item => item == form.category)
+        if(categoryExists){
+            const subcategoryArray = value.map(item => item.subcategory)
+            const subcategoryExists = subcategoryArray.some(item => item == form.subcategory)
+            if(subcategoryExists){
+                const productWithCategoryAndSubcategoryRef = value.find(item => item.subcategory == form.subcategory)
+                const categoryAndSubcategoryRefArray = productWithCategoryAndSubcategoryRef.reference.split('.')
+                const categoryAndSubcategoryRef = `${categoryAndSubcategoryRefArray[0]}.${categoryAndSubcategoryRefArray[1]}.`
+                let productCounter = 0
+                for (let index = 0; index < value.length; index++) {
+                    if(value[index].subcategory == form.subcategory){
+                        productCounter++
+                    }
+                }
+                setReference(`${categoryAndSubcategoryRef}${productCounter}`)
+            }else{
+                const productWithCategoryRef = value.find(item => item.category == form.category)
+                const categoryAndSubcategoryRefArray = productWithCategoryRef.reference.split('.')
+                const productsWithSameCategory = value.filter(item => item.category == form.category)
+                const subcategoriesOfTheCategory = productsWithSameCategory.map(item => item.subcategory)
+                let subcategoryCount =  new Set(subcategoriesOfTheCategory).size
+                setReference(`${categoryAndSubcategoryRefArray[0]}.${subcategoryCount}.0`)
+            }
+        }else {
+            let categoryCount =  new Set(categoryArray).size
+            setReference(`${categoryCount}.0.0`)
+        }
+    }
+
     const handleSubmit = async () => {
         try {
-            const categoryArray = props.modifiedProduct.map(item => item.category)
-            let categoryCount =  new Set(iterable).size
-            let capCategory = form.category.charAt(0).toUpperCase() + form.category.slice(1);
-            let capSubcategory = form.subcategory.charAt(0).toUpperCase() + form.subcategory.slice(1);
+            if(value.length > 0){
+                handleReference()
+            }else {
+                setReference('0.0.0')
+            }
+            let trimmedCategory = form.category.trim()
+            let trimmedSubcategory = form.subcategory.trim()
+            let capCategory = trimmedCategory.charAt(0).toUpperCase() + trimmedCategory.slice(1).toLowerCase();
+            let capSubcategory = trimmedSubcategory.charAt(0).toUpperCase() + trimmedSubcategory.slice(1).toLowerCase();
             let produit = {
                 image: productImage,
-                reference: '1.1.1.1',
+                reference: reference,
                 category: capCategory,
                 subcategory: capSubcategory,
-                ...form
+                name: form.name,
+                description: form.description,
+                image: productImage,
+                sizes: form.sizes,
+                availability: form.availability
             }
+            const newValue = value
+            newValue.push(produit)
+            setValue(newValue)
             const res = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
@@ -133,7 +177,7 @@ export default function AddProductView(props){
     return (
         <div className="relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
             {props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400 rotate-180">&#x27A0;</button> : null}
-            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 if(props.addForm){
 
@@ -172,8 +216,8 @@ export default function AddProductView(props){
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
 
-                    <label for="images" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
-                    <input type="file" name="images" id="images" value="" required className="hidden" onChange={e => handleImageInput(e)} />
+                    <label for="productImageInput" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
+                    <input type="file" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
                 </div>
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
