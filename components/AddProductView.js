@@ -1,15 +1,17 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Image from "next/image"
 import remove from '../assets/remove.png'
 import ProductPreview from './ProductPreview'
 import product from '../assets/productPreview.png'
+import { ProductsContext } from "../utils/ProductsContext"
 
-export default function AddProductView(){
+export default function AddProductView(props){
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState('')
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
+    const [value,setValue] = useContext(ProductsContext)
 
     function handleChange(event){
         setForm({
@@ -17,6 +19,23 @@ export default function AddProductView(){
             [event.target.name]: event.target.value
         })
     }
+
+    useEffect(() => {
+        if(!props.addForm){
+            let tempObj = {
+                name: props.modifiedProduct.name,
+                category: props.modifiedProduct.category,
+                subcategory: props.modifiedProduct.subcategory,
+                description: props.modifiedProduct.description,
+                sizes: props.modifiedProduct.sizes,
+                availability: props.modifiedProduct.availability,
+            }
+            setForm(tempObj)
+            setProductImage(props.modifiedProduct.productImage)
+            setSizeRemoval(false)
+            handlePreview()
+        }
+    })
 
     function handleSizesChange(e,id){
         let newSizes = form.sizes
@@ -56,9 +75,15 @@ export default function AddProductView(){
 
     const handleSubmit = async () => {
         try {
+            const categoryArray = props.modifiedProduct.map(item => item.category)
+            let categoryCount =  new Set(iterable).size
+            let capCategory = form.category.charAt(0).toUpperCase() + form.category.slice(1);
+            let capSubcategory = form.subcategory.charAt(0).toUpperCase() + form.subcategory.slice(1);
             let produit = {
                 image: productImage,
                 reference: '1.1.1.1',
+                category: capCategory,
+                subcategory: capSubcategory,
                 ...form
             }
             const res = await fetch('http://localhost:3000/api/products', {
@@ -101,11 +126,21 @@ export default function AddProductView(){
         setPreview(previewObject)
     }
 
+    function handleModifications(){
+
+    }
+
     return (
-        <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
+        <div className="relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
+            {props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400 rotate-180">&#x27A0;</button> : null}
             <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
-                handleSubmit()
+                if(props.addForm){
+
+                    handleSubmit()
+                }else{
+                    handleModifications()
+                }
             }}>
                 <div className="w-full h-fit flex flex-nowrap justify-between mt-1 items-center">
                     
@@ -137,17 +172,17 @@ export default function AddProductView(){
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
 
-                    <label for="images" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">Ajouter une image</label>
+                    <label for="images" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
                     <input type="file" name="images" id="images" value="" required className="hidden" onChange={e => handleImageInput(e)} />
                 </div>
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Categorie:</p>
-                <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700" />
+                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled className="rounded-lg h-10 outline-none border-2 w-4/5 border-gray-700 bg-zinc-300" />}
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Sous-categorie:</p>
-                <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-gray-700" />
+                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-gray-700" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  className="rounded-lg h-10 outline-none w-4/5 border-2 bg-zinc-300 border-gray-700" />}
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
                 <p className="text-gray-bg-gray-700 font-medium">Disponibilité:</p>
@@ -162,7 +197,7 @@ export default function AddProductView(){
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
                 <button className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
-                <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">Ajouter le produit</button>
+                <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
                 </div></div>
             </form>
             <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />

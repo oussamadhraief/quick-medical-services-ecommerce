@@ -8,7 +8,7 @@ export default function Admin(admindata){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
-    const [loggedIn,setLoggedIn] = useState(false)
+    const [loggedIn,setLoggedIn] = useState(true)
     const [login,setLogin] = useState({username: '', password: ''})
 
     function handleClick(id){
