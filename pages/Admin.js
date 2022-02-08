@@ -26,7 +26,6 @@ export default function Admin(admindata){
         if(login.username == admindata.username && login.password == admindata.password){
             setLoggedIn(true)
             getProducts()
-            console.log(value)
         }
     }
 
@@ -39,7 +38,6 @@ export default function Admin(admindata){
             },
         })
         const { data } = await res.json()
-
         setValue(data)
     }
 

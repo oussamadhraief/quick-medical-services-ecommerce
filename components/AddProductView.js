@@ -7,7 +7,7 @@ import product from '../assets/productPreview.png'
 export default function AddProductView(){
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
-    const [productImage,setProductImage] = useState(product)
+    const [productImage,setProductImage] = useState('')
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
 
@@ -57,6 +57,7 @@ export default function AddProductView(){
     const handleSubmit = async () => {
         try {
             let produit = {
+                image: productImage,
                 reference: '1.1.1.1',
                 ...form
             }
@@ -96,7 +97,7 @@ export default function AddProductView(){
         if(form.name != '') {previewObject.name = form.name} else {previewObject.name = preview.name}
         if(form.description != '') {previewObject.description = form.description} else {previewObject.description = preview.description}
         if(form.sizes.length > 1 || (form.sizes.length == 1 && form.sizes[0] != 0)) {previewObject.sizes = form.sizes.map(item => item)} else {previewObject.sizes = preview.sizes}
-        if(productImage != product) {previewObject.productImage = productImage} else {previewObject.productImage = preview.productImage}
+        if(productImage != '') {previewObject.productImage = productImage} else {previewObject.productImage = preview.productImage}
         setPreview(previewObject)
     }
 
@@ -137,7 +138,7 @@ export default function AddProductView(){
                 <div className="w-4/5 h-fit flex justify-center">
 
                     <label for="images" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">Ajouter une image</label>
-                    <input type="file" name="images" id="images" value="" className="hidden" onChange={e => handleImageInput(e)} />
+                    <input type="file" name="images" id="images" value="" required className="hidden" onChange={e => handleImageInput(e)} />
                 </div>
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">

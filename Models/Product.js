@@ -40,6 +40,11 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Insérez la disponibilité'],
         unique: false,
+    },
+    image: {
+        type: String,
+        required: [true, 'Insérez une image'],
+        unique: true,
     }
 })
 
