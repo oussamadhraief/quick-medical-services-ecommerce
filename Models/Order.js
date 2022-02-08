@@ -50,7 +50,7 @@ const OrderSchema = new mongoose.Schema(
             ],
         },
         archived: {
-            type: boolean,
+            type: Boolean,
             default: false,
         },
     },
