@@ -9,6 +9,7 @@ export default function AddProductView(){
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState(product)
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
+    const [sizeRemoval,setSizeRemoval] = useState(true)
 
     function handleChange(event){
         setForm({
@@ -33,6 +34,11 @@ export default function AddProductView(){
             ...form,
             sizes: newSizes
         })
+        if(newSizes.length == 1 ) {
+            setSizeRemoval(true)
+        }else {
+            setSizeRemoval(false)
+        }
     }
     
     function handleRemove(id){
@@ -41,6 +47,11 @@ export default function AddProductView(){
             ...form,
             sizes: newSizes
         })
+        if(newSizes.length == 1 ) {
+            setSizeRemoval(true)
+        }else {
+            setSizeRemoval(false)
+        }
     }
 
     const handleSubmit = async () => {
@@ -84,14 +95,14 @@ export default function AddProductView(){
         }
         if(form.name != '') {previewObject.name = form.name} else {previewObject.name = preview.name}
         if(form.description != '') {previewObject.description = form.description} else {previewObject.description = preview.description}
-        if(form.sizes.length > 1 || form.sizes[0] != 0) {previewObject.sizes = form.sizes} else {previewObject.sizes = preview.sizes}
+        if(form.sizes.length > 1 || (form.sizes.length == 1 && form.sizes[0] != 0)) {previewObject.sizes = form.sizes.map(item => item)} else {previewObject.sizes = preview.sizes}
         if(productImage != product) {previewObject.productImage = productImage} else {previewObject.productImage = preview.productImage}
         setPreview(previewObject)
     }
 
     return (
         <div className="h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
-            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 handleSubmit()
             }}>
@@ -108,7 +119,7 @@ export default function AddProductView(){
                 {form.sizes.map((item,index) => {
                     return (<div className="w-full flex flex-nowrap justify-center items-center my-1">
                                 <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border-2 border-gray-700" required />
-                                <Image src={remove} alt="remove" width={20} height={20} layout="fixed" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>
+                                {sizeRemoval ? <Image src={remove} alt="remove" width={20} height={20} layout="fixed" id="removeSize" className="hover:cursor-pointer grayscale" /> : <Image src={remove} alt="remove" width={20} height={20} layout="fixed" id="removeSize" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>}
                             </div>
                     )
                 })}
@@ -149,7 +160,7 @@ export default function AddProductView(){
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
-                <button className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
+                <button className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">Ajouter le produit</button>
                 </div></div>
             </form>

@@ -6,9 +6,9 @@ import Image from "next/image"
 
 export default function Admin(admindata){
 
-    const [value,setValue] = useState('gga')
+    const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
-    const [loggedIn,setLoggedIn] = useState(true)
+    const [loggedIn,setLoggedIn] = useState(false)
     const [login,setLogin] = useState({username: '', password: ''})
 
     function handleClick(id){
@@ -25,7 +25,22 @@ export default function Admin(admindata){
     const handleSubmit = () => {
         if(login.username == admindata.username && login.password == admindata.password){
             setLoggedIn(true)
+            getProducts()
+            console.log(value)
         }
+    }
+
+    const getProducts = async () => {
+        const res = await fetch('http://localhost:3000/api/products',{
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        })
+        const { data } = await res.json()
+
+        setValue(data)
     }
 
     return(
