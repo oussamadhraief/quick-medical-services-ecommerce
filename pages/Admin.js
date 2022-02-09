@@ -45,14 +45,14 @@ export default function Admin(admindata){
     }
 
     return(
-        <div className="bg-white h-screen w-screen flex flex-nowrap" action='submit' onSubmit={e => {
-            e.preventDefault()
-            handleSubmit()
-        }}>
+        <div className="bg-white h-screen w-screen flex flex-nowrap">
             {adminLoading ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-zinc-700"> 
-            <form className="w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-gray-700 grid p-5 sm:p-14 rounded-lg shadow-2xl">
+            <form className="w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-gray-700 grid p-5 sm:p-14 rounded-lg shadow-2xl" action='submit' onSubmit={e => {
+            e.preventDefault()
+            handleSubmit()
+        }}>
                 <label for="username" className="text-white font-bold ">Nom d'utilisateur:</label>
                 <input type="text" name="username" id="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-5 outline-none' required minLength={4} />
                 <label for="password" className="text-white font-bold ">Mot de passe:</label>
