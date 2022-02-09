@@ -66,7 +66,7 @@ export default function Admin(admindata){
                 <PageView selected={selection} />
             </ProductsContext.Provider>}
         </div>
-    )
+    )//login design
 }
 
 
