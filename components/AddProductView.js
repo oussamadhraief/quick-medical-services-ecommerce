@@ -14,8 +14,12 @@ export default function AddProductView(props){
     const [sizeRemoval,setSizeRemoval] = useState(true)
     const {value,setValue} = useContext(ProductsContext)
     const [loading,setLoading] = useState(false)
+    const [nameError,setNameError] = useState(false)
+    const [imageError,setImageError] = useState(false)
+
 
     function handleChange(event){
+        setNameError(false)
         setForm({
             ...form,
             [event.target.name]: event.target.value
@@ -143,7 +147,11 @@ export default function AddProductView(props){
                     setValue(newValue)
                 }else {
                     const { error } = await res.json()
-                    console.log(error);
+                    if(error.keyPattern.hasOwnProperty('name')){
+                        setNameError(true)
+                    }else{
+                        setImageError(true)
+                    }
                 }
                 setLoading(false)
             })
@@ -160,7 +168,8 @@ export default function AddProductView(props){
     }
 
     function handleImageInput(e){
-
+        
+        setImageError(false)
         const reader = new FileReader();
         reader.onload = function () {
             setProductImage(reader.result)
@@ -201,11 +210,11 @@ export default function AddProductView(props){
                 <p className="text-gray-bg-gray-700 font-medium">Nom:</p>
                 <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" required minLength={2} />
                 </div>
-                <div className="w-full h-fit flex flex-nowrap justify-end">
+                {nameError ? <div className="w-full h-fit flex flex-nowrap justify-end">
                 <div className="w-4/5 h-fit">
                 <p className="text-red-500">Un produit avec ce nom déjà existe</p>
                 </div>
-                </div>
+                </div> : null}
                 <div className="w-full h-fit flex flex-nowrap justify-between mt-5">
                 <p className="text-gray-bg-gray-700 font-medium mt-3">Taille&#40;s&#41;:</p>
                 <div className="grid w-4/5 h-fit">
@@ -229,9 +238,11 @@ export default function AddProductView(props){
                 <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border-2 w-4/5 border-gray-700" ></textarea>
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
-                <div className="w-4/5 h-fit flex justify-center">
+                <div className="w-4/5 h-fit grid">
 
-                    <label for="productImageInput" className="bg-yellow-500 rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
+                    <label for="productImageInput" className="bg-yellow-500 mx-auto rounded-lg px-3 py-2 text-gray-bg-gray-700 text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
+                    {imageError ? 
+                    <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
                     <input type="file" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
                 </div>
                 </div>

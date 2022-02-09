@@ -2,7 +2,7 @@
   "name": "pfe",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "deez": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
