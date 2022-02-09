@@ -8,7 +8,7 @@ export default function PageView({ selected }){
     function decideSelection(){
         switch (selected) {
             case 1:
-                return <AddProductView />
+                return <AddProductView addForm={true} />
                 break;
             case 2:
                 return <ModifyProductsView />
