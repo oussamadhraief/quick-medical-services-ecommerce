@@ -1,20 +1,20 @@
 const mongoose = require("mongoose");
-const OrderSchema = new mongoose.Schema({
+const CommandeSchema = new mongoose.Schema({
     firstName: {
-        type: String,
-        required: [true, "Insérez votre nom"],
-        trim: true,
-        maxlength: [20, "Le nom  ne doit pas  dépasser 20 caractères"],
-    },
-    lastName: {
         type: String,
         required: [true, "Insérez votre prénom"],
         trim: true,
-        maxlength: [20, "Le prénom  ne doit pas  dépasser 20 caractères"],
+        maxlength: [40, "Le prénom ne doit pas dépasser 20 caractères"],
     },
-
+    lastName: {
+        type: String,
+        required: [true, "Insérez votre nom"],
+        trim: true,
+        maxlength: [20, "Le nom ne doit pas dépasser 20 caractères"],
+    },
     cart: {
         type: String,
+        required: true,
     },
     adress: {
         type: String,
@@ -24,6 +24,7 @@ const OrderSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         required: [true, "Insérez votre numéro de téléphone"],
+        minlength: [4, "Insérez un numéro de téléphone valide"]
     },
     clinicName: {
         type: String,
@@ -48,10 +49,9 @@ const OrderSchema = new mongoose.Schema({
     archived: {
         type: Boolean,
         default: false,
-    },
-    createdDate: {
-        type: Date,
-    },
-});
+        required: false,
+    }
+},
+{ timestamps: true });
 
-module.exports = mongoose.models.Order || mongoose.model("Order", OrderSchema);
+module.exports = mongoose.models.Commande || mongoose.model("Commande", CommandeSchema);

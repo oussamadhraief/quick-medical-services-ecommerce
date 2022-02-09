@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
-const ProductSchema = new mongoose.Schema(
+const ProduitSchema = new mongoose.Schema(
     {
         reference: {
             type: String,
             required: true,
+            unique: true,
             trim: true,
             minlength: [5, "La référence doit être au moins 5 caractères"],
         },
@@ -50,5 +51,4 @@ const ProductSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports =
-    mongoose.models.Product || mongoose.model("Product", ProductSchema);
+module.exports = mongoose.models.Produit || mongoose.model("Produit", ProduitSchema);
