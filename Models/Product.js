@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema({
     reference: {
         type: String,
         required: true,
         trim: true,
-        minlength: [5, 'La référence doit être au moins 5 caractères']
+        minlength: [5, "La référence doit être au moins 5 caractères"],
     },
     name: {
         type: String,
-        required: [true, 'Insérez un nom'],
+        required: [true, "Insérez un nom"],
         unique: true,
         trim: true,
-        minlength: [2, 'Le nom doit être au moins 2 caractères']
+        minlength: [2, "Le nom doit être au moins 2 caractères"],
     },
     sizes: {
         type: [Number],
@@ -23,24 +23,27 @@ const ProductSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: [true, 'Insérez la catégorie'],
+        required: [true, "Insérez la catégorie"],
         unique: false,
         trim: true,
-        minlength: [4, 'La catégorie doit être au moins 4 caractères']
-
+        minlength: [4, "La catégorie doit être au moins 4 caractères"],
     },
     subcategory: {
         type: String,
-        required: [true, 'Insérez la sous-catégorie'],
+        required: [true, "Insérez la sous-catégorie"],
         unique: false,
         trim: true,
-        minlength: [4, 'La sous-catégorie doit être au moins 4 caractères']
+        minlength: [4, "La sous-catégorie doit être au moins 4 caractères"],
     },
     availability: {
         type: String,
-        required: [true, 'Insérez la disponibilité'],
+        required: [true, "Insérez la disponibilité"],
         unique: false,
-    }
-})
+    },
+    createdDate: {
+        type: Date,
+    },
+});
 
-module.exports = mongoose.models.Product || mongoose.model('Product', ProductSchema)
+module.exports =
+    mongoose.models.Product || mongoose.model("Product", ProductSchema);
