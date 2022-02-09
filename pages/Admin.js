@@ -2,7 +2,7 @@ import PageView from "../components/PageView"
 import AdminNavbar from "../components/AdminNavbar"
 import { useState } from "react"
 import { ProductsContext } from "../utils/ProductsContext"
-import Image from "next/image"
+import LoadingAnimation from "../components/LoadingAnimation"
 
 export default function Admin(admindata){
 
@@ -10,6 +10,7 @@ export default function Admin(admindata){
     const [selection,setSelection] = useState(1)
     const [loggedIn,setLoggedIn] = useState(false)
     const [login,setLogin] = useState({username: '', password: ''})
+    const [loading,setLoading] = useState(false)
 
     function handleClick(id){
         setSelection(id)
@@ -24,6 +25,7 @@ export default function Admin(admindata){
 
     const handleSubmit = () => {
         if(login.username == admindata.username && login.password == admindata.password){
+            setLoading(true)
             setLoggedIn(true)
             getProducts()
         }
@@ -39,6 +41,7 @@ export default function Admin(admindata){
         })
         const { data } = await res.json()
         setValue(data)
+        setLoading(false)
     }
 
     return(
@@ -46,6 +49,7 @@ export default function Admin(admindata){
             e.preventDefault()
             handleSubmit()
         }}>
+            {loading ? <LoadingAnimation bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-zinc-700"> 
             <form className="w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-gray-700 grid p-5 sm:p-14 rounded-lg shadow-2xl">
