@@ -46,6 +46,6 @@ const ProductSchema = new mongoose.Schema({
         required: [true, 'Insérez une image'],
         unique: true,
     }
-})
+},{timestamps: true})
 
 module.exports = mongoose.models.Product || mongoose.model('Product', ProductSchema)

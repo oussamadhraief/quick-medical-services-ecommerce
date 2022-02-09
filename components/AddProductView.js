@@ -11,7 +11,6 @@ export default function AddProductView(props){
     const [productImage,setProductImage] = useState('')
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
-    const [reference,setReference] = useState('')
     const {value,setValue} = useContext(ProductsContext)
 
     function handleChange(event){
@@ -74,48 +73,48 @@ export default function AddProductView(props){
         }
     }
 
-    const handleReference = () => {
+    const handleReference = (capCategory,capSubcategory) => {
+        if(value.length > 0){
         const categoryArray = value.map(item => item.category)
-        const categoryExists = categoryArray.some(item => item == form.category)
+        const categoryExists = categoryArray.some(item => item == capCategory)
         if(categoryExists){
             const subcategoryArray = value.map(item => item.subcategory)
-            const subcategoryExists = subcategoryArray.some(item => item == form.subcategory)
+            const subcategoryExists = subcategoryArray.some(item => item == capSubcategory)
             if(subcategoryExists){
-                const productWithCategoryAndSubcategoryRef = value.find(item => item.subcategory == form.subcategory)
+                const productWithCategoryAndSubcategoryRef = value.find(item => item.subcategory == capSubcategory)
                 const categoryAndSubcategoryRefArray = productWithCategoryAndSubcategoryRef.reference.split('.')
                 const categoryAndSubcategoryRef = `${categoryAndSubcategoryRefArray[0]}.${categoryAndSubcategoryRefArray[1]}.`
                 let productCounter = 0
                 for (let index = 0; index < value.length; index++) {
-                    if(value[index].subcategory == form.subcategory){
+                    if(value[index].subcategory == capSubcategory){
                         productCounter++
                     }
                 }
-                setReference(`${categoryAndSubcategoryRef}${productCounter}`)
+                return `${categoryAndSubcategoryRef}${productCounter}`
             }else{
-                const productWithCategoryRef = value.find(item => item.category == form.category)
+                const productWithCategoryRef = value.find(item => item.category == capCategory)
                 const categoryAndSubcategoryRefArray = productWithCategoryRef.reference.split('.')
-                const productsWithSameCategory = value.filter(item => item.category == form.category)
+                const productsWithSameCategory = value.filter(item => item.category == capCategory)
                 const subcategoriesOfTheCategory = productsWithSameCategory.map(item => item.subcategory)
                 let subcategoryCount =  new Set(subcategoriesOfTheCategory).size
-                setReference(`${categoryAndSubcategoryRefArray[0]}.${subcategoryCount}.0`)
+                return `${categoryAndSubcategoryRefArray[0]}.${subcategoryCount}.0`
             }
         }else {
+            console.log(categoryArray);
             let categoryCount =  new Set(categoryArray).size
-            setReference(`${categoryCount}.0.0`)
+            return `${categoryCount}.0.0`
+        }}else {
+            return '0.0.0'
         }
     }
 
     const handleSubmit = async () => {
         try {
-            if(value.length > 0){
-                handleReference()
-            }else {
-                setReference('0.0.0')
-            }
             let trimmedCategory = form.category.trim()
             let trimmedSubcategory = form.subcategory.trim()
             let capCategory = trimmedCategory.charAt(0).toUpperCase() + trimmedCategory.slice(1).toLowerCase();
             let capSubcategory = trimmedSubcategory.charAt(0).toUpperCase() + trimmedSubcategory.slice(1).toLowerCase();
+            let reference = handleReference(capCategory,capSubcategory)
             let produit = {
                 image: productImage,
                 reference: reference,
@@ -127,9 +126,6 @@ export default function AddProductView(props){
                 sizes: form.sizes,
                 availability: form.availability
             }
-            const newValue = value
-            newValue.push(produit)
-            setValue(newValue)
             const res = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
@@ -137,6 +133,15 @@ export default function AddProductView(props){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(produit)
+            }).then(async (res) => {
+                if(res.status != 400){
+                    const newValue = value
+                    newValue.push(produit)
+                    setValue(newValue)
+                }else {
+                    const { error } = await res.json()
+                    console.log(error);
+                }
             })
         } catch (error) {
             console.error(error)
