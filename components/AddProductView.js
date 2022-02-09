@@ -4,6 +4,7 @@ import remove from '../assets/remove.png'
 import ProductPreview from './ProductPreview'
 import product from '../assets/productPreview.png'
 import { ProductsContext } from "../utils/ProductsContext"
+import LoadingAnimation from './LoadingAnimation'
 
 export default function AddProductView(props){
 
@@ -12,6 +13,7 @@ export default function AddProductView(props){
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
     const {value,setValue} = useContext(ProductsContext)
+    const [loading,setLoading] = useState(false)
 
     function handleChange(event){
         setForm({
@@ -109,6 +111,7 @@ export default function AddProductView(props){
     }
 
     const handleSubmit = async () => {
+        setLoading(true)
         try {
             let trimmedCategory = form.category.trim()
             let trimmedSubcategory = form.subcategory.trim()
@@ -142,6 +145,7 @@ export default function AddProductView(props){
                     const { error } = await res.json()
                     console.log(error);
                 }
+                setLoading(false)
             })
         } catch (error) {
             console.error(error)
@@ -181,6 +185,7 @@ export default function AddProductView(props){
 
     return (
         <div className="relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20">
+            {loading ? <LoadingAnimation bgOpacity={false} /> : null}
             {props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400 rotate-180">&#x27A0;</button> : null}
             <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
@@ -195,6 +200,11 @@ export default function AddProductView(props){
                     
                 <p className="text-gray-bg-gray-700 font-medium">Nom:</p>
                 <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-gray-700" required minLength={2} />
+                </div>
+                <div className="w-full h-fit flex flex-nowrap justify-end">
+                <div className="w-4/5 h-fit">
+                <p className="text-red-500">Un produit avec ce nom déjà existe</p>
+                </div>
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-between mt-5">
                 <p className="text-gray-bg-gray-700 font-medium mt-3">Taille&#40;s&#41;:</p>
