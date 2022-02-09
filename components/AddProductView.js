@@ -226,7 +226,7 @@ export default function AddProductView(props){
                             </div>
                     )
                 })}
-                <button onClick={e => { 
+                <button type="button" onClick={e => { 
                     e.preventDefault()
                     handleClick()
                     }} className="w-fit mx-auto bg-gray-700 px-3 font-bold text-white py-1 rounded-lg h-fit" >+</button>
@@ -265,7 +265,7 @@ export default function AddProductView(props){
                 </div>
                 <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
                 <div className="w-4/5 h-fit flex justify-center">
-                <button className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
+                <button type="button" className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-gray-700 text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-gray-700">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
                 </div></div>
             </form>
