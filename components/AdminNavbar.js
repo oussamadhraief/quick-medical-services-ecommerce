@@ -11,17 +11,17 @@ import AdminSearchField from './AdminSearchField'
 export default function AdminNavbar(props){
 
     const [menu,setMenu] = useState(true)
-    const [classes,setClasses] = useState("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
+    const [classes,setClasses] = useState("bg-main h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
 
     const handleClick = (event) => {
         setMenu(!menu)
         if(menu){
             event.target.style.transform = 'rotateY(180deg)'
-            setClasses("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-10 pt-1")
+            setClasses("bg-main h-full relative duration-150 space-y-4 px-1 w-10 pt-1")
         }
         else{
             event.target.style.transform = 'rotateY(0deg)'
-            setClasses("bg-gray-800 h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
+            setClasses("bg-main h-full relative duration-150 space-y-4 px-1 w-72 pt-1")
         }
     }
 

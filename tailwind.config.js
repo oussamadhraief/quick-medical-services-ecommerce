@@ -11,6 +11,11 @@ module.exports = {
       screens: {
         '3xl': '1700px',
       },
+      colors: {
+        'main': '#0B1120',
+        'secondary': '#F5BE3A',
+        'third': '#242526'
+      }
     },
   },
   plugins: [],

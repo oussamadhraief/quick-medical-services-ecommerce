@@ -11,7 +11,7 @@ export default function AddProduct(props){
     useEffect(() => {
         if(props.selected == 1){
             setClasses("mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer rounded-lg")
-            setTextClasses("text-medium font-medium text-gray-700 whitespace-nowrap")
+            setTextClasses("text-medium font-medium text-main whitespace-nowrap")
         } else {
             setClasses("mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
             setTextClasses("text-medium font-sm text-white whitespace-nowrap")
