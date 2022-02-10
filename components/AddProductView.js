@@ -143,7 +143,7 @@ export default function AddProductView(props){
                 },
                 body: JSON.stringify(produit)
             }).then(async (res) => {
-                if(res.status != 400){
+                if(res.status == 400){
                     const newValue = value
                     newValue.push(produit)
                     setValue(newValue)
@@ -152,6 +152,7 @@ export default function AddProductView(props){
                     setProductImage('')
                     setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
                 }else {
+                    console.error(error)
                     const { error } = await res.json()
                     if(error.keyPattern.hasOwnProperty('name')){
                         setNameError(true)
@@ -237,7 +238,7 @@ export default function AddProductView(props){
                 <label for="productImageInput" className="bg-yellow-500 mt-5 mx-auto rounded-lg px-3 py-2 text-gray-bg-main text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
                 {imageError ? 
                 <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
-                <input type="file" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
+                <input type="file" accept="image/*" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
                 <p className="text-gray-bg-main font-medium mt-5">Catégorie:</p>
                 {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-full border-main" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border-2 w-full border-main bg-zinc-300" />}
                 <p className="text-gray-bg-main font-medium mt-5">Sous-catégorie:</p>

@@ -7,7 +7,7 @@ export default async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
-                const Produits = await Produit.find({}).sort({createdAt: -1});
+                const Produits = await Produit.find({}).sort({createdAt: 1});
 
                 res.status(200).json({ success: true, data: Produits });
             } catch (error) {
@@ -54,3 +54,12 @@ export default async (req, res) => {
             break;
     }
 };
+
+
+export const config = {
+    api: {
+      bodyParser: {
+        sizeLimit: '7mb',
+      },
+    },
+  }
