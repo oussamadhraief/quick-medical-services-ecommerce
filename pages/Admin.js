@@ -49,10 +49,11 @@ export default function Admin(admindata){
             {adminLoading ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-third"> 
-            <form className="relative w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-white grid p-5 sm:p-14 rounded-lg shadow-[0_0px_40px_15px_rgba(0,0,0,0.4)]" action='submit' onSubmit={e => {
+            <form className="relative w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-white grid p-5 sm:p-14 rounded-3xl shadow-[0_0px_80px_45px_rgba(0,0,0,0.4)]" action='submit' onSubmit={e => {
             e.preventDefault()
             handleSubmit()
         }}>
+                <p className="font-extrabold text-xl mb-10 mx-auto text-third">Connexion en tant qu'administateur de QMS</p>
                 <label for="username" className="text-third font-bold ">Nom d'utilisateur:</label>
                 <input type="text" name="username" id="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-8 outline-none border-2 border-third' required minLength={4} />
                 <label for="password" className="text-third font-bold ">Mot de passe:</label>
