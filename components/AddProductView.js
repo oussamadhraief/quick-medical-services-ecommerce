@@ -6,6 +6,7 @@ import product from '../assets/productPreview.png'
 import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from './LoadingAnimation'
 import arrowIcon from '../assets/cancel.png'
+import { NotificationContext } from "../utils/NotificationContext"
 
 export default function AddProductView(props){
 
@@ -17,6 +18,7 @@ export default function AddProductView(props){
     const [loading,setLoading] = useState(false)
     const [nameError,setNameError] = useState(false)
     const [imageError,setImageError] = useState(false)
+    const {appear,setAppear} = useContext(NotificationContext)
 
 
     function handleChange(event){
@@ -38,7 +40,7 @@ export default function AddProductView(props){
                 availability: props.modifiedProduct.availability,
             }
             setForm(tempObj)
-            setProductImage(props.modifiedProduct.productImage)
+            setProductImage(props.modifiedProduct.image)
             setSizeRemoval(false)
             handlePreview()
         }
@@ -145,6 +147,10 @@ export default function AddProductView(props){
                     const newValue = value
                     newValue.push(produit)
                     setValue(newValue)
+                    setAppear({display: true, action: 'ajouté'})
+                    setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
+                    setProductImage('')
+                    setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
                 }else {
                     const { error } = await res.json()
                     if(error.keyPattern.hasOwnProperty('name')){
@@ -193,10 +199,10 @@ export default function AddProductView(props){
     }
 
     return (
-        <div className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20" : "relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-20"}>
+        <div className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10" : "relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10"}>
             {loading ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
-            {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400"><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
-            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
+            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 if(props.addForm){
 
@@ -205,19 +211,13 @@ export default function AddProductView(props){
                     handleModifications()
                 }
             }}>
-                <div className="w-full h-fit flex flex-nowrap justify-between mt-1 items-center">
+                
                     
                 <p className="text-gray-bg-main font-medium">Nom:</p>
-                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 ml-3 border-2 border-main" required minLength={2} />
-                </div>
-                {nameError ? <div className="w-full h-fit flex flex-nowrap justify-end">
-                <div className="w-4/5 h-fit">
-                <p className="text-red-500">Un produit avec ce nom déjà existe</p>
-                </div>
-                </div> : null}
-                <div className="w-full h-fit flex flex-nowrap justify-between mt-5">
+                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-full border-2 border-main" required minLength={2} />
+                
+                {nameError ? <p className="text-red-500">Un produit avec ce nom déjà existe</p> : null}
                 <p className="text-gray-bg-main font-medium mt-3">Taille&#40;s&#41;:</p>
-                <div className="grid w-4/5 h-fit">
                     
                
                 {form.sizes.map((item,index) => {
@@ -231,44 +231,25 @@ export default function AddProductView(props){
                     e.preventDefault()
                     handleClick()
                     }} className="w-fit mx-auto bg-main px-3 font-bold text-white py-1 rounded-lg h-fit" >+</button>
-                     </div>
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-between mt-10">
                 <p className="text-gray-bg-main font-medium">Description:</p>
-                <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border-2 w-4/5 border-main" ></textarea>
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
-                <div className="w-4/5 h-fit grid">
+                <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border-2 w-full border-main" ></textarea>
 
-                    <label for="productImageInput" className="bg-yellow-500 mx-auto rounded-lg px-3 py-2 text-gray-bg-main text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
-                    {imageError ? 
-                    <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
-                    <input type="file" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
-                </div>
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
-                <p className="text-gray-bg-main font-medium">Categorie:</p>
-                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-4/5 border-main" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled className="rounded-lg h-10 outline-none border-2 w-4/5 border-main bg-zinc-300" />}
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
-                <p className="text-gray-bg-main font-medium">Sous-categorie:</p>
-                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-4/5 border-2 border-main" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  className="rounded-lg h-10 outline-none w-4/5 border-2 bg-zinc-300 border-main" />}
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-between items-center mt-10">
-                <p className="text-gray-bg-main font-medium">Disponibilité:</p>
-                <div className="w-4/5 flex flex-nowrap justify-evenly">
+                <label for="productImageInput" className="bg-yellow-500 mt-5 mx-auto rounded-lg px-3 py-2 text-gray-bg-main text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}</label>
+                {imageError ? 
+                <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
+                <input type="file" name="productImageInput" id="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
+                <p className="text-gray-bg-main font-medium mt-5">Catégorie:</p>
+                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none border-2 w-full border-main" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border-2 w-full border-main bg-zinc-300" />}
+                <p className="text-gray-bg-main font-medium mt-5">Sous-catégorie:</p>
+                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-full border-2 border-main" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  readOnly className="rounded-lg h-10 outline-none w-full border-2 bg-zinc-300 border-main" />}
+                <p className="text-gray-bg-main font-medium mt-5">Disponibilité:</p>
                 <label for="available" className="text-gray-bg-main">
                 <input type="radio" id="available" name="availability" value='available' className="mr-1 ml-3" checked={form.availability === 'available'} onChange={e => handleRadioChange(e)} />Disponible
                 </label>
                 <label for="unavailable" className="text-gray-bg-main">
                 <input type="radio" id="unavailable" name="availability" value='unavailable' className="mr-1 ml-3" checked={form.availability === 'unavailable'} onChange={e => handleRadioChange(e)} />Sur commande</label>
-                </div>
-                </div>
-                <div className="w-full h-fit flex flex-nowrap justify-end mt-10">
-                <div className="w-4/5 h-fit flex justify-center">
                 <button type="button" className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
-                <button type="submit" className="mx-auto h-fit w-fit bg-main text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-main">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
-                </div></div>
+                <button type="submit" className="mx-auto h-fit w-fit bg-main text-white p-3 rounded-lg font-medium text-lg hover:bg-cyan-900 hover:scale-105 text-gray-bg-main mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
             </form>
             <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />
         </div>

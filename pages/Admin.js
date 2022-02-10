@@ -1,8 +1,10 @@
 import PageView from "../components/PageView"
 import AdminNavbar from "../components/AdminNavbar"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from "../components/LoadingAnimation"
+import Notification from '../components/Notification'
+import { NotificationContext } from '../utils/NotificationContext'
 
 export default function Admin(admindata){
 
@@ -11,6 +13,12 @@ export default function Admin(admindata){
     const [loggedIn,setLoggedIn] = useState(false)
     const [login,setLogin] = useState({username: '', password: ''})
     const [adminLoading,setAdminLoading] = useState(false)
+    const [renderedArray,setRenderedArray] = useState([])
+    const [appear,setAppear] = useState({display: false, action: ''})
+
+    useEffect(() => {
+        setRenderedArray(value)
+    },[value])
 
     function handleClick(id){
         setSelection(id)
@@ -45,7 +53,7 @@ export default function Admin(admindata){
     }
 
     return(
-        <div className="bg-white h-screen w-screen flex flex-nowrap">
+        <div className="bg-white relative h-screen w-screen flex flex-nowra overflow-hidden">
             {adminLoading ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-third"> 
@@ -63,8 +71,11 @@ export default function Admin(admindata){
             </div>
             : 
             <ProductsContext.Provider value={{ value,setValue }}>
+            <NotificationContext.Provider value={{ appear,setAppear }}>
                 <AdminNavbar selected={selection} handleClick={handleClick} />
                 <PageView selected={selection} />
+                <Notification />
+            </NotificationContext.Provider>
             </ProductsContext.Provider>}
         </div>
     )//login design

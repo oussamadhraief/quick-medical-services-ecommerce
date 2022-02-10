@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function ProductPreview(props){
     return(
-        <div className="w-3/6 h-fit flex flex-wrap sm:flex-nowrap justify-evenly shadow-2xl px-3 py-10 rounded-lg">
+        <div className="w-6/12 h-fit flex flex-wrap sm:flex-nowrap justify-evenly shadow-2xl px-3 py-10 rounded-lg">
         <div className="border-[1px] border-main w-60 flex justify-center h-fit">
             <Image src={props.productImage} alt="product image" height={220} width={240} layout='fixed'  objectFit="contain"  />
         </div>
