@@ -144,7 +144,7 @@ export default function AddProductView(props){
                 },
                 body: JSON.stringify(produit)
             }).then(async (res) => {
-                if(res.status == 400){
+                if(res.status == 201){
                     const newValue = value
                     newValue.push(produit)
                     setValue(newValue)

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ProduitSchema = new mongoose.Schema(
+const InstrumentSchema = new mongoose.Schema(
     {
         reference: {
             type: String,
@@ -51,4 +51,4 @@ const ProduitSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.models.Produit || mongoose.model("Produit", ProduitSchema);
+module.exports = mongoose.models.Instrument || mongoose.model("Instrument", InstrumentSchema);

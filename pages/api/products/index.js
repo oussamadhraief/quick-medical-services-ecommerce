@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Produit from "../../../models/Produit";
+import Instrument from "../../../models/Instrument";
 
 dbConnect();
 
@@ -7,9 +7,9 @@ export default async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
-                const Produits = await Produit.find({}).sort({createdAt: 1});
+                const Instruments = await Instrument.find({}).sort({createdAt: 1});
 
-                res.status(200).json({ success: true, data: Produits });
+                res.status(200).json({ success: true, data: Instruments });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
@@ -17,7 +17,7 @@ export default async (req, res) => {
         case 'POST':
             try {
 
-                const data = await Produit.create(req.body)
+                const data = await Instrument.create(req.body)
 
                 res.status(201).json({ success: true, data: data });
             } catch (error) {
@@ -26,22 +26,22 @@ export default async (req, res) => {
             break;
         case 'PUT':
             try {
-                const Produit = await Produit.findOneAndUpdate(
+                const Instrument = await Instrument.findOneAndUpdate(
                     { reference: req.body.reference },
                     req.body,
                     { new: true }
                 );
-                res.status(200).json({ success: true, data: Produit });
+                res.status(200).json({ success: true, data: Instrument });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
             break;
         case 'DELETE':
             try {
-                const deletedProduit = await Produit.deleteOne({
+                const deletedInstrument = await Instrument.deleteOne({
                     reference: req.body.reference,
                 });
-                if (!deletedProduit) {
+                if (!deletedInstrument) {
                     return res.status(400).json({ success: false });
                 }
                 return res.status(200).json({ sucees: true, data: {} });
