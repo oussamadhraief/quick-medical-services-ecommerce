@@ -9,6 +9,8 @@ export default function OrderBody(){
             <td className="text-center p-3">num 2 rue deez nuts hammem sousse sousse tunisia</td>
             <td className="text-center p-3">95237383</td>
             <td className="text-center p-3">oussema@deezhalouani.nuts</td>
+            <td className="text-center p-3">YOSR</td>
+            <td className="text-center p-3">123456789</td>
             <td className='text-center'><span className='font-extrabold text-xl text-red-500'>&#x2716;</span></td>
         </tr>
     )

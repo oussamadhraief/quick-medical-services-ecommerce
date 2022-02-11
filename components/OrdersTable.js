@@ -10,6 +10,8 @@ export default function OrdersTable(){
                 <th>ADRESSE</th>
                 <th>NUM. T&Eacute;L</th>
                 <th>EMAIL</th>
+                <th>CLINIC</th>
+                <th>MAT. FISCALE</th>
                 <th>ARCHIVER</th>
             </thead>
             <tbody className="bg-white text-black font-medium text-sm rounded-t-lg">
