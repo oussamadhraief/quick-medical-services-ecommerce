@@ -11,7 +11,7 @@ export default function OrderBody(){
             <td className="text-center p-3">oussema@deezhalouani.nuts</td>
             <td className="text-center p-3">YOSR</td>
             <td className="text-center p-3">123456789</td>
-            <td className='text-center'><span className='font-extrabold text-xl text-red-500'>&#x2716;</span></td>
+            <td className='text-center'><button className="px-2 text-red-500 border-[1px] border-red-500 rounded-md mx-1 hover:text-white hover:bg-red-500">Archiver</button></td>
         </tr>
     )
 }

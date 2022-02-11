@@ -33,7 +33,7 @@ export default function AdminProducts(props){
                     <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1">
-                    <button className="h-fit w-fit p-1 border-[1px] border-black rounded-lg font-normal text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:scale-105 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => handleDelete()}>Supprimer</button>
+                    <button className="h-fit w-fit p-1 border-[1px] border-black rounded-lg font-normal text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => handleDelete()}>Supprimer</button>
                 </div>
         </div>
     )

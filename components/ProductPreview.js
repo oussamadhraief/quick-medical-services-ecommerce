@@ -1,4 +1,5 @@
 import Image from "next/image"
+import SizeSelection from './SizeSelection'
 
 export default function ProductPreview(props){
     return(
@@ -9,9 +10,7 @@ export default function ProductPreview(props){
             <div className="w-4/6 h-fit pl-1 grid">
                 <p className="font-bold text-2xl text-main">{props.name}</p>
                 <p className="font-medium text-zinc-600 text-md">Tailles:&nbsp;</p>
-                <div className="flex flex-wrap">
-                {props.sizes.map(item => <p className="border-[1px] border-main ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm">{item >= 0 ? item : 0} mm</p>)}
-                </div>
+                <SizeSelection sizes={props.sizes} />
                 <p className="font-medium text-zinc-600 text-md">Description:&nbsp;</p>
                 <p>{props.description}</p>
                 <p className="font-medium text-zinc-600 mt-2 text-md">Disponibilité:&nbsp;</p>
