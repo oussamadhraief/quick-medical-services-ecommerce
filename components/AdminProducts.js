@@ -3,8 +3,12 @@ import Image from "next/image"
 export default function AdminProducts(props){
 
 
-    function handleDelete(){
-        
+    const handleDelete = async () => {
+        try {
+            const res = await fetch('')
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -14,7 +18,7 @@ export default function AdminProducts(props){
                     <p className="font-semibold">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1">
-                    <button className="h-fit w-fit p-1 border-[1px] border-black rounded-lg font-normal text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:scale-105 border-red-500 text-red-500 rounded-lg font-normal text-sm">Supprimer</button>
+                    <button className="h-fit w-fit p-1 border-[1px] border-black rounded-lg font-normal text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:scale-105 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => handleDelete()}>Supprimer</button>
                 </div>
         </div>
     )
