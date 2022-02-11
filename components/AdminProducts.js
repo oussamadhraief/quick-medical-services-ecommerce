@@ -1,11 +1,26 @@
 import Image from "next/image"
+import { useContext } from "react"
+import { ProductsContext } from "../utils/ProductsContext"
 
 export default function AdminProducts(props){
+
+    const {value,setValue} = useContext(ProductsContext)
 
 
     const handleDelete = async () => {
         try {
-            const res = await fetch('')
+            const res = await fetch('http://localhost:3000/api/products/'+props.reference,{
+                method: 'DELETE',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            }).then(async (res) => {
+                if(res.status == 200){
+                    const newValue = value.filter(item => item.reference != props.reference )
+                    setValue(newValue)
+                }
+            })
         } catch (error) {
             console.error(error)
         }
