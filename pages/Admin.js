@@ -5,7 +5,7 @@ import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from "../components/LoadingAnimation"
 import Notification from '../components/Notification'
 import { NotificationContext } from '../utils/NotificationContext'
-import { waitUntilSymbol } from "next/dist/server/web/spec-compliant/fetch-event"
+import { LoadingContext } from "../utils/LoadingContext"
 
 export default function Admin(admindata){
 
@@ -16,6 +16,7 @@ export default function Admin(admindata){
     const [adminLoading,setAdminLoading] = useState(false)
     //const [renderedArray,setRenderedArray] = useState([])
     const [appear,setAppear] = useState({display: false, action: ''})
+    const [loadingContext,setLoadingContext] = useState(false)
 
     useEffect(async () => {
         //setRenderedArray(value)
@@ -31,7 +32,8 @@ export default function Admin(admindata){
                 })
                 const { data } = await res.json()
                 setValue(data)
-                setAdminLoading(false)}
+                setAdminLoading(false)
+                setLoadingContext(false)}
                 
                 catch(error){
                     console.error(error)
@@ -52,7 +54,8 @@ export default function Admin(admindata){
 
     const handleSubmit = () => {
         if(login.username == admindata.username && login.password == admindata.password){
-             if (value.length < 1) setAdminLoading(true)
+             if (value.length < 1) {setAdminLoading(true)
+            setLoadingContext(true)}
             setLoggedIn(true)
             
         }
@@ -80,9 +83,11 @@ export default function Admin(admindata){
             : 
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
+            <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
                 <AdminNavbar selected={selection} handleClick={handleClick} />
                 <PageView selected={selection} />
                 <Notification />
+            </LoadingContext.Provider>
             </NotificationContext.Provider>
             </ProductsContext.Provider>}
         </div>

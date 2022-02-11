@@ -7,6 +7,8 @@ import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from './LoadingAnimation'
 import arrowIcon from '../assets/cancel.png'
 import { NotificationContext } from "../utils/NotificationContext"
+import { LoadingContext } from "../utils/LoadingContext"
+
 
 export default function AddProductView(props){
 
@@ -19,6 +21,7 @@ export default function AddProductView(props){
     const [nameError,setNameError] = useState(false)
     const [imageError,setImageError] = useState(false)
     const {appear,setAppear} = useContext(NotificationContext)
+    const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
 
     function handleChange(event){
@@ -128,6 +131,7 @@ export default function AddProductView(props){
 
     const handleSubmit = async () => {
         setLoading(true)
+        setLoadingContext(true)
         document.getElementById('scrolltop').scroll(0,0)
         try {
             let trimmedCategory = form.category.trim()
@@ -172,6 +176,7 @@ export default function AddProductView(props){
                     }
                 }
                 setLoading(false)
+                setLoadingContext(false)
             })
         } catch (error) {
             console.error(error)
@@ -208,6 +213,7 @@ export default function AddProductView(props){
 
     const handleModifications = async () => {
         setLoading(true)
+        setLoadingContext(true)
         try {
             const produit = {
                 ...form,
@@ -237,6 +243,7 @@ export default function AddProductView(props){
                         setImageError(true)
                     }
                     setLoading(false)
+                    setLoadingContext(false)
                 }
             })
             
@@ -249,7 +256,7 @@ export default function AddProductView(props){
         <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10" : "relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10"}>
             {loading ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
             {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
-            <form className="relative grid w-full h-fit bg-white shadow-3xl sm:w-4/6 xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-4/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
                 e.preventDefault()
                 if(props.addForm){
 
