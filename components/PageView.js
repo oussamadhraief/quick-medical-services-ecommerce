@@ -26,7 +26,7 @@ export default function PageView({ selected }){
     }
 
     return (
-        <div className="flex-grow p-5 w-full h-screen">
+        <div className="flex-grow p-5 w-full h-screen z-50">
             {decideSelection()}
         </div>
     )
