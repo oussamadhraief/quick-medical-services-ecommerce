@@ -19,8 +19,8 @@ export default function Admin(admindata){
 
     useEffect(async () => {
         //setRenderedArray(value)
-        console.log(value)
-        if (value === []){
+        
+        if (value.length < 1){
             try{
                 const res = await fetch('http://localhost:3000/api/products',{
                     method: 'GET',
@@ -30,7 +30,6 @@ export default function Admin(admindata){
                     },
                 })
                 const { data } = await res.json()
-                console.log(data);
                 setValue(data)
                 setAdminLoading(false)}
                 
@@ -38,7 +37,7 @@ export default function Admin(admindata){
                     console.error(error)
                 }
         }
-    })
+    },[value])
     
     function handleClick(id){
         setSelection(id)
@@ -53,7 +52,7 @@ export default function Admin(admindata){
 
     const handleSubmit = () => {
         if(login.username == admindata.username && login.password == admindata.password){
-             if (value === []) setAdminLoading(true)
+             if (value.length < 1) setAdminLoading(true)
             setLoggedIn(true)
             
         }
