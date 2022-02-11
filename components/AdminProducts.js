@@ -1,6 +1,12 @@
 import Image from "next/image"
 
 export default function AdminProducts(props){
+
+
+    function handleDelete(){
+        
+    }
+
     return (
         <div className="w-60 h-[300px] grid content-center border-[1px] mx-auto sm:mx-3 mt-10 border-gray-700 shadow-2xl rounded-lg overflow-hidden">
                 <Image src={props.image} alt='product image' height={220} width={240} layout='fixed'  objectFit="contain" objectPosition="center" />

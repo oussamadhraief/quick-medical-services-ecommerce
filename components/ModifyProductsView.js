@@ -8,10 +8,11 @@ export default function ModifyProductsView(){
 
     const {value,setValue} = useContext(ProductsContext)
     const [editing,setEditing] = useState(false)
-    const [editingProduct,setEditingProduct] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available',productImage: ''})
+    const [editingProduct,setEditingProduct] = useState({reference: '',name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available',productImage: ''})
 
     const handleEdit = (ref) => {
         const product = value.find(item => item.reference == ref)
+        product.reference = ref
         setEditingProduct(product)
         setEditing(true)
     }

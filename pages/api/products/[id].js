@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Product, { db } from "../../../models/Product";
+import Instrument from "../../../models/Instrument";
 
 dbConnect();
 
@@ -12,41 +12,41 @@ export default async (req, res) => {
     switch (method) {
         case "GET":
             try {
-                const product = await Product.findOne({ reference: id });
-                if (!product) {
+                const Instrument = await Instrument.findOne({ reference: id });
+                if (!Instrument) {
                     return res.status(400).json({ success: false });
                 }
-                return res.status(400).json({ success: true, data: product });
+                return res.status(400).json({ success: true, data: Instrument });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
             break;
         case "PUT":
             try {
-                const modifiedProduct = await Product.findOneAndUpdate(
+                const modifiedInstrument = await Instrument.findOneAndUpdate(
                     { reference: id },
                     req.body,
                     { new: true, runValidators: true }
                 );
 
-                if (!modifiedProduct) {
+                if (!modifiedInstrument) {
                     return res
                         .status(400)
-                        .json({ success: false, data: modifiedProduct });
+                        .json({ success: false, data: modifiedInstrument });
                 }
                 return res
                     .status(200)
-                    .json({ succes: true, data: modifiedProduct });
+                    .json({ succes: true, data: modifiedInstrument });
             } catch (error) {
-                res.status(400).json({ success: false });
+                res.status(400).json({ success: false , error: error });
             }
             break;
         case "DELETE":
             try {
-                const deletedProduct = await Product.deleteOne({
+                const deletedInstrument = await Instrument.deleteOne({
                     reference: id,
                 });
-                if (!deletedProduct) {
+                if (!deletedInstrument) {
                     return res.status(400).json({ success: false });
                 }
                 return res.status(200).json({ sucees: true, data: {} });

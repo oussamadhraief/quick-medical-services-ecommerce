@@ -41,10 +41,20 @@ export default function AddProductView(props){
             }
             setForm(tempObj)
             setProductImage(props.modifiedProduct.image)
-            setSizeRemoval(false)
-            handlePreview()
+            if(props.modifiedProduct.sizes.length == 1 ) {
+                setSizeRemoval(true)
+            }else {
+                setSizeRemoval(false)
+            }
+            setPreview({
+                name: props.modifiedProduct.name,
+                sizes: props.modifiedProduct.sizes,
+                description: props.modifiedProduct.description,
+                availability: props.modifiedProduct.availability,
+                productImage: props.modifiedProduct.image,
+            })
         }
-    })
+    },[props.addForm])
 
     function handleSizesChange(e,id){
         let newSizes = form.sizes
@@ -196,8 +206,43 @@ export default function AddProductView(props){
         setPreview(previewObject)
     }
 
-    function handleModifications(){
-
+    const handleModifications = async () => {
+        setLoading(true)
+        try {
+            const produit = {
+                ...form,
+                image: productImage,
+            }
+            const res = await fetch('http://localhost:3000/api/products/'+props.modifiedProduct.reference,{
+                method: 'PUT',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(produit)
+            }).then(async (res) => {
+                if(res.status == 200){
+                    const valueIndex = value.findIndex(item => item.reference == props.modifiedProduct.reference)
+                    const newValue = value
+                    const {data} = await res.json() 
+                    newValue[valueIndex] = data
+                    setValue(newValue)
+                    setAppear({display: true, action: 'modifié'})
+                    props.handleCancel()
+                }else{
+                    const { error } = await res.json()
+                    if(error.keyPattern.hasOwnProperty('name')){
+                        setNameError(true)
+                    }else{
+                        setImageError(true)
+                    }
+                    setLoading(false)
+                }
+            })
+            
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
