@@ -5,6 +5,7 @@ import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from "../components/LoadingAnimation"
 import Notification from '../components/Notification'
 import { NotificationContext } from '../utils/NotificationContext'
+import { waitUntilSymbol } from "next/dist/server/web/spec-compliant/fetch-event"
 
 export default function Admin(admindata){
 
@@ -13,13 +14,32 @@ export default function Admin(admindata){
     const [loggedIn,setLoggedIn] = useState(false)
     const [login,setLogin] = useState({username: '', password: ''})
     const [adminLoading,setAdminLoading] = useState(false)
-    const [renderedArray,setRenderedArray] = useState([])
+    //const [renderedArray,setRenderedArray] = useState([])
     const [appear,setAppear] = useState({display: false, action: ''})
 
-    useEffect(() => {
-        setRenderedArray(value)
-    },[value])
-
+    useEffect(async () => {
+        //setRenderedArray(value)
+        console.log(value)
+        if (value === []){
+            try{
+                const res = await fetch('http://localhost:3000/api/products',{
+                    method: 'GET',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                })
+                const { data } = await res.json()
+                console.log(data);
+                setValue(data)
+                setAdminLoading(false)}
+                
+                catch(error){
+                    console.error(error)
+                }
+        }
+    })
+    
     function handleClick(id){
         setSelection(id)
     }
@@ -33,24 +53,13 @@ export default function Admin(admindata){
 
     const handleSubmit = () => {
         if(login.username == admindata.username && login.password == admindata.password){
-            setAdminLoading(true)
+             if (value === []) setAdminLoading(true)
             setLoggedIn(true)
-            getProducts()
+            
         }
     }
 
-    const getProducts = async () => {
-        const res = await fetch('http://localhost:3000/api/products',{
-            method: 'GET',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-        })
-        const { data } = await res.json()
-        setValue(data)
-        setAdminLoading(false)
-    }
+    
 
     return(
         <div className="bg-white relative h-screen w-screen flex flex-nowra overflow-hidden">
