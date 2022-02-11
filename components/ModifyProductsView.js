@@ -24,10 +24,10 @@ export default function ModifyProductsView(){
    return (
         <div className="h-full relative w-full border-2 rounded-lg border-zinc-300 flex justify-center">
             {editing ?  <AddProductView key='edit' addForm={false} modifiedProduct={editingProduct} handleCancel={handleCancel} /> :
-            <div className='h-full w-full flex justify-center'>
-                <ul className="h-full relative w-full overflow-y-scroll overflow-x-hidden rounded-md pb-32 lg:pt-10 lg:px-10 flex justify-evenly flex-wrap">
+            <div className='min-h-full w-full grid'>
+                <div className="min-h-full h-full relative w-full overflow-y-scroll overflow-x-hidden rounded-md 2xl:pt-10 2xl:px-10  lg:pt-5 lg:px-5 flex justify-evenly flex-wrap">
                 {value.slice(0).reverse().map(item => <AdminProducts image={item.image} name={item.name} reference={item.reference} handleClick={handleEdit} />)}
-                </ul>
+                </div>
                 <PagesNavigator />
             </div>}
         </div>
