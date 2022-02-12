@@ -1,11 +1,12 @@
 import { useContext, useState } from "react"
-import searchIcon from '../assets/searchIcon.png'
 import Image from "next/image"
 import { ProductsContext } from "../utils/ProductsContext"
 import { LoadingContext } from "../utils/LoadingContext"
 
 
 export default function AdminSearchField(){
+
+    const searchIcon = 'pfe/searchIcon_ooxkbe.png'
 
     const [search,setSearch] = useState('')
     // const {value,setValue} = useContext(ProductsContext)

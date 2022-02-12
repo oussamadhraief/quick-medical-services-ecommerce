@@ -1,4 +1,4 @@
-import remove from '../assets/remove.png'
+
 
 export default function OrderBody(){
     return (

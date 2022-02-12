@@ -1,11 +1,12 @@
 import Image from "next/image"
-import orders from '../assets/orders.png'
 import { useEffect, useState, useContext } from "react"
-import ordersselected from '../assets/ordersselected.png'
 import { LoadingContext } from "../utils/LoadingContext"
 
 
 export default function ViewOrders(props){
+
+    const orders = 'pfe/orders_kkbnuv.png'
+    const ordersselected = 'pfe/ordersselected_m3jukr.png'
 
     const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
     const [textClasses, setTextClasses] = useState("text-medium font-sm text-white whitespace-nowrap")

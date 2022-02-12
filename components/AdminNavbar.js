@@ -1,4 +1,3 @@
-import arrow from '../assets/arrow.png'
 import Image from 'next/image'
 import { useState } from 'react'
 import AddProduct from './AddProduct'
@@ -9,6 +8,8 @@ import Return from './Return'
 import AdminSearchField from './AdminSearchField'
 
 export default function AdminNavbar(props){
+
+    const arrow = 'pfe/arrow_vbhjlp.png'
 
     const [menu,setMenu] = useState(true)
     const [classes,setClasses] = useState("bg-main h-full relative duration-150 space-y-4 px-1 w-72 pt-1")

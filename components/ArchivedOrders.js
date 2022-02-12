@@ -1,11 +1,12 @@
 import Image from "next/image"
-import archived from '../assets/archived.png'
 import { useEffect, useState, useContext } from "react"
-import archivedselected from '../assets/archivedselected.png'
 import { LoadingContext } from "../utils/LoadingContext"
 
 
 export default function ArchivedOrders(props){
+
+    const archivedselected = 'pfe/archivedselected_bodb8b.png'
+    const archived = 'pfe/archived_ljkyaa.png'
 
     const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
     const [textClasses, setTextClasses] = useState("text-medium font-sm text-white whitespace-nowrap")

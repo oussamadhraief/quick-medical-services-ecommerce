@@ -1,9 +1,10 @@
 import Image from "next/image"
-import returnIcon from '../assets/return.png'
 import { useContext } from "react"
 import { LoadingContext } from "../utils/LoadingContext"
 
 export default function ArchivedProducts(){
+
+    const returnIcon = 'pfe/return_hvq5nb.png'
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 

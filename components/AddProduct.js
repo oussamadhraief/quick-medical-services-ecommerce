@@ -1,7 +1,5 @@
 import Image from "next/image"
 import { useEffect, useState, useContext } from "react"
-import add from '../assets/add.png'
-import addselected from '../assets/plusselected.png'
 import { LoadingContext } from "../utils/LoadingContext"
 
 export default function AddProduct(props){
@@ -19,6 +17,9 @@ export default function AddProduct(props){
             setTextClasses("text-medium font-sm text-white whitespace-nowrap")
         }
     },[props.selected])
+
+    const add = 'pfe/add_ufxdwy.png'
+    const addselected = 'pfe/plusselected_xpokri.png'
 
     return (
         <div className={classes} onClick={() => {if(!loadingContext) props.handleClick(1)}} >

@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import Image from "next/image"
-import remove from '../assets/remove.png'
 import ProductPreview from './ProductPreview'
-import product from '../assets/productPreview.png'
 import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from './LoadingAnimation'
-import arrowIcon from '../assets/cancel.png'
 import { NotificationContext } from "../utils/NotificationContext"
 import { LoadingContext } from "../utils/LoadingContext"
 
 
 export default function AddProductView(props){
+
+    const remove = 'pfe/remove_kqcrbj.png' 
+    const product = 'pfe/productPreview_gwcvck.png'
+    const arrowIcon = 'pfe/cancel_fyl57s.png'
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState('')
@@ -159,7 +160,8 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 201){
-                    const newValue = [produit].concat(value)
+                    const newValue = value
+                    newValue.push(produit)
                     setValue(newValue)
                     setAppear({display: true, action: 'ajouté'})
                     setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
@@ -252,7 +254,7 @@ export default function AddProductView(props){
     }
 
     return (
-        <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10" : "relative h-full overflow-y-scroll w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10"}>
+        <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10" : "relative h-full overflow-y-auto w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10"}>
             {loading ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
             {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
             <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {

@@ -1,10 +1,11 @@
 import Image from "next/image"
 import { useEffect, useState, useContext } from "react"
-import Modify from '../assets/modify.png'
-import Modifyselected from '../assets/modifyselected.png'
 import { LoadingContext } from "../utils/LoadingContext"
 
 export default function ModifyProducts(props){
+
+    const Modify = 'pfe/modify_p9iu6t.png'
+    const Modifyselected = 'pfe/modifyselected_ncujpy.png'
 
     const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
     const [textClasses, setTextClasses] = useState("text-medium font-sm text-white whitespace-nowrap")

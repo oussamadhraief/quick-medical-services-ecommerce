@@ -1,7 +1,8 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    loader: "custom",
+    loader: 'cloudinary',
+    path: 'https://res.cloudinary.com/dwvwjxizk/image/upload/',
   },
 }
 
