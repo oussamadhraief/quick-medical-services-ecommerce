@@ -10,7 +10,7 @@ import { PagesContext } from "../utils/PagesContext"
 import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 
-export default function Admin(admindata){
+export default function admin(admindata){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
