@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Link from "next/link"
+
 import Header from "../components/Header"
 
 export default function Home() {
@@ -30,9 +30,6 @@ export default function Home() {
         <meta name="twitter:image" value=""/>
       </Head>
       <Header />
-      <Link href="/Admin">
-          <a className="text-5xl">Admin</a>
-      </Link>
     </div>
   )
 }
