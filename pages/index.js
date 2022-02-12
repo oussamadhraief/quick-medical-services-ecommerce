@@ -36,15 +36,3 @@ export default function Home(props) {
     </div>
   )
 }
-
-export async function getServerSideProps() {
-  try {
-      const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
-      const { data } = await res.json() 
-
-      return {props: data[0]}    
-  } catch (error) {
-      console.error(error)
-  }  
-
-}
