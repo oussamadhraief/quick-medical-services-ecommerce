@@ -38,9 +38,13 @@ export default function Admin(data){
     },[value])
 
     const fetchadmin = async () => {
-        const res = await fetch('api/admindata')
-        const {data} = await res.json()
-        setLogInInfo(data[0])
+        try {
+            const res = await fetch('api/admindata')
+            const {data} = await res.json()
+            setLogInInfo(data[0])
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     useEffect(() => {
