@@ -26,7 +26,7 @@ export default function ModifyProductsView(){
             {editing ?  <AddProductView key='edit' addForm={false} modifiedProduct={editingProduct} handleCancel={handleCancel} /> :
             <div className='min-h-full w-full grid'>
                 <div className="min-h-full h-full relative w-full overflow-y-scroll overflow-x-hidden rounded-md 2xl:pt-10 2xl:px-10  lg:pt-5 lg:px-5 flex justify-evenly flex-wrap">
-                {value.slice(0).reverse().map(item => <AdminProducts image={item.image} name={item.name} reference={item.reference} handleClick={handleEdit} />)}
+                {value.slice(0).reverse().map(item => <AdminProducts key={item.name} image={item.image} name={item.name} reference={item.reference} handleClick={handleEdit} />)}
                 </div>
                 <PagesNavigator />
             </div>}

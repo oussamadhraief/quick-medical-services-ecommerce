@@ -3,7 +3,7 @@ import Instrument from "../../../models/Instrument";
 
 dbConnect();
 
-export default async (req, res) => {
+const handleProducts = async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
@@ -54,6 +54,8 @@ export default async (req, res) => {
             break;
     }
 };
+
+export default handleProducts
 
 
 export const config = {

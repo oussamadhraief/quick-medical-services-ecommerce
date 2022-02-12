@@ -2,7 +2,7 @@ import dbConnect from "../../../utils/dbConnect";
 import Commande from "../../../models/Commande";
 
 dbConnect();
-export default async (req, res) => {
+const handleSingleOrder = async (req, res) => {
     const {
         query: { id },
         method,
@@ -23,3 +23,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default handleSingleOrder

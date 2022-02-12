@@ -18,7 +18,7 @@ export default function AddProduct(props){
             setClasses("mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
             setTextClasses("text-medium font-sm text-white whitespace-nowrap")
         }
-    })
+    },[props.selected])
 
     return (
         <div className={classes} onClick={() => {if(!loadingContext) props.handleClick(1)}} >

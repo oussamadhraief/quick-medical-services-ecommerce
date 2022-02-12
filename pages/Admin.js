@@ -76,11 +76,13 @@ export default function Admin(admindata){
             e.preventDefault()
             handleSubmit()
         }}>
-                <p className="font-extrabold text-xl mb-10 mx-auto text-third">Connexion en tant qu'administateur de QMS</p>
-                <label for="username" className="text-third font-bold ">Nom d'utilisateur:</label>
-                <input type="text" name="username" id="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-8 outline-none border-2 border-third' required minLength={4} />
-                <label for="password" className="text-third font-bold ">Mot de passe:</label>
-                <input type="password" name="password" id="password" value={login.password} onChange={e => handleChange(e)}  className='rounded-lg w-full h-10 outline-none border-2 border-third' required minLength={4} />
+                <p className="font-extrabold text-xl mb-10 mx-auto text-third text-center">Connexion en tant qu&apos;administateur de QMS</p>
+                <label className="text-third font-bold ">Nom d'utilisateur:
+                <input type="text" name="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-8 outline-none border-2 border-third' required minLength={4} />
+                </label>
+                <label className="text-third font-bold ">Mot de passe:
+                <input type="password" name="password" value={login.password} onChange={e => handleChange(e)}  className='rounded-lg w-full h-10 outline-none border-2 border-third' required minLength={4} />
+                </label>
                 <button type="submit" className="bg-third text-white mt-16 w-fit h-fit px-4 py-2 shadow-[0_3px_30px_5px_rgba(0,0,0,0.6)] rounded-lg mx-auto text-md font-bold hover:scale-105 hover:bg-yellow-500 hover:shadow-[0_0px_25px_10px_rgba(255,235,59,0.4)] hover:text-white">Connexion</button>
             </form> 
             </div>

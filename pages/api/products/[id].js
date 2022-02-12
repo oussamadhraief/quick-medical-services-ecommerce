@@ -3,7 +3,7 @@ import Instrument from "../../../models/Instrument";
 
 dbConnect();
 
-export default async (req, res) => {
+const handleSingleProduct =  async (req, res) => {
     const {
         query: { id },
         method,
@@ -56,3 +56,5 @@ export default async (req, res) => {
             break;
     }
 };
+
+export default handleSingleProduct
