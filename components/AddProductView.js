@@ -151,7 +151,7 @@ export default function AddProductView(props){
                 sizes: form.sizes,
                 availability: form.availability
             }
-            const res = await fetch('http://localhost:3000/api/products', {
+            const res = await fetch('vsdfgdgdfhfdhfghfghftghf.vercel.app/api/products', {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",
@@ -220,7 +220,7 @@ export default function AddProductView(props){
                 ...form,
                 image: productImage,
             }
-            const res = await fetch('http://localhost:3000/api/products/'+props.modifiedProduct.reference,{
+            const res = await fetch('vsdfgdgdfhfdhfghfghftghf.vercel.app/api/products/'+props.modifiedProduct.reference,{
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
