@@ -11,7 +11,7 @@ import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 import getAdminData from "./api/admindata/index"
 
-export default function admin(props){
+export default function Admin(props){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
