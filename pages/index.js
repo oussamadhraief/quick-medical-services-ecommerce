@@ -2,7 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import Header from "../components/Header"
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div>
       <Head>
@@ -35,4 +35,16 @@ export default function Home() {
       <Header />
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  try {
+      const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
+      const { data } = await res.json() 
+
+      return {props: data[0]}    
+  } catch (error) {
+      console.error(error)
+  }  
+
 }
