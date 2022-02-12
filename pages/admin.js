@@ -80,7 +80,6 @@ export default function Admin(data){
     }
 
     const handleSubmit = () => {
-        console.log(loginInfo);
         if(login.username == loginInfo.username && login.password == loginInfo.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
@@ -130,8 +129,8 @@ export default function Admin(data){
     )
 }
 
-// export async function getServerSideProps() {
-//     const res = await fetch('https://api.imgflip.com/get_memes')
-//     const data = await res.json()
-//     return { props: data }
-// }
+export async function getServerSideProps() {
+    const res = await fetch('https://api.imgflip.com/get_memes')
+    const data = await res.json()
+    return { props: data }
+}
