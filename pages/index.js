@@ -2,7 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import Header from "../components/Header"
 
-export default function Home() {
+export default function Home(data) {
   return (
     <div>
       <Head>
@@ -29,10 +29,16 @@ export default function Home() {
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-      <Link href='/Admin' >
+      <Link href='/admin' >
         <a>admin</a>
       </Link>
       <Header />
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const res = await fetch('https://api.imgflip.com/get_memes')
+  const data = await res.json()
+  return { props: data }
 }
