@@ -77,7 +77,7 @@ export default function Admin(admindata){
             handleSubmit()
         }}>
                 <p className="font-extrabold text-xl mb-10 mx-auto text-third text-center">Connexion en tant qu&apos;administateur de QMS</p>
-                <label className="text-third font-bold ">Nom d'utilisateur:
+                <label className="text-third font-bold ">Nom d&apos;utilisateur:
                 <input type="text" name="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-8 outline-none border-2 border-third' required minLength={4} />
                 </label>
                 <label className="text-third font-bold ">Mot de passe:
