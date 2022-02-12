@@ -25,7 +25,6 @@ export default function Admin(data){
     const [loginInfo,setLogInInfo] = useState({username:'',password:''})
 
     useEffect(() => {
-        console.log(data);
         if (value.length < 1){
             getProducts()
         }else{
