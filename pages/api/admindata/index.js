@@ -3,13 +3,13 @@ import AdminData from '../../../Models/AdminData'
 
 dbConnect()
 
-const getAdminData =  async () => {
+const getAdminData =  async (req,res) => {
             try {
                 const data = await AdminData.find({})
                 
-                return data
+                res.status(200).json({success:true, data: data})
             } catch (error) {
-                return 'error'
+                res.status(400).json({success:false})
             }
 }
 

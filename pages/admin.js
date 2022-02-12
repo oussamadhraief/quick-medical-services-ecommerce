@@ -9,9 +9,8 @@ import { LoadingContext } from "../utils/LoadingContext"
 import { PagesContext } from "../utils/PagesContext"
 import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
-import getAdminData from "./api/admindata/index"
 
-export default function Admin(props){
+export default function Admin(data){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
@@ -23,7 +22,7 @@ export default function Admin(props){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
-    const [loginInfo,setLogInInfo] = useState({})
+    const [loginInfo,setLogInInfo] = useState({username:'',password:''})
 
     useEffect(() => {
         if (value.length < 1){
@@ -39,8 +38,9 @@ export default function Admin(props){
     },[value])
 
     const fetchadmin = async () => {
-        const res = await getAdminData()
-        setLogInInfo(JSON.stringify(res[0]))
+        const res = await fetch('api/admindata')
+        const {data} = await res.json()
+        setLogInInfo(data[0])
     }
 
     useEffect(() => {
@@ -80,8 +80,8 @@ export default function Admin(props){
     }
 
     const handleSubmit = () => {
-        const admindata = JSON.parse(loginInfo)
-        if(login.username == admindata.username && login.password == admindata.password){
+        console.log(loginInfo);
+        if(login.username == loginInfo.username && login.password == loginInfo.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
             setLoggedIn(true)
@@ -131,9 +131,7 @@ export default function Admin(props){
 }
 
 export async function getServerSideProps() {
-    fetch('https://api.imgflip.com/get_memes')
-    .then(response => response.json())
-    .then(data => championData = data);
-  
-    return { props: { championData }}
+    const res = await fetch('https://api.imgflip.com/get_memes')
+    const data = await res.json()
+    return { props: data }
 }
