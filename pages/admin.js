@@ -121,7 +121,7 @@ export default function Admin(admindata){
 }
 
 
-export async function getServerSideProps() {
+admin.getServerSideProps = async () => {
         try {
             const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
             const { data } = await res.json() 

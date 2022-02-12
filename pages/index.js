@@ -37,7 +37,7 @@ export default function Home(props) {
   )
 }
 
-export async function getServerSideProps() {
+Home.getServerSideProps = async () => {
   try {
       const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
       const { data } = await res.json() 
