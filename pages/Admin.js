@@ -103,7 +103,7 @@ export default function Admin(admindata){
 
 export async function getServerSideProps() {
   
-        const res = await fetch('http://localhost:3000/api/admindata')
+        const res = await fetch('api/admindata')
         const { data } = await res.json() 
 
         return {props: data[0]}
