@@ -23,6 +23,7 @@ export default function Admin(props){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
+    const [loginInfo,setLogInInfo] = useState({})
 
     useEffect(() => {
         if (value.length < 1){
@@ -32,7 +33,15 @@ export default function Admin(props){
             setPages(count)
             setPageSelection(0)
         }
+        if(!loggedIn){
+            fetchadmin()
+    }
     },[value])
+
+    const fetchadmin = async () => {
+        const res = await getAdminData()
+        setLogInInfo(JSON.stringify(res[0]))
+    }
 
     useEffect(() => {
         let count = pageSelection * 7
@@ -71,7 +80,7 @@ export default function Admin(props){
     }
 
     const handleSubmit = () => {
-        const admindata = JSON.parse(props.admindata)
+        const admindata = JSON.parse(loginInfo)
         if(login.username == admindata.username && login.password == admindata.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
@@ -121,8 +130,10 @@ export default function Admin(props){
     )
 }
 
-
 export async function getServerSideProps() {
-    const res = await getAdminData()
-    return {props: {admindata: JSON.stringify(res[0]) }}
+    fetch('https://api.imgflip.com/get_memes')
+    .then(response => response.json())
+    .then(data => championData = data);
+  
+    return { props: { championData }}
 }
