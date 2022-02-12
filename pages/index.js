@@ -31,7 +31,7 @@ export default function Home() {
       </Head>
       <Header />
       <Link href="/Admin">
-          <a>Admin</a>
+          <a className="text-5xl">Admin</a>
       </Link>
     </div>
   )
