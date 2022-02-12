@@ -18,28 +18,32 @@ export default function Admin(admindata){
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(false)
 
-    useEffect(async () => {
+    useEffect(() => {
         //setRenderedArray(value)
         
         if (value.length < 1){
-            try{
-                const res = await fetch('http://localhost:3000/api/products',{
-                    method: 'GET',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    },
-                })
-                const { data } = await res.json()
-                setValue(data)
-                setAdminLoading(false)
-                setLoadingContext(false)}
-                
-                catch(error){
-                    console.error(error)
-                }
+            getProducts()
         }
     },[value])
+
+    const getProducts = async () => {
+        try{
+            const res = await fetch('http://localhost:3000/api/products',{
+                method: 'GET',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+            })
+            const { data } = await res.json()
+            setValue(data)
+            setAdminLoading(false)
+            setLoadingContext(false)}
+            
+            catch(error){
+                console.error(error)
+            }
+    }
     
     function handleClick(id){
         setSelection(id)
