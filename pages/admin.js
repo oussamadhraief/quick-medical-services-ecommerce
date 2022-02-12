@@ -1,14 +1,14 @@
-import PageView from "../../components/PageView"
-import AdminNavbar from "../../components/AdminNavbar"
+import PageView from "../components/PageView"
+import AdminNavbar from "../components/AdminNavbar"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../utils/ProductsContext"
-import LoadingAnimation from "../../components/LoadingAnimation"
-import Notification from '../../components/Notification'
-import { NotificationContext } from '../../utils/NotificationContext'
-import { LoadingContext } from "../../utils/LoadingContext"
-import { PagesContext } from "../../utils/PagesContext"
-import { PageSelectionContext } from "../../utils/PageSelectionContext"
-import { RenderedArrayContext } from "../../utils/RenderedArrayContext"
+import { ProductsContext } from "../utils/ProductsContext"
+import LoadingAnimation from "../components/LoadingAnimation"
+import Notification from '../components/Notification'
+import { NotificationContext } from '../utils/NotificationContext'
+import { LoadingContext } from "../utils/LoadingContext"
+import { PagesContext } from "../utils/PagesContext"
+import { PageSelectionContext } from "../utils/PageSelectionContext"
+import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 
 export default function Admin(admindata){
 
