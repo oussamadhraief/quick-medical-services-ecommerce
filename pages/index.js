@@ -29,7 +29,7 @@ export default function Home() {
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-      <Link href='/admin' >
+      <Link href='/Admin' >
         <a>admin</a>
       </Link>
       <Header />
