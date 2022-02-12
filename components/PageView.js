@@ -11,7 +11,7 @@ export default function PageView({ selected }){
                 return <AddProductView addForm={true} />
                 break;
             case 2:
-                return <ModifyProductsView />
+                return <ModifyProductsView /> 
                 break;
             case 3:
                 return <ViewOrdersView />

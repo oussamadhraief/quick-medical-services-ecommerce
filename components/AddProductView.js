@@ -159,8 +159,7 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 201){
-                    const newValue = value
-                    newValue.push(produit)
+                    const newValue = [produit].concat(value)
                     setValue(newValue)
                     setAppear({display: true, action: 'ajouté'})
                     setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})

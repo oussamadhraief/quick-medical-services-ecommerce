@@ -6,6 +6,9 @@ import LoadingAnimation from "../components/LoadingAnimation"
 import Notification from '../components/Notification'
 import { NotificationContext } from '../utils/NotificationContext'
 import { LoadingContext } from "../utils/LoadingContext"
+import { PagesContext } from "../utils/PagesContext"
+import { PageSelectionContext } from "../utils/PageSelectionContext"
+import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 
 export default function Admin(admindata){
 
@@ -14,17 +17,28 @@ export default function Admin(admindata){
     const [loggedIn,setLoggedIn] = useState(false)
     const [login,setLogin] = useState({username: '', password: ''})
     const [adminLoading,setAdminLoading] = useState(false)
-    //const [renderedArray,setRenderedArray] = useState([])
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(false)
+    const [pages,setPages] = useState(0)
+    const [pageSelection,setPageSelection] = useState(null)
+    const [renderedArray,setRenderedArray] = useState([])
 
     useEffect(() => {
-        //setRenderedArray(value)
-        
         if (value.length < 1){
             getProducts()
+        }else{
+            let count = Math.ceil(value.length / 8)
+            setPages(count)
+            setPageSelection(0)
         }
     },[value])
+
+    useEffect(() => {
+        let count = pageSelection * 7
+        let arr = value.filter((item,index) => index >= count && index < count + 7)
+        setRenderedArray(arr)
+        console.log(value);
+    },[pageSelection])
 
     const getProducts = async () => {
         try{
@@ -90,9 +104,15 @@ export default function Admin(admindata){
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
+            <PagesContext.Provider value={{ pages,setPages }}>
+            <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
+            <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
                 <AdminNavbar selected={selection} handleClick={handleClick} />
                 <PageView selected={selection} />
                 <Notification />
+            </RenderedArrayContext.Provider>
+            </PageSelectionContext.Provider>
+            </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
             </ProductsContext.Provider>}
