@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Instrument from "../../../models/Instrument";
+import Instrument from "../../../Models/Instrument";
 
 dbConnect();
 

@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import AdminData from '../../../models/AdminData'
+import AdminData from '../../../Models/AdminData'
 
 dbConnect()
 

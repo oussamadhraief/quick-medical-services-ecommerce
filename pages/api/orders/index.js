@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect"
-import Commande from "../../../models/Commande"
+import Commande from "../../../Models/Commande"
 
 dbConnect();
 
