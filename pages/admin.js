@@ -118,7 +118,7 @@ export default function admin(props){
             </NotificationContext.Provider>
             </ProductsContext.Provider>}
         </div>
-    )//login design
+    )
 }
 
 
