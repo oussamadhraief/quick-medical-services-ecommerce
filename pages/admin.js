@@ -9,8 +9,9 @@ import { LoadingContext } from "../utils/LoadingContext"
 import { PagesContext } from "../utils/PagesContext"
 import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
+import getAdminData from "./api/admindata/index"
 
-export default function admin(admindata){
+export default function admin(props){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
@@ -37,7 +38,6 @@ export default function admin(admindata){
         let count = pageSelection * 7
         let arr = value.filter((item,index) => index >= count && index < count + 7)
         setRenderedArray(arr)
-        console.log(value);
     },[pageSelection])
 
     const getProducts = async () => {
@@ -71,6 +71,7 @@ export default function admin(admindata){
     }
 
     const handleSubmit = () => {
+        const admindata = JSON.parse(props.admindata)
         if(login.username == admindata.username && login.password == admindata.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
@@ -122,13 +123,6 @@ export default function admin(admindata){
 
 
 export async function getServerSideProps() {
-        try {
-            const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
-            const { data } = await res.json() 
-
-            return {props: data[0]}    
-        } catch (error) {
-            console.error(error)
-        }  
-
+    const res = await getAdminData()
+    return {props: {admindata: JSON.stringify(res[0]) }}
 }
