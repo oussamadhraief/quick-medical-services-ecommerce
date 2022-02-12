@@ -42,7 +42,7 @@ export default function Admin(admindata){
 
     const getProducts = async () => {
         try{
-            const res = await fetch('http://localhost:3000/api/products',{
+            const res = await fetch('api/products',{
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -123,7 +123,7 @@ export default function Admin(admindata){
 
 export async function getServerSideProps() {
         try {
-            const res = await fetch('http://localhost:3000/api/admindata')
+            const res = await fetch('https://vsdfgdgdfhfdhfghfghftghf.vercel.app/api/admindata')
             const { data } = await res.json() 
 
             return {props: data[0]}    

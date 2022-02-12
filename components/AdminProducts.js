@@ -10,7 +10,7 @@ export default function AdminProducts(props){
 
     const handleDelete = async () => {
         try {
-            const res = await fetch('http://localhost:3000/api/products/'+props.reference,{
+            const res = await fetch('api/products/'+props.reference,{
                 method: 'DELETE',
                 headers: {
                     "Accept": "application/json",

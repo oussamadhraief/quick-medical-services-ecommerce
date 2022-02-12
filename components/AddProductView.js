@@ -5,6 +5,7 @@ import { ProductsContext } from "../utils/ProductsContext"
 import LoadingAnimation from './LoadingAnimation'
 import { NotificationContext } from "../utils/NotificationContext"
 import { LoadingContext } from "../utils/LoadingContext"
+import 'animate.css'
 
 
 export default function AddProductView(props){
@@ -151,7 +152,7 @@ export default function AddProductView(props){
                 sizes: form.sizes,
                 availability: form.availability
             }
-            const res = await fetch('http://localhost:3000/api/products', {
+            const res = await fetch('api/products', {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",
@@ -220,7 +221,7 @@ export default function AddProductView(props){
                 ...form,
                 image: productImage,
             }
-            const res = await fetch('vsdfgdgdfhfdhfghfghftghf.vercel.app/api/products/'+props.modifiedProduct.reference,{
+            const res = await fetch('api/products/'+props.modifiedProduct.reference,{
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -244,8 +245,8 @@ export default function AddProductView(props){
                         setImageError(true)
                     }
                     setLoading(false)
-                    setLoadingContext(false)
                 }
+                setLoadingContext(false)
             })
             
         } catch (error) {
@@ -256,8 +257,8 @@ export default function AddProductView(props){
     return (
         <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10" : "relative h-full overflow-y-auto w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-10"}>
             {loading ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
-            {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
-            <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10" action="submit" onSubmit={e => {
+            {!props.addForm ? <button className="absolute left-3 top-1 font-extrabold text-4xl w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={40} height={30} /></button> : null}
+            <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
                 e.preventDefault()
                 if(props.addForm){
 
