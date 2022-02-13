@@ -10,7 +10,7 @@ import { PagesContext } from "../utils/PagesContext"
 import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 
-export default function Admin(data){
+export default function Admin(props){
 
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
@@ -39,7 +39,14 @@ export default function Admin(data){
 
     const fetchadmin = async () => {
         try {
-            const res = await fetch('api/admindata')
+            const res = await fetch('api/admindata',{
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(props.apikey)
+            })
             const {data} = await res.json()
             setLogInInfo(data[0])
         } catch (error) {
@@ -134,7 +141,5 @@ export default function Admin(data){
 }
 
 export async function getServerSideProps() {
-    const res = await fetch('https://api.imgflip.com/get_memes')
-    const data = await res.json()
-    return { props: data }
+    return { props: {apikey: "qmsmta3eldeeznutsbelha9dimanlwa7ed"} }
 }
