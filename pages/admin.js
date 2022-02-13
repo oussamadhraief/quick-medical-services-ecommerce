@@ -35,9 +35,9 @@ export default function Admin(props){
 
     useEffect(() => {
         let count = pageSelection * 7
-        let arr = value.filter((item,index) => index >= count && index < count + 7)
+        let arr = value.filter((item,index) => index >= count && index < count + 8)
         setRenderedArray(arr)
-    },[pageSelection])
+    },[pageSelection,value])
 
     const getProducts = async () => {
         try{

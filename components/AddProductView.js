@@ -99,32 +99,29 @@ export default function AddProductView(props){
 
     const handleReference = (capCategory,capSubcategory) => {
         if(value.length > 0){
-        const categoryArray = value.map(item => item.category)
-        const categoryExists = categoryArray.some(item => item == capCategory)
+        const categoryExists = value.some(item => item.category == capCategory)
         if(categoryExists){
-            const subcategoryArray = value.map(item => item.subcategory)
-            const subcategoryExists = subcategoryArray.some(item => item == capSubcategory)
+        const subcategoryExists = value.some(item => item.subcategory == capSubcategory)
             if(subcategoryExists){
                 const productWithCategoryAndSubcategoryRef = value.find(item => item.subcategory == capSubcategory)
                 const categoryAndSubcategoryRefArray = productWithCategoryAndSubcategoryRef.reference.split('.')
-                const categoryAndSubcategoryRef = `${categoryAndSubcategoryRefArray[0]}.${categoryAndSubcategoryRefArray[1]}.`
-                let productCounter = 0
-                for (let index = 0; index < value.length; index++) {
-                    if(value[index].subcategory == capSubcategory){
-                        productCounter++
-                    }
-                }
-                return `${categoryAndSubcategoryRef}${productCounter}`
+                const productsReferences = value.filter(item => item.subcategory == capSubcategory)
+                const productRef = productsReferences.map(item => item.reference.split('.'))
+                const maxProdRef = productRef.map(item => item[2])
+                const productCounter = Math.max(...maxProdRef) + 1
+                return `${categoryAndSubcategoryRefArray[0]}.${categoryAndSubcategoryRefArray[1]}.${productCounter}`
             }else{
-                const productWithCategoryRef = value.find(item => item.category == capCategory)
-                const categoryAndSubcategoryRefArray = productWithCategoryRef.reference.split('.')
-                const productsWithSameCategory = value.filter(item => item.category == capCategory)
-                const subcategoriesOfTheCategory = productsWithSameCategory.map(item => item.subcategory)
-                let subcategoryCount =  new Set(subcategoriesOfTheCategory).size
+                const subcategoryReferences = value.filter(item => item.category == capCategory)
+                const subRefCount = subcategoryReferences.map(item => item.reference.split('.'))
+                const subRef = subRefCount.map(item => item[1])
+                const subcategoryCount = Math.max(...subRef) +1
+                const categoryAndSubcategoryRefArray = subRefCount[0]
                 return `${categoryAndSubcategoryRefArray[0]}.${subcategoryCount}.0`
             }
-        }else {
-            let categoryCount =  new Set(categoryArray).size
+        }else {  
+            const references = value.map(item => item.reference.split('.'))
+            const categoryReferences = references.map(item => item[0])
+            const categoryCount = Math.max(...categoryReferences) + 1
             return `${categoryCount}.0.0`
         }}else {
             return '0.0.0'

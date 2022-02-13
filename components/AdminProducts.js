@@ -2,13 +2,20 @@ import Image from "next/image"
 import { useContext } from "react"
 import { ProductsContext } from "../utils/ProductsContext"
 import 'animate.css'
+import { LoadingContext } from "../utils/LoadingContext"
+import { NotificationContext } from "../utils/NotificationContext"
 
 export default function AdminProducts(props){
 
     const {value,setValue} = useContext(ProductsContext)
+    const {loadingContext,setLoadingContext} = useContext(LoadingContext)
+    const {appear,setAppear} = useContext(NotificationContext)
+
 
 
     const handleDelete = async () => {
+        props.handleLoading(true)
+        setLoadingContext(true)
         try {
             const res = await fetch('api/products/'+props.reference,{
                 method: 'DELETE',
@@ -20,11 +27,14 @@ export default function AdminProducts(props){
                 if(res.status == 200){
                     const newValue = value.filter(item => item.reference != props.reference )
                     setValue(newValue)
+                    setAppear({display: true, action: 'supprimé'})
                 }
             })
         } catch (error) {
             console.error(error)
         }
+        setLoadingContext(false)
+        props.handleLoading(false)
     }
 
     return (
