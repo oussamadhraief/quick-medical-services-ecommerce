@@ -22,7 +22,6 @@ export default function Admin(props){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
-    const [loginInfo,setLogInInfo] = useState({username:'',password:''})
 
     useEffect(() => {
         if (value.length < 1){
@@ -32,27 +31,7 @@ export default function Admin(props){
             setPages(count)
             setPageSelection(0)
         }
-        if(!loggedIn){
-            fetchadmin()
-    }
     },[value])
-
-    const fetchadmin = async () => {
-        try {
-            const res = await fetch('api/admindata',{
-                method: 'POST',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(props.apikey)
-            })
-            const {data} = await res.json()
-            setLogInInfo(data[0])
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     useEffect(() => {
         let count = pageSelection * 7
@@ -91,11 +70,10 @@ export default function Admin(props){
     }
 
     const handleSubmit = () => {
-        if(login.username == loginInfo.username && login.password == loginInfo.password){
+        if(login.username == props.username && login.password == props.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
             setLoggedIn(true)
-            
         }
     }
 
@@ -141,5 +119,5 @@ export default function Admin(props){
 }
 
 export async function getServerSideProps() {
-    return { props: {apikey: "qmsmta3eldeeznutsbelha9dimanlwa7ed"} }
+    return { props: {username: "admin",password: "admin"} }
 }
