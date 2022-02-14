@@ -15,14 +15,14 @@ export default function AdminNavbar(props){
 
     const [navIcon,setNavIcon] = useState(false)
     const [menu,setMenu] = useState(true)
-    const [classes,setClasses] = useState("bg-main h-10 md:h-full absolute md:relative duration-150 space-y-4 px-1 z-40 w-full md:w-72 pt-1")
+    const [classes,setClasses] = useState("bg-main h-12 md:h-full absolute md:relative duration-150 space-y-4 px-1 z-40 w-full md:w-72 pt-2 pr-2 md:pr-0 md:pt-1")
     const [matches,setMatches] = useState(true)
     const [open,setOpen] = useState(true)
 
     useEffect(() => {
         const mql = window.matchMedia('(max-width: 767px)');
         setMatches(mql.matches)
-        if(mql.matches){ 
+        if(matches){ 
             setNavIcon(true)
             setMenu(false)
         }else{
@@ -38,7 +38,7 @@ export default function AdminNavbar(props){
             if(matches){
                 setOpen(true)
             }else{event.target.style.transform = 'rotateY(180deg)'}
-            setClasses("bg-main h-10 md:h-full absolute md:relative duration-150 space-y-4 px-1 z-40 w-full md:w-10 pt-1")
+            setClasses("bg-main h-12 md:h-full absolute md:relative duration-150 space-y-4 px-1 z-40 w-full md:w-10 pt-2 pr-2 md:pr-0 md:pt-1")
         }
         else{
             if(matches){
