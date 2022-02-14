@@ -28,11 +28,9 @@ export default function AdminNavbar(props){
         }else{
             setNavIcon(false)
         }
-
     },[])
 
     const handleClick = (event) => {
-        
         setMenu(!menu)
         if(menu){
             if(matches){

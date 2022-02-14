@@ -75,6 +75,8 @@ export default function Admin(props){
     
     function handleClick(id){
         setSelection(id)
+        let mql = window.matchMedia('(max-width: 767px)');
+        if(mql.matches)document.getElementById('navbutton').click()
     }
 
     function handleChange(e){

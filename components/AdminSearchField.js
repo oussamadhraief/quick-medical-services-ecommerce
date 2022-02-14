@@ -24,6 +24,8 @@ export default function AdminSearchField(){
         const newValue = value.filter(item => item.reference.includes(search) || item.name.toLowerCase().includes(search.toLowerCase()))
         // if(newValue.length < 1 && search != '') newValue.push(<p className="font-medium text-medium mx-auto">Aucun produit trouvé !</p>)
         setSearchContext({searching: true, value: newValue})
+        const mql = window.matchMedia('(max-width: 767px)');
+        if(mql.matches)document.getElementById('navbutton').click()
     }
 
     return (
