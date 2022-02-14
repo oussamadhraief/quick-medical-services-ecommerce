@@ -212,6 +212,7 @@ export default function AddProductView(props){
     const handleModifications = async () => {
         setLoading(true)
         setLoadingContext(true)
+        document.getElementById('scrolltop').scroll(0,0)
         try {
             const produit = {
                 ...form,
