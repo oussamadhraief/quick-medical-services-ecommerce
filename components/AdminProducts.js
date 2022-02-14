@@ -16,6 +16,7 @@ export default function AdminProducts(props){
     const handleDelete = async () => {
         props.handleLoading(true)
         setLoadingContext(true)
+        document.getElementById('scrolltopdiv').scroll(0,0)
         try {
             const res = await fetch('api/products/'+props.reference,{
                 method: 'DELETE',
@@ -38,7 +39,7 @@ export default function AdminProducts(props){
     }
 
     return (
-        <div className="w-60 h-fit grid place-items-center border-[1px] mx-auto sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-lg overflow-hidden animate__animated animate__fadeIn">
+        <div id="scrolltopdiv" className="w-60 h-fit grid place-items-center border-[1px] mx-auto sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-lg overflow-hidden animate__animated animate__fadeIn">
                 <Image src={props.image} alt='product image' height={220} width={240} layout='fixed'  objectFit="contain" objectPosition="center" />
                 <div className="flex flex-nowrap h-fit w-full overflow-hidden justify-center mx-auto px-1">
                     <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
