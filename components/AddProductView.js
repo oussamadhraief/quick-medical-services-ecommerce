@@ -145,7 +145,6 @@ export default function AddProductView(props){
                 subcategory: capSubcategory,
                 name: form.name,
                 description: form.description,
-                image: productImage,
                 sizes: form.sizes,
                 availability: form.availability
             }
@@ -227,10 +226,13 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 200){
-                    const valueIndex = value.findIndex(item => item.reference == props.modifiedProduct.reference)
-                    const newValue = value
-                    const {data} = await res.json() 
-                    newValue[valueIndex] = data
+                    const valueIndex = value.filter(item => item.reference != props.modifiedProduct.reference)
+                    const data = {
+                        ...form,
+                        image: productImage,
+                        reference: props.modifiedProduct.reference
+                    }
+                    let newValue = [data].concat(valueIndex)
                     setValue(newValue)
                     setAppear({display: true, action: 'modifié'})
                     props.handleCancel()

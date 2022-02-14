@@ -22,7 +22,7 @@ export default function AdminNavbar(props){
     useEffect(() => {
         const mql = window.matchMedia('(max-width: 767px)');
         setMatches(mql.matches)
-        if(matches){ 
+        if(mql.matches){ 
             setNavIcon(true)
             setMenu(false)
         }else{

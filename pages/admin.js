@@ -50,6 +50,7 @@ export default function Admin(props){
             let count = pageSelection * 8
             let arr = value.filter((item,index) => index >= count && index < count + 8)
             setRenderedArray(arr)
+            console.log('gg');
         }
     },[pageSelection,value,searchContext])
 
