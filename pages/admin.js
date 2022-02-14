@@ -9,6 +9,7 @@ import { LoadingContext } from "../utils/LoadingContext"
 import { PagesContext } from "../utils/PagesContext"
 import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
+import { SearchContext } from "../utils/SearchContext"
 
 export default function Admin(props){
 
@@ -22,22 +23,35 @@ export default function Admin(props){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
+    const [searchContext,setSearchContext] = useState({searching: false, value: []})
 
     useEffect(() => {
         if (value.length < 1){
             getProducts()
         }else{
-            let count = Math.ceil(value.length / 8)
-            setPages(count)
-            setPageSelection(0)
-        }
-    },[value])
+            let count = 1
+            if(searchContext.searching){
+                count = Math.ceil(searchContext.value.length / 8)
+                setPages(count)
+                setPageSelection(0)
+            }else
+                count = Math.ceil(value.length / 8)
+                setPages(count)
+                setPageSelection(0)
+            }
+        },[value,searchContext])
 
     useEffect(() => {
-        let count = pageSelection * 7
-        let arr = value.filter((item,index) => index >= count && index < count + 8)
-        setRenderedArray(arr)
-    },[pageSelection,value])
+        if(searchContext.searching){
+            let count = pageSelection * 8
+            let arr = searchContext.value.filter((item,index) => index >= count && index < count + 8)
+            setRenderedArray(arr)
+        }else{
+            let count = pageSelection * 8
+            let arr = value.filter((item,index) => index >= count && index < count + 8)
+            setRenderedArray(arr)
+        }
+    },[pageSelection,value,searchContext])
 
     const getProducts = async () => {
         try{
@@ -80,7 +94,7 @@ export default function Admin(props){
     
 
     return(
-        <div className="bg-white relative h-screen w-screen flex flex-nowra overflow-hidden">
+        <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             {adminLoading ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-third"> 
@@ -105,9 +119,11 @@ export default function Admin(props){
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
+            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
                 <AdminNavbar selected={selection} handleClick={handleClick} />
                 <PageView selected={selection} />
                 <Notification />
+            </SearchContext.Provider>
             </RenderedArrayContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>

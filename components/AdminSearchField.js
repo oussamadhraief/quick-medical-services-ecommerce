@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import Image from "next/image"
 import { ProductsContext } from "../utils/ProductsContext"
 import { LoadingContext } from "../utils/LoadingContext"
+import { SearchContext } from "../utils/SearchContext"
 
 
 export default function AdminSearchField(){
@@ -9,18 +10,20 @@ export default function AdminSearchField(){
     const searchIcon = 'pfe/searchIcon_ooxkbe.png'
 
     const [search,setSearch] = useState('')
-    // const {value,setValue} = useContext(ProductsContext)
+    const {value,setValue} = useContext(ProductsContext)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
+    const {searchContext,setSearchContext} = useContext(SearchContext)
  
     function handleChange(e){
         setSearch(e.target.value)
+        if(e.target.value == '')setSearchContext({searching: false, value: []})
     }
 
     function handleClick(){
         document.getElementById('modifyProducts').click()
-        
-
-        setSearch('')
+        const newValue = value.filter(item => item.reference.includes(search) || item.name.toLowerCase().includes(search.toLowerCase()))
+        // if(newValue.length < 1 && search != '') newValue.push(<p className="font-medium text-medium mx-auto">Aucun produit trouvé !</p>)
+        setSearchContext({searching: true, value: newValue})
     }
 
     return (

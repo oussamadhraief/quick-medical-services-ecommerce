@@ -7,7 +7,7 @@ const handleProducts = async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
-                const Instruments = await Instrument.find({}).sort({createdAt: 1});
+                const Instruments = await Instrument.find({}).sort({createdAt: -1});
 
                 res.status(200).json({ success: true, data: Instruments });
             } catch (error) {
