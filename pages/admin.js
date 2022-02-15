@@ -87,7 +87,7 @@ export default function Admin(props){
     }
 
     const handleSubmit = () => {
-        if(login.username.toLowerCase() == props.username && login.password == props.password){
+        if(login.username.toLowerCase().trim() == props.username && login.password == props.password){
              if (value.length < 1) {setAdminLoading(true)
             setLoadingContext(true)}
             setLoggedIn(true)
