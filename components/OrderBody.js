@@ -6,7 +6,7 @@ export default function OrderBody(){
             <td className="text-center p-3">Oussema Dhraief</td>
             <td className="text-center p-3">10 Janv. 2022</td>
             <td colSpan={2} className="text-center p-3">Hamlock&#40;1&#41;, Flatline&#40;1&#41;, R-301&#40;1&#41;, Mastiff&#40;1&#41;, Deez&#40;1&#41;, Halouani&#40;1&#41;,Hamlock&#40;1&#41;, Flatline&#40;1&#41;, R-301&#40;1&#41;, Mastiff&#40;1&#41;, Deez&#40;1&#41;, Halouani&#40;1&#41;,</td>
-            <td className="text-center p-3">num 2 rue deez nuts hammem sousse sousse tunisia</td>
+            <td className="text-center p-3">num 2 rue hammem sousse sousse tunisia</td>
             <td className="text-center p-3">95237383</td>
             <td className="text-center p-3">oussema@deezhalouani.nuts</td>
             <td className="text-center p-3">YOSR</td>
