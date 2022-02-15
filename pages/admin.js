@@ -32,11 +32,11 @@ export default function Admin(props){
             let count = 1
             if(searchContext.searching){
                 count = Math.ceil(searchContext.value.length / 8)
-                setPages(count)
+                if(count > 0) {setPages(count)} else {setPages(1)}
                 setPageSelection(0)
             }else
                 count = Math.ceil(value.length / 8)
-                setPages(count)
+                if(count > 0) {setPages(count)} else {setPages(1)}
                 setPageSelection(0)
             }
         },[value,searchContext])
@@ -50,7 +50,6 @@ export default function Admin(props){
             let count = pageSelection * 8
             let arr = value.filter((item,index) => index >= count && index < count + 8)
             setRenderedArray(arr)
-            console.log('gg');
         }
     },[pageSelection,value,searchContext])
 

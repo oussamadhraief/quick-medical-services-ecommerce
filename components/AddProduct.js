@@ -22,7 +22,7 @@ export default function AddProduct(props){
     const addselected = 'pfe/plusselected_xpokri.png'
 
     return (
-        <div className={classes} onClick={() => {if(!loadingContext) props.handleClick(1)}} >
+        <div className={props.show ? classes : 'hidden'} onClick={() => {if(!loadingContext) props.handleClick(1)}} >
             {props.selected == 1 ? <Image src={addselected} alt="plus" width={15} height={15} layout="fixed" id='addIcon' /> : <Image src={add} alt="plus" width={15} height={15} layout="fixed" id='addIcon' />}
             <p className={textClasses}>Ajouter des produits</p>
         </div>

@@ -24,7 +24,7 @@ export default function ArchivedOrders(props){
     })
 
     return (
-        <div className={classes} onClick={() => {if(!loadingContext) props.handleClick(4)}} >
+        <div className={props.show ? classes : 'hidden'} onClick={() => {if(!loadingContext) props.handleClick(4)}} >
             {props.selected == 4 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
             <p className={textClasses}>Commandes archivées</p>
         </div>

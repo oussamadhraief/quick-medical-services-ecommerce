@@ -29,6 +29,13 @@ export default function AdminNavbar(props){
             setNavIcon(false)
         }
     },[])
+    //
+    //
+    //
+    //  MAKE DISPLAY NONE ON MENU CHANGE !!!!! also flex gap
+    //
+    //
+    //
 
     const handleClick = (event) => {
         setMenu(!menu)
@@ -51,13 +58,13 @@ export default function AdminNavbar(props){
             <div className='float-right p-2 w-fit h-fit'>
                 <Image src={navIcon ? open ? menuIcon : closeMenu : arrow} id='navbutton' alt="arrow" width={20} height={20} layout='fixed' className='hover:cursor-pointer transition'  onClick={e => handleClick(e)} />
             </div>
-            {menu ? <AdminSearchField /> : null}
-            {menu ? <AddProduct selected={props.selected} handleClick={props.handleClick} /> : null}
-            {menu ? <ModifyProducts selected={props.selected} handleClick={props.handleClick} /> : null}
+            <AdminSearchField show={menu} />
+            <AddProduct selected={props.selected} handleClick={props.handleClick} show={menu} />
+            <ModifyProducts selected={props.selected} handleClick={props.handleClick} show={menu} />
             <br></br>
-            {menu ? <ViewOrders selected={props.selected} handleClick={props.handleClick} /> : null}
-            {menu ? <ArchivedOrders selected={props.selected} handleClick={props.handleClick} /> : null}
-            {menu ? <Return /> : null}
+            <ViewOrders selected={props.selected} handleClick={props.handleClick} show={menu} />
+            <ArchivedOrders selected={props.selected} handleClick={props.handleClick} show={menu} />
+            <Return show={menu} />
         </nav>
     )
 }

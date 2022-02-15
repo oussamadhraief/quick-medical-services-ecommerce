@@ -22,7 +22,7 @@ export default function ModifyProducts(props){
     })
 
     return (
-        <div id="modifyProducts" className={classes} onClick={() => {if(!loadingContext) props.handleClick(2)}} >
+        <div id="modifyProducts" className={props.show ? classes : 'hidden'} onClick={() => {if(!loadingContext) props.handleClick(2)}} >
             {props.selected == 2 ? <Image src={Modifyselected} alt="plus" width={15} height={17} layout="fixed" /> : <Image src={Modify} alt="plus" width={15} height={17} layout="fixed" />}
             <p className={textClasses}>Modifier les produits</p>
         </div>

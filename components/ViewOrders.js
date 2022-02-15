@@ -23,7 +23,7 @@ export default function ViewOrders(props){
     })
 
     return (
-        <div className={classes} onClick={() => {if(!loadingContext) props.handleClick(3)}} >
+        <div className={props.show ? classes : 'hidden'} onClick={() => {if(!loadingContext) props.handleClick(3)}} >
             {props.selected == 3 ? <Image src={ordersselected} alt="plus" width={15} height={15} layout="fixed" /> : <Image src={orders} alt="plus" width={15} height={15} layout="fixed" />}
             <p className={textClasses}>Voir les commandes</p>
         </div>
