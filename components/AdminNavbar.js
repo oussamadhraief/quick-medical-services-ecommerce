@@ -29,13 +29,6 @@ export default function AdminNavbar(props){
             setNavIcon(false)
         }
     },[])
-    //
-    //
-    //
-    //  MAKE DISPLAY NONE ON MENU CHANGE !!!!! also flex gap
-    //
-    //
-    //
 
     const handleClick = (event) => {
         setMenu(!menu)
