@@ -1,15 +1,17 @@
 import Image from "next/image"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ProductsContext } from "../utils/ProductsContext"
 import 'animate.css'
 import { LoadingContext } from "../utils/LoadingContext"
 import { NotificationContext } from "../utils/NotificationContext"
+import Modal from "../components/Modal"
 
 export default function AdminProducts(props){
 
     const {value,setValue} = useContext(ProductsContext)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const {appear,setAppear} = useContext(NotificationContext)
+    const [show,setShow] = useState(false)
 
 
 
@@ -45,8 +47,9 @@ export default function AdminProducts(props){
                     <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1">
-                    <button className="h-fit w-fit p-1 border-[1px] border-main rounded-lg font-normal text-main text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => handleDelete()}>Supprimer</button>
+                    <button className="h-fit w-fit p-1 border-[1px] border-main rounded-lg font-normal text-main text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => setShow(true)}>Supprimer</button>
                 </div>
+                <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleDelete()} content={'Êtes-vous sûr de vouloir supprimer ce produit ?'} />
         </div>
     )
 }
