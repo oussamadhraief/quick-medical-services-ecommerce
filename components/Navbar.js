@@ -2,11 +2,11 @@ import Image from "next/image"
 
 export default function Navbar(){
 
-    const logo = 'pfe/logo_hq43sm.png'
+    const logo = 'pfe/qmslogo_fggyn9.png'
 
     return(
         <div className="flex flex-nowrap justify-around w-full h-fit py-3 items-center">
-            <div className="w-fit h-fit bg-white">
+            <div className="w-fit h-fit">
                 <Image src={logo} alt='Quick medical services logo' width={220} height={80} layout='fixed' objectFit="center" />
             </div>
             <ul className="w-3/6 h-fit flex flex-nowrap justify-end gap-20 items-center">
