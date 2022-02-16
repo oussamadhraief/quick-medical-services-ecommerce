@@ -1,6 +1,6 @@
 import Head from "next/head"
-import Link from "next/link"
 import Header from "../components/Header"
+import MainContent from '../components/MainContent'
 
 export default function Home(data) {
   return (
@@ -29,10 +29,8 @@ export default function Home(data) {
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-      <Link href='/admin' >
-        <a>admin</a>
-      </Link>
       <Header />
+      <MainContent />
     </div>
   )
 }

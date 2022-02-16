@@ -65,7 +65,7 @@ export default function AddProductView(props){
 
     function handleSizesChange(e,id){
         let newSizes = form.sizes
-        newSizes[id] = parseInt(e.target.value)
+        newSizes[id] = parseFloat(e.target.value)
         setForm({
             ...form,
             sizes: newSizes
