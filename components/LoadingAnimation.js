@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function LoadingAnimation(props){
 
-    const logo = 'pfe/logo_tocity.png'
+    const logo = 'pfe/logo_hq43sm.png'
 
     return (
         <div className={props.bgOpacity ? "absolute top-0 left-0 w-full h-full bg-white z-50 grid content-center" : "absolute top-0 left-0 w-full h-full bg-[rgba(255,255,255,0.7)] z-50 grid content-center"}>
