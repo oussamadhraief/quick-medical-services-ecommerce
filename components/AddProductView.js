@@ -6,6 +6,7 @@ import LoadingAnimation from './LoadingAnimation'
 import { NotificationContext } from "../utils/NotificationContext"
 import { LoadingContext } from "../utils/LoadingContext"
 import 'animate.css'
+import Modal from "./Modal"
 
 
 export default function AddProductView(props){
@@ -23,6 +24,7 @@ export default function AddProductView(props){
     const [nameError,setNameError] = useState(false)
     const [imageError,setImageError] = useState(false)
     const {appear,setAppear} = useContext(NotificationContext)
+    const [show,setShow] = useState(false)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
 
@@ -259,12 +261,7 @@ export default function AddProductView(props){
             {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
             <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
                 e.preventDefault()
-                if(props.addForm){
-
-                    handleSubmit()
-                }else{
-                    handleModifications()
-                }
+                setShow(true)
             }}>
                 
                     
@@ -307,6 +304,14 @@ export default function AddProductView(props){
                 <button type="button" className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-main text-white p-3 rounded-lg font-medium text-sm md:text-medium xl:text-lg hover:bg-cyan-900 hover:scale-105 whitespace-nowrap text-gray-bg-main mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
             </form>
+            <Modal show={show} onClose={() => setShow(false)} onConfirm={() => 
+               { if(props.addForm){
+
+                    handleSubmit()
+                }else{
+                    handleModifications()
+                }}
+                } action={'add'} content={props.addForm ? 'Êtes-vous sûr de vouloir ajouter ce produit ?' : 'Êtes-vous sûr de vouloir modifier ce produit ?'} />
             <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />
         </div>
     )
