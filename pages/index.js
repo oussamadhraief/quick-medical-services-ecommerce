@@ -2,7 +2,7 @@ import Head from "next/head"
 import Header from "../components/Header"
 import MainContent from '../components/MainContent'
 
-export default function Home(data) {
+export default function Home(props) {
   return (
     <div>
       <Head>
@@ -36,7 +36,5 @@ export default function Home(data) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch('https://api.imgflip.com/get_memes')
-  const data = await res.json()
-  return { props: data }
+  return { props: {hi: 'hi'} }
 }

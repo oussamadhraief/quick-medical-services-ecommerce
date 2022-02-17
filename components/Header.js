@@ -3,14 +3,13 @@ import NavigationSection from "./NavigationSection"
 import Image from "next/image"
 
 export default function Header(){
-
-    const design = 'pfe/download2_qlvdfr'
+    const design = 'pfe/download2_qlvdfr.png'
 
     return (
-        <header className="space-y-20 bg-beige">
+        <header className="relative space-y-24 bg-white">
             <Navbar />
             <NavigationSection />
-            <div className="w-full h-20 bg-beige relative rotate-180">
+            <div className="w-full h-16 bg-ciel relative">
                 <Image src={design} alt='design' layout="fill" />
             </div>
         </header>
