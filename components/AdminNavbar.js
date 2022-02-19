@@ -30,6 +30,19 @@ export default function AdminNavbar(props){
         }
     },[])
 
+    useEffect(() => {
+        window.addEventListener('resize',() => {
+            let mql = window.matchMedia('(max-width: 767px)');
+            setMatches(mql.matches)
+            if(mql.matches){ 
+                setNavIcon(true)
+                setMenu(false)
+            }else{
+                setNavIcon(false)
+            }
+        })
+    })
+
     const handleClick = (event) => {
         setMenu(!menu)
         if(menu){

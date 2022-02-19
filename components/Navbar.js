@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function Navbar(){
 
-    const logo = 'pfe/qmslogo1_zedyuy.png'
+    const logo = 'pfe/logoqms_dwvryv.png'
 
     return(
         <div className="flex flex-nowrap justify-evenly w-full h-fit py-3 items-center z-10">

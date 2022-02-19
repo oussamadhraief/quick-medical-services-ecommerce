@@ -13,11 +13,11 @@ module.exports = {
         '3xl': '1700px',
       },
       colors: {
-        'main': '#0f172a',
+        'main': '#0F224E',
         'secondary': '#F5BE3A',
         'third': '#242526',
         'beige': '#fdf4e3',
-        'ciel': '#c1d8f0'
+        'ciel': '#00A1BA'
       }
     },
   },

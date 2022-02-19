@@ -302,7 +302,7 @@ export default function AddProductView(props){
                 <label className="text-gray-bg-main">
                 <input type="radio" name="availability" value='unavailable' className="mr-1 ml-3" checked={form.availability === 'unavailable'} onChange={e => handleRadioChange(e)} />Sur commande</label>
                 <button type="button" className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
-                <button type="submit" className="mx-auto h-fit w-fit bg-main text-white p-3 rounded-lg font-medium text-sm md:text-medium xl:text-lg hover:bg-cyan-900 hover:scale-105 whitespace-nowrap text-gray-bg-main mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
+                <button type="submit" className="mx-auto h-fit w-fit bg-main text-white p-3 rounded-lg font-medium text-sm md:text-medium xl:text-lg hover:bg-emerald-700 hover:scale-105 whitespace-nowrap text-gray-bg-main mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
             </form>
             <Modal show={show} onClose={() => setShow(false)} onConfirm={() => 
                { if(props.addForm){
