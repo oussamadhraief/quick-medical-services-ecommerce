@@ -13,7 +13,7 @@ export default function AddProductView(props){
 
     const remove = 'pfe/remove_kqcrbj.png' 
     const product = 'pfe/productPreview_gwcvck.png'
-    const arrowIcon = 'pfe/cancel_t3ipxe.png'
+    const arrowIcon = 'pfe/return_jxgfqn.png'
 
     const [form,setForm] = useState({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
     const [productImage,setProductImage] = useState('')
