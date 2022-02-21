@@ -74,3 +74,24 @@ a {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+#navigatablefeatured {
+  scroll-behavior: smooth;
+}
+
+#navigatablefeatured::-webkit-scrollbar {
+  display: none;
+}
+
+#navigatablefeatured1 {
+  scroll-behavior: smooth;
+}
+
+#navigatablefeatured1::-webkit-scrollbar {
+  display: none;
+}
+

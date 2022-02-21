@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Header from "../components/Header"
 import MainContent from '../components/MainContent'
+import Footer from '../components/Footer'
 
 export default function Home(props) {
   return (
@@ -31,6 +32,7 @@ export default function Home(props) {
       </Head>
       <Header />
       <MainContent />
+      <Footer />
     </div>
   )
 }
