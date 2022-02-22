@@ -14,7 +14,7 @@ export default function ProductsCarousel({id}) {
         }else{
             newValue = value.filter(item => item.availability == 'unavailable')
         }
-        newValue = newValue.map(item => <SrollableProduct product={item} />)
+        newValue = newValue.map(item => <SrollableProduct key={item.name} product={item} />)
         setRenderedArray(newValue)
     },[value])
 
