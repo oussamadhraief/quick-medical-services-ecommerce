@@ -5,7 +5,7 @@ import ContentfulModal from './ContentfulModal'
 
 export default function SrollableProduct({product}){
 
-    const eye = 'pfe/eye_aeotfd.png'
+    const eye = 'pfe/view_ng7ypc.png'
     
     const [show,setShow] = useState(false)
 
