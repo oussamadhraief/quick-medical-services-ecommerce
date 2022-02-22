@@ -8,6 +8,7 @@ export default function MainContent(){
 
     const asymmetricalTriangle = 'pfe/curveAsymmetrical_hlhril.svg'
     const searchIcon = 'pfe/searchIcon_ooxkbe.png'
+    const design = 'pfe/download2_qlvdfr.png'
     
     const [value,setValue] = useState([])
     const [availableSearch,setAvailableSearch] = useState('')
@@ -26,6 +27,9 @@ export default function MainContent(){
     return(
         <ProductsContext.Provider value={{value,setValue}}>
         <main className="h-fit w-full bg-white overflow-hidden">
+            <div className="w-full h-16 bg-ciel relative">
+                <Image src={design} alt='design' layout="fill" />
+            </div>
             <Introduction />
             <div className='relative w-full h-20 bg-white'>
                 <Image src={asymmetricalTriangle} alt='design' layout='fill' />

@@ -1,22 +1,22 @@
 import dbConnect from "../../../utils/dbConnect";
-import Instrument from "../../../Models/Instrument";
+import Instrument, { db } from "../../../Models/Instrument";
 
 dbConnect();
 
 const handleSingleProduct =  async (req, res) => {
     const {
         query: { id },
-        method,
+        method
     } = req;
 
     switch (method) {
         case "GET":
             try {
-                const Instrument = await Instrument.findOne({ reference: id });
+                const Instrument = await db.collection('instruments').findOne({ reference: id });
                 if (!Instrument) {
                     return res.status(400).json({ success: false });
                 }
-                return res.status(400).json({ success: true, data: Instrument });
+                return res.status(200).json({ success: true, data: Instrument });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
