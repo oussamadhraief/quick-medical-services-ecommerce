@@ -37,7 +37,7 @@ export default function ModifyProductsView(){
                 <div className="min-h-full h-full relative w-full overflow-y-auto gap-5 overflow-x-hidden rounded-md pb-8 pt-5 2xl:pt-10 2xl:px-10  lg:pt-5 lg:px-5 flex justify-evenly flex-wrap">
                 {renderedArray.map(item => <AdminProducts key={item.name} image={item.image} name={item.name} reference={item.reference} handleClick={handleEdit} handleLoading={handleLoading} />)}
                 </div>
-                <PagesNavigator />
+                <PagesNavigator relative={false}/>
             </div>}
         </div>
     )

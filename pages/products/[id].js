@@ -5,6 +5,7 @@ import SizeSelection from "../../components/SizeSelection"
 import LoadingAnimation from '../../components/LoadingAnimation'
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import { SizeSelectionContext } from "../../utils/SizeSelectionContext"
 
 export default function Details(){
 
@@ -15,6 +16,7 @@ export default function Details(){
     
     const [product,setProduct] = useState()
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+    const [selectedSize , setSelectedSize]= useState(0)
     const router = useRouter()
 
     useEffect(async () => {
@@ -53,10 +55,10 @@ export default function Details(){
     return(
         <div>
             <Header />
-            <div className="w-full flex flex-nowrap justify-start items-center">
+            <div className="w-full flex flex-nowrap justify-start items-start">
                 
             
-                <div className="w-3/12 border-2 h-full">
+                <div className="w-3/12 border-2 h-full mx-2 ">
                     {categoriesAndSubcategories.map(item => 
                         <ul id={item.category}><span onClick={e => {
                             const element = document.querySelectorAll(`#${item.category} .expandable`)
@@ -83,11 +85,13 @@ export default function Details(){
                     </div>
                     <div className="w-4/6 h-fit pl-5 grid">
                         <p className="font-bold text-2xl text-main my-5">{product.name}</p>
-                        <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;<span className="font-medium ml-2">{product.reference}</span></p>
+                        <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;<span className="font-medium ml-2">{product.reference}.{product.sizes[selectedSize]}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{product.category}</span></p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{product.subcategory}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5 ">Tailles:&nbsp;</p>
+                        <SizeSelectionContext.Provider value={{selectedSize, setSelectedSize}} >
                         <SizeSelection sizes={product.sizes} />
+                        </SizeSelectionContext.Provider>
                         <p className="font-medium text-zinc-600 text-md mt-5">Description:&nbsp;</p>
                         <p>{product.description != '' ? product.description: 'pas de description'}</p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>

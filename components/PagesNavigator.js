@@ -3,7 +3,7 @@ import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { PagesContext } from "../utils/PagesContext"
 
 
-export default function PagesNavigator(){
+export default function PagesNavigator(props){
 
     const {pageSelection,setPageSelection} = useContext(PageSelectionContext)
     const {pages,setPages} = useContext(PagesContext)
@@ -17,7 +17,7 @@ export default function PagesNavigator(){
     }
 
     return(
-        <div className="absolute bottom-0 h-fit w-full flex justify-center flex-nowrap py-1 bg-[rgba(255,255,255,0.9)] z-50 rounded-b-lg">
+        <div className={props.relative ? "relative  h-fit w-full flex justify-center flex-nowrap py-1 bg-[rgba(255,255,255,0.9)] z-50 rounded-b-lg" : "absolute bottom-0 h-fit w-full flex justify-center flex-nowrap py-1 bg-[rgba(255,255,255,0.9)] z-50 rounded-b-lg"}>
             <button className="px-2 pb-0.5 border-[1px] border-main text-main font-bold text-lg mx-1 hover:bg-main hover:border-main hover:text-white" onClick={e => {if(pageSelection > 0) setPageSelection(pageSelection -1)}}>&#60;</button>
             {renderPages()}
             <button className="px-2 pb-0.5 border-[1px] border-main text-main font-bold text-lg mx-1 hover:bg-main hover:border-main hover:text-white" onClick={e => {if(pageSelection != pages -1) setPageSelection(pageSelection + 1)}}>&#62;</button>
