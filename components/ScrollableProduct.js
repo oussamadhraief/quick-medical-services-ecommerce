@@ -14,7 +14,7 @@ export default function ScrollableProduct({product}){
 
 
     return (
-        <div className="w-60 min-w-min p-3 md:p-0 md:min-w-[320px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden">
+        <div className="w-60 min-w-min p-3 animate__animated animate__fadeIn md:p-0 md:min-w-[320px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden">
                 <SizeSelectionContext.Provider value={{selectedSize,setSelectedSize}}>
 
             <div className="mx-auto w-[95%] h-fit flex justify-center items-center relative group hover:cursor-pointer">
