@@ -76,10 +76,10 @@ export default function Products(){
                     </div>
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div id="categoriesOrderer" className="w-3/12 bg-ciel border-none rounded-lg min-h-fit h-full py-5">
+                <div id="categoriesOrderer" className="w-3/12 bg-white border min-h-fit h-full py-5">
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
-                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
+                <div id="categoriesOrderer1" className="w-9/12 border h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
                     {renderedArray.map(item => <SrollableProduct product={item} />)}
                 </div>
             </div>
