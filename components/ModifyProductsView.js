@@ -5,10 +5,12 @@ import AdminProducts from './AdminProducts'
 import PagesNavigator from './PagesNavigator'
 import AddProductView from './AddProductView'
 import LoadingAnimation from './LoadingAnimation'
+import { LoadingContext } from '../utils/LoadingContext'
 
 export default function ModifyProductsView(){
 
     const {value,setValue} = useContext(ProductsContext)
+    const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [editing,setEditing] = useState(false)
     const {renderedArray,setRenderedArray} = useContext(RenderedArrayContext)
     const [editingProduct,setEditingProduct] = useState({reference: '',name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available',productImage: ''})
@@ -31,7 +33,7 @@ export default function ModifyProductsView(){
 
    return (
         <div className="h-full relative w-full border-2 rounded-lg border-zinc-300 flex justify-center">
-            {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+            {loading || loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             {editing ?  <AddProductView key='edit' addForm={false} modifiedProduct={editingProduct} handleCancel={handleCancel} /> :
             <div className='min-h-full w-full grid'>
                 <div className="min-h-full h-full relative w-full overflow-y-auto gap-5 overflow-x-hidden rounded-md pb-8 pt-5 2xl:pt-10 2xl:px-10  lg:pt-5 lg:px-5 flex justify-evenly flex-wrap">

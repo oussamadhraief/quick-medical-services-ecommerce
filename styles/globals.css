@@ -95,3 +95,8 @@ a {
 #navigatablefeatured1::-webkit-scrollbar {
   display: none;
 }
+
+#cart {
+  transition-property: all;
+  transition-duration: 1s;
+}

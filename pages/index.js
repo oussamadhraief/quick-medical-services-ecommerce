@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 
 export default function Home(props) {
   return (
-    <div id="body">
+    <div id="body" className="relative">
       <Head>
         <title>QUICK Medical Services</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

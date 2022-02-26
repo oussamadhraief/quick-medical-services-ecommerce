@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Image from "next/image"
 import { ProductsContext } from "../utils/ProductsContext"
 import { LoadingContext } from "../utils/LoadingContext"
@@ -14,9 +14,19 @@ export default function AdminSearchField(props){
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const {searchContext,setSearchContext} = useContext(SearchContext)
  
+    useEffect(() => {
+        if(props.selected != 2) {
+            setSearch('')
+            setSearchContext({searching: false, value: []})
+        }
+    },[props.selected])
+
     function handleChange(e){
         setSearch(e.target.value)
-        if(e.target.value == '')setSearchContext({searching: false, value: []})
+        if(e.target.value == '') {
+        setSearchContext({searching: false, value: []})
+        document.getElementById('modifyProducts').click()
+    }
     }
 
     function handleClick(){
@@ -30,7 +40,7 @@ export default function AdminSearchField(props){
 
     return (
         <div className={props.show ? "w-full flex flex-nowrap h-fit bg-white justify-between items-center rounded-md p-1" : "hidden"}>
-            <input type="text" name="adminSearch" value={search} onChange={e => handleChange(e)} placeholder="Chercher un produit..." className="p-1 h-[28px] w-full mt-[1px] outline-none"/>
+            <input type="text" name="adminSearch" id="adminSearch" value={search} onChange={e => handleChange(e)} placeholder="Chercher un produit..." className="p-1 h-[28px] w-full mt-[1px] outline-none"/>
             <Image src={searchIcon} alt='search icon' width={20} height={20} layout='fixed'  className="hover:cursor-pointer" onClick={e => 
                 {if(!loadingContext) handleClick()}
                 }/>

@@ -4,7 +4,7 @@ import { LoadingContext } from "../utils/LoadingContext"
 
 export default function AddProduct(props){
 
-    const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
+    const [classes,setClasses] = useState("mt-9 w-full px-1 bg-transparent py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-ciel rounded-lg")
     const [textClasses, setTextClasses] = useState("text-medium font-sm text-white whitespace-nowrap")
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
@@ -13,7 +13,7 @@ export default function AddProduct(props){
             setClasses("mt-9 w-full bg-white px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer rounded-lg")
             setTextClasses("text-medium font-medium text-main whitespace-nowrap")
         } else {
-            setClasses("mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-gray-600 rounded-lg")
+            setClasses("mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-ciel rounded-lg")
             setTextClasses("text-medium font-sm text-white whitespace-nowrap")
         }
     },[props.selected])

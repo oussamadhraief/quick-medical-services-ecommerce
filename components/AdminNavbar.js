@@ -64,7 +64,7 @@ export default function AdminNavbar(props){
             <div className='float-right p-2 w-fit h-fit'>
                 <Image src={navIcon ? open ? menuIcon : closeMenu : arrow} id='navbutton' alt="arrow" width={20} height={20} layout='fixed' className='hover:cursor-pointer transition'  onClick={e => handleClick(e)} />
             </div>
-            <AdminSearchField show={menu} />
+            <AdminSearchField selected={props.selected} show={menu} />
             <AddProduct selected={props.selected} handleClick={props.handleClick} show={menu} />
             <ModifyProducts selected={props.selected} handleClick={props.handleClick} show={menu} />
             <br></br>

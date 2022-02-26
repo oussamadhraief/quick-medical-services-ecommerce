@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Footer(){
 
-    const delivery = 'pfe/delivery_v7wo2v.png'
+    const delivery = 'pfe/delivery_nexa3b.png'
     const payment = 'pfe/payment_zy8xmo.png'
     const rapidity = 'pfe/rapidity_xclfrf.png'
     const satisfaction = 'pfe/satisfait_yak5un.png'
@@ -15,7 +15,7 @@ export default function Footer(){
         <footer className="w-full min-w-full h-[500px] grid bg-ciel rounded-tr-[70px] mt-32 shadow-3xl">
             <div className="h-fit py-5 px-14 w-[94%] flex justify-center gap-32 flex-wrap md:flex-nowrap items-center">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
-                    <Image src={delivery} alt='' width={80} height={80} layout='fixed' />
+                    <Image src={delivery} alt='' width={100} height={60} layout='fixed' />
                     <p className="text-center font-medium text-sm text-third">Livraison à<br></br>domicile</p>
                 </div>
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
