@@ -17,7 +17,8 @@ module.exports = {
         'secondary': '#F5BE3A',
         'third': '#242526',
         'beige': '#fdf4e3',
-        'ciel': '#00A1BA'
+        'ciel': '#00A1BA',
+        'light': '#A2BEC1'
       }
     },
   },
