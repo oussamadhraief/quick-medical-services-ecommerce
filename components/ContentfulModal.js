@@ -10,7 +10,7 @@ function ContentfulModal({show, onClose, content}) {
     const [isBrowser, setIsBrowser] = useState(false);
     const {selectedSize,setSelectedSize} = useContext(SizeSelectionContext)
 
-    const delivery = 'pfe/delivery_v7wo2v.png'
+    const delivery = 'pfe/delivery_nexa3b.png'
     const payment = 'pfe/payment_zy8xmo.png'
     const rapidity = 'pfe/rapidity_xclfrf.png'
     const satisfaction = 'pfe/satisfait_yak5un.png'
@@ -55,7 +55,7 @@ function ContentfulModal({show, onClose, content}) {
             </div>
             <div className="h-fit py-5 px-14 w-fit grid gap-5">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
-                    <Image src={delivery} alt='' width={80} height={80} layout='fixed' />
+                    <Image src={delivery} alt='' width={80} height={55} layout='fixed' />
                     <p className="text-center font-medium text-sm text-third">Livraison à<br></br>domicile</p>
                 </div>
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
