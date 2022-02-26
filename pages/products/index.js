@@ -80,7 +80,7 @@ export default function Products(){
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
-                    {renderedArray.map(item => <SrollableProduct product={item} />)}
+                    {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
             </ProductsContext.Provider>
