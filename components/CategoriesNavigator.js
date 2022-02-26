@@ -4,7 +4,7 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
     return(
         <>
         {categoriesAndSubcategories.map(item => 
-                        <ul id={item.category} key={item.category} className='ml-3 my-5'><span onClick={e => {
+                        <ul id={item.category} key={item.category}><span onClick={e => {
                             const element = document.querySelectorAll(`#${item.category} .expandable`)
                             if(element[0].offsetHeight < 24 ) {
                                 element.forEach(elem => {
