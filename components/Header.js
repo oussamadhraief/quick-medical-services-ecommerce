@@ -20,16 +20,20 @@ export default function Header(){
                 setscrolled(true)
                 document.getElementById('cart').style.left = document.getElementById('positioning').getBoundingClientRect().left +'px'
                 document.getElementById('cart').style.top = document.getElementById('positioning').getBoundingClientRect().top +'px'
+                document.getElementById('nav').classList.add('glass')
+                document.getElementById('anotherPositioning').style.display = 'none'
             } else {
                 setscrolled(false)
                 document.getElementById('cart').style.top = (document.querySelectorAll('.underlineAnimatedLink')[0].getBoundingClientRect().top) +'px'
                 document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+                document.getElementById('anotherPositioning').style.display = 'block'
+                document.getElementById('nav').classList.remove('glass')
             }
           }
     )})
 
     return (
-        <header className="bg-na3ne3i pb-32 pt-5">
+        <header className="bg-na3ne3i pb-32 pt-5 flex flex-col items-center">
             <Navbar />
             <NavigationSection />
             <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>

@@ -100,3 +100,9 @@ a {
   transition-property: all;
   transition-duration: 1s;
 }
+
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
