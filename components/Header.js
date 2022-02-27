@@ -29,7 +29,7 @@ export default function Header(){
     )})
 
     return (
-        <header className="bg-white mb-32">
+        <header className="bg-na3ne3i pb-32 pt-5">
             <Navbar />
             <NavigationSection />
             <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
