@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --animate-delay: 0.1s;
+}
+
 html,
 body {
   padding: 0;
@@ -105,4 +109,21 @@ a {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+#banner {
+  animation: getbigger 0.5s ease-in-out;
+}
+
+@keyframes getbigger {
+  0%{
+    transform: scale(0.1);
+  },
+  100%{
+    transform: scale(1);
+  }
+}
+
+#roundme {
+  border-radius: 45px;
 }
