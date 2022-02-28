@@ -19,7 +19,8 @@ module.exports = {
         'beige': '#fdf4e3',
         'ciel': '#00C4BB',
         'light': '#005832',
-        'na3ne3i': '#059669'
+        'na3ne3i': '#059669',
+        'cool': '#22BF79'
       }
     },
   },
