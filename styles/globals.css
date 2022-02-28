@@ -105,12 +105,6 @@ a {
   transition-duration: 1s;
 }
 
-.glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.7));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
 #banner {
   animation: getbigger 0.5s ease-in-out;
 }
@@ -125,5 +119,5 @@ a {
 }
 
 #roundme {
-  border-radius: 45px;
+  box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white, 2px 0 15px -4px rgba(0, 0, 0, 0.4), 2px 0 15px -4px rgba(0, 0, 0, 0.4);
 }

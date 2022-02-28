@@ -15,6 +15,10 @@ export default function Header(){
     useEffect(() => {
         document.getElementById('cart').style.top = (document.querySelectorAll('.underlineAnimatedLink')[0].getBoundingClientRect().top) +'px'
         document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+        document.getElementById('cart').classList.add('animate__animated')
+        document.getElementById('cart').classList.add('animate__fadeInDown')
+        document.getElementById('nav').classList.add('animate__animated')
+        document.getElementById('nav').classList.add('animate__fadeInDown')
     },[])
 
     useEffect(() => {
@@ -23,21 +27,19 @@ export default function Header(){
                 setscrolled(true)
                 document.getElementById('cart').style.left = document.getElementById('positioning').getBoundingClientRect().left +'px'
                 document.getElementById('cart').style.top = document.getElementById('positioning').getBoundingClientRect().top +'px'
-                document.getElementById('nav').classList.add('glass')
-                document.getElementById('anotherPositioning').style.display = 'none'
+                // document.getElementById('anotherPositioning').style.display = 'none'
             } else {
                 setscrolled(false)
                 document.getElementById('cart').style.top = (document.querySelectorAll('.underlineAnimatedLink')[0].getBoundingClientRect().top) +'px'
                 document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
-                document.getElementById('anotherPositioning').style.display = 'block'
-                document.getElementById('nav').classList.remove('glass')
+                // document.getElementById('anotherPositioning').style.display = 'block'
             }
           }
     )})
 
     return (
-        <header className="bg-gradient-to-br from-light to-na3ne3i pt-5 flex flex-col items-center">
-            <Navbar />
+        <header className={`bg-gradient-to-br from-light to-na3ne3i ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col items-center`}>
+            <Navbar scrolled={scrolled} />
             <div className="w-full h-fit flex flex-nowrap items-center justify-evenly mt-24">
                 <div className="grid place-items-start">
                 <h1 className="flex flex-nowrap gap-5 text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">

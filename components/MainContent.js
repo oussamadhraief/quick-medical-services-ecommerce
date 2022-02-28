@@ -6,7 +6,7 @@ import { ProductsContext } from '../utils/ProductsContext'
 
 export default function MainContent(){
 
-    const steps = 'pfe/Copy_of_01_tptj1g.gif'
+    const steps = 'pfe/Roadmap_Timeline_Process_Infographic_Graph_1_xlmjdq.png'
     const searchIcon = 'pfe/searchIcon_ooxkbe.png'
     
     const [value,setValue] = useState([])
@@ -26,10 +26,10 @@ export default function MainContent(){
     return(
         <ProductsContext.Provider value={{value,setValue}}>
         <main className="h-fit w-full bg-white overflow-hidden">
-        <p className='mt-32 text-3xl font-medium mx-auto w-fit mb-10 bg-secondary text-white px-5 py-2 shadow-stylish'>Comment commander en ligne ?</p>
         <div className='w-full h-fit bg-white mb-32'>
-            <div className='relative w-9/12 h-[500px] rounded-[45px] mx-auto bg-white '>
-                    <Image src={steps} alt='design' layout='fill' quality={100} id='roundme' />
+        {/* <p className='mt-32 text-3xl font-medium mx-auto w-fit mb-10 bg-secondary text-white px-5 py-2 shadow-stylish absolute left-1/2 right-1/2 z-[9999]'>Comment commander en ligne ?</p> */}
+            <div className='relative w-6/12  h-[650px] mx-auto bg-white  mt-32' id='roundme'>
+                    <Image src={steps} alt='design' layout='fill' quality={100}  />
             </div>
         </div>
             {/* <Introduction />
