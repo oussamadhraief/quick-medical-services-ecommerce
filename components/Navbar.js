@@ -3,7 +3,7 @@ import 'animate.css'
 
 export default function Navba({ scrolled }){
 
-    const logo = 'pfe/Untitled_design_hw2rp9.png'
+    const logo = 'pfe/22BF79_v9wauf.png'
 
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-evenly w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-evenly w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-[50px] fixed"}>

@@ -1,4 +1,3 @@
-import Introduction from './Introduction'
 import Image from 'next/image'
 import ProductsCarousel from './ProductsCarousel'
 import { useEffect, useState } from 'react'
@@ -8,6 +7,11 @@ export default function MainContent(){
 
     const steps = 'pfe/Roadmap_Timeline_Process_Infographic_Graph_1_xlmjdq.png'
     const searchIcon = 'pfe/searchIcon_ooxkbe.png'
+    const card1 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__3_-removebg-preview_1_w5ecrw.png'
+    const card2 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__6_-removebg-preview_m5nsuf.png'
+    const card3 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__5_-removebg-preview_am1ajy.png'
+    const card4 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__4_-removebg-preview_vd14wo.png'
+    const card5 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__7_-removebg-preview_yompbn.png'
     
     const [value,setValue] = useState([])
     const [availableSearch,setAvailableSearch] = useState('')
@@ -26,11 +30,67 @@ export default function MainContent(){
     return(
         <ProductsContext.Provider value={{value,setValue}}>
         <main className="h-fit w-full bg-white overflow-hidden">
-        <div className='w-full h-fit bg-white mb-32'>
-        {/* <p className='mt-32 text-3xl font-medium mx-auto w-fit mb-10 bg-secondary text-white px-5 py-2 shadow-stylish absolute left-1/2 right-1/2 z-[9999]'>Comment commander en ligne ?</p> */}
-            <div className='relative w-6/12  h-[650px] mx-auto bg-white  mt-32' id='roundme'>
+            <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
+            
+            
+        <p className='text-3xl font-medium mx-auto w-fit bg-[#44A4F4] text-white px-5 py-2 shadow-stylish mb-20 hover:cursor-pointer hover:scale-125 transition-all'>Comment commander en ligne ?</p>
+        <div id='steps' className='w-9/12 mx-auto h-fit bg-transparent py-0  flex flex-nowrap justify-evenly items-center'>
+            {/* <div className='relative w-6/12  h-[650px] mx-auto bg-white  mt-32' id='roundme'>
                     <Image src={steps} alt='design' layout='fill' quality={100}  />
+            </div> */}
+            <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
+                <div className='w-[105px] h-32 absolute -top-14 left-0 right-0 mx-auto '>
+                    <Image src={card1} alt='explorer' layout='fill' />
+                </div>
+                <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#FF8F2E] text-4xl'>01</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third'>Explorez nos produits</p>
+                <div className='w-24 h-3 absolute -bottom-[7px] bg-[#FF8F2E] rounded-3xl left-0 right-0 mx-auto '>
+                </div>
             </div>
+
+            <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
+                <div className='w-[105px] h-32 absolute -top-14 left-0 right-0 mx-auto '>
+                    <Image src={card4} alt='explorer' layout='fill' />
+                </div>
+                <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#FF3874] text-4xl'>02</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third text-center px-2'>Choisissez vos instruments et ajoutez les au panier</p>
+                <div className='w-24 h-3 absolute -bottom-[7px] bg-[#FF3874] rounded-3xl left-0 right-0 mx-auto '>
+                </div>
+            </div>
+
+            <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
+                <div className='w-[105px] h-32 absolute -top-14 left-0 right-0 mx-auto '>
+                    <Image src={card3} alt='explorer' layout='fill' />
+                </div>
+                <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#8C52FF] text-4xl'>03</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third'>Demandez un devis</p>
+
+                <div className='w-24 h-3 absolute -bottom-[7px] bg-[#8C52FF] rounded-3xl left-0 right-0 mx-auto '>
+                </div>
+            </div>
+
+            <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
+                <div className='w-[105px] h-32 absolute -top-14 left-0 right-0 mx-auto '>
+                    <Image src={card2} alt='explorer' layout='fill' />
+                </div>
+                <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#44A4F4] text-4xl'>04</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third'>Passez une commande</p>
+
+                <div className='w-24 h-3 absolute -bottom-[7px] bg-[#44A4F4] rounded-3xl left-0 right-0 mx-auto '>
+                </div>
+            </div>
+
+            <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
+                <div className='w-[105px] h-32 absolute -top-14 left-0 right-0 mx-auto '>
+                    <Image src={card5} alt='explorer' layout='fill' />
+                </div>
+                <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#22BF79] text-4xl'>05</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third'>Payez à la livraison</p>
+
+                <div className='w-24 h-3 absolute -bottom-[7px] bg-[#22BF79] rounded-3xl left-0 right-0 mx-auto '>
+                </div>
+            </div>
+        </div>
         </div>
             {/* <Introduction />
             <div className='relative w-full h-20 bg-white'>
