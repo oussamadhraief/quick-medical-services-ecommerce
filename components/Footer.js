@@ -12,8 +12,8 @@ export default function Footer(){
     const logo = 'pfe/logoqms2_2_kslfsx.png'
 
     return (
-        <footer className="w-full min-w-full h-[500px] grid bg-ciel rounded-tr-[70px] mt-32 shadow-3xl">
-            <div className="h-fit py-5 px-14 w-[94%] flex justify-center gap-32 flex-wrap md:flex-nowrap items-center">
+        <footer className="w-full min-w-full h-fit grid bg-ciel rounded-tr-[70px] mt-32 shadow-3xl">
+            <div className="h-fit py-5 px-5 w-[94%] flex justify-center gap-10 lg:gap-20 flex-wrap md:flex-nowrap items-center">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
                     <Image src={delivery} alt='' width={100} height={60} layout='fixed' />
                     <p className="text-center font-medium text-sm text-third">Livraison à<br></br>domicile</p>
@@ -31,21 +31,21 @@ export default function Footer(){
                     <p className="text-start font-medium text-sm text-third">Garantie de<br></br>satisfaction totale</p>
                 </div>
             </div>
-            <div className="w-[94%] min-h-full grid md:flex justify-around items-center h-[350px] pt-20 bg-third rounded-tr-[70px]">
-                <address className="text-white grid space-y-2 not-italic">
+            <div className="w-[98%] md:w-[94%] min-h-[350px] gap-10 grid place-items-center px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third rounded-tr-[70px]">
+                <address className="text-white grid place-items-center space-y-2 not-italic w-fit h-fit">
                     <Link href='https://www.facebook.com/QMSJRIBI'>
-                        <a target='_blank' className="flex items-center flex-nowrap"><Image src={facebook} alt='facebook' width={16} height={16} layout='fixed' />&nbsp;Facebook: QUICK Medical services</a>
+                        <a target='_blank' className="flex items-center flex-nowrap whitespace-nowrap"><Image src={facebook} alt='facebook' width={16} height={16} layout='fixed' />&nbsp;Facebook: QUICK Medical services</a>
                     </Link>
-                    <p>&#x2709; Email: qms.jribi@gmail.com</p>
-                    <p>&#x260E; Tel: +216 44 219 218</p>
+                    <p className="whitespace-nowrap">&#x2709; Email: qms.jribi@gmail.com</p>
+                    <p className="whitespace-nowrap">&#x260E; Tel: +216 44 219 218</p>
                         
                     <div className="flex items-center flex-nowrap">
                         <Image src={location} alt='location' width={20} height={20} layout='fixed' />
-                        <p>Sfax, Tunisie</p>
+                        <p className="whitespace-nowrap">Sfax, Tunisie</p>
                     </div>
                 </address>
                     
-                <div className="text-white italic flex flex-nowrap justify-center h-fit w-fit items-center"> Créé par&nbsp;
+                <div className="text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap"> Créé par&nbsp;
                     <div className="font-medium text-ciel hover:cursor-pointer relative group">
                         Oussema&nbsp;
                         <p className="absolute -top-[85px] -left-20 text-center bg-white hidden text-third group-hover:block px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief

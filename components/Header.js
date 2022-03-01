@@ -13,36 +13,46 @@ export default function Header(){
     const [scrolled,setscrolled] = useState(false)
 
     useEffect(() => {
-        document.getElementById('cart').style.top = (document.querySelectorAll('.underlineAnimatedLink')[0].getBoundingClientRect().top) +'px'
+        document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
         document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
         document.getElementById('cart').classList.add('animate__animated')
         document.getElementById('cart').classList.add('animate__fadeInDown')
         document.getElementById('nav').classList.add('animate__animated')
         document.getElementById('nav').classList.add('animate__fadeInDown')
+        document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
     },[])
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
-            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
-                setscrolled(true)
-                document.getElementById('cart').style.left = document.getElementById('positioning').getBoundingClientRect().left +'px'
-                document.getElementById('cart').style.top = document.getElementById('positioning').getBoundingClientRect().top +'px'
-                // document.getElementById('anotherPositioning').style.display = 'none'
-            } else {
-                setscrolled(false)
-                document.getElementById('cart').style.top = (document.querySelectorAll('.underlineAnimatedLink')[0].getBoundingClientRect().top) +'px'
-                document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
-                // document.getElementById('anotherPositioning').style.display = 'block'
-            }
+            handleAnimation()
+          }
+    )
+        window.addEventListener("resize", () => {
+            handleAnimation()
+            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
           }
     )})
 
+    const handleAnimation = () => {
+        if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+            setscrolled(true)
+            document.getElementById('cart').style.left = document.getElementById('positioning').getBoundingClientRect().left +'px'
+            document.getElementById('cart').style.top = document.getElementById('positioning').getBoundingClientRect().top +'px'
+            // document.getElementById('anotherPositioning').style.display = 'none'
+        } else {
+            setscrolled(false)
+            document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
+            document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+            // document.getElementById('anotherPositioning').style.display = 'block'
+        }
+    }
+
     return (
-        <header className={`bg-gradient-to-br from-light to-na3ne3i ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col items-center`}>
+        <header className={`bg-gradient-to-br from-light to-na3ne3i ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col w-full h-fit items-center`}>
             <Navbar scrolled={scrolled} />
-            <div className="w-full h-fit flex flex-nowrap items-center justify-evenly mt-24">
-                <div className="grid place-items-start">
-                <h1 className="flex flex-nowrap gap-5 text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
+            <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
+                <div className="grid place-items-start w-full order-2 md:order-1 md:w-1/2">
+                <h1 className="flex flex-nowrap gap-5 text-xl sm:text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
                     LES MEILLEURS 
                     <div className="grid w-fit h-fit mt-1">
                     <h6 className="text-xl font-extrabold mb-[1px]">PRIX</h6>
@@ -57,8 +67,8 @@ export default function Header(){
                 <NavigationSection />
 
                 </div>
-                <div id="banner" className="relative w-[700px] h-[700px]">
-                    <Image src={banner} alt='surgeon' layout='fill' />
+                <div id="banner" className="relative order-1 md:order-2 w-full md:w-5/12 h-full">
+                    <Image src={banner} alt='surgeon' width={700} height={700} layout='responsive' />
                 </div>
             </div>
             <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
