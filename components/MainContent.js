@@ -34,7 +34,7 @@ export default function MainContent(){
             
             
         <p className='text-lg sm:text-2xl md:text-3xl font-medium mx-auto w-fit bg-[#44A4F4] text-white px-5 py-2 shadow-stylish mb-20 hover:cursor-pointer hover:scale-125 transition-all whitespace-nowrap'>Comment commander en ligne ?</p>
-        <div id='steps' className='w-full px-5 lg:px-0 lg:w-11/12 xl:w-9/12 gap-5 mx-auto h-fit bg-transparent py-0  flex flex-wrap lg:flex-nowrap justify-evenly items-center'>
+        <div id='steps' className='w-full px-5 lg:px-0 lg:w-11/12 xl:w-10/12 2xl:w-9/12 gap-5 mx-auto h-fit bg-transparent py-0  flex flex-wrap lg:flex-nowrap justify-evenly items-center'>
             {/* <div className='relative w-6/12  h-[650px] mx-auto bg-white  mt-32' id='roundme'>
                     <Image src={steps} alt='design' layout='fill' quality={100}  />
             </div> */}
