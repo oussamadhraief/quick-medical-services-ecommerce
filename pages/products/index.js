@@ -76,7 +76,7 @@ export default function Products(){
                     </div>
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div id="categoriesOrderer" className="w-3/12 overflow-hidden transition-[height] duration-300 h-full bg-white border min-h-fit">
+                <div id="categoriesOrderer" className="w-3/12 overflow-hidden transition-[height] duration-300 h-fit bg-white border min-h-fit">
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
