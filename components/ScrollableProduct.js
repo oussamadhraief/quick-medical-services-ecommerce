@@ -38,7 +38,7 @@ export default function ScrollableProduct({product}){
                 
                 </div>
                     
-                <button className={product.availability == 'available' ? "bg-gradient-to-r from-cool to-na3ne3i rounded-lg text-white text-sm font-medium px-3 py-2 my-1 h-fit w-fit whitespace-nowrap" : "bg-gradient-to-r from-secondary to-orange-400 rounded-lg text-white text-sm font-medium px-3 py-2 my-1 h-fit w-fit whitespace-nowrap"}>Ajouter au panier</button>
+                <button className="bg-gradient-to-r from-cool to-na3ne3i rounded-lg text-white text-sm font-medium px-3 py-2 my-1 h-fit w-fit whitespace-nowrap">Ajouter au panier</button>
                 <ContentfulModal show={show} content={product} onClose={() => {
                     document.body.style.height = 'fit'
                     document.body.style.overflow = 'auto'
