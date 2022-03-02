@@ -48,16 +48,16 @@ export default function Footer(){
                 <div className="text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap"> Créé par&nbsp;
                     <div className="font-medium text-ciel hover:cursor-pointer relative group">
                         Oussema&nbsp;
-                        <p className="absolute -top-[85px] -left-20 text-center bg-white hidden text-third group-hover:block px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief
-                        oussema.dhraief@gmail.com <br></br>
+                        <p className="absolute -top-[85px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief
+                        <br></br>oussema.dhraief@gmail.com <br></br>
                         <Link href='https://www.oussama-dhraief.tech'>
                             <a target='_blank'>www.oussama-dhraief.tech</a>
                         </Link></p>
                     </div> et &nbsp;
                     <div className="font-medium text-secondary hover:cursor-pointer relative group">
                         Mohamed
-                        <p className="absolute -top-[70px] -left-16 text-center bg-white hidden text-third group-hover:block px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Mohamed Halouani
-                        halouani142@gmail.com</p>
+                        <p className="absolute -top-[70px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Mohamed Halouani
+                        <br></br>halouani142@gmail.com</p>
                     </div>&nbsp; &#xa9;  2022, Tunisie.
                 </div>
                     <div className="w-fit h-fit flex flex-nowrap justify-center items-center hover:cursor-pointer relative group" onClick={() => window.scroll(0,0)}>

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import 'animate.css'
+import Link from "next/link"
 
 export default function Navba({ scrolled }){
 
@@ -7,11 +8,13 @@ export default function Navba({ scrolled }){
 
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-around md:justify-evenly w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-around md:justify-evenly w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-[50px] fixed"}>
-            <div className="w-fit h-fit flex flex-nowrap justify-center items-center hover:cursor-pointer">
+            <Link href='/' className="w-fit h-fit flex flex-nowrap justify-center items-center hover:cursor-pointer">
                 <Image src={logo} alt='Quick medical services logo' width={230} height={90} layout='fixed' objectFit="center" />
-            </div>
+            </Link>
             <ul className="md:w-3/6 h-fit grid md:flex flex-nowrap justify-end mr-8 gap-20 items-center">
-                <li className="text-medium hidden md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
+                <li className="text-medium hidden md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/products'>
+                    <a>Produits</a>
+                    </Link></li>
                 <li className="text-medium hidden md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">Contact</li>
                 <li className="text-medium hidden md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">Termes et conditions</li>
                 <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>
