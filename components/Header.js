@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import 'animate.css'
 
-export default function Header(){
+export default function Header(props){
 
     const cart = 'pfe/cart_ygq4xr.png'
     const banner = 'pfe/taxi-485_scg8nz.png'
@@ -50,6 +50,8 @@ export default function Header(){
     return (
         <header className={`bg-gradient-to-br from-light to-na3ne3i ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col w-full h-fit items-center`}>
             <Navbar scrolled={scrolled} />
+            {props.landingPage ? 
+            <>
             <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
                 <div className="grid place-items-start w-full order-2 md:order-1 md:w-1/2">
                 <h1 className="flex flex-nowrap gap-5 text-xl sm:text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
@@ -81,6 +83,26 @@ export default function Header(){
             <div className="w-full h-20 relative">
                 <Image src={design} alt='design' layout="fill" />
             </div>
+            </> 
+            : 
+            <>
+            <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
+                <div className="w-11/12 sm:w-10/12 md:w-4/6 lg:w-3/6 h-fit mt-52 mb-28 mx-auto">
+                    
+                <NavigationSection />
+                </div>
+            </div>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+                <Image src={cart} alt='cart icon' width={37} height={32} layout='fixed' objectFit="contain" objectPosition='center' />
+                <p className={scrolled ? "absolute bg-third border shadow-stylish rounded-full w-fit h-fit top-0 -right-2.5 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third border shadow-stylish rounded-full w-fit h-fit -top-1 -right-3 text-white font-medium text-xs px-1.5 text-center'}>2</p>
+            </div>
+            <div id="positioning" className="fixed bottom-0.5 right-1.5 w-14 h-14">
+                
+            </div>
+            <div className="w-full h-20 relative">
+                <Image src={design} alt='design' layout="fill" />
+            </div>
+            </> }
         </header>
     )
 }

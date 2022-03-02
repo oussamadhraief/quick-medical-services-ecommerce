@@ -55,7 +55,7 @@ export default function Details(){
 
     return(
         <div>
-            <Header />
+            <Header landingPage={false} />
             <div className="w-full flex flex-nowrap justify-start items-start">
                 
             

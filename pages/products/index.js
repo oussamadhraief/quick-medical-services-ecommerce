@@ -16,6 +16,7 @@ export default function Products(){
     const [pages , setPages] = useState(1)
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+    const [heightHolder,setHeightHolder] = useState(0)
 
 
     useEffect(async () => {
@@ -51,14 +52,35 @@ export default function Products(){
         }
     }
 
+    function handleHideCategories() {
+        const CategoriesNavigator = document.getElementById('categoriesOrderer')
+        const ProductsHolder = document.getElementById('categoriesOrderer1')
+        const FlipArrow = document.getElementById('flipArrow')
+        if(CategoriesNavigator.offsetHeight > 10) {
+            CategoriesNavigator.style.height = '0px'
+            CategoriesNavigator.style.width = '0px'
+            ProductsHolder.style.width = '100%'
+            CategoriesNavigator.style.border = '0px'
+            flipArrow.style.transform = 'rotate(90deg)'
+        }else{
+            CategoriesNavigator.style.height = categoriesAndSubcategories.length * 41 +'px'
+            CategoriesNavigator.style.width = '25%'
+            ProductsHolder.style.width = '75%'
+            CategoriesNavigator.style.border = '1px solid #e5e7eb'
+            flipArrow.style.transform = 'rotate(-90deg)'
+        }
+    }
+
     return(
         <div>
-            <Header />
+            <Header landingPage={false} />
             <ProductsContext.Provider value={{value,setValue}} >
-                <div className="w-full h-fit flex justify-end">
-                    <div className="w-3/12 h-full relative">
-                        
-                    <h1 className="mx-auto w-fit h-fit font-bold text-xl text-main mb-5">Catégories et sous-catégories arrow</h1>
+                <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
+                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-na3ne3i hover:cursor-pointer hover:bg-ciel" onClick={e => {
+                        handleHideCategories()
+                    }}>
+                        <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>
+                        <p id="flipArrow" className="h-fit w-fit -rotate-90 text-white transition-all font-bold text-lg">&#11164;</p>
                     </div>
                     <div className="w-9/12 h-10 ml-3 grid sm:flex justify-between px-5 items-center flex-nowrap">
                         <select className="w-fit h-fit px-2 py-1 border-[1px] outline-none hover:cursor-pointer">

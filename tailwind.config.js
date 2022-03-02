@@ -20,7 +20,8 @@ module.exports = {
         'ciel': '#0098B0',
         'light': '#005832',
         'na3ne3i': '#059669',
-        'cool': '#22BF79'
+        'cool': '#22BF79',
+        'icy': '#44A4F4'
       }
     },
   },

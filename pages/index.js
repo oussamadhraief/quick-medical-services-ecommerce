@@ -30,7 +30,7 @@ export default function Home(props) {
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-      <Header />
+      <Header landingPage={true} />
       <MainContent />
       <Footer />
     </div>
