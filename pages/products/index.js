@@ -18,7 +18,6 @@ export default function Products(){
     const [pages , setPages] = useState(1)
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
-    const [heightHolder,setHeightHolder] = useState(0)
     const [activatedModal,setActivatedModal] = useState(false)
 
 
