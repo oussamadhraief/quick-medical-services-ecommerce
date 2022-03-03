@@ -42,15 +42,15 @@ function ContentfulModal({show, onClose, content}) {
                 <p className="font-bold text-2xl text-main my-5">{content.name}</p>
                 <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;</p>
                 <p className="font-bold ml-2 mb-5 text-2xl text-main">{content.reference}.{content.sizes[selectedSize]}</p>
-                <p className="font-medium text-zinc-600 text-md">Catégorie:&nbsp;<span className="font-medium ml-2">{content.category}</span></p>
-                <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{content.subcategory}</span></p>
-                <p className="font-medium text-zinc-600 text-md mt-5 ">Tailles:&nbsp;</p>
+                <p className="font-medium text-zinc-600 text-md">Tailles:&nbsp;</p>
                 <SizeSelection sizes={content.sizes} />
                 <p className="font-medium text-zinc-600 text-md mt-5">Description:&nbsp;</p>
                 <p>{content.description != '' ? content.description: 'pas de description'}</p>
                 <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>
                 {content.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
-                <input type="number" name="quantity" value="1" min={1} className='border-2 border-main ml-14 rounded-lg h-fit w-20 text-center mt-5' />
+                <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{content.category}</span></p>
+                <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{content.subcategory}</span></p>
+                <input type="number" name="quantity" value="1" min={1} className='border-2 border-main ml-14 rounded-lg h-fit w-20 text-center mt-10' />
                 <button className="mt-5 bg-ciel w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md:text-medium xl:text-lg font-medium hover:bg-main"> Ajouter au panier</button>
             </div>
             <div className="h-fit py-5 px-14 w-fit grid gap-5">

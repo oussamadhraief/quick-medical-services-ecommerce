@@ -41,7 +41,7 @@ export default function ProductsCarousel({id}) {
     }
 
     return (
-        <div   className='scrollable relative w-screen overflow-x-hidden h-fit bg-white'>
+        <div className='scrollable relative w-screen overflow-x-hidden h-fit bg-white'>
             <div id={id} className='w-screen h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-20 px-5 md:px-20'>
             <SizeSelectionContext.Provider value={{ selectedSize,setSelectedSize}} >
             {renderedArray}

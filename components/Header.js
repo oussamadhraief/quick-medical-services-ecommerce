@@ -66,7 +66,7 @@ export default function Header(props){
                 <button className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3">Explorer les produits &#x2192;</button>
                 <button className="text-white bg-gradient-to-r from-[#0689c5] to-ciel px-4 py-3 ml-1 w-1/3">Contactez-nous !</button>
                 </div>
-                <NavigationSection />
+                <NavigationSection landingPage={props.landingPage} />
 
                 </div>
                 <div id="banner" className="relative order-1 md:order-2 w-full md:w-5/12 h-full">
@@ -89,7 +89,7 @@ export default function Header(props){
             <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
                 <div className="w-11/12 sm:w-10/12 md:w-4/6 lg:w-3/6 h-fit mt-52 mb-28 mx-auto">
                     
-                <NavigationSection />
+                <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
             <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>

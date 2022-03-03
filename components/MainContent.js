@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import ProductsCarousel from './ProductsCarousel'
 import { useEffect, useState } from 'react'
+import LoadingAnimation from './LoadingAnimation'
 import { ProductsContext } from '../utils/ProductsContext'
+import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 
 export default function MainContent(){
 
@@ -16,12 +18,15 @@ export default function MainContent(){
     const [value,setValue] = useState([])
     const [availableSearch,setAvailableSearch] = useState('')
     const [unavailableSearch,setUnavailableSearch] = useState('')
+    const [loading,setLoading] = useState(true)
+    const [activatedModal,setActivatedModal] = useState(false)
 
     useEffect(async () => {
         if(value.length < 1){
             const res = await fetch('api/products')
             const {data} = await res.json()
             setValue(data)
+            setLoading(false)
         }else{
 
         }
@@ -29,15 +34,14 @@ export default function MainContent(){
     
     return(
         <ProductsContext.Provider value={{value,setValue}}>
+        <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
         <main className="h-fit w-full bg-white overflow-hidden">
             <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
             
             
         <p className='text-lg sm:text-2xl md:text-3xl font-medium mx-auto w-fit bg-[#44A4F4] text-white px-5 py-2 shadow-stylish mb-20 hover:cursor-pointer hover:scale-125 transition-all whitespace-nowrap'>Comment commander en ligne ?</p>
         <div id='steps' className='w-full px-5 lg:px-0 lg:w-11/12 xl:w-10/12 2xl:w-9/12 gap-5 mx-auto h-fit bg-transparent py-0  flex flex-wrap lg:flex-nowrap justify-evenly items-center'>
-            {/* <div className='relative w-6/12  h-[650px] mx-auto bg-white  mt-32' id='roundme'>
-                    <Image src={steps} alt='design' layout='fill' quality={100}  />
-            </div> */}
+           
             <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
                 <div className='w-[105px] hover:scale-110 h-32 absolute -top-14 left-0 right-0 mx-auto '>
                     <Image src={card1} alt='explorer' layout='fill' />
@@ -92,12 +96,12 @@ export default function MainContent(){
             </div>
         </div>
         </div>
-            {/* <Introduction />
-            <div className='relative w-full h-20 bg-white'>
-                <Image src={asymmetricalTriangle} alt='design' layout='fill' />
-            </div> */}
+            {loading ? <div className='w-screen h-[500px] relative'>
+                <LoadingAnimation bgOpacity={true} />
+                </div> :
+                <>
             <div className='flex justify-between w-screen h-fit'>
-            <p className='text-emerald-600 font-semibold text-2xl ml-10 '>Produits disponibles à tout moment</p>
+            <p className='text-na3ne3i font-semibold text-2xl ml-10 '>Produits disponibles à tout moment</p>
             <div className='flex flex-nowrap justify-between items-center w-60 border-[1px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='availableSearch' value={availableSearch} onChange={(e) => {
                     setAvailableSearch(e.target.value)
@@ -116,8 +120,10 @@ export default function MainContent(){
             <Image src={searchIcon} alt='search icon' width={20} height={20} layout='fixed' />    
             </div>
             </div>
-            <ProductsCarousel id='navigatablefeatured1'/>
+            <ProductsCarousel id='navigatablefeatured1' />
+            </>}
         </main>
+        </ActivatedModalContext.Provider>
         </ProductsContext.Provider>
     )
 }

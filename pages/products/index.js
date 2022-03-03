@@ -5,8 +5,10 @@ import { ProductsContext } from "../../utils/ProductsContext"
 import SrollableProduct from "../../components/ScrollableProduct"
 import PagesNavigator from "../../components/PagesNavigator"
 import { PageSelectionContext } from "../../utils/PageSelectionContext"
-import { PagesContext } from "../../utils/PagesContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
+import { PagesContext } from "../../utils/PagesContext"
+import { ActivatedModalContext } from "../../utils/ActivatedModalContext"
+import { CategoriesContext } from "../../utils/CategoriesContext"
 
 
 export default function Products(){
@@ -17,6 +19,7 @@ export default function Products(){
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [heightHolder,setHeightHolder] = useState(0)
+    const [activatedModal,setActivatedModal] = useState(false)
 
 
     useEffect(async () => {
@@ -61,28 +64,31 @@ export default function Products(){
             CategoriesNavigator.style.width = '0px'
             ProductsHolder.style.width = '100%'
             CategoriesNavigator.style.border = '0px'
-            flipArrow.style.transform = 'rotate(90deg)'
+            FlipArrow.style.transform = 'rotate(90deg)'
         }else{
-            CategoriesNavigator.style.height = categoriesAndSubcategories.length * 41 +'px'
+            CategoriesNavigator.style.height = 'fit-content'
             CategoriesNavigator.style.width = '25%'
             ProductsHolder.style.width = '75%'
             CategoriesNavigator.style.border = '1px solid #e5e7eb'
-            flipArrow.style.transform = 'rotate(-90deg)'
+            FlipArrow.style.transform = 'rotate(-90deg)'
         }
     }
 
     return(
         <div>
+            <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <Header landingPage={false} />
+            </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
+            <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
                 <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
-                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-na3ne3i hover:cursor-pointer hover:bg-ciel" onClick={e => {
+                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-third hover:cursor-pointer hover:bg-na3ne3i" onClick={e => {
                         handleHideCategories()
                     }}>
                         <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>
                         <p id="flipArrow" className="h-fit w-fit -rotate-90 text-white transition-all font-bold text-lg">&#11164;</p>
                     </div>
-                    <div className="w-9/12 h-10 ml-3 grid sm:flex justify-between px-5 items-center flex-nowrap">
+                    <div className="w-9/12 h-10 ml-3 grid sm:flex justify-between items-center flex-nowrap">
                         <select className="w-fit h-fit px-2 py-1 border-[1px] outline-none hover:cursor-pointer">
                             <option value="newest">du plus récent au plus ancien</option>
                             <option value="newest">du plus ancien au plus récent</option>
@@ -105,6 +111,7 @@ export default function Products(){
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
+            </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
             <Footer />
         </div>

@@ -6,6 +6,7 @@ import LoadingAnimation from '../../components/LoadingAnimation'
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { SizeSelectionContext } from "../../utils/SizeSelectionContext"
+import { CategoriesContext } from "../../utils/CategoriesContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
 
 export default function Details(){
@@ -55,12 +56,15 @@ export default function Details(){
 
     return(
         <div>
+            
+            <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <Header landingPage={false} />
-            <div className="w-full flex flex-nowrap justify-start items-start">
+            </CategoriesContext.Provider>
+            <div className="w-full flex flex-nowrap justify-start items-start mt-32">
                 
             
                 <div className="w-3/12 border-2 h-full mx-2 ">
-                    <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
+                        <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 {product == null ? <LoadingAnimation bgOpacity={true} /> :
                 <div className="w-8/12 flex h-full flex-nowrap justify-start">
