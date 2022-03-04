@@ -12,26 +12,24 @@ import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../../utils/CategoriesContext"
 import { SearchContext } from "../../../utils/SearchContext"
 
-export default function Details(){
+export default function Results(){
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
     const [pages , setPages] = useState(1)
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
-    const [activatedModal,setActivatedModal] = useState(false)
     const [search,setSearch] = useState('')
+    const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
 
     useEffect(async () => {
         const id = router.query.id
-        const subcategoryId = router.query.subcategoryId
-        if(typeof(id) == 'string'){
-            const res = await fetch(`/api/category/${id}/${subcategoryId}`)
-            const {data} = await res.json()
-            setValue(data)
-            console.log(data);
-        }
+        if(typeof(id) == 'string'){const res = await fetch('/api/search/'+id)
+        const { data } = await res.json()
+        setValue(data)
+        setSearch(router.query.id)
+    }
     },[router])
 
     useEffect(() => {
@@ -91,7 +89,7 @@ export default function Details(){
         <div>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <SearchContext.Provider value={{search,setSearch}} >
-            <Header landingPage={false} />
+                <Header landingPage={false} />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
@@ -123,6 +121,7 @@ export default function Details(){
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
+                    {value.length > 0 ? <p className="w-full text-center font-medium text-third">Produits correspondants à votre recherche...</p> : <p className="w-full text-center font-medium text-third rounded-lg">Pas de produits correspondants à votre recherche "{router.query.id}" :&#40; ...</p>}
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>

@@ -7,6 +7,7 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { SizeSelectionContext } from "../../utils/SizeSelectionContext"
 import { CategoriesContext } from "../../utils/CategoriesContext"
+import { SearchContext } from "../../utils/SearchContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
 
 export default function Details(){
@@ -18,6 +19,7 @@ export default function Details(){
     
     const [product,setProduct] = useState()
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+    const [search,setSearch] = useState('')
     const [selectedSize , setSelectedSize]= useState(0)
     const router = useRouter()
 
@@ -58,7 +60,9 @@ export default function Details(){
         <div>
             
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
-            <Header landingPage={false} />
+            <SearchContext.Provider value={{search,setSearch}} >
+                <Header landingPage={false} />
+            </SearchContext.Provider>
             </CategoriesContext.Provider>
             <div className="w-full flex flex-nowrap justify-start items-start mt-32">
                 

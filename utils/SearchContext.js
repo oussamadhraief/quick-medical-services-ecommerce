@@ -1,4 +1,4 @@
 import { createContext } from "react";
 
 
-export const SearchContext = createContext(false)
+export const SearchContext = createContext(null)

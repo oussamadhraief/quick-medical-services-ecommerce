@@ -10,6 +10,7 @@ import CategoriesNavigator from "../../../components/CategoriesNavigator"
 import { PagesContext } from "../../../utils/PagesContext"
 import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../../utils/CategoriesContext"
+import { SearchContext } from "../../../utils/SearchContext"
 
 export default function Details(){
 
@@ -18,6 +19,7 @@ export default function Details(){
     const [pages , setPages] = useState(1)
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+    const [search,setSearch] = useState('')
     const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
 
@@ -86,7 +88,9 @@ export default function Details(){
     return(
         <div>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
+            <SearchContext.Provider value={{search,setSearch}} >
             <Header landingPage={false} />
+            </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
