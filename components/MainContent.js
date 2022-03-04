@@ -3,7 +3,9 @@ import ProductsCarousel from './ProductsCarousel'
 import { useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import { ProductsContext } from '../utils/ProductsContext'
+import Header from "../components/Header"
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
+import { CategoriesContext } from '../utils/CategoriesContext'
 
 export default function MainContent(){
 
@@ -20,6 +22,8 @@ export default function MainContent(){
     const [unavailableSearch,setUnavailableSearch] = useState('')
     const [loading,setLoading] = useState(true)
     const [activatedModal,setActivatedModal] = useState(false)
+    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+
 
     useEffect(async () => {
         if(value.length < 1){
@@ -27,14 +31,26 @@ export default function MainContent(){
             const {data} = await res.json()
             setValue(data)
             setLoading(false)
-        }else{
-
+            let categories = data.map(item => item.category)
+            categories = [...new Set(categories)]
+            const orderedStuff = categories.map(item => orderedTable(item,data))
+            setCategoriesAndSubcategories(orderedStuff)
         }
     },[value])
+
+    function orderedTable(item,data){
+        return {
+            category: item,
+            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
+        }
+    }
     
     return(
         <ProductsContext.Provider value={{value,setValue}}>
         <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
+        <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
+            <Header landingPage={true} />
+        </CategoriesContext.Provider>
         <main className="h-fit w-full bg-white overflow-hidden">
             <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
             
