@@ -10,11 +10,13 @@ function CategoriesModal({show, onClose}) {
     const [isBrowser, setIsBrowser] = useState(false)
     const [selected,setSelected] = useState(0)
     const [subcats,setSubcats] = useState([])
+    const [loading,setLoading] = useState(true)
   
     useEffect(() => {
         if(categoriesAndSubcategories.length != 0 && isBrowser){
-            const { subcategories } = categoriesAndSubcategories.find((item,index) => index == selected)
-            setSubcats(subcategories)
+          setLoading(false)
+          const { subcategories } = categoriesAndSubcategories.find((item,index) => index == selected)
+          setSubcats(subcategories)
         }
     },[categoriesAndSubcategories,selected])
 
@@ -28,7 +30,11 @@ function CategoriesModal({show, onClose}) {
       };
 
       const modalContent = show ? 
-        <div id="categoriesModal" className="fixed h-screen w-screen top-0 left-0 bg-trendy z-[9999] flex items-center flex-nowrap animate__animated animate__faster animate__fadeIn">
+        <div id="categoriesModal" className={`fixed h-screen w-screen top-0 left-0 bg-trendy z-[9999] flex ${loading ? 'justify-center' : null} items-center flex-nowrap animate__animated animate__faster animate__fadeIn`}>
+            {loading ? <div className="w-8 h-8 rounded-full border-4  border-b-zinc-400  border-l-zinc-400 border-t-third border-r-third animate-spin">
+              
+            </div>
+            : <>  
             <button className="w-fit h-fit absolute right-5 hover:scale-125 top-1 font-medium font-mono text-xl" onClick={e => handleCloseClick(e)}>X</button>
             <div className="w-[13%] min-h-[95vh] h-fit overflow-auto border-r flex flex-col border-third gap-8 px-3 pt-5">
                 {categoriesAndSubcategories.map((item,index) => 
@@ -39,6 +45,7 @@ function CategoriesModal({show, onClose}) {
                 {subcats.map(item =>  <p key={item} className="w-fit h-fit font-medium flex flex-nowrap items-center">&#62;&nbsp;<p className="hover:underline hover:cursor-pointer" onClick={e => location.href=`/categories/${categoriesAndSubcategories[selected].category}/${item}`}>
                   {item}</p></p>)}
             </div>
+            </>}
         </div>
       : null
     
