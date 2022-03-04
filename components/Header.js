@@ -48,7 +48,7 @@ export default function Header(props){
     }
 
     return (
-        <header className={`bg-gradient-to-br from-light to-na3ne3i ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col w-full h-fit items-center`}>
+        <header className={`${props.landingPage ? 'bg-gradient-to-br from-light to-na3ne3i' : 'backgroundShiny'} ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col w-full h-fit items-center`}>
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>

@@ -1,17 +1,17 @@
-import Header from "../../components/Header"
-import Footer from "../../components/Footer"
+import { useRouter } from "next/dist/client/router"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../utils/ProductsContext"
-import SrollableProduct from "../../components/ScrollableProduct"
-import PagesNavigator from "../../components/PagesNavigator"
-import { PageSelectionContext } from "../../utils/PageSelectionContext"
-import CategoriesNavigator from "../../components/CategoriesNavigator"
-import { PagesContext } from "../../utils/PagesContext"
-import { ActivatedModalContext } from "../../utils/ActivatedModalContext"
-import { CategoriesContext } from "../../utils/CategoriesContext"
+import Header from "../../../components/Header"
+import Footer from "../../../components/Footer"
+import { ProductsContext } from "../../../utils/ProductsContext"
+import SrollableProduct from "../../../components/ScrollableProduct"
+import PagesNavigator from "../../../components/PagesNavigator"
+import { PageSelectionContext } from "../../../utils/PageSelectionContext"
+import CategoriesNavigator from "../../../components/CategoriesNavigator"
+import { PagesContext } from "../../../utils/PagesContext"
+import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
+import { CategoriesContext } from "../../../utils/CategoriesContext"
 
-
-export default function Products(){
+export default function Details(){
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
@@ -19,29 +19,44 @@ export default function Products(){
     const [renderedArray , setRenderedArray]=useState([])
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
-
+    const router = useRouter()
 
     useEffect(async () => {
-        if(value.length < 1 ){
-            const res = await fetch('api/products')
-            const { data } = await res.json()
+        const id = router.query.id
+        const subcategoryId = router.query.subcategoryId
+        if(typeof(id) == 'string'){
+            const res = await fetch(`/api/category/${id}/${subcategoryId}`)
+            const {data} = await res.json()
             setValue(data)
+            console.log(data);
+        }
+    },[router])
+
+    useEffect(() => {
+        const numberOfPages = Math.ceil(value.length /9)
+        if(numberOfPages >= 1) {setPages(numberOfPages)} else {setPages(1)}
+        setPageSelection(0)
+    },[value])
+
+    useEffect(() => {
+        let count = pageSelection * 9
+        let arr = value.filter((item,index) => index >= count && index < count + 9)
+        setRenderedArray(arr)
+    },[pageSelection,value])
+
+    useEffect(async () => {
+        try {
+            const res = await fetch('/api/categoriesandsubcategories')
+            const { data } = await res.json()
             let categories = data.map(item => item.category)
             categories = [...new Set(categories)]
             const orderedStuff = categories.map(item => orderedTable(item,data))
             setCategoriesAndSubcategories(orderedStuff)
-        }else{
-            const numberOfPages = Math.ceil(value.length /9)
-            if(numberOfPages >= 1) {setPages(numberOfPages)} else {setPages(1)}
-            setPageSelection(0)
+        } catch (error) {
+            console.error(error)
         }
-    },[value])
-
-    useEffect(() => {
-            let count = pageSelection * 9
-            let arr = value.filter((item,index) => index >= count && index < count + 9)
-            setRenderedArray(arr)
-        },[pageSelection,value])
+        
+    },[])
 
     function orderedTable(item,data){
         return {
@@ -49,6 +64,7 @@ export default function Products(){
             subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
         }
     }
+
 
     function handleHideCategories() {
         const CategoriesNavigator = document.getElementById('categoriesOrderer')
@@ -68,7 +84,7 @@ export default function Products(){
             FlipArrow.style.transform = 'rotate(-90deg)'
         }
     }
-
+    
     return(
         <div>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
@@ -77,7 +93,7 @@ export default function Products(){
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
                 <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
-                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-ciel" onClick={e => {
+                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-cool" onClick={e => {
                         handleHideCategories()
                     }}>
                         <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>

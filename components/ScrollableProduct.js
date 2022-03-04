@@ -21,7 +21,7 @@ export default function ScrollableProduct({product}){
 
     const fetchProduct = async () => {
         setLoading(true)
-        const res = await fetch('api/products/'+product.reference)
+        const res = await fetch('/api/products/'+product.reference)
         const {data} = await res.json()
         setProductContent(data)
     }
