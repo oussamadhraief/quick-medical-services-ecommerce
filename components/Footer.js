@@ -46,7 +46,7 @@ export default function Footer(){
                 </address>
                     
                 <div className="text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap"> Créé par&nbsp;
-                    <div className="font-medium text-ciel hover:cursor-pointer relative group">
+                    <div className="font-medium text-na3ne3i hover:cursor-pointer relative group">
                         Oussema&nbsp;
                         <p className="absolute -top-[85px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief
                         <br></br>oussema.dhraief@gmail.com <br></br>
@@ -54,7 +54,7 @@ export default function Footer(){
                             <a target='_blank'>www.oussama-dhraief.tech</a>
                         </Link></p>
                     </div> et &nbsp;
-                    <div className="font-medium text-secondary hover:cursor-pointer relative group">
+                    <div className="font-medium text-ciel hover:cursor-pointer relative group">
                         Mohamed
                         <p className="absolute -top-[70px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Mohamed Halouani
                         <br></br>halouani142@gmail.com</p>
