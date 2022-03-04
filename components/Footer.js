@@ -9,7 +9,7 @@ export default function Footer(){
     const satisfaction = 'pfe/satisfait_yak5un.png'
     const facebook = 'pfe/facebook_dryelz.png'
     const location = 'pfe/location_nkg5e0.png'
-    const logo = 'pfe/logoqms2_2_kslfsx.png'
+    const logo = 'pfe/22BF79_2_ciuoj6.png'
 
     return (
         <footer className="w-full min-w-full h-fit grid bg-ciel rounded-tr-[70px] mt-32 shadow-3xl">
