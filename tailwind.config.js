@@ -22,7 +22,8 @@ module.exports = {
         'light': '#005832',
         'na3ne3i': '#059669',
         'cool': '#22BF79',
-        'icy': '#44A4F4'
+        'icy': '#44A4F4',
+        'trendy': '#92CFC8'
       }
     },
   },

@@ -28,7 +28,7 @@ function CategoriesModal({show, onClose}) {
       };
 
       const modalContent = show ? 
-        <div id="categoriesModal" className="fixed h-screen w-screen top-0 left-0 bg-[#92CFC8] z-[9999] flex items-center flex-nowrap animate__animated animate__faster animate__fadeIn">
+        <div id="categoriesModal" className="fixed h-screen w-screen top-0 left-0 bg-trendy z-[9999] flex items-center flex-nowrap animate__animated animate__faster animate__fadeIn">
             <button className="w-fit h-fit absolute right-5 hover:scale-125 top-1 font-medium font-mono text-xl" onClick={e => handleCloseClick(e)}>X</button>
             <div className="w-[13%] min-h-[95vh] h-fit overflow-auto border-r flex flex-col border-third gap-8 px-3 pt-5">
                 {categoriesAndSubcategories.map((item,index) => 

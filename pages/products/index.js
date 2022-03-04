@@ -78,7 +78,7 @@ export default function Products(){
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
                 <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
-                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-ciel" onClick={e => {
+                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-na3ne3i" onClick={e => {
                         handleHideCategories()
                     }}>
                         <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>
