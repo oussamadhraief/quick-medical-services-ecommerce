@@ -2,7 +2,6 @@ import { useEffect, useState,useContext } from "react";
 import ReactDOM from "react-dom";
 import { CategoriesContext } from '../utils/CategoriesContext'
 import 'animate.css'
-import p from "next/dist/client/link";
 
 
 function CategoriesModal({show, onClose}) {

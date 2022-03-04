@@ -23,7 +23,7 @@ export default function Products(){
 
     useEffect(async () => {
         if(value.length < 1 ){
-            const res = await fetch('api/products')
+            const res = await fetch('/api/products')
             const { data } = await res.json()
             setValue(data)
             let categories = data.map(item => item.category)
@@ -71,8 +71,8 @@ export default function Products(){
 
     return(
         <div>
-            <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
-            <Header landingPage={false} />
+            <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
+                <Header landingPage={false} />
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
