@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.5.2",
     "animate.css": "^4.1.1",
     "dotenv": "^16.0.0",
     "mongodb": "^4.3.1",
