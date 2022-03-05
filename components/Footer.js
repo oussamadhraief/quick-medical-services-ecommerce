@@ -10,6 +10,8 @@ export default function Footer(){
     const facebook = 'pfe/facebook_dryelz.png'
     const location = 'pfe/location_nkg5e0.png'
     const logo = 'pfe/22BF79_2_ciuoj6.png'
+    const english= 'pfe/icons8-usa-480_wogdn9.png'
+    const french= 'pfe/icons8-france-480_qz3wxt.png'
 
     return (
         <footer className="w-full min-w-full h-fit grid bg-na3ne3i rounded-tr-[70px] mt-32 shadow-3xl">
@@ -46,23 +48,40 @@ export default function Footer(){
                 </address>
                     
                 <div className="text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap"> Créé par&nbsp;
-                    <div className="font-medium text-na3ne3i hover:cursor-pointer relative group">
+                    <div className="font-medium text-ciel hover:cursor-pointer relative group">
                         Oussema&nbsp;
-                        <p className="absolute -top-[85px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief
+                        <p className="absolute -top-[90px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Oussema Dhraief
                         <br></br>oussema.dhraief@gmail.com <br></br>
                         <Link href='https://www.oussama-dhraief.tech'>
                             <a target='_blank'>www.oussama-dhraief.tech</a>
                         </Link></p>
                     </div> et &nbsp;
-                    <div className="font-medium text-ciel hover:cursor-pointer relative group">
+                    <div className="font-medium text-secondary hover:cursor-pointer relative group">
                         Mohamed
-                        <p className="absolute -top-[70px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Mohamed Halouani
+                        <p className="absolute -top-[75px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">Mohamed Halouani
                         <br></br>halouani142@gmail.com</p>
                     </div>&nbsp; &#xa9;  2022, Tunisie.
                 </div>
-                    <div className="w-fit h-fit flex flex-nowrap justify-center items-center hover:cursor-pointer relative group" onClick={() => window.scroll(0,0)}>
-                        <Image src={logo} alt='Quick medical services logo' width={120} height={120} layout='fixed' objectFit="center" />
-                        <p className="absolute -top-10 -left-8 text-center font-semibold bg-white hidden text-third whitespace-nowrap group-hover:block px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:left-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">QUICK Medical Services</p>
+                    <div className="w-fit h-fit grid hover:cursor-pointer relative">
+                        <div className="relative w-fit h-fit group">
+                            
+                        <Image src={logo} alt='Quick medical services logo' width={120} height={120} layout='fixed' objectFit="center"  onClick={() => window.scroll(0,0)} />
+                        <p className="absolute -top-11 -left-8 text-center font-semibold bg-white hidden text-third whitespace-nowrap group-hover:block px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:left-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">QUICK Medical Services</p>
+                        </div>
+                        <div className="flex flex-nowrap w-fit h-fit items-center justify-center gap-3 mx-auto mt-5">
+                        <div className="relative w-fit h-fit hover:cursor-pointer group-foo hover:scale-110 grayscale hover:grayscale-0">
+                            <div className="absolute hidden group-foo-hover:block -bottom-8 bg-white text-third -left-3 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto">
+                                Anglais
+                            </div>
+                            <Image src={english} alt='language' width={40} height={25} layout='fixed' />
+                        </div>
+                        <div className="relative w-fit h-fit hover:cursor-pointer group-foo hover:scale-110 grayscale hover:grayscale-0">
+                            <div className="absolute hidden group-foo-hover:block -bottom-8 bg-white text-third -left-4 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto">
+                                Français
+                            </div>
+                            <Image src={french} alt='language' width={40} height={25} layout='fixed' />
+                        </div>
+                        </div>
                     </div>
             </div>
         </footer>
