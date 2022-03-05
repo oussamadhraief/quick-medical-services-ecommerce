@@ -13,6 +13,27 @@ export default function TestimonialSection(){
     useEffect(() => {
         setActiveReviews([testimonials[0],testimonials[1],testimonials[2],testimonials[3],testimonials[4]])
         document.getElementById('scrollableTestimonial').style.transform = 'translateX(-32vw)'
+        const right = document.getElementById('navigateRightReview')
+        const left = document.getElementById('navigateLeftReview')
+        right.addEventListener('click',() => {
+            right.disabled = true
+            left.disabled = true
+            setTimeout(() => {
+                left.disabled = false
+                right.disabled = false
+            }, 1000);
+        })
+        left.addEventListener('click',() => {
+            left.disabled = true
+            right.disabled = true
+            setTimeout(() => {
+                right.disabled = false
+                left.disabled = false
+            }, 1000);
+        })
+        setInterval(() => {
+            right.click()
+        }, 10000);
     },[])
 
     const handleScrollRight = () => {
@@ -101,7 +122,7 @@ export default function TestimonialSection(){
                         </div>
                     </div>)
                     if(index == 0) return (
-                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 ml-32`}>
+                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 ml-[7vw]`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
@@ -113,7 +134,7 @@ export default function TestimonialSection(){
                     </div>
                     )
                     if(index == 4) return (
-                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 mr-32`}>
+                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 mr-[7vw]`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
@@ -138,8 +159,8 @@ export default function TestimonialSection(){
                     )})}
             </div>
             <div className='w-fit h-fit flex flex-nowrap mx-auto mt-20 gap-3'>
-                <button className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary' onClick={e => handleScrollLeft()}>&#x2190;</button>
-                <button className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary' onClick={e => handleScrollRight()}>&#x2192;</button>
+                <button id='navigateLeftReview' className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary' onClick={e => handleScrollLeft()}>&#x2190;</button>
+                <button id='navigateRightReview' className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary' onClick={e => handleScrollRight()}>&#x2192;</button>
             </div>
         </div>
     )
