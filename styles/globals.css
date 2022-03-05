@@ -151,6 +151,7 @@ a {
   background-size: cover;
   background-position: center;
 }
+
 @layer components {
   .form-input {
     @apply my-2 py-2 flex w-full mx-auto border-b border-zinc-400 focus:placeholder-third focus:border-third placeholder:text-sm outline-none focus:placeholder:-translate-y-10 ;
