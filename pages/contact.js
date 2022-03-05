@@ -11,6 +11,19 @@ export default function Contact() {
     const facebook = 'pfe/facebook_dryelz.png'
     const location = 'pfe/location_nkg5e0.png'
 
+    const [name,setName] = useState('')
+    const [email,setEmail] = useState('')
+    const [phone,setPhone] = useState('')
+    const [subject,setSubject] = useState('')
+    const [message,setMessage] = useState('')
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formInputs = {name,email,phone,subject,message}
+        console.log(formInputs)
+    }
+
+
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     // fetch for teh header
     // useEffect(async () => {
@@ -52,26 +65,26 @@ export default function Contact() {
                     </div>
                 </div>
 
-                    <form className="w-1/2 h-full bg-white my-12 space-y-5">
+                    <form className="w-1/2 h-full bg-white my-12 space-y-5" onSubmit={handleSubmit}>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:bg-red-300 peer" type="text" name="name" id="formName"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formName">Nom et Prénom</label>
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="name" id="formName" minLength={4} value={name} onChange={(e)=>setName(e.target.value)}  />
+                            <label className="form-label"  for="formName">Nom et Prénom</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:bg-red-300 peer " type="email" name="email" id="formEmail"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formEmail">Email</label>
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="email" name="email" id="formEmail" value={email} onChange={(e)=>setEmail(e.target.value)}  />
+                            <label className="form-label" for="formEmail">Email</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:bg-red-300 peer" type="tel" name="phoneNumber" id="formPhoneNumber"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formPhoneNumber">Num. de téléphone</label>
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="tel" name="phoneNumber" id="formPhoneNumber" value={phone} onChange={(e)=>setPhone(e.target.value)}  />
+                            <label className="form-label" for="formPhoneNumber">Num. de téléphone</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:bg-red-300 peer" type="text" name="subject" id="formSubject"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formSubject">Sujet</label>
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="subject" id="formSubject" value={subject} onChange={(e)=>setSubject(e.target.value)}  />
+                            <label className="form-label" for="formSubject">Sujet</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <textarea className="h-32 form-input invalid:bg-red-300 peer" col={50} row={4} name="textArea" id="formTextArea"></textarea>
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formTextArea">Message</label>
+                            <textarea className="h-32 form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " col={50} row={4} name="textArea" id="formTextArea" value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
+                            <label className="form-label" for="formTextArea">Message</label>
                         </div>
                         <button className="flex text-white px-3 py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-btn" type="submit">Envoyer </button>
                     </form>
