@@ -11,21 +11,39 @@ export default function Contact() {
     const facebook = 'pfe/facebook_dryelz.png'
     const location = 'pfe/location_nkg5e0.png'
 
-    const [name,setName] = useState('')
-    const [email,setEmail] = useState('')
-    const [phone,setPhone] = useState('')
-    const [subject,setSubject] = useState('')
-    const [message,setMessage] = useState('')
+    const [formData,setFormData] = useState({name: "", email: "", phoneNumber: "", subject: "", message: "" })
+    
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [e.target.name] : e.target.value
+            }
+        })
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const formInputs = {name,email,phone,subject,message}
-        console.log(formInputs)
+        try{
+        const formInputs = {...formData , isRead :false , isReview :false}
+        const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formInputs)
+        })}
+        catch(error){
+            console.error(error)
+        }
+        
     }
 
 
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
-    // fetch for teh header
+    // fetch for the header
     // useEffect(async () => {
     //     if(value.length < 1 ){
     //         const res = await fetch('/api/products')
@@ -67,23 +85,23 @@ export default function Contact() {
 
                     <form className="w-1/2 h-full bg-white my-12 space-y-5" onSubmit={handleSubmit}>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="name" id="formName" minLength={4} value={name} onChange={(e)=>setName(e.target.value)}  />
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="name" id="formName" value={formData.name} minLength={4}  onChange={handleChange}/>
                             <label className="form-label"  for="formName">Nom et Prénom</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="email" name="email" id="formEmail" value={email} onChange={(e)=>setEmail(e.target.value)}  />
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="email" name="email" id="formEmail" value={formData.email} onChange={handleChange} />
                             <label className="form-label" for="formEmail">Email</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="tel" name="phoneNumber" id="formPhoneNumber" value={phone} onChange={(e)=>setPhone(e.target.value)}  />
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500 appearance" placeholder=" " type="number" name="phoneNumber" id="formPhoneNumber" value={formData.phone} onChange={handleChange} />
                             <label className="form-label" for="formPhoneNumber">Num. de téléphone</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="subject" id="formSubject" value={subject} onChange={(e)=>setSubject(e.target.value)}  />
+                            <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="subject" id="formSubject" value={formData.subject} onChange={handleChange} />
                             <label className="form-label" for="formSubject">Sujet</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <textarea className="h-32 form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " col={50} row={4} name="textArea" id="formTextArea" value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
+                            <textarea className="h-32 form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " col={50} row={4} name="message" id="formTextArea" value={formData.message} onChange={handleChange}></textarea>
                             <label className="form-label" for="formTextArea">Message</label>
                         </div>
                         <button className="flex text-white px-3 py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-btn" type="submit">Envoyer </button>
