@@ -3,6 +3,7 @@ import NavigationSection from "./NavigationSection"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import 'animate.css'
+import Link from 'next/link'
 
 export default function Header(props){
 
@@ -42,7 +43,7 @@ export default function Header(props){
         } else {
             setscrolled(false)
             document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
-            document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+            document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left - 40 +'px'
             // document.getElementById('anotherPositioning').style.display = 'block'
         }
     }
@@ -53,7 +54,7 @@ export default function Header(props){
             {props.landingPage ? 
             <>
             <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
-                <div className="grid place-items-start w-full order-2 md:order-1 md:w-1/2">
+                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[45%]">
                 <h1 className="flex flex-nowrap gap-5 text-xl sm:text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
                     LES MEILLEURS 
                     <div className="grid w-fit h-fit mt-1">
@@ -63,8 +64,12 @@ export default function Header(props){
                 </h1>
                 <p className="text-secondary font-medium text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="my-10 w-full h-fit flex flex-nowrap justify-evenly animate__animated animate__delay-2s animate__bounceInLeft">
-                <button className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3">Explorer les produits &#x2192;</button>
-                <button className="text-white bg-gradient-to-r from-[#0689c5] to-ciel px-4 py-3 ml-1 w-1/3">Contactez-nous !</button>
+                <Link href='/products'>
+                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center">Explorer les produits &#x2192;</a>
+                </Link>
+                <Link href='/contact'>
+                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center">Contactez-nous !</a>
+                </Link>
                 </div>
                 <NavigationSection landingPage={props.landingPage} />
 
