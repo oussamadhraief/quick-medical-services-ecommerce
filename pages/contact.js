@@ -31,7 +31,7 @@ export default function Contact() {
             {/* <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
                 <Header landingPage={false} />
             </CategoriesContext.Provider> */}
-            <div className="flex w-3/4  mx-auto shadow-md mt-20 rounded-2xl">
+            <div className="flex w-3/4  mx-auto  shadow-form mt-20 rounded-2xl">
                 <div className="w-1/2 backgroundAnimated mx-auto ">
                     
                     <div className="w-9/12 mx-auto mt-12 mb-8">
@@ -52,27 +52,28 @@ export default function Contact() {
                     </div>
                 </div>
 
-                    <form className=" w-1/2 h-full bg-white mx-auto my-12 space-y-5">
+                    <form className="w-1/2 h-full bg-white my-12 space-y-5">
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input peer" type="text" name="name" id="formName"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-3 w-fit h-fit transition-all" for="formName">Nom et Prénom</label>
+                            <input className="form-input invalid:bg-red-300 peer" type="text" name="name" id="formName"  />
+                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formName">Nom et Prénom</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input peer" type="email" name="email" id="formEmail"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-3 w-fit h-fit transition-all" for="formEmail">Email</label>
+                            <input className="form-input invalid:bg-red-300 peer " type="email" name="email" id="formEmail"  />
+                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formEmail">Email</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input peer" type="tel" name="phoneNumber" id="formPhoneNumber"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-3 w-fit h-fit transition-all" for="formPhoneNumber">Num. de téléphone</label>
+                            <input className="form-input invalid:bg-red-300 peer" type="tel" name="phoneNumber" id="formPhoneNumber"  />
+                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formPhoneNumber">Num. de téléphone</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <input className="form-input peer" type="text" name="subject" id="formSubject"  />
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-3 w-fit h-fit transition-all" for="formSubject">Sujet</label>
+                            <input className="form-input invalid:bg-red-300 peer" type="text" name="subject" id="formSubject"  />
+                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formSubject">Sujet</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
-                            <textarea className="h-32 form-input peer" col={50} row={4} name="textArea" id="formTextArea"></textarea>
-                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-3 w-fit h-fit transition-all" for="formTextArea">Message</label>
+                            <textarea className="h-32 form-input invalid:bg-red-300 peer" col={50} row={4} name="textArea" id="formTextArea"></textarea>
+                            <label className="absolute text-zinc-400  hover:cursor-text top-3 left-2 peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-invalid:hidden w-fit h-fit transition-all" for="formTextArea">Message</label>
                         </div>
+                        <button className="flex text-white px-3 py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-btn" type="submit">Envoyer </button>
                     </form>
                 </div>
             <Footer/>
