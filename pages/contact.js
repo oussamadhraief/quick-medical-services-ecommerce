@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import { CategoriesContext } from "../utils/CategoriesContext"
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import { SearchContext } from "../utils/SearchContext"
 import Link from "next/link"
 
 
@@ -11,6 +12,8 @@ export default function Contact() {
     const facebook = 'pfe/facebook_dryelz.png'
     const location = 'pfe/location_nkg5e0.png'
 
+    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+    const [search,setSearch] = useState('')
     const [formData,setFormData] = useState({name: "", email: "", phoneNumber: "", subject: "", message: "" })
     
 
@@ -21,6 +24,27 @@ export default function Contact() {
                 [e.target.name] : e.target.value
             }
         })
+    }
+
+    useEffect(async () => {
+        try {
+            const res = await fetch('/api/categoriesandsubcategories')
+            const { data } = await res.json()
+            let categories = data.map(item => item.category)
+            categories = [...new Set(categories)]
+            const orderedStuff = categories.map(item => orderedTable(item,data))
+            setCategoriesAndSubcategories(orderedStuff)
+        } catch (error) {
+            console.error(error)
+        }
+        
+    },[])
+
+    function orderedTable(item,data){
+        return {
+            category: item,
+            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -40,28 +64,15 @@ export default function Contact() {
         }
         
     }
-
-
-    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
-    // fetch for the header
-    // useEffect(async () => {
-    //     if(value.length < 1 ){
-    //         const res = await fetch('/api/products')
-    //         const { data } = await res.json()
-    //         setValue(data)
-    //         let categories = data.map(item => item.category)
-    //         categories = [...new Set(categories)]
-    //         const orderedStuff = categories.map(item => orderedTable(item,data))
-    //         setCategoriesAndSubcategories(orderedStuff)
-    //     }
-    // },[])
     
     return(
         
         <div>
-            {/* <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
+            <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
+            <SearchContext.Provider value={{search,setSearch}} >
                 <Header landingPage={false} />
-            </CategoriesContext.Provider> */}
+            </SearchContext.Provider>
+            </CategoriesContext.Provider>
             <div className="flex w-3/4  mx-auto  shadow-form mt-20 rounded-2xl">
                 <div className="w-1/2 backgroundAnimated mx-auto ">
                     
@@ -86,23 +97,23 @@ export default function Contact() {
                     <form className="w-1/2 h-full bg-white my-12 space-y-5" onSubmit={handleSubmit}>
                         <div className="relative mx-auto w-11/12 h-fit">
                             <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="name" id="formName" value={formData.name} minLength={4}  onChange={handleChange}/>
-                            <label className="form-label"  for="formName">Nom et Prénom</label>
+                            <label className="form-label"  htmlFor="formName">Nom et Prénom</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
                             <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="email" name="email" id="formEmail" value={formData.email} onChange={handleChange} />
-                            <label className="form-label" for="formEmail">Email</label>
+                            <label className="form-label" htmlFor="formEmail">Email</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
                             <input className="form-input invalid:border-red-500 peer invalid:text-red-500 appearance" placeholder=" " type="number" name="phoneNumber" id="formPhoneNumber" value={formData.phone} onChange={handleChange} />
-                            <label className="form-label" for="formPhoneNumber">Num. de téléphone</label>
+                            <label className="form-label" htmlFor="formPhoneNumber">Num. de téléphone</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
                             <input className="form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " type="text" name="subject" id="formSubject" value={formData.subject} onChange={handleChange} />
-                            <label className="form-label" for="formSubject">Sujet</label>
+                            <label className="form-label" htmlFor="formSubject">Sujet</label>
                         </div>
                         <div className="relative mx-auto w-11/12 h-fit">
                             <textarea className="h-32 form-input invalid:border-red-500 peer invalid:text-red-500" placeholder=" " col={50} row={4} name="message" id="formTextArea" value={formData.message} onChange={handleChange}></textarea>
-                            <label className="form-label" for="formTextArea">Message</label>
+                            <label className="form-label" htmlFor="formTextArea">Message</label>
                         </div>
                         <button className="flex text-white px-3 py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-btn" type="submit">Envoyer </button>
                     </form>
