@@ -111,7 +111,7 @@ export default function TestimonialSection(){
             <p className='w-fit h-fit mx-auto text-base text-third font-medium mt-1.5'>Ils nous ont fait confiance et témoignent</p>
             <div id='scrollableTestimonial' className='flex flex-nowrap justify-evenly items-center w-fit gap-[7vw] min-w-full h-fit mt-20'>
                 {activeReviews.map((item,index) => {
-                    if(index == 1 || index == 3) return(<div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
+                    if(index == 1 || index == 3) return(<div key={index} className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
@@ -129,7 +129,7 @@ export default function TestimonialSection(){
                         </div>
                     </div>)
                     if(index == 0) return (
-                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 ml-[7vw]`}>
+                        <div key={index} className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 ml-[7vw]`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
@@ -148,7 +148,7 @@ export default function TestimonialSection(){
                     </div>
                     )
                     if(index == 4) return (
-                        <div className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 mr-[7vw]`}>
+                        <div key={index} className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 mr-[7vw]`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
@@ -167,7 +167,7 @@ export default function TestimonialSection(){
                     </div>
                     )
                     return(
-                    <div id='3rdchild' className={`relative w-[450px] h-60 shadow-float scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
+                    <div key={index} className={`relative w-[450px] h-60 shadow-float scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
