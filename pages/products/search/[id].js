@@ -121,7 +121,7 @@ export default function Results(){
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
-                    {value.length > 0 ? <p className="w-full text-center font-medium text-third">Produits correspondants à votre recherche...</p> : <p className="w-full text-center font-medium text-third rounded-lg">Pas de produits correspondants à votre recherche "{router.query.id}" :&#40; ...</p>}
+                    {value.length > 0 ? <p className="w-full text-center font-medium text-third">Produits correspondants à votre recherche...</p> : <p className="w-full text-center font-medium text-third rounded-lg">Pas de produits correspondants à votre recherche &quot;{router.query.id}&quot; :&#40; ...</p>}
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
