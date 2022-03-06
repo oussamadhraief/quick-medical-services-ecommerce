@@ -79,7 +79,7 @@ export default function Contact() {
                     <div className="w-9/12 mx-auto mt-12 mb-8">
                         <h1 className="text-white text-4xl font-bold">Contact us</h1> 
                         <hr className="w-4/12"/>
-                        <p className="text-white text-md mt-2 font-medium"> dont hesitate to contact us , we're open for suggestion</p> 
+                        <p className="text-white text-md mt-2 font-medium"> dont hesitate to contact us , were open for suggestion</p> 
                     </div>
                     
                     <div className="w-9/12 mx-auto space-y-4 ">
