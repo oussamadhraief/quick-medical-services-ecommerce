@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react'
 
 export default function TestimonialSection(){
 
-    const testimonials = [{author: '1',message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '2', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '3', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '4', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '5', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '6', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '7', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '8', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '9', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '10', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'}]
+    const testimonials = [{author: 'gdoura',message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: 'dhraief', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '3', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: 'mohamed', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '5', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: 'sameh derbali', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '7', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '8', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '9', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'},{author: '10', message: 'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'}]
 
     const quotes = 'pfe/right-quotes-13252_m2dsct.png'
 
@@ -64,9 +64,9 @@ export default function TestimonialSection(){
             setActiveReviews([testimonials[ind],testimonials[ind1],testimonials[ind2],testimonials[ind3],testimonials[ind4]])
             setTimeout(() => {
                 
-                document.querySelector('#scrollableTestimonial div:nth-child(3)').style.transitionDuration = '0.3s'
-                document.querySelector('#scrollableTestimonial div:nth-child(3)').style.transform= 'scale(1.3)'
-            }, 150);
+                document.querySelector('#scrollableTestimonial > div:nth-child(3)').style.transitionDuration = '0.3s'
+                document.querySelector('#scrollableTestimonial > div:nth-child(3)').style.transform= 'scale(1.3)'
+            }, 50);
         }, 300);
     }
 
@@ -97,11 +97,11 @@ export default function TestimonialSection(){
             if(ind2 + 1 < testimonials.length){ind3 = ind2 + 1}else{ind3 = 0}
             if(ind3 + 1 < testimonials.length){ind4 = ind3 + 1}else{ind4 = 0}
             setActiveReviews([testimonials[ind],testimonials[ind1],testimonials[ind2],testimonials[ind3],testimonials[ind4]])
+            
             setTimeout(() => {
-                
-                document.querySelector('#scrollableTestimonial div:nth-child(3)').style.transitionDuration = '0.3s'
-                document.querySelector('#scrollableTestimonial div:nth-child(3)').style.transform= 'scale(1.3)'
-            }, 150);
+                document.querySelector('#scrollableTestimonial > div:nth-child(3)').style.transitionDuration = '0.3s'
+                document.querySelector('#scrollableTestimonial > div:nth-child(3)').style.transform= 'scale(1.3)'
+            }, 50);
         }, 300);
     }
 
@@ -115,9 +115,16 @@ export default function TestimonialSection(){
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
-                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-lg'>{item.author}</h1>
+                        
                         <q className='text-sm italic text-third'>{item.message}</q>
                         <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'>
+                            
+                        </div>
+                         <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                                
+                            </div>
+                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
                             
                         </div>
                     </div>)
@@ -126,9 +133,16 @@ export default function TestimonialSection(){
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
-                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-lg'>{item.author}</h1>
+                        
                         <q className='text-sm italic text-third'>{item.message}</q>
                         <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'>
+                            
+                        </div>
+                         <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                                
+                            </div>
+                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
                             
                         </div>
                     </div>
@@ -138,21 +152,35 @@ export default function TestimonialSection(){
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
-                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-lg'>{item.author}</h1>
+                        
                         <q className='text-sm italic text-third'>{item.message}</q>
                         <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'>
+                            
+                        </div>
+                         <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                                
+                            </div>
+                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
                             
                         </div>
                     </div>
                     )
                     return(
-                    <div className={`relative w-[450px] h-60 shadow-float scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
+                    <div id='3rdchild' className={`relative w-[450px] h-60 shadow-float scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}>
                         <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                             <Image src={quotes} alt='quotes' width={40} height={40} layout='fixed' />
                         </div>
-                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-lg'>{item.author}</h1>
+                        
                         <q className='text-sm italic text-third'>Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.</q>
                         <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'>
+                            
+                        </div>
+                         <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                                
+                            </div>
+                        <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
                             
                         </div>
                     </div>
