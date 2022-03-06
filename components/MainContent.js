@@ -117,7 +117,7 @@ export default function MainContent(){
             </div>
         </div>
         </div>
-            {loading ? <div className='w-screen h-[450px] re60tive'>
+            {loading ? <div className='w-screen h-[450px] relative'>
                 <LoadingAnimation bgOpacity={true} />
                 </div> :
                 <>

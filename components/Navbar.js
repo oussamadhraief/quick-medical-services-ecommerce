@@ -7,7 +7,7 @@ export default function Navba({ scrolled }){
     const logo = 'pfe/22BF79_v9wauf.png'
 
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-around  w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-around  w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-[50px] fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-around  w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-around  w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="w-fit h-fit flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' width={230} height={90} layout='fixed' objectFit="center" /></a>
             </Link>
