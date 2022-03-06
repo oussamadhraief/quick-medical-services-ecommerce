@@ -121,7 +121,7 @@ export default function TestimonialSection(){
                             
                         </div>
                          <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
-                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{background: `url(https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy) no-repeat center center`}}>
                                 
                             </div>
                         <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
@@ -139,7 +139,7 @@ export default function TestimonialSection(){
                             
                         </div>
                          <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
-                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{background: `url(https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy) no-repeat center center`}}>
                                 
                             </div>
                         <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
@@ -158,7 +158,7 @@ export default function TestimonialSection(){
                             
                         </div>
                          <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
-                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{background: `url(https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy) no-repeat center center`}}>
                                 
                             </div>
                         <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
@@ -177,7 +177,7 @@ export default function TestimonialSection(){
                             
                         </div>
                          <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
-                            <div className='w-10 h-10 rounded-full shadow relative' style={{backgroundImage: `url('https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy')`}}>
+                            <div className='w-10 h-10 rounded-full shadow relative' style={{background: `url(https://avatars.dicebear.com/api/miniavs/${item.author}.svg?mood[]=happy) no-repeat center center`}}>
                                 
                             </div>
                         <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>{item.author}</h1>
