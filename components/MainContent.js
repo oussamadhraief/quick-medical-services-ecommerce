@@ -47,7 +47,8 @@ export default function MainContent(){
     //     }).observe(document.querySelector('.hoverablecontainer:last-child'))
     // },[])
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         if(value.length < 1){
             const res = await fetch('api/products')
             const {data} = await res.json()
@@ -57,7 +58,9 @@ export default function MainContent(){
             categories = [...new Set(categories)]
             const orderedStuff = categories.map(item => orderedTable(item,data))
             setCategoriesAndSubcategories(orderedStuff)
+            }
         }
+    fetchData()
     },[value])
 
     function orderedTable(item,data){

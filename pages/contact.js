@@ -26,18 +26,20 @@ export default function Contact() {
         })
     }
 
-    useEffect(async () => {
-        try {
-            const res = await fetch('/api/categoriesandsubcategories')
-            const { data } = await res.json()
-            let categories = data.map(item => item.category)
-            categories = [...new Set(categories)]
-            const orderedStuff = categories.map(item => orderedTable(item,data))
-            setCategoriesAndSubcategories(orderedStuff)
-        } catch (error) {
-            console.error(error)
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/categoriesandsubcategories')
+                const { data } = await res.json()
+                let categories = data.map(item => item.category)
+                categories = [...new Set(categories)]
+                const orderedStuff = categories.map(item => orderedTable(item,data))
+                setCategoriesAndSubcategories(orderedStuff)
+            } catch (error) {
+                console.error(error)
+            }
         }
-        
+        fetchData()
     },[])
 
     function orderedTable(item,data){

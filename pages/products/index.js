@@ -25,7 +25,8 @@ export default function Products(){
     const [activatedModal,setActivatedModal] = useState(false)
 
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         if(value.length < 1 ){
             const res = await fetch('/api/products')
             const { data } = await res.json()
@@ -39,6 +40,8 @@ export default function Products(){
             if(numberOfPages >= 1) {setPages(numberOfPages)} else {setPages(1)}
             setPageSelection(0)
         }
+    }
+    fetchData()
     },[value])
 
     useEffect(() => {
