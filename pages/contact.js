@@ -12,7 +12,6 @@ import Head from "next/head"
 export default function Contact() {
 
     const facebook = 'pfe/facebook_dryelz.png'
-    const location = 'pfe/location_nkg5e0.png'
 
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [search,setSearch] = useState('')
