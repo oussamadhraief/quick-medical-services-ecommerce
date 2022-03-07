@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import ProductsCarousel from './ProductsCarousel'
 import { useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
@@ -18,6 +19,8 @@ export default function MainContent(){
     const card3 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__5_-removebg-preview_am1ajy.png'
     const card4 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__4_-removebg-preview_vd14wo.png'
     const card5 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__7_-removebg-preview_yompbn.png'
+    const question = 'pfe/1_ns4qha.png'
+    const feedback = 'pfe/2_qtx32d.png'
     
     const [value,setValue] = useState([])
     const [search,setSearch] = useState('')
@@ -27,6 +30,22 @@ export default function MainContent(){
     const [activatedModal,setActivatedModal] = useState(false)
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
 
+    // useEffect(() => {
+    //     document.querySelectorAll('.hoverablephotos').forEach(item => {
+    //         item.style.height = document.getElementById('encourageSection').offsetHeight + 'px'
+    //         item.style.width = document.querySelector('.hoverablecontainer').offsetHeight + 'px'
+    //         console.log(item.offsetHeight,item.offsetWidth);
+    //     })
+    // },[])
+
+    // useEffect(() => {
+    //     new ResizeObserver(() => {
+    //         if(document.querySelector('.hoverablecontainer:last-child').offsetWidth > 130) {document.querySelector('.hoverablecontainer:first-child').style.width = '128px'} else {
+    //             document.querySelector('.hoverablecontainer:first-child').style.width = '50%'
+    //         }
+
+    //     }).observe(document.querySelector('.hoverablecontainer:last-child'))
+    // },[])
 
     useEffect(async () => {
         if(value.length < 1){
@@ -121,8 +140,8 @@ export default function MainContent(){
                 <LoadingAnimation bgOpacity={true} />
                 </div> :
                 <>
-            <div className='flex justify-between w-screen h-fit'>
-            <p className='text-na3ne3i font-semibold text-2xl ml-10 '>Produits disponibles à tout moment</p>
+            <div className='flex justify-between w-screen h-fit py-2'>
+            <p className='bg-na3ne3i px-3 py-1 shadow-form hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl ml-10 '>Produits disponibles à tout moment</p>
             <div className='flex flex-nowrap justify-between items-center w-60 border-[1px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='availableSearch' value={availableSearch} onChange={(e) => {
                     setAvailableSearch(e.target.value)
@@ -131,8 +150,8 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='flex justify-between w-screen h-fit mt-20'>
-            <p className='text-red-400 font-semibold text-2xl ml-10 '>Produits disponibles sur commande</p>
+            <div className='flex justify-between w-screen h-fit mt-20 py-2'>
+            <p className='bg-[#D9302B] px-3 py-1 shadow-form text-white font-medium text-xl hover:cursor-pointer hover:scale-105 transition-all ml-10 '>Produits disponibles sur commande</p>
 
             <div className='flex flex-nowrap justify-between items-center w-60 border-[1px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='unavailableSearch' value={unavailableSearch} onChange={(e) => {
@@ -143,9 +162,37 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
             </>}
+            <div id='encourageSection' className='bg-trendy w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
+                <div className='w-1/4 h-fit'>
+                    <h1 className='w-fit h-fit text-third text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
+                    <h1 className='w-fit h-fit text-third text-2xl font-mono whitespace-nowrap'>Ou vous voulez nous laisser un commentaire ?</h1>
+                </div>
+                <ul className='w-1/2 h-full flex min-h-[300px] flex-nowrap justify-start items-center gap-5 relative'>
+                    <li className='hoverablecontainer hover:cursor-pointer hover:w-1/2 overflow-hidden h-full bg-rainy rounded-3xl transition-all duration-500 peer w-32 shadow-float'>
+                        
+                    </li>
+                    <Link href='/contact'>
+                        <a className='absolute text-white bg-third text-2xl font-mono px-3 py-1 bottom-5 -left-5 hover:underline'>Contactez-nous !</a>
+                    </Link>
+                    <li className='hoverablecontainer peer-hover:w-32 hover:cursor-pointer overflow-hidden w-1/2 h-full bg-rainy rounded-3xl transition-all duration-300 peer shadow-float'>
+                        
+                    </li>
+                </ul>
+            </div>
             <TestimonialSection />
         </main>
         </ActivatedModalContext.Provider>
         </ProductsContext.Provider>
     )
 }
+
+{/* <div className='hoverablecontainer peer-hover:w-20 hover:cursor-pointer overflow-hidden w-1/2 h-full'>
+                        <div className='hoverablephotos relative bg-rainy rounded-xl'>
+                            <Image src={question} alt='contact' width={230} height={190} layout='responsive' objectPosition='center'  />
+                        </div>
+                    </div>
+                    <div className='hoverablecontainer peer w-20 hover:cursor-pointer overflow-hidden h-full'>
+                        <div className='hoverablephotos relative bg-rainy rounded-xl'>
+                        <Image src={feedback} alt='contact' width={280} height={240} layout='responsive' objectPosition='center'  />
+                        </div>
+                    </div> */}

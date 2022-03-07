@@ -174,3 +174,17 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.hoverablecontainer:first-child {
+  background-image: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1646653946/pfe/1_ns4qha.png");
+  background-repeat: no-repeat;
+  background-position: 40%;
+  background-size: cover;
+}
+
+.hoverablecontainer:last-child {
+  background-image: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1646653950/pfe/2_qtzcsm.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
