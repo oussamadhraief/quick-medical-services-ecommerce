@@ -23,13 +23,15 @@ export default function Results(){
     const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
 
-    useEffect(async () => {
+    useEffect( () => {
+        async function fetchData() {
         const id = router.query.id
         if(typeof(id) == 'string'){const res = await fetch('/api/search/'+id)
         const { data } = await res.json()
         setValue(data)
         setSearch(router.query.id)
-    }
+    }}
+    fetchData()
     },[router])
 
     useEffect(() => {
@@ -44,7 +46,8 @@ export default function Results(){
         setRenderedArray(arr)
     },[pageSelection,value])
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         try {
             const res = await fetch('/api/categoriesandsubcategories')
             const { data } = await res.json()
@@ -55,7 +58,8 @@ export default function Results(){
         } catch (error) {
             console.error(error)
         }
-        
+    }
+    fetchData()
     },[])
 
     function orderedTable(item,data){

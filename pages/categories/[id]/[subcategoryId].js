@@ -23,7 +23,8 @@ export default function Details(){
     const [search,setSearch] = useState('')
     const router = useRouter()
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         const id = router.query.id
         const subcategoryId = router.query.subcategoryId
         if(typeof(id) == 'string'){
@@ -32,6 +33,8 @@ export default function Details(){
             setValue(data)
             console.log(data);
         }
+    }
+    fetchData()
     },[router])
 
     useEffect(() => {
@@ -46,7 +49,8 @@ export default function Details(){
         setRenderedArray(arr)
     },[pageSelection,value])
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         try {
             const res = await fetch('/api/categoriesandsubcategories')
             const { data } = await res.json()
@@ -57,7 +61,8 @@ export default function Details(){
         } catch (error) {
             console.error(error)
         }
-        
+    }
+    fetchData()
     },[])
 
     function orderedTable(item,data){

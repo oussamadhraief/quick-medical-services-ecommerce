@@ -23,13 +23,16 @@ export default function Details(){
     const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         const id = router.query.id
         if(typeof(id) == 'string'){
             const res = await fetch('/api/category/'+id)
             const {data} = await res.json()
             setValue(data)
         }
+        }
+        fetchData()
     },[router])
 
     useEffect(() => {
@@ -44,7 +47,8 @@ export default function Details(){
         setRenderedArray(arr)
     },[pageSelection,value])
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
         try {
             const res = await fetch('/api/categoriesandsubcategories')
             const { data } = await res.json()
@@ -55,7 +59,8 @@ export default function Details(){
         } catch (error) {
             console.error(error)
         }
-        
+    }
+    fetchData()
     },[])
 
     function orderedTable(item,data){
