@@ -71,7 +71,8 @@ export default function Contact() {
                 <Header landingPage={false} />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
-                <table className='w-11/12 mt-32 h-fit mx-auto'>
+            <form className='w-11/12 h-fit bg-white ml-32 grid p-5rounded-xl  mt-32'>
+                <table className='w-full mt-32 h-fit mx-auto'>
                     <thead className='w-full h-10 border-b'>
                         <th className='text-center text-base font-medium text-third'>RÉFÉRENCE</th>
                         <th className='text-center text-base font-medium text-third'>PRODUIT</th>
@@ -107,12 +108,35 @@ export default function Contact() {
                         </tr>
                     </tbody>
                 </table>
-                <form className='w-1/2 h-fit bg-trendy ml-32 grid'>
-                    <input type="text" name="" value="" className='w-11/12 h-10 mx-auto outline-none my-5 rounded-md'/>
-                    <input type="text" name="" value="" className='w-11/12 h-10 mx-auto outline-none my-5 rounded-md'/>
-                    <input type="text" name="" value="" className='w-11/12 h-10 mx-auto outline-none my-5 rounded-md'/>
-                    <input type="text" name="" value="" className='w-11/12 h-10 mx-auto outline-none my-5 rounded-md'/>
-                    <input type="text" name="" value="" className='w-11/12 h-10 mx-auto outline-none my-5 rounded-md'/>
+                <div className='w-1/3 bg-trendy px-5 py-10 mt-32 shadow-float rounded-2xl'>
+                    
+                    <label htmlFor="name" className='my-7 w-11/12 text-light mx-auto font-medium'>Nom:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 w-11/12 text-light mx-auto font-medium'>Prénom:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 text-light w-11/12  mx-auto font-medium'>Adresse:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 text-light w-11/12  mx-auto font-medium'>Num. de téléphone:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 text-light w-11/12  mx-auto font-medium'>Nom du clinique
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 text-light w-11/12  mx-auto font-medium'>Matricule fiscale:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                    <label htmlFor="name" className='my-7 text-light w-11/12  mx-auto font-medium'>Email:
+                    <input type="text" name="name" value="" className='my-2 h-10 w-full outline-none  rounded-md'/>
+                    </label>
+                </div>
+                    <div className='mt-10 flex flex-nowrap justify-center w-2/12 ml-[5%] gap-10 items-center'>
+                        
+                    <button type="submit" className=' w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-secondary hover:scale-125 transition-all'>Confirmer ma commande</button>
+                    <button type="submit" className=' w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-secondary hover:scale-125 transition-all'>Demander un devis</button>
+                    </div>
                 </form>
             <Footer/>
         </div>
