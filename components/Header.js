@@ -65,10 +65,10 @@ export default function Header(props){
                 <p className="text-secondary font-medium text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="my-10 w-full h-fit flex flex-nowrap justify-evenly animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center">Explorer les produits &#x2192;</a>
+                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center">Contactez-nous !</a>
+                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Contactez-nous !</a>
                 </Link>
                 </div>
                 <NavigationSection landingPage={props.landingPage} />
