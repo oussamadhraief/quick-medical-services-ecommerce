@@ -30,23 +30,6 @@ export default function MainContent(){
     const [activatedModal,setActivatedModal] = useState(false)
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
 
-    // useEffect(() => {
-    //     document.querySelectorAll('.hoverablephotos').forEach(item => {
-    //         item.style.height = document.getElementById('encourageSection').offsetHeight + 'px'
-    //         item.style.width = document.querySelector('.hoverablecontainer').offsetHeight + 'px'
-    //         console.log(item.offsetHeight,item.offsetWidth);
-    //     })
-    // },[])
-
-    // useEffect(() => {
-    //     new ResizeObserver(() => {
-    //         if(document.querySelector('.hoverablecontainer:last-child').offsetWidth > 130) {document.querySelector('.hoverablecontainer:first-child').style.width = '128px'} else {
-    //             document.querySelector('.hoverablecontainer:first-child').style.width = '50%'
-    //         }
-
-    //     }).observe(document.querySelector('.hoverablecontainer:last-child'))
-    // },[])
-
     useEffect(() => {
         async function fetchData() {
         if(value.length < 1){
@@ -165,18 +148,19 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
             </>}
+
             <div id='encourageSection' className='bg-trendy w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
-                <div className='w-1/4 h-fit'>
-                    <h1 className='w-fit h-fit text-third text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
-                    <h1 className='w-fit h-fit text-third text-2xl font-mono whitespace-nowrap'>Ou vous voulez nous laisser un commentaire ?</h1>
+                <div className='w-1/4 h-fit grid place-items-end'>
+                    <h1 className='w-full h-fit text-third text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
+                    <h1 className='w-fit h-fit text-third text-2xl font-mono whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
+                    <Link href='/contact'>
+                        <a className='text-white bg-third text-2xl font-mono px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
+                    </Link>
                 </div>
                 <ul className='w-1/2 h-full flex min-h-[300px] flex-nowrap justify-start items-center gap-5 relative'>
                     <li className='hoverablecontainer hover:cursor-pointer hover:w-1/2 overflow-hidden h-full bg-rainy rounded-3xl transition-all duration-500 peer w-32 shadow-float'>
                         
                     </li>
-                    <Link href='/contact'>
-                        <a className='absolute text-white bg-third text-2xl font-mono px-3 py-1 bottom-5 -left-5 hover:underline'>Contactez-nous !</a>
-                    </Link>
                     <li className='hoverablecontainer peer-hover:w-32 hover:cursor-pointer overflow-hidden w-1/2 h-full bg-rainy rounded-3xl transition-all duration-300 peer shadow-float'>
                         
                     </li>
@@ -188,14 +172,3 @@ export default function MainContent(){
         </ProductsContext.Provider>
     )
 }
-
-{/* <div className='hoverablecontainer peer-hover:w-20 hover:cursor-pointer overflow-hidden w-1/2 h-full'>
-                        <div className='hoverablephotos relative bg-rainy rounded-xl'>
-                            <Image src={question} alt='contact' width={230} height={190} layout='responsive' objectPosition='center'  />
-                        </div>
-                    </div>
-                    <div className='hoverablecontainer peer w-20 hover:cursor-pointer overflow-hidden h-full'>
-                        <div className='hoverablephotos relative bg-rainy rounded-xl'>
-                        <Image src={feedback} alt='contact' width={280} height={240} layout='responsive' objectPosition='center'  />
-                        </div>
-                    </div> */}
