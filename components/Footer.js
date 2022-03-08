@@ -14,7 +14,7 @@ export default function Footer(){
     const french= 'pfe/icons8-france-480_qz3wxt.png'
 
     return (
-        <footer className="w-full min-w-full h-fit grid bg-na3ne3i rounded-tr-[70px] mt-32 shadow-3xl">
+        <footer className="w-full min-w-full h-fit grid bg-cool rounded-tr-[70px] mt-32 shadow-3xl">
             <div className="h-fit py-5 px-5 w-[94%] flex justify-center gap-10 lg:gap-20 flex-wrap md:flex-nowrap items-center">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
                     <Image src={delivery} alt='' width={100} height={60} layout='fixed' />

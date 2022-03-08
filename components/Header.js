@@ -78,9 +78,7 @@ export default function Header(props){
                     <Image src={banner} alt='surgeon' width={700} height={700} layout='responsive' />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`} onClick={e => {
-
-            }}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
                 <Link href='/cart'>
                 <a><Image src={cart} alt='cart icon' width={37} height={32} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
@@ -101,9 +99,7 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`} onClick={e => {
-
-            }}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
                 <Link href='/cart'>
                 <a><Image src={cart} alt='cart icon' width={37} height={32} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
