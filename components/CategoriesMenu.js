@@ -20,10 +20,13 @@ export default function CategoriesMenu(){
     },[])
 
     useEffect(() => {
-        document.getElementById('categoriesBoard').style.height = document.getElementById('categoriesContainer').offsetHeight + 'px'
-        const categories = document.querySelectorAll('.categorieItem')
-        categories.forEach(item => item.addEventListener('mouseover',(e) => handleDisplaySubcategories(e)))
-    })
+        const mql = window.matchMedia('(max-width: 767px)')
+        if(!mql.matches){
+            document.getElementById('categoriesBoard').style.height = document.getElementById('categoriesContainer').offsetHeight + 'px'
+            const categories = document.querySelectorAll('.categorieItem')
+            categories.forEach(item => item.addEventListener('mouseover',(e) => handleDisplaySubcategories(e)))
+        
+    }})
 
     const handleDisplaySubcategories = (e) => {
         const newValue = categoriesAndSubcategories.find(item => item.category == e.target.id)
