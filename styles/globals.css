@@ -188,3 +188,7 @@ input[type=number] {
   background-position: center;
   background-size: cover;
 }
+
+#categoriesBoard {
+  grid-template-rows: repeat(10, minmax(0, 1fr));
+}

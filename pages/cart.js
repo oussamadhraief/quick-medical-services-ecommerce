@@ -83,7 +83,7 @@ export default function Contact() {
                 </Link>
                 <p className='w-fit h-fit text-2xl font-medium text-third'>Votre panier</p>
             </div>
-            <form className='w-full h-fit bg-[#F5F5F5] grid py-10'>
+            <form className='w-full h-fit bg-cleangray grid py-10'>
                 <table className='w-11/12 h-fit mx-auto bg-white rounded-2xl shadow-float table-auto'>
                     <thead className="w-full h-14 after:content-[''] after:absolute after:w-[99%] after:h-[1px] after:bg-zinc-300 relative after:-bottom-[1px] after:mx-auto after:right-0 after:left-0">
                         <th className='text-center text-base font-medium text-third pl-3'>RÉFÉRENCE</th>
@@ -150,7 +150,7 @@ export default function Contact() {
                     <button type="submit" className=' w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-secondary hover:scale-125 transition-all'>Demander un devis</button>
                     </div>
                 </form>
-                <div className='w-full h-5 bg-gradient-to-b from-[#F5F5F5] to-white'>
+                <div className='w-full h-5 bg-gradient-to-b from-cleangray to-white'>
                     
                 </div>
             <Footer/>

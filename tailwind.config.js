@@ -27,8 +27,8 @@ module.exports = {
         'cool': '#22BF79',
         'icy': '#44A4F4',
         'trendy': '#98DBD3',
-        'rainy': '#B8C8DD'
-
+        'rainy': '#B8C8DD',
+        'cleangray': '#F5F5F5'
         // 'muchlighterthird': '#636C78',
         // 'lighterthird': '#414A50',
       }
