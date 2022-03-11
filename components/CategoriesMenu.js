@@ -41,7 +41,7 @@ export default function CategoriesMenu(){
                     document.body.style.overflow = 'hidden'
                     setShow(true)
                 }}><span className="font-bold">&#x2630;</span>&nbsp; Catégories</button>
-                <CategoriesModal show={show} onClose={() => {
+                <CategoriesModal  show={show} onClose={() => {
                     document.body.style.height = 'fit'
                     document.body.style.overflow = 'auto'
                     setShow(false)}} /> </>:
@@ -55,7 +55,7 @@ export default function CategoriesMenu(){
             <div className='w-fit h-fit absolute top-[102%] left-0 hidden group-foo-hover:flex rounded-lg shadow-form z-[9999]'>
                     <div id='categoriesContainer' className='min-w-[250px] grid w-fit pr-5 pl-1 bg-cleangray rounded-lg shadow-form hover:rounded-r-none hover:rounded-l-lg group'>
                         {categoriesAndSubcategories.map(item => 
-                        <Link href={`/categories/${item.category}`}>
+                        <Link key={item.category} href={`/categories/${item.category}`}>
                             <a id={item.category} className="categorieItem w-fit h-fit py-3">
                                     &#62;&nbsp;<span id={item.category} className='hover:underline'>{item.category}</span>
 
@@ -63,7 +63,7 @@ export default function CategoriesMenu(){
                         </Link>)}
                     <div id='categoriesBoard' className='w-fit min-w-[400px] max-w-[700px] max-h-full bg-white absolute top-0 left-full invisible group-hover:visible inline-grid place-items-start grid-flow-col px-5 gap-2 rounded-r-lg shadow-float z-[9999]'>
                         {boardContent.subcategories.map(element => 
-                        <Link href={`/categories/${boardContent.category}/${element}`}>
+                        <Link key={boardContent.category} href={`/categories/${boardContent.category}/${element}`}>
                             <a className='mr-10 flex-auto'>&#62; <span className='hover:underline'>{element}</span></a>
                         </Link>)}
                     </div>

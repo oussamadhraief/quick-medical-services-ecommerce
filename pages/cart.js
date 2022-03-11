@@ -79,7 +79,7 @@ export default function Contact() {
             </CategoriesContext.Provider>
             <div className='w-full h-10 items-center flex flex-nowrap justify-center relative mt-32 bo shadow'>
                 <Link href='/'>
-                    <a className='absolute left-3 top-2.5 text-center w-fit h-fit font-medium text-zinc-600 hover:underline'>&#x2190;&nbsp;Retour à la page d'acceuil</a>
+                    <a className='absolute left-3 top-2.5 text-center w-fit h-fit font-medium text-zinc-600 hover:underline'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
                 </Link>
                 <p className='w-fit h-fit text-2xl font-medium text-third'>Votre panier</p>
             </div>
