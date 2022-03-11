@@ -2,9 +2,9 @@ import Link from "next/link"
 
 export default function CategoriesNavigator({categoriesAndSubcategories}){
     return(
-        <>
+        <div className="w-full h-fit" id="categoriesOrderer">
         {categoriesAndSubcategories.map(item => 
-                        <ul id={item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-white last:border-0" ><p key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-[#ECECEC] relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-[#636161] flex flex-nowrap items-center"><p id={`${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
+                        <ul id={item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-white last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-cleangray relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-[#636161] flex flex-nowrap items-center"><p id={`${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
                             const element = document.querySelectorAll(`#${item.category} .expandable`)
                             const ulElem = document.getElementById(item.category)
                             const rotateArrow = document.getElementById(`${item.category}arrow`)
@@ -28,17 +28,16 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
                                     elem.style.borderBottom = '0px solid #d8d7d7'
                                 })
                                 rotateArrow.style.transform = 'rotate(0deg)'
-                                console.log(rotateArrow);
                             }
-                            }}>&#62; </p>&nbsp;<Link href={`/categories/${item.category}`}><a className="hover:underline">{item.category}</a></Link></p> 
-                            {item.subcategories.map(element => <li key={element} className="bg-white border-[#d8d7d7] ml-10 text-sm relative text-[#636161] transition-[height] duration-300 expandable h-0 w-full  invisible min-w-fit  font-medium flex justify-start items-center px-1">
+                            }}>&#62; </p>&nbsp;<Link href={`/categories/${item.category}`}><a className="hover:underline">{item.category}</a></Link></div> 
+                            {item.subcategories.map(element => <li key={element} className="bg-cleangray border-[#d8d7d7] ml-10 text-sm relative text-[#636161] transition-[height] duration-300 expandable h-0 w-full  invisible min-w-fit  font-medium flex justify-start items-center px-1">
                                 <Link href={`/categories/${item.category}/${element}`}>
-                                    <a className="hover:underline">{element} </a>
+                                    <a >&#62; <span className="hover:underline">{element}</span> </a>
                                 </Link>
                                 </li>
                                 )}
                         </ul>
                     )}
-        </>
+        </div>
     )
 }

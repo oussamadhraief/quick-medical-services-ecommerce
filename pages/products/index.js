@@ -59,19 +59,12 @@ export default function Products(){
 
     function handleHideCategories() {
         const CategoriesNavigator = document.getElementById('categoriesOrderer')
-        const ProductsHolder = document.getElementById('categoriesOrderer1')
         const FlipArrow = document.getElementById('flipArrow')
         if(CategoriesNavigator.offsetHeight > 10) {
             CategoriesNavigator.style.height = '0px'
-            CategoriesNavigator.style.width = '0px'
-            ProductsHolder.style.width = '100%'
-            CategoriesNavigator.style.border = '0px'
             FlipArrow.style.transform = 'rotate(90deg)'
         }else{
             CategoriesNavigator.style.height = 'fit-content'
-            CategoriesNavigator.style.width = '25%'
-            ProductsHolder.style.width = '75%'
-            CategoriesNavigator.style.border = '1px solid #e5e7eb'
             FlipArrow.style.transform = 'rotate(-90deg)'
         }
     }
@@ -109,30 +102,49 @@ export default function Products(){
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
-                <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
-                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-na3ne3i" onClick={e => {
-                        handleHideCategories()
-                    }}>
-                        <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>
-                        <p id="flipArrow" className="h-fit w-fit -rotate-90 text-white transition-all font-bold text-lg">&#11164;</p>
-                    </div>
-                    <div className="w-9/12 h-10 ml-3 grid sm:flex justify-between items-center flex-nowrap">
-                        <select className="w-fit h-fit px-2 py-1 border-[1px] outline-none hover:cursor-pointer">
-                            <option value="newest">du plus récent au plus ancien</option>
-                            <option value="newest">du plus ancien au plus récent</option>
-                            <option value="newest">du plus cher au moins cher</option>
-                            <option value="newest">du moins cher au plus cher</option>
-                        </select>
+                <div className="w-full h-fit flex justify-end items-center mt-32 px-10">
+                    
                         <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
                         <PagesContext.Provider value={{pages,setPages}}>
                             <PagesNavigator relative={true} />
                         </PagesContext.Provider>
                         </PageSelectionContext.Provider>
-                        
-                    </div>
+
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div id="categoriesOrderer" className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-white border min-h-fit">
+                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-cleangray min-h-fit shadow">
+                    <div>
+                        <div>
+                            <p className="bg-zinc-200 w-full h-fit py-3 text-center font-medium shadow">Paramètres d&apos;affichage</p>
+                        </div>
+                        <div className="w-full h-fit grid space-y-1 mt-2 mb-5 px-1">
+                            <p className="mb-3">Trier par:</p>
+                        <select className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer">
+                            <option value="newest">du plus récent au plus ancien</option>
+                            <option value="newest">du plus ancien au plus récent</option>
+                            <option value="newest">du plus cher au moins cher</option>
+                            <option value="newest">du moins cher au plus cher</option>
+                        </select>
+                        </div>
+                        <div className="w-full h-fit border-y-2 pb-3 border-white grid px-1">
+                            <p className="mt-3 mb-1">Afficher les produit:</p>
+                            <label htmlFor="all" className="ml-3 mt-1">
+                            <input type="radio" id="all" name="availability" value="all" className="mr-1"/>Tous
+                            </label>
+                            <label htmlFor="available" className="ml-3 mt-1">
+                            <input type="radio" id="available" name="availability" value="available" className="mr-1"/>Disponibles à tout moment
+                            </label>
+                            <label htmlFor="unavailable" className="ml-3 mt-1">
+                            <input type="radio" id="unavailable" name="availability" value="unavailable" className="mr-1"/>Disponibles sur commande
+                            </label>
+                        </div>
+                    </div>
+                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-1 border-b-2 border-white bg-zinc-200 hover:cursor-pointer hover:bg-na3ne3i hover:text-white" onClick={e => {
+                        handleHideCategories()
+                    }}>
+                        <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
+                        <p id="flipArrow" className="h-fit w-fit -rotate-90 transition-all">&#11164;</p>
+                    </div>
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
