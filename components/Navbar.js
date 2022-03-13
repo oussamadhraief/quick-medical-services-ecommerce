@@ -10,7 +10,7 @@ export default function Navbar({ scrolled }){
     const logo = 'pfe/22BF79_v9wauf.png'
 
     useEffect(()=>{
-        const mql= window.matchMedia('(max-width: 767px)')
+        const mql= window.matchMedia('(max-width: 1023px)')
         if(mql.matches){
             setIsMobile(true)
         }else{
@@ -56,11 +56,12 @@ export default function Navbar({ scrolled }){
     }
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-around  w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-around  w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-3xl fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around  w-full transition-all duration-500 h-fit py-3 items-center z-[99] bg-white shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around  w-11/12 h-fit py-3 items-center z-[99] bg-white  rounded-3xl fixed"}>
             <Link href='/'>
-                <a className="relative w-32 h-12 md:w-40 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' width={230} height={90} layout='fill' objectFit="center" /></a>
+                <a className="relative ml-4 w-32 lg:m-0 h-12 md:w-40 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' width={230} height={90} layout='fill' objectFit="center" /></a>
             </Link>
-            <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"md:w-3/6 h-fit  hidden md:flex  justify-end mr-8 gap-20 items-center"}>
+            
+            <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"lg:w-3/6 h-fit  hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
                 <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/'>
                     <a>Accueil</a>
@@ -71,10 +72,10 @@ export default function Navbar({ scrolled }){
                 <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
-                <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
+                <li className="whitespace-nowrap md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
             </ul>
-            {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3">
+            {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
                 <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>
                 <div id="clickableMenu" className="relative w-fit h-fit grid gap-1 " onClick={()=>handleDropDownClick()}>
                     <div id="first" className="relative h-[4px] w-5 bg-third transition-all "></div>
@@ -82,6 +83,7 @@ export default function Navbar({ scrolled }){
                     <div id="third" className="relative h-[4px] w-5 bg-third transition-all "></div>
                 </div>
                 </div>:null}
+            
             
         </div>
     )

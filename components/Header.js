@@ -53,7 +53,7 @@ export default function Header(props){
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
+            <div id="header" className="md:w-[95%] lg:w-full h-fit px-0 lg:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
                 <div className="grid place-items-start w-full order-2 md:order-1 md:w-[45%]">
                 <h1 className="flex flex-nowrap gap-5 text-xl sm:text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
                     LES MEILLEURS 
@@ -65,16 +65,16 @@ export default function Header(props){
                 <p className="break-words text-secondary font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="my-10 w-full h-fit flex flex-nowrap justify-evenly animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
+                    <a className=" text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 md:w-5/12  w-5/12 sm:w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Contactez-nous !</a>
+                    <a className="text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 md:w-5/12 w-5/12 sm:w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Contactez-nous !</a>
                 </Link>
                 </div>
                 <NavigationSection landingPage={props.landingPage} />
 
                 </div>
-                <div id="banner" className="relative w-9/12 order-1 md:order-2  md:w-5/12 h-full">
+                <div id="banner" className="relative mx-auto w-9/12 order-1 md:order-2  md:w-5/12 sm:ml-[9%] h-full">
                     <Image src={banner} alt='surgeon' width={700} height={700} layout='responsive' />
                 </div>
             </div>
