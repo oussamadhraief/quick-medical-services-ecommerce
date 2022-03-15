@@ -55,7 +55,7 @@ export default function Header(props){
             <>
             <div id="header" className="md:w-[95%] lg:w-full h-fit px-0 lg:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
                 <div className="grid place-items-start w-full order-2 md:order-1 md:w-[45%]">
-                <h1 className="flex flex-nowrap gap-5 text-xl sm:text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
+                <h1 className="flex flex-nowrap gap-5 text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
                     LES MEILLEURS 
                     <div className="grid w-fit h-fit mt-1">
                     <h6 className="text-xl font-extrabold mb-[1px]">PRIX</h6>

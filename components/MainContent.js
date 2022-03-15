@@ -150,11 +150,11 @@ export default function MainContent(){
             </>}
 
             <div id='encourageSection' className='bg-trendy w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
-                <div className=' w-1/2 lg:w-1/4 h-fit grid place-items-end'>
+                <div className=' w-1/2 lg:w-1/4 h-fit grid place-items-start lg:place-items-end'>
                     <h1 className='w-full h-fit text-third text-xl lg:text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
                     <h1 className='w-fit h-fit text-third text-xl lg:text-2xl font-mono lg:whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
                     <Link href='/contact'>
-                        <a className='text-white bg-third text-2xl font-mono px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
+                        <a className='text-white bg-third text-xl lg:text-2xl font-mono px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
                     </Link>
                 </div>
                 <ul className='w-1/2 h-full flex min-h-[300px] flex-nowrap justify-start items-center gap-5 relative'>
