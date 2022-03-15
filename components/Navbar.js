@@ -77,7 +77,7 @@ export default function Navbar({ scrolled }){
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
                 <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>
-                <div id="clickableMenu" className="relative w-fit h-fit grid gap-1 " onClick={()=>handleDropDownClick()}>
+                <div id="clickableMenu" className="relative w-fit h-fit grid gap-1" onClick={()=>handleDropDownClick()}>
                     <div id="first" className="relative h-[4px] w-5 bg-third transition-all "></div>
                     <div id="second" className="h-[4px] w-5 bg-third   "></div>
                     <div id="third" className="relative h-[4px] w-5 bg-third transition-all "></div>
