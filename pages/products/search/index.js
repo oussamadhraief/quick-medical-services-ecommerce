@@ -1,11 +1,9 @@
-import { useEffect } from "react"
+import { useEffect } from 'react'
 
+export default function Search () {
+  useEffect(() => {
+    location.href = '/products'
+  })
 
-export default function Search(){
-
-    useEffect(() => {
-        location.href='/products'
-    })
-
-    return null
+  return null
 }
