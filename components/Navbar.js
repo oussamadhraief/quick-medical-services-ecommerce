@@ -63,16 +63,16 @@ export default function Navbar({ scrolled }){
             
             <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"lg:w-3/6 h-fit  hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
-                <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/'>
+                <li className="lg:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/'>
                     <a>Accueil</a>
                     </Link></li>
-                <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/products'>
+                <li className="lg:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/products'>
                     <a>Produits</a>
                     </Link></li>
-                <li className="md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/contact'>
+                <li className="lg:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink"><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
-                <li className="whitespace-nowrap md:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
+                <li className="whitespace-nowrap lg:block font-medium text-third relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">

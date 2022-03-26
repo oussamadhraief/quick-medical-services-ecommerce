@@ -65,10 +65,10 @@ export default function Header(props){
                 <p className="break-words text-secondary font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="my-10 w-full h-fit flex flex-wrap md:flex-nowrap justify-evenly animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="min-w-fit mr-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
+                    <a className="min-w-fit ml-0 sm:mr-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="min-w-fit ml-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    <a className="min-w-fit ml-0 sm:ml-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 </Link>
                 </div>
                 

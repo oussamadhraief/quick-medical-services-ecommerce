@@ -58,7 +58,7 @@ export default function Footer () {
           </p>
         </div>
       </div>
-      <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid md:place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third rounded-tr-[70px]'>
+      <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third rounded-tr-[70px]'>
         <address className='text-white grid place-items-center space-y-2 not-italic w-fit h-fit'>
           <Link href='https://www.facebook.com/QMSJRIBI'>
             <a
@@ -113,7 +113,6 @@ export default function Footer () {
               <br />halouani142@gmail.com
             </p>
           </div>
-          {isMobile ? <br /> : null}
           &nbsp; &#xa9; 2022, Tunisie.
         </div>
         <div className='w-fit h-fit grid hover:cursor-pointer relative place-self-center'>

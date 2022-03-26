@@ -126,9 +126,9 @@ export default function MainContent(){
                 <LoadingAnimation bgOpacity={true} />
                 </div> :
                 <>
-            <div className='flex justify-between w-screen h-fit py-2'>
-            <p className='bg-na3ne3i px-3 py-1 shadow-form hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl ml-10 '>Produits disponibles à tout moment</p>
-            <div className='flex flex-nowrap justify-between items-center w-60 border-[1px] rounded-lg mr-10 h-fit px-2 py-1'>
+            <div className='flex flex-col 2md:flex-row justify-between w-screen h-fit py-2'>
+            <p className='bg-na3ne3i w-fit px-3 py-1 shadow-form hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl ml-10 '>Produits disponibles à tout moment</p>
+            <div className='ml-10 2md:ml-0 mt-4 2md:mt-0 flex flex-nowrap justify-between items-center w-60 border-[2px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='availableSearch' value={availableSearch} onChange={(e) => {
                     setAvailableSearch(e.target.value)
                 }} className='outline-none w-full mr-1' placeholder='Chercher un produit...'/>
@@ -136,10 +136,10 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='flex justify-between w-screen h-fit mt-20 py-2'>
-            <p className='bg-[#D9302B] px-3 py-1 shadow-form text-white font-medium text-xl hover:cursor-pointer hover:scale-105 transition-all ml-10 '>Produits disponibles sur commande</p>
+            <div className='flex flex-col 2md:flex-row justify-between w-screen h-fit py-2'>
+            <p className='bg-[#D9302B] w-fit px-3 py-1 shadow-form  hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl  ml-10 '>Produits disponibles sur commande</p>
 
-            <div className='flex flex-nowrap justify-between items-center w-60 border-[1px] rounded-lg mr-10 h-fit px-2 py-1'>
+            <div className='ml-10 2md:ml-0 mt-4 2md:mt-0 flex flex-nowrap justify-between items-center w-60 border-[2px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='unavailableSearch' value={unavailableSearch} onChange={(e) => {
                     setUnavailableSearch(e.target.value)
                 }} className='outline-none w-full mr-1' placeholder='Chercher un produit...'/>
