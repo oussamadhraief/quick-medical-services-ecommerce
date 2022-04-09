@@ -62,6 +62,8 @@ export default function Contact () {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    let loading = document.getElementById("contact-loading")
+    loading.style.display = "block"
     try {
       const formInputs = { ...formData, isRead: false, isReview: false }
       const res = await fetch('/api/contact', {
@@ -71,6 +73,8 @@ export default function Contact () {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formInputs)
+      }).then(async (res) => {
+        
       })
     } catch (error) {
       console.error(error)
@@ -147,11 +151,14 @@ export default function Contact () {
             </p>
           </div>
         </div>
-
+        
         <form
-          className='lg:w-1/2 h-full bg-white py-8 lg:my-12 space-y-8 lg:space-y-5'
+          className='lg:w-1/2 h-full relative bg-white py-4  lg:my-12 space-y-8 lg:space-y-5'
           onSubmit={handleSubmit}
         >
+        <div id="contact-loading" className="hidden absolute w-full h-full bg-white/70 z-[9999] ">
+          <div className="reverse-spinner "></div>
+        </div>  
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
               className='form-input invalid:border-red-500 peer invalid:text-red-500'
@@ -225,7 +232,7 @@ export default function Contact () {
             </label>
           </div>
           <button
-            className='flex text-white text-base px-6 py-2 lg:px-3 lg:py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-btn'
+            className='flex text-white text-base px-6 py-2 lg:px-3 lg:py-1 mx-auto bg-gradient-to-br from-icy to-trendy shadow-form'
             type='submit'
           >
             Envoyer{' '}

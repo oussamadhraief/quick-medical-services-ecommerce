@@ -25,8 +25,8 @@ module.exports = {
         beige: '#F2E6DC',
         ciel: '#0098B0',
         light: '#005832',
-        na3ne3i: '#059669',
-        cool: '#22BF79',
+        na3ne3i: '#059669',//dark green
+        cool: '#22BF79', //light green
         icy: '#44A4F4',
         trendy: '#98DBD3',
         rainy: '#B8C8DD',
