@@ -16,11 +16,7 @@ async function dbConnect() {
     });
 
     connection.isConnected = db.connections[0].readyState;
-    console.log(connection.isConnected);
 
 }
-
-export const ADMIN_USERNAME = "admin"
-export const ADMIN_PASSWORD = "admin"
 
 export default dbConnect;
