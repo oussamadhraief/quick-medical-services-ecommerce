@@ -24,14 +24,15 @@ module.exports = {
         third: '#242526',
         beige: '#F2E6DC',
         ciel: '#0098B0',
-        light: '#196366',
+        light: '#0E5052',
         na3ne3i: '#196366',//dark green
         cool: '#22BF79', //light green
         icy: '#44A4F4',
         trendy: '#98DBD3',
         rainy: '#B8C8DD',
         cleangray: '#F5F5F5',
-        orange:'#F9BF87'
+        orange:'#F9BF87',
+        pinky: '#F7B1A2'
         // 'muchlighterthird': '#636C78',
         // 'lighterthird': '#414A50',
       }

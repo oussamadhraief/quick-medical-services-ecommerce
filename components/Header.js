@@ -7,8 +7,6 @@ import Link from 'next/link'
 
 export default function Header(props){
 
-    const cart = 'pfe/icons8-cart-128_1_rdtueh.png'
-    const banner = 'pfe/Copy_of_Copy_of_Copy_of_Unnamed_Design_1_xxawwr.png'
 
     const [scrolled,setscrolled] = useState(false)
 
@@ -64,10 +62,10 @@ export default function Header(props){
                 <p className="break-words text-orange font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="my-10 w-full h-fit flex flex-wrap md:flex-nowrap justify-center  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
+                    <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="ml-3 text-orange font-medium bg-transparent border-2 rounded-lg border-orange px-1 py-3 w-fit h-fit whitespace-nowrap text-center hover:bg-orange hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    <a className="ml-3 text-orange font-medium bg-transparent border-2 rounded-lg border-orange px-1 py-3 w-fit h-fit whitespace-nowrap text-center hover:bg-orange hover:text-black hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 </Link>
                 </div>
                 
@@ -81,16 +79,16 @@ export default function Header(props){
                     
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
-                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[110%] top-2 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[130%] top-0.5 bg-white rounded-md px-2 py-0.5"}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
                 <Link href='/cart'>
-                <a><Image src={cart} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-third rounded-full w-fit h-fit top-0.5 -right-1 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third rounded-full w-fit h-fit -top-0.5 -right-2 text-white font-medium text-xs px-1.5 text-center'}>2</p>
+                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
             </div>
-            <div id="positioning" className="fixed bottom-0.5 right-1.5 w-14 h-14">
+            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 
             </div>
             </> 
@@ -102,16 +100,16 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
-                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[110%] top-2 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[130%] top-0.5 bg-white rounded-md px-2 py-0.5"}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
                 <Link href='/cart'>
-                <a><Image src={cart} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-third rounded-full w-fit h-fit top-0.5 -right-1 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third rounded-full w-fit h-fit -top-0.5 -right-2 text-white font-medium text-xs px-1.5 text-center'}>2</p>
+                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
             </div>
-            <div id="positioning" className="fixed bottom-0.5 right-1.5 w-14 h-14">
+            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 
             </div>
             </> }

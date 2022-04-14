@@ -204,8 +204,8 @@ input[type=number] {
   bottom: 15px;
   margin : auto;
   border: 4px solid transparent;
-  border-top-color: #22BF79;
-  border-left-color: #22BF79;
+  border-top-color: #0E5052;
+  border-left-color: #0E5052;
   border-radius: 50%;
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
@@ -219,8 +219,8 @@ input[type=number] {
   bottom: 15px;
   content: "";
   border: 4px solid transparent;
-  border-top-color: #059669;
-  border-left-color: #059669;
+  border-top-color: #F9BF87;
+  border-left-color: #F9BF87;
   border-radius: 50%;
   -webkit-animation: spinBack 1s linear infinite;
   animation: spinBack 1s linear infinite;
