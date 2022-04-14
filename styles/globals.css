@@ -270,4 +270,12 @@ input[type=number] {
         transform: rotate(-720deg);
   }
 }
+
+#headerr { 
+  background: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1649972521/pfe/Copy_of_Copy_of_Unnamed_Design_3_npokb3.png") #196366;
+  background-position-x: right;
+  background-position-y: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
           

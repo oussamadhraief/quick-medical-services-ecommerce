@@ -19,8 +19,6 @@ export default function MainContent(){
     const card3 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__5_-removebg-preview_am1ajy.png'
     const card4 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__4_-removebg-preview_vd14wo.png'
     const card5 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__7_-removebg-preview_yompbn.png'
-    const question = 'pfe/1_ns4qha.png'
-    const feedback = 'pfe/2_qtx32d.png'
     
     const [value,setValue] = useState([])
     const [search,setSearch] = useState('')

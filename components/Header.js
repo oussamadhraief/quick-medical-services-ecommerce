@@ -7,9 +7,8 @@ import Link from 'next/link'
 
 export default function Header(props){
 
-    const cart = 'pfe/cart_ygq4xr.png'
-    const banner = 'pfe/taxi-485_scg8nz.png'
-    const design = 'pfe/download_libhgv.png'
+    const cart = 'pfe/icons8-cart-128_1_rdtueh.png'
+    const banner = 'pfe/Copy_of_Copy_of_Copy_of_Unnamed_Design_1_xxawwr.png'
 
     const [scrolled,setscrolled] = useState(false)
 
@@ -49,7 +48,7 @@ export default function Header(props){
     }
 
     return (
-        <header className={`${props.landingPage ? 'bg-gradient-to-br from-light to-na3ne3i' : 'backgroundShiny'} ${scrolled ? 'pt-0' : 'pt-5'} flex flex-col w-full h-fit items-center`}>
+        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'}  min-h-screen flex flex-col w-full h-fit items-center`}>
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
@@ -62,34 +61,37 @@ export default function Header(props){
                     <h6 className="text-xl font-extrabold">PRODUITS</h6>
                     </div>
                 </h1>
-                <p className="break-words text-secondary font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
-                <div className="my-10 w-full h-fit flex flex-wrap md:flex-nowrap justify-evenly animate__animated animate__delay-2s animate__bounceInLeft">
+                <p className="break-words text-orange font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
+                <div className="my-10 w-full h-fit flex flex-wrap md:flex-nowrap justify-center  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="min-w-fit ml-0 sm:mr-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
+                    <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="min-w-fit ml-0 sm:ml-3 text-white bg-gradient-to-r from-ciel to-[#0689c5] px-4 py-3 w-5/12 lg:w-5/12 md:text-sm 2xl:w-1/3 whitespace-nowrap text-center hover:from-cool hover:to-cool hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    <a className="ml-3 text-orange font-medium bg-transparent border-2 rounded-lg border-orange px-1 py-3 w-fit h-fit whitespace-nowrap text-center hover:bg-orange hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 </Link>
                 </div>
                 
                 <NavigationSection landingPage={props.landingPage} />
 
                 </div>
-                <div id="banner" className="relative mx-auto w-9/12 order-1 md:order-2  md:w-5/12 sm:ml-[9%] h-full">
-                    <Image src={banner} alt='surgeon' width={700} height={700} layout='responsive' />
+                <div id="banner" className="relative w-1/2 h-screen order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
+                    {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
+                </div>
+                <div>
+                    
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[110%] top-2 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[130%] top-0.5 bg-white rounded-md px-2 py-0.5"}>
+                    panier
+                </div>
                 <Link href='/cart'>
-                <a><Image src={cart} alt='cart icon' width={37} height={32} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={cart} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-third border shadow-stylish rounded-full w-fit h-fit top-0 -right-2.5 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third border shadow-stylish rounded-full w-fit h-fit -top-1 -right-3 text-white font-medium text-xs px-1.5 text-center'}>2</p>
+                <p className={scrolled ? "absolute bg-third rounded-full w-fit h-fit top-0.5 -right-1 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third rounded-full w-fit h-fit -top-0.5 -right-2 text-white font-medium text-xs px-1.5 text-center'}>2</p>
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-1.5 w-14 h-14">
                 
-            </div>
-            <div className="w-full h-20 relative">
-                <Image src={design} alt='design' layout="fill" />
             </div>
             </> 
             : 
@@ -100,17 +102,17 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999]` : `text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? `text-medium font-medium bg-white rounded-full shadow-stylish right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[110%] top-2 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[130%] top-0.5 bg-white rounded-md px-2 py-0.5"}>
+                    panier
+                </div>
                 <Link href='/cart'>
-                <a><Image src={cart} alt='cart icon' width={37} height={32} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={cart} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-third border shadow-stylish rounded-full w-fit h-fit top-0 -right-2.5 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third border shadow-stylish rounded-full w-fit h-fit -top-1 -right-3 text-white font-medium text-xs px-1.5 text-center'}>2</p>
+                <p className={scrolled ? "absolute bg-third rounded-full w-fit h-fit top-0.5 -right-1 text-white font-medium text-sm px-1.5 text-center" : 'absolute bg-third rounded-full w-fit h-fit -top-0.5 -right-2 text-white font-medium text-xs px-1.5 text-center'}>2</p>
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-1.5 w-14 h-14">
                 
-            </div>
-            <div className="w-full h-20 relative">
-                <Image src={design} alt='design' layout="fill" />
             </div>
             </> }
         </header>
