@@ -265,4 +265,9 @@ input[type=number] {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+
+#categoriesContainer:hover  #categoriesBoard {
+  visibility: visible;
+}
           
