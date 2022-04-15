@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import { ProductsContext } from '../utils/ProductsContext'
 import Header from "../components/Header"
-import TestimonialSection from "../components/TestimonialSection"
+// import TestimonialSection from "../components/TestimonialSection"
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
@@ -197,7 +197,7 @@ export default function MainContent(){
                     </li>
                 </ul>
             </div>
-            <TestimonialSection />
+            {/* <TestimonialSection /> */}
         </main>
         </ActivatedModalContext.Provider>
         </ProductsContext.Provider>
