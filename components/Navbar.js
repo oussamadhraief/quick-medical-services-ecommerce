@@ -56,23 +56,23 @@ export default function Navbar({ scrolled }){
     }
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around  w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around  w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="relative ml-4 w-32 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} width={230} height={90} layout='fill' objectFit="center" /></a>
             </Link>
             
             <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"lg:w-3/6 h-fit  hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink"><Link href='/'>
+                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/'>
                     <a>Accueil</a>
                     </Link></li>
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink"><Link href='/products'>
+                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/products'>
                     <a>Produits</a>
                     </Link></li>
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink"><Link href='/contact'>
+                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
-                <li className="whitespace-nowrap lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink">À propos</li>
+                <li className="whitespace-nowrap lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky">À propos</li>
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">

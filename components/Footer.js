@@ -5,13 +5,9 @@ import { useState, useEffect } from 'react'
 export default function Footer () {
   const [isMobile, setIsMobile] = useState(false)
 
-  const delivery = 'pfe/delivery_nexa3b.png'
-  const payment = 'pfe/payment_zy8xmo.png'
-  const rapidity = 'pfe/rapidity_xclfrf.png'
-  const satisfaction = 'pfe/satisfait_yak5un.png'
   const facebook = 'pfe/facebook_dryelz.png'
   const location = 'pfe/location_nkg5e0.png'
-  const logo = 'pfe/22BF79_2_ciuoj6.png'
+  const logo = 'pfe/Quick_medical_services_4_xhplx6.png'
   const english = 'pfe/icons8-usa-480_wogdn9.png'
   const french = 'pfe/icons8-france-480_qz3wxt.png'
 
@@ -25,41 +21,9 @@ export default function Footer () {
   }, [])
 
   return (
-    <footer className='w-full min-w-full h-fit grid bg-cool rounded-tr-[70px] mt-32 shadow-3xl'>
-      <div className='h-fit py-5 px-5 w-[94%] flex justify-center gap-10 lg:gap-20 flex-wrap md:flex-nowrap items-center'>
-        <div className='flex flex-nowrap justify-between gap-4 items-center w-fit h-fit'>
-          <Image src={delivery} alt='' width={100} height={60} layout='fixed' />
-          <p className='text-center font-medium text-sm text-third'>
-            Livraison à<br />domicile
-          </p>
-        </div>
-        <div className='flex flex-nowrap justify-between gap-4 items-center w-fit h-fit'>
-          <Image src={payment} alt='' width={80} height={80} layout='fixed' />
-          <p className='text-center font-medium text-sm text-third'>
-            Paiement à<br />la livraison
-          </p>
-        </div>
-        <div className='flex flex-nowrap justify-between gap-4 items-center w-fit h-fit'>
-          <Image src={rapidity} alt='' width={80} height={80} layout='fixed' />
-          <p className='text-center font-medium text-sm text-third'>
-            Rapidité et<br />efficacité
-          </p>
-        </div>
-        <div className='flex flex-nowrap justify-between gap-4 items-center w-fit h-fit'>
-          <Image
-            src={satisfaction}
-            alt=''
-            width={80}
-            height={80}
-            layout='fixed'
-          />
-          <p className='text-start font-medium text-sm text-third'>
-            Garantie de<br />satisfaction totale
-          </p>
-        </div>
-      </div>
-      <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third rounded-tr-[70px]'>
-        <address className='text-white grid place-items-center space-y-2 not-italic w-fit h-fit'>
+    <footer className='w-full min-w-full h-fit grid mt-32 shadow-3xl'>
+      <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third'>
+        <address className='text-white grid place-items-start space-y-2 not-italic w-fit h-fit'>
           <Link href='https://www.facebook.com/QMSJRIBI'>
             <a
               target='_blank'
@@ -93,13 +57,12 @@ export default function Footer () {
         </address>
 
         <div className='text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
-          {' '}
           Créé par&nbsp;
           <div className='font-medium text-ciel hover:cursor-pointer relative group'>
             Oussema&nbsp;
             <p className="absolute -top-[90px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
               Oussema Dhraief
-              <br />.dhraief@gmail.com <br />
+              <br />oussema.dhraief@gmail.com <br />
               <Link href='https://www.oussama-dhraief.tech'>
                 <a target='_blank'>www.oussama-dhraief.tech</a>
               </Link>
@@ -121,7 +84,7 @@ export default function Footer () {
               src={logo}
               alt='Quick medical services logo'
               width={120}
-              height={120}
+              height={90}
               layout='fixed'
               objectFit='center'
               onClick={() => window.scroll(0, 0)}

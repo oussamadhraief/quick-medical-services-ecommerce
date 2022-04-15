@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default function Header(props){
 
-
+    const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
     const [scrolled,setscrolled] = useState(false)
 
     useEffect(() => {
@@ -46,21 +46,17 @@ export default function Header(props){
     }
 
     return (
-        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'}  min-h-screen flex flex-col w-full h-fit items-center`}>
+        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'}  h-screen flex flex-col w-full items-center`}>
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="md:w-[95%] lg:w-full h-fit px-0 lg:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
-                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[45%]">
-                <h1 className="flex flex-nowrap gap-5 text-3xl md:text-5xl lg:text-[70px] font-extrabold justify-center items-center text-white animate__animated animate__backInLeft">
-                    LES MEILLEURS 
-                    <div className="grid w-fit h-fit mt-1">
-                    <h6 className="text-xl font-extrabold mb-[1px]">PRIX</h6>
-                    <h6 className="text-xl font-extrabold">PRODUITS</h6>
+            <div id="header" className="lg:w-full h-full gap-0 grid md:flex md:flex-nowrap md:items-center md:justify-start pl-10 mb-5">
+                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[40%]">
+                    <div className="w-full h-fit animate__animated animate__backInLeft relative">
+                        <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
                     </div>
-                </h1>
                 <p className="break-words text-orange font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
-                <div className="my-10 w-full h-fit flex flex-wrap md:flex-nowrap justify-center  animate__animated animate__delay-2s animate__bounceInLeft">
+                <div className="mt-10 mb-16 w-fit mx-auto h-fit flex flex-nowrap md:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
                     <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
@@ -72,7 +68,7 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
 
                 </div>
-                <div id="banner" className="relative w-1/2 h-screen order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
+                <div id="banner" className="relative w-1/2 order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
                     {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
                 </div>
                 <div>

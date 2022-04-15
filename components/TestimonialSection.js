@@ -218,7 +218,7 @@ export default function TestimonialSection () {
 
   return (
     <div className='w-full h-fit grid mb-12 mt-32 overflow-hidden'>
-      <p className="w-fit h-fit mx-auto text-3xl text-ciel font-semibold after:content-[''] after:bg-zinc-400 after:w-7/12 after:h-[1px] after:absolute after:-bottom-1 after:left-0 after:right-0 after:mx-auto relative">
+      <p className="w-fit h-fit mx-auto text-[44px] text-na3ne3i font-bold after:content-[''] after:bg-zinc-400 after:w-7/12 after:h-[1px] after:absolute after:-bottom-1 after:left-0 after:right-0 after:mx-auto relative">
         Avis de nos clients
       </p>
       <p className='w-fit h-fit mx-auto text-base text-third font-medium mt-1.5'>

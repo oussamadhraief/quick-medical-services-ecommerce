@@ -71,7 +71,7 @@ a {
   transform: scaleX(0);
   transition: transform 0.25s ease-out;
   height: 2px;
-  background-color: #242526;
+  background-color: #F7B1A2;
   transform-origin: bottom right;
 }
 

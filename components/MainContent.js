@@ -19,6 +19,10 @@ export default function MainContent(){
     const card3 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__5_-removebg-preview_am1ajy.png'
     const card4 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__4_-removebg-preview_vd14wo.png'
     const card5 = 'pfe/Roadmap_Timeline_Process_Infographic_Graph__7_-removebg-preview_yompbn.png'
+    const delivery = 'pfe/1_tybhhw.png'
+    const payment = 'pfe/2_tqhmcd.png'
+    const rapidity = 'pfe/3_av1ccn.png'
+    const satisfaction = 'pfe/4_gutx7r.png'
     
     const [value,setValue] = useState([])
     const [search,setSearch] = useState('')
@@ -120,10 +124,6 @@ export default function MainContent(){
             </div>
         </div>
         </div>
-            {loading ? <div className='w-screen h-[450px] relative'>
-                <LoadingAnimation bgOpacity={true} />
-                </div> :
-                <>
             <div className='flex flex-col 2md:flex-row justify-between w-screen h-fit py-2'>
             <p className='bg-na3ne3i w-fit px-3 py-1 shadow-form hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl ml-10 '>Produits disponibles à tout moment</p>
             <div className='ml-10 2md:ml-0 mt-4 2md:mt-0 flex flex-nowrap justify-between items-center w-60 border-[2px] rounded-lg mr-10 h-fit px-2 py-1'>
@@ -134,6 +134,40 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
+            <div className='w-full h-fit flex flex-wrap justify-evenly px-[20%] bg-[#E7EDEE] items-center pb-24 mb-10 pt-24'>
+                <div>
+                    <div>
+                        <Image src={delivery} alt='delivery truck icon' width={150} height={150} layout="fixed" />
+                    </div>
+                    <p className='text-center font-medium text-sm text-third'>
+                        Livraison à<br />domicile
+                    </p>
+                </div>
+                <div>
+                    <div>
+                        <Image src={payment} alt='payment icon' width={150} height={150} layout="fixed" />
+                    </div>
+                    <p className='text-center font-medium text-sm text-third'>
+                    Paiement à<br />la livraison
+                    </p>
+                </div>
+                <div>
+                    <div>
+                        <Image src={rapidity} alt='rapidity icon' width={150} height={150} layout="fixed" />
+                    </div>
+                    <p className='text-center font-medium text-sm text-third'>
+                    Rapidité et<br />efficacité
+                    </p>
+                </div>
+                <div>
+                    <div>
+                        <Image src={satisfaction} alt='satisfaction icon' width={150} height={150} layout="fixed" />
+                    </div>
+                    <p className='text-center font-medium text-sm text-third'>
+                    Garantie de<br />satisfaction totale
+                    </p>
+                </div>
+            </div>
             <div className='flex flex-col 2md:flex-row justify-between w-screen h-fit py-2'>
             <p className='bg-[#D9302B] w-fit px-3 py-1 shadow-form  hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl  ml-10 '>Produits disponibles sur commande</p>
 
@@ -145,9 +179,8 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
-            </>}
 
-            <div id='encourageSection' className='bg-trendy w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
+            <div id='encourageSection' className='bg-[#92bfbf] w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
                 <div className=' w-1/2 lg:w-1/4 h-fit grid place-items-start lg:place-items-end'>
                     <h1 className='w-full h-fit text-third text-xl lg:text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
                     <h1 className='w-fit h-fit text-third text-xl lg:text-2xl font-mono lg:whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
