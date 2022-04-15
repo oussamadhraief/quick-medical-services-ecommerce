@@ -93,6 +93,14 @@ export default function TestimonialSection () {
     }, 10000)
   }, [])
 
+  useEffect(() => {
+      for(let i = 0; i < testimonials.length; i++){
+        if(document.getElementById(testimonials[i].author) != null)
+        document.getElementById(testimonials[i].author).style.backgroundImage = "url('https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy')"
+      }
+      
+  })
+
   const handleScrollRight = () => {
     const section = document.querySelectorAll('#scrollableTestimonial div')
     section.forEach(item => {
@@ -229,9 +237,6 @@ export default function TestimonialSection () {
         className='flex flex-nowrap justify-evenly items-center w-fit gap-[7vw] min-w-full h-fit mt-20'
       >
         {activeReviews.map((item, index) => {
-          let avatarBackground = {
-            background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
-          }
           if (index == 1 || index == 3)
             return (
               <div
@@ -252,10 +257,8 @@ export default function TestimonialSection () {
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
-                    className='w-12 h-12 rounded-full shadow relative'
-                    style={
-                      avatarBackground
-                    }
+                    className='w-12 h-12 rounded-full shadow relative bg-center bg-no-repeat bg-contain'
+                    id={item.author}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}
@@ -283,10 +286,8 @@ export default function TestimonialSection () {
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
-                    className='w-12 h-12 rounded-full shadow relative'
-                    style={
-                      avatarBackground
-                    }
+                    className='w-12 h-12 rounded-full shadow relative bg-center bg-no-repeat bg-contain'
+                    id={item.author}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}
@@ -314,10 +315,8 @@ export default function TestimonialSection () {
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
-                    className='w-12 h-12 rounded-full shadow relative'
-                    style={
-                      avatarBackground
-                    }
+                    className='w-12 h-12 rounded-full shadow relative bg-center bg-no-repeat bg-contain'
+                    id={item.author}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}
@@ -350,7 +349,7 @@ export default function TestimonialSection () {
               <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
               <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                 <div
-                  className='w-12 h-12 rounded-full shadow relative'
+                  className='w-12 h-12 rounded-full shadow relative bg-center bg-no-repeat bg-contain'
                   style={{
                     background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
                   }}
