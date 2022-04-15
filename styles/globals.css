@@ -139,14 +139,14 @@ a {
   box-shadow: 2px 0 20px -4px rgba(0, 0, 0, 0.4);
 }
 
-@layer components {
+/* @layer components {
   .form-input {
     @apply my-2 py-2 flex w-full mx-auto border-b border-zinc-400 focus:placeholder-third focus:border-third placeholder:text-sm outline-none focus:placeholder:-translate-y-10 ;
   }
   .form-label {
   @apply absolute hidden text-zinc-400 hover:cursor-text top-3 left-3 peer-focus:block peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-focus:peer-invalid:text-red-500  w-fit h-fit transition-all peer-placeholder-shown:block 
   }
-}
+} */
 
 #scrollableTestimonial {
   scroll-behavior: smooth;
