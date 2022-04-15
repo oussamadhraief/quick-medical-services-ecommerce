@@ -14,6 +14,10 @@ module.exports = {
         btn: 'rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;',
         float: '0 8px 55px 0 rgb(0 0 0 / 16%)'
       },
+      screens: {
+        '2md': '850px',
+        '3xl': '1700px'
+      },
       colors: {
         main: '#0F224E',
         secondary: '#F5BE3A',

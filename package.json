@@ -2,6 +2,7 @@
   "name": "pfe",
   "private": true,
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "deez": "next dev",
     "build": "next build",
     "start": "next start",
