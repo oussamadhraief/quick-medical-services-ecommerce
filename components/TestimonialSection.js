@@ -229,6 +229,9 @@ export default function TestimonialSection () {
         className='flex flex-nowrap justify-evenly items-center w-fit gap-[7vw] min-w-full h-fit mt-20'
       >
         {activeReviews.map((item, index) => {
+          let avatarBackground = {
+            background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
+          }
           if (index == 1 || index == 3)
             return (
               <div
@@ -250,9 +253,9 @@ export default function TestimonialSection () {
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
-                    style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
-                    }}
+                    style={
+                      avatarBackground
+                    }
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}
@@ -281,9 +284,9 @@ export default function TestimonialSection () {
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
-                    style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
-                    }}
+                    style={
+                      avatarBackground
+                    }
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}
@@ -312,9 +315,9 @@ export default function TestimonialSection () {
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
-                    style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
-                    }}
+                    style={
+                      avatarBackground
+                    }
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
                     {item.author}

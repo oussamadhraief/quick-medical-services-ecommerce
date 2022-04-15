@@ -58,7 +58,7 @@ export default function Navbar({ scrolled }){
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around  w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
-                <a className="relative ml-4 w-32 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} width={230} height={90} layout='fill' objectFit="center" /></a>
+                <a className="relative ml-4 w-32 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100}  layout='fill' objectFit="center" /></a>
             </Link>
             
             <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"lg:w-3/6 h-fit  hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
