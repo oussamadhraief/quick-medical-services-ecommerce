@@ -117,7 +117,7 @@ export default function Contact () {
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-3/4  mx-auto  shadow-form mt-20 rounded-2xl'>
-        <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 backgroundAnimated mx-auto '>
+        <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto '>
           <div className='w-9/12 mx-auto mt-12 mb-8'>
             <h1 className='text-white text-4xl font-bold'>Contact us</h1>
             <hr className='w-4/12' />
