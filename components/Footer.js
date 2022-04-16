@@ -94,8 +94,8 @@ export default function Footer () {
             </p>
           </div>
           <div className='flex flex-nowrap w-fit h-fit items-center justify-center gap-3 mx-auto mt-5'>
-            <div className='relative w-fit h-fit hover:cursor-pointer group-foo hover:scale-110 grayscale hover:grayscale-0'>
-              <div className='absolute hidden group-foo-hover:block -bottom-8 bg-white text-third -left-3 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto'>
+            <div className='relative w-fit h-fit hover:cursor-pointer group hover:scale-110 grayscale hover:grayscale-0'>
+              <div className='absolute hidden group-hover:block -bottom-8 bg-white text-third -left-3 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto'>
                 Anglais
               </div>
               <Image
@@ -106,8 +106,8 @@ export default function Footer () {
                 layout='fixed'
               />
             </div>
-            <div className='relative w-fit h-fit hover:cursor-pointer group-foo hover:scale-110 grayscale hover:grayscale-0'>
-              <div className='absolute hidden group-foo-hover:block -bottom-8 bg-white text-third -left-4 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto'>
+            <div className='relative w-fit h-fit hover:cursor-pointer group hover:scale-110 grayscale hover:grayscale-0'>
+              <div className='absolute hidden group-hover:block -bottom-8 bg-white text-third -left-4 rounded-lg w-fit h-fit font-medium px-2 py-1 mx-auto'>
                 Français
               </div>
               <Image

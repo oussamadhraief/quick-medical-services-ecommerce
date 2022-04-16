@@ -8,6 +8,7 @@ import Link from 'next/link'
 export default function Header(props){
 
     const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
+    const banner = 'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'
     const [scrolled,setscrolled] = useState(false)
 
     useEffect(() => {
@@ -46,12 +47,12 @@ export default function Header(props){
     }
 
     return (
-        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'}  h-screen flex flex-col w-full items-center`}>
+        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'} pb-5 h-fit flex flex-col w-full items-center relative bg-na3ne3i`}>
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="lg:w-full h-full gap-0 grid md:flex md:flex-nowrap md:items-center md:justify-start pl-10 mb-5">
-                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[40%]">
+            <div id="header" className="lg:w-full h-full gap-0 grid md:flex md:flex-nowrap md:items-center md:justify-start pl-10 mb-5 py-20 xl:py-32 2xl:py-52">
+                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[40%] z-[1]">
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
                         <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
                     </div>
@@ -71,8 +72,8 @@ export default function Header(props){
                 <div id="banner" className="relative w-1/2 order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
                     {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
                 </div>
-                <div>
-                    
+                <div className="w-8/12 z-0 h-full absolute top-0 right-0">
+                    <Image src={banner} alt='surgeon' width={1000} height={700} quality={100} layout='fill' />
                 </div>
             </div>
             <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
