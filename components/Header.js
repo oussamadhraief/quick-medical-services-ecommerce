@@ -83,13 +83,13 @@ export default function Header(props){
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
                         <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
                     </div>
-                <p className="break-words text-orange font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
-                <div className="mt-10 mb-16 w-fit mx-auto h-fit flex flex-wrap sm:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
+                <p className="break-words text-orange font-medium text-sm sm:text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
+                <div className="mt-10 mb-16 w-[200px] sm:w-fit mx-auto h-fit flex flex-wrap sm:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
-                    <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
+                    <a className="sm:mr-3 text-black text-sm sm:text-base font-medium bg-orange w-[170px] sm:w-[200px] py-3 rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>
-                    <a className="ml-3 text-orange font-medium bg-transparent border-2 rounded-lg border-orange px-1 py-3 w-fit h-fit whitespace-nowrap text-center hover:bg-orange hover:text-black hover:scale-105 transition-all">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contactez-nous !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    <a className="mt-3 sm:mt-0 sm:ml-3 text-orange text-sm sm:text-base font-medium bg-transparent w-[170px] sm:w-[200px] py-3 border-2 rounded-lg border-orange h-fit whitespace-nowrap text-center hover:bg-orange hover:text-black hover:scale-105 transition-all">Contactez-nous !</a>
                 </Link>
                 </div>
                 
