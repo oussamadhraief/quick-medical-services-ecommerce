@@ -11,15 +11,6 @@ export default function Footer () {
   const english = 'pfe/icons8-usa-480_wogdn9.png'
   const french = 'pfe/icons8-france-480_qz3wxt.png'
 
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 640px)')
-    if (mql.matches) {
-      setIsMobile(true)
-    } else {
-      setIsMobile(false)
-    }
-  }, [])
-
   return (
     <footer className='w-full min-w-full h-fit grid mt-32 shadow-3xl'>
       <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third'>
@@ -56,9 +47,9 @@ export default function Footer () {
           </div>
         </address>
 
-        <div className='text-white italic flex flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
+        <p className='text-white italic flex flex-wrap sm:flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
           Créé par&nbsp;
-          <div className='font-medium text-ciel hover:cursor-pointer relative group'>
+          <p className='font-medium text-ciel hover:cursor-pointer relative group'>
             Oussema&nbsp;
             <p className="absolute -top-[90px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
               Oussema Dhraief
@@ -67,17 +58,17 @@ export default function Footer () {
                 <a target='_blank'>www.oussama-dhraief.tech</a>
               </Link>
             </p>
-          </div>{' '}
+          </p>
           et &nbsp;
-          <div className='font-medium text-secondary hover:cursor-pointer relative group'>
+          <p className='font-medium text-secondary hover:cursor-pointer relative group'>
             Mohamed
             <p className="absolute -top-[75px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
               Mohamed Halouani
               <br />halouani142@gmail.com
             </p>
-          </div>
+          </p>
           &nbsp; &#xa9; 2022, Tunisie.
-        </div>
+        </p>
         <div className='w-fit h-fit grid hover:cursor-pointer relative place-self-center'>
           <div className='relative w-fit h-fit group'>
             <Image

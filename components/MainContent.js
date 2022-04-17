@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import { ProductsContext } from '../utils/ProductsContext'
 import Header from "../components/Header"
-// import TestimonialSection from "../components/TestimonialSection"
+import TestimonialSection from "../components/TestimonialSection"
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
@@ -67,7 +67,7 @@ export default function MainContent(){
             <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
             
             
-        <p className='text-lg sm:text-2xl md:text-3xl font-medium mx-auto w-fit bg-[#44A4F4] text-white px-5 py-2 shadow-stylish mb-20 hover:cursor-pointer hover:scale-125 transition-all whitespace-nowrap'>Comment commander en ligne ?</p>
+        <p className='text-lg sm:text-2xl md:text-3xl font-medium mx-auto w-fit bg-pinky text-white px-5 py-2 shadow-stylish mb-20 hover:cursor-pointer hover:scale-125 transition-all whitespace-nowrap'>Comment commander en ligne ?</p>
         <div id='steps' className='w-full px-5 lg:px-0 lg:w-11/12 xl:w-10/12 2xl:w-9/12 gap-5 mx-auto h-fit bg-transparent py-0  flex flex-wrap lg:flex-nowrap justify-evenly items-center'>
            
             <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
@@ -169,7 +169,7 @@ export default function MainContent(){
                 </div>
             </div>
             <div className='flex flex-col 2md:flex-row justify-between w-screen h-fit py-2'>
-            <p className='bg-[#D9302B] w-fit px-3 py-1 shadow-form  hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl  ml-10 '>Produits disponibles sur commande</p>
+            <p className='bg-orange w-fit px-3 py-1 shadow-form  hover:cursor-pointer hover:scale-105 transition-all text-white font-medium text-xl  ml-10 '>Produits disponibles sur commande</p>
 
             <div className='ml-10 2md:ml-0 mt-4 2md:mt-0 flex flex-nowrap justify-between items-center w-60 border-[2px] rounded-lg mr-10 h-fit px-2 py-1'>
             <input type='text' name='unavailableSearch' value={unavailableSearch} onChange={(e) => {
@@ -197,7 +197,7 @@ export default function MainContent(){
                     </li>
                 </ul>
             </div>
-            {/* <TestimonialSection /> */}
+            <TestimonialSection />
         </main>
         </ActivatedModalContext.Provider>
         </ProductsContext.Provider>

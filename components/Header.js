@@ -8,8 +8,16 @@ import Link from 'next/link'
 export default function Header(props){
 
     const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
-    const banner = 'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'
     const [scrolled,setscrolled] = useState(false)
+    const [isMobile,setIsMobile] = useState(false)
+
+
+    useEffect(() => {
+        const mq1 = window.matchMedia("(max-width: 1024px)")
+            if(mq1.matches){
+                setIsMobile(true)
+            }
+    },[])
 
     useEffect(() => {
         document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
@@ -28,6 +36,12 @@ export default function Header(props){
     )
         window.addEventListener("resize", () => {
             handleAnimation()
+            const mq1 = window.matchMedia("(max-width: 1024px)")
+            if(mq1.matches){
+                setIsMobile(true)
+            }else {
+                setIsMobile(false)
+            }
             document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
           }
     )})
@@ -51,13 +65,16 @@ export default function Header(props){
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="lg:w-full h-full gap-0 grid md:flex md:flex-nowrap md:items-center md:justify-start pl-10 mb-5 py-20 xl:py-32 2xl:py-52">
-                <div className="grid place-items-start w-full order-2 md:order-1 md:w-[40%] z-[1]">
+            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 py-0 sm:py-10 lg:py-20 xl:py-32 2xl:py-52">
+                <div className="w-10/12 sm:w-8/12 mx-auto lg:w-8/12 z-0 h-[340px] sm:h-[440px] lg:h-full relative lg:absolute lg:top-0 lg:right-0">
+                    <Image src={isMobile ? 'pfe/graph_2_w7rn1b.png' : 'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' />
+                </div>
+                <div className="grid place-items-start w-full px-5 md:px-0 mx-auto lg:mx-0 md:w-11/12 order-2 md:order-1 lg:w-[40%] z-[1]">
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
                         <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
                     </div>
                 <p className="break-words text-orange font-medium text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
-                <div className="mt-10 mb-16 w-fit mx-auto h-fit flex flex-nowrap md:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
+                <div className="mt-10 mb-16 w-fit mx-auto h-fit flex flex-wrap sm:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
                     <a className="mr-3 text-black font-medium bg-orange px-4 py-3 w-fit rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all">Explorer les produits &#x2192;</a>
                 </Link>
@@ -71,9 +88,6 @@ export default function Header(props){
                 </div>
                 <div id="banner" className="relative w-1/2 order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
                     {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
-                </div>
-                <div className="w-8/12 z-0 h-full absolute top-0 right-0">
-                    <Image src={banner} alt='surgeon' width={1000} height={700} quality={100} layout='fill' />
                 </div>
             </div>
             <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
