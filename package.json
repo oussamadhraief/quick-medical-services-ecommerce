@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "dotenv": "^16.0.0",
     "mongoose": "^6.2.1",
     "next": "^12.1.5",
