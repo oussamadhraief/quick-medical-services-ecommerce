@@ -67,7 +67,7 @@ export default function Navbar({ scrolled }){
                 <a className="relative ml-4 w-44 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100}  layout='fill' objectFit="center" /></a>
             </Link>
             
-            <ul id="navDropdown" className={dropDown? "fixed grid place-content-center pb-[150vh] pt-0 gap-14 w-screen h-[200vh] bg-na3ne3i -top-5 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
+            <ul id="navDropdown" className={dropDown? "fixed grid place-content-center pb-[150vh] pt-5 gap-14 w-screen h-[200vh] bg-na3ne3i -top-5 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
                 <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/'>
                     <a>Accueil</a>
