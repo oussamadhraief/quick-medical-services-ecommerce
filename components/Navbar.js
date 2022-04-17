@@ -42,6 +42,9 @@ export default function Navbar({ scrolled }){
                 
             }
             else{
+                document.getElementById('clickableMenu').style.position= "relative"
+                document.getElementById('clickableMenu').style.top= "0px"
+                document.getElementById('clickableMenu').style.right= "0px"
                 firstElem.style.transform = 'rotate(0deg)'
                 firstElem.style.width = '20px'
                 thirdElem.style.width = '20px'
@@ -53,7 +56,6 @@ export default function Navbar({ scrolled }){
                 document.body.style.height= "fit-content"
                 document.body.style.overflow= "auto"
                 document.getElementById('cart').style.display= "block"
-                document.getElementById('clickableMenu').style.position= "relative"
 
 
             }
