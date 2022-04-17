@@ -77,7 +77,7 @@ export default function Header(props){
             <>
             <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-20 xl:py-32 2xl:py-52">
                 <div className="w-11/12 sm:w-10/12 md:w-7/12 mx-auto lg:w-8/12 z-0 lg:h-full relative lg:absolute lg:top-0 lg:right-0">
-                    {isMobile ? <Image src={'pfe/Untitled_design_2_ys759f.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> : <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> }
+                    {isMobile ? <Image src={'pfe/Untitled_design_2_cfpmtb.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> : <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> }
                 </div>
                 <div className="grid place-items-start w-full px-5 md:px-0 mx-auto lg:mx-0 md:w-11/12 order-2 md:order-1 lg:w-[40%] z-[1]">
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
