@@ -29,8 +29,16 @@ export default function MainContent(){
     const [availableSearch,setAvailableSearch] = useState('')
     const [unavailableSearch,setUnavailableSearch] = useState('')
     const [loading,setLoading] = useState(true)
+    const [isMobile,setIsMobile] = useState(false)
     const [activatedModal,setActivatedModal] = useState(false)
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
+
+    useEffect(() => {
+        const mq1 = window.matchMedia('(max-width: 767px)')
+         if(mq1.matches){
+             setIsMobile(true)
+         }
+    },[])
 
     useEffect(() => {
         async function fetchData() {
@@ -134,8 +142,8 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='w-full h-fit flex flex-wrap justify-evenly px-[20%] bg-[#E7EDEE] items-center pb-24 mb-10 pt-24'>
-                <div>
+            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-[#E7EDEE] items-center pb-24 mb-10 pt-24'>
+                <div className='mx-3 mt-3'>
                     <div>
                         <Image src={delivery} alt='delivery truck icon' width={150} height={150} layout="fixed" />
                     </div>
@@ -143,7 +151,7 @@ export default function MainContent(){
                         Livraison à<br />domicile
                     </p>
                 </div>
-                <div>
+                <div className='mx-3 mt-3'>
                     <div>
                         <Image src={payment} alt='payment icon' width={150} height={150} layout="fixed" />
                     </div>
@@ -151,7 +159,7 @@ export default function MainContent(){
                     Paiement à<br />la livraison
                     </p>
                 </div>
-                <div>
+                <div className='mx-3 mt-3'>
                     <div>
                         <Image src={rapidity} alt='rapidity icon' width={150} height={150} layout="fixed" />
                     </div>
@@ -159,7 +167,7 @@ export default function MainContent(){
                     Rapidité et<br />efficacité
                     </p>
                 </div>
-                <div>
+                <div className='mx-3 mt-3'>
                     <div>
                         <Image src={satisfaction} alt='satisfaction icon' width={150} height={150} layout="fixed" />
                     </div>
@@ -180,22 +188,26 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
 
-            <div id='encourageSection' className='bg-[#92bfbf] w-full h-[60vh] min-h-fit mt-32 flex flex-nowrap justify-between items-center py-10 pl-20'>
-                <div className=' w-1/2 lg:w-1/4 h-fit grid place-items-start lg:place-items-end'>
-                    <h1 className='w-full h-fit text-third text-xl lg:text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
-                    <h1 className='w-fit h-fit text-third text-xl lg:text-2xl font-mono lg:whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
+            <div id='encourageSection' className='bg-[#8EB0A5] w-full h-fit md:h-[40vh] lg:h-[50vh] xl:h-[60vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-between items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-20'>
+                <div className='w-fit md:w-2/12 xl:w-1/4 h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0'>
+                    <h1 className='w-full h-fit text-third text-base lg:text-lg xl:text-2xl font-mono whitespace-nowrap'>Vous avez une question?</h1>
+                    <h1 className='w-fit h-fit text-third text-base lg:text-lg xl:text-2xl font-mono whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
                     <Link href='/contact'>
-                        <a className='text-white bg-third text-xl lg:text-2xl font-mono px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
+                        <a className='text-white bg-third text-lg mx-auto lg:mx-0 xl:text-2xl font-mono px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
                     </Link>
                 </div>
-                <ul className='w-1/2 h-full flex min-h-[300px] flex-nowrap justify-start items-center gap-5 relative'>
-                    <li className='hoverablecontainer hover:cursor-pointer hover:w-1/2 overflow-hidden h-full bg-rainy rounded-3xl transition-all duration-500 peer w-32 shadow-float'>
+                {isMobile ? null :<ul className='w-5/12 lg:w-7/12 xl:w-1/2 h-full flex lg:min-h-[300px] flex-nowrap justify-start lg:justify-center items-center gap-5 relative order-1 md:order-2'>
+                    <li className='hoverablecontainer hover:cursor-pointer hover:w-7/12 xl:hover:w-1/2 overflow-hidden h-full bg-rainy rounded-3xl transition-all duration-500 peer w-20 lg:w-32 shadow-float'>
                         
                     </li>
-                    <li className='hoverablecontainer peer-hover:w-32 hover:cursor-pointer overflow-hidden w-1/2 h-full bg-rainy rounded-3xl transition-all duration-300 peer shadow-float'>
+                    <li className='hoverablecontainer peer-hover:w-20 lg:peer-hover:w-32 hover:cursor-pointer overflow-hidden w-7/12 xl:w-1/2 h-full bg-rainy rounded-3xl transition-all duration-300 peer shadow-float'>
                         
                     </li>
-                </ul>
+                </ul>}
+                {isMobile ? 
+                    <div className='hoverablecontainer hover:cursor-pointer overflow-hidden bg-rainy rounded-3xl transition-all duration-300 shadow-float w-64 h-64'>
+                        
+                    </div> : null}
             </div>
             <TestimonialSection />
         </main>

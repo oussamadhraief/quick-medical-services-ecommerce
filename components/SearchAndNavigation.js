@@ -11,7 +11,7 @@ export default function SearchAndNavigation(){
     const syringe = 'pfe/searchIcon_ooxkbe.png'
 
     return (
-        <div className="grid sm:flex relative flex-nowrap pl-3 sm:pl-0 pr-3 bg-white border-[1px] h-fit sm:h-14 rounded-lg w-11/12 mx-auto md:w-10/12 my-10">
+        <div className="grid sm:flex relative flex-nowrap pl-3 sm:pl-0 pr-3 bg-white border-[1px] h-fit sm:h-14 rounded-lg w-11/12 mx-auto md:w-10/12 mb-10 mt-5 sm:my-10">
             <CategoriesMenu />
             <div className="w-full flex flex-nowrap justify-center items-center">
             <input type="text" name="search" value={search} onChange={e => setSearch(e.target.value)} className="sm:rounded-r-lg pt-0 border-l-0 sm:border-l h-12 outline-none text-lg px-4 w-full" placeholder="Chercher un produit..."/>

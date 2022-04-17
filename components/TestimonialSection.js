@@ -58,6 +58,7 @@ export default function TestimonialSection () {
   const quotes = 'pfe/right-quotes-13252_m2dsct.png'
 
   const [activeReviews, setActiveReviews] = useState([])
+  const [isMobile, setIsMobile] = useState(32.5)
   const [ind, setInd] = useState(0)
 
   useEffect(() => {
@@ -68,8 +69,10 @@ export default function TestimonialSection () {
       testimonials[3],
       testimonials[4]
     ])
-    document.getElementById('scrollableTestimonial').style.transform =
-      'translateX(-32vw)'
+    const mq1 = window.matchMedia("(max-width: 1023px)")
+     if(mq1.matches){
+       setIsMobile(100)
+     }
     const right = document.getElementById('navigateRightReview')
     const left = document.getElementById('navigateLeftReview')
     right.addEventListener('click', () => {
@@ -97,7 +100,7 @@ export default function TestimonialSection () {
     const section = document.querySelectorAll('#scrollableTestimonial div')
     section.forEach(item => {
       item.style.transitionDuration = '0.3s'
-      item.style.transform = 'translateX(-32vw)'
+      item.style.transform = `translateX(-${isMobile}vw)`
     })
     setTimeout(() => {
       section.forEach((item, index) => {
@@ -147,7 +150,7 @@ export default function TestimonialSection () {
         document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transitionDuration = '0.3s'
-        document.querySelector(
+        if(isMobile == 32.5)document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transform = 'scale(1.3)'
       }, 50)
@@ -158,7 +161,7 @@ export default function TestimonialSection () {
     const section = document.querySelectorAll('#scrollableTestimonial div')
     section.forEach(item => {
       item.style.transitionDuration = '0.3s'
-      item.style.transform = 'translateX(32vw)'
+      item.style.transform = `translateX(${isMobile}vw)`
     })
     setTimeout(() => {
       section.forEach((item, index) => {
@@ -209,7 +212,7 @@ export default function TestimonialSection () {
         document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transitionDuration = '0.3s'
-        document.querySelector(
+        if(isMobile == 32.5)document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transform = 'scale(1.3)'
       }, 50)
@@ -226,14 +229,14 @@ export default function TestimonialSection () {
       </p>
       <div
         id='scrollableTestimonial'
-        className='flex flex-nowrap justify-evenly items-center w-fit gap-[7vw] min-w-full h-fit mt-20'
+        className='flex flex-nowrap justify-evenly items-center w-fit -translate-x-[200vw] lg:-translate-x-[32.5vw] min-w-full h-fit mt-20'
       >
         {activeReviews.map((item, index) => {
           if (index == 1 || index == 3)
             return (
               <div
                 key={index}
-                className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+                className={`relative w-[100vw] lg:w-[25vw] lg:mx-[5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -245,7 +248,7 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third'>{item.message}</q>
+                <q className='text-sm italic text-third h-fit'>{item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
@@ -264,7 +267,7 @@ export default function TestimonialSection () {
             return (
               <div
                 key={index}
-                className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 ml-[7vw]`}
+                className={`relative w-[100vw] lg:w-[25vw] lg:ml-[5vw] lg:mr-[2.5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -276,7 +279,7 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third'>{item.message}</q>
+                <q className='text-sm italic text-third h-fit'>{item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
@@ -295,7 +298,7 @@ export default function TestimonialSection () {
             return (
               <div
                 key={index}
-                className={`relative w-[25vw] h-60 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300 mr-[7vw]`}
+                className={`relative w-[100vw] lg:w-[25vw] lg:mr-[5vw] lg:ml-[2.5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -307,7 +310,7 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third'>{item.message}</q>
+                <q className='text-sm italic text-third h-fit'>{item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
@@ -325,7 +328,7 @@ export default function TestimonialSection () {
           return (
             <div
               key={index}
-              className={`relative w-[450px] h-60 shadow-float scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+              className={`relative w-[90vw] mx-[5vw] lg:w-[25vw] lg:mx-[2.5vw] h-fit shadow-float lg:scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
             >
               <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                 <Image
@@ -360,7 +363,7 @@ export default function TestimonialSection () {
           )
         })}
       </div>
-      <div className='w-fit h-fit flex flex-nowrap mx-auto mt-20 gap-3'>
+      <div className='w-fit h-fit flex flex-nowrap mx-auto mt-10 md:mt-20 gap-3'>
         <button
           id='navigateLeftReview'
           className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary'
