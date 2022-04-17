@@ -37,7 +37,7 @@ export default function CategoriesMenu(){
         <>
         {isMobile ?
         <>
-                <button className="w-full sm:w-fit h-14 px-10 whitespace-nowrap text-center font-medium" onClick={e => {
+                <button className="w-full sm:w-fit h-14 px-10 whitespace-nowrap text-center border-b sm:border-0 font-medium" onClick={e => {
                     document.body.style.height = '100vh'
                     document.body.style.overflow = 'hidden'
                     setShow(true)
