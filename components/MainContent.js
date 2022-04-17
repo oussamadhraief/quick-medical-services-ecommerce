@@ -142,37 +142,37 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-[#E7EDEE] items-center pb-24 mb-10 pt-24'>
+            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-[#E7EDEE] items-center mb-10 py-5 sm:10 md:16 lg:py-20 xl:py-24'>
                 <div className='mx-3 mt-3'>
-                    <div>
-                        <Image src={delivery} alt='delivery truck icon' width={150} height={150} layout="fixed" />
+                    <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
+                        <Image src={delivery} alt='delivery truck icon' layout="fill" />
                     </div>
-                    <p className='text-center font-medium text-sm text-third'>
+                    <p className='text-center font-medium mt-2 text-sm text-third'>
                         Livraison à<br />domicile
                     </p>
                 </div>
                 <div className='mx-3 mt-3'>
-                    <div>
-                        <Image src={payment} alt='payment icon' width={150} height={150} layout="fixed" />
+                    <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
+                        <Image src={payment} alt='payment icon' layout="fill" />
                     </div>
-                    <p className='text-center font-medium text-sm text-third'>
+                    <p className='text-center font-medium mt-2 text-sm text-third'>
                     Paiement à<br />la livraison
                     </p>
                 </div>
                 <div className='mx-3 mt-3'>
-                    <div>
-                        <Image src={rapidity} alt='rapidity icon' width={150} height={150} layout="fixed" />
+                    <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
+                        <Image src={rapidity} alt='rapidity icon' layout="fill" />
                     </div>
-                    <p className='text-center font-medium text-sm text-third'>
+                    <p className='text-center font-medium mt-2 text-sm text-third'>
                     Rapidité et<br />efficacité
                     </p>
                 </div>
                 <div className='mx-3 mt-3'>
-                    <div>
-                        <Image src={satisfaction} alt='satisfaction icon' width={150} height={150} layout="fixed" />
+                    <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
+                        <Image src={satisfaction} alt='satisfaction icon' layout="fill" />
                     </div>
-                    <p className='text-center font-medium text-sm text-third'>
-                    Garantie de<br />satisfaction totale
+                    <p className='text-center font-medium mt-2 text-sm text-third'>
+                    Garantie de<br />satisfaction
                     </p>
                 </div>
             </div>
