@@ -14,6 +14,7 @@ module.exports = {
         float: '0 8px 55px 0 rgb(0 0 0 / 16%)'
       },
       screens: {
+        'verysm': '450px',
         '2md': '850px',
         '3xl': '1700px'
       },

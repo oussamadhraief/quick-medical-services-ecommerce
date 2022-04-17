@@ -13,11 +13,13 @@ export default function Navbar({ scrolled }){
         const mql= window.matchMedia('(max-width: 1023px)')
         if(mql.matches){
             setIsMobile(true)
+            window.scroll(0,1)
         }else{
             setIsMobile(false)
         }
     },[])
 
+    
     const handleDropDownClick = (event) =>{
         
         let firstElem = document.getElementById('first')
@@ -25,21 +27,25 @@ export default function Navbar({ scrolled }){
         let thirdElem = document.getElementById('third')
         
             if(!dropDown){
-                firstElem.style.transform = 'rotate(-45deg)'
-                firstElem.style.top = '8px'
+                firstElem.style.transform = 'rotate(45deg)'
+                firstElem.style.width = '24px'
+                thirdElem.style.width = '24px'
+                thirdElem.style.top = '0px'
                 secondElem.style.visibility = 'hidden'
-                thirdElem.style.transform = 'rotate(45deg)'
-                thirdElem.style.bottom = '10px'
+                thirdElem.style.transform = 'rotate(-45deg)'
                 document.body.style.height= "100vh"
                 document.body.style.overflow= "hidden"
                 document.getElementById('cart').style.display= "none"
                 document.getElementById('clickableMenu').style.position= "fixed"
-                document.getElementById('clickableMenu').style.top= "5px"
+                document.getElementById('clickableMenu').style.top= "15px"
                 document.getElementById('clickableMenu').style.right= "10px"
                 
             }
             else{
                 firstElem.style.transform = 'rotate(0deg)'
+                firstElem.style.width = '20px'
+                thirdElem.style.width = '20px'
+                thirdElem.style.top = '16px'
                 firstElem.style.top = '0px'
                 secondElem.style.visibility = 'visible'
                 thirdElem.style.transform = 'rotate(0deg)'
@@ -56,31 +62,31 @@ export default function Navbar({ scrolled }){
     }
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around  w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
-                <a className="relative ml-4 w-32 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100}  layout='fill' objectFit="center" /></a>
+                <a className="relative ml-4 w-44 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100}  layout='fill' objectFit="center" /></a>
             </Link>
             
-            <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-screen bg-beige -top-5":"lg:w-3/6 h-fit  hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
+            <ul id="navDropdown" className={dropDown? "fixed flex flex-col items-center pt-14 gap-10 flex-nowrap w-screen h-[200vh] bg-na3ne3i -top-5 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/'>
+                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/'>
                     <a>Accueil</a>
                     </Link></li>
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/products'>
+                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
                     <a>Produits</a>
                     </Link></li>
-                <li className="lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky"><Link href='/contact'>
+                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
-                <li className="whitespace-nowrap lg:block font-[400] text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky">À propos</li>
+                <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
                 <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>
-                <div id="clickableMenu" className="relative w-fit h-fit grid gap-1" onClick={()=>handleDropDownClick()}>
-                    <div id="first" className="relative h-[4px] w-5 bg-third transition-all "></div>
-                    <div id="second" className="h-[4px] w-5 bg-third   "></div>
-                    <div id="third" className="relative h-[4px] w-5 bg-third transition-all "></div>
+                <div id="clickableMenu" className="relative w-6 h-6 grid gap-1 hover:cursor-pointer" onClick={()=>handleDropDownClick()}>
+                    <div id="first" className="absolute h-[4px] w-5 bg-white rounded-sm transition-all top-0 left-0"></div>
+                    <div id="second" className="absolute h-[4px] w-5 bg-white rounded-sm   top-2 left-0"></div>
+                    <div id="third" className="absolute h-[4px] w-5 bg-white rounded-sm transition-all top-4 left-0"></div>
                 </div>
                 </div>:null}
             

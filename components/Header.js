@@ -13,19 +13,24 @@ export default function Header(props){
 
 
     useEffect(() => {
-        const mq1 = window.matchMedia("(max-width: 1024px)")
+        const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
+            }else {
+                document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
+                document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+                document.getElementById('cart').classList.add('animate__animated')
+                document.getElementById('cart').classList.add('animate__fadeInDown')
+                document.getElementById('nav').classList.add('animate__animated')
+                document.getElementById('nav').classList.add('animate__fadeInDown')
             }
+            setTimeout(() => {
+                document.getElementById('cart').style.transitionProperty = 'all'
+                document.getElementById('cart').style.transitionDuration = '1s'
+            }, 1000);
     },[])
 
     useEffect(() => {
-        document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
-        document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
-        document.getElementById('cart').classList.add('animate__animated')
-        document.getElementById('cart').classList.add('animate__fadeInDown')
-        document.getElementById('nav').classList.add('animate__animated')
-        document.getElementById('nav').classList.add('animate__fadeInDown')
         document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
     },[])
 
@@ -35,28 +40,33 @@ export default function Header(props){
           }
     )
         window.addEventListener("resize", () => {
-            handleAnimation()
-            const mq1 = window.matchMedia("(max-width: 1024px)")
+            
+            const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
             }else {
                 setIsMobile(false)
             }
+            handleAnimation()
             document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
           }
-    )})
+    )
+})
 
     const handleAnimation = () => {
         if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
             setscrolled(true)
             document.getElementById('cart').style.left = document.getElementById('positioning').getBoundingClientRect().left +'px'
             document.getElementById('cart').style.top = document.getElementById('positioning').getBoundingClientRect().top +'px'
-            // document.getElementById('anotherPositioning').style.display = 'none'
         } else {
             setscrolled(false)
-            document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
-            document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left - 40 +'px'
-            // document.getElementById('anotherPositioning').style.display = 'block'
+            if(isMobile){
+                document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top - 3 +'px'
+                document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left - 50 +'px'
+            }else {
+                document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
+                document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left - 40 +'px'
+            }
         }
     }
 
@@ -65,9 +75,9 @@ export default function Header(props){
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 py-0 sm:py-10 lg:py-20 xl:py-32 2xl:py-52">
-                <div className="w-10/12 sm:w-8/12 mx-auto lg:w-8/12 z-0 h-[340px] sm:h-[440px] lg:h-full relative lg:absolute lg:top-0 lg:right-0">
-                    <Image src={isMobile ? 'pfe/graph_2_w7rn1b.png' : 'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' />
+            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-20 xl:py-32 2xl:py-52">
+                <div className="w-11/12 sm:w-10/12 md:w-7/12 mx-auto lg:w-8/12 z-0 lg:h-full relative lg:absolute lg:top-0 lg:right-0">
+                    {isMobile ? <Image src={'pfe/Untitled_design_2_ys759f.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> : <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> }
                 </div>
                 <div className="grid place-items-start w-full px-5 md:px-0 mx-auto lg:mx-0 md:w-11/12 order-2 md:order-1 lg:w-[40%] z-[1]">
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
@@ -90,7 +100,7 @@ export default function Header(props){
                     {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? ` text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
@@ -111,7 +121,7 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? `text-medium font-medium bg-transparent rounded-full right-5 text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? ` text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>

@@ -100,11 +100,6 @@ a {
   display: none;
 }
 
-#cart {
-  transition-property: all;
-  transition-duration: 1s;
-}
-
 #banner {
   animation: getbigger 0.5s ease-in-out;
 }
