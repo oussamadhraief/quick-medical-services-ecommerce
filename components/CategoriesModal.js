@@ -46,8 +46,11 @@ function CategoriesModal({show, onClose}) {
               <div className="w-screen h-fit py-10 grid gap-3">
                 {categoriesAndSubcategories.map(item => {
                 return (<ul key={`ul${item.category}`} id={`ul${item.category}`} className="relative w-full h-10 overflow-hidden grid after:content-[''] after:absolute after:bottom-[1px] after:w-full after:h-[0.5px] after:bg-[#1b6a6e] transition-all after:left-0 after:right-0 after:mx-auto">
-                  <div className="flex w-full pl-5 items-center h-10">
+                  <div className="flex w-full pl-5 items-center h-10 hover:cursor-pointer" onClick={e => {
+                    e.target.firstChild.click()
+                  }}>
                     <p className="font-medium text-xl text-white w-fit h-fit hover:cursor-pointer" onClick={(e) => {
+                      e.stopPropagation();
                       const lisubs = document.querySelectorAll(`#ul${item.category} > li`)
                       const ulelem = document.getElementById(`ul${item.category}`)
                       if(ulelem.offsetHeight > 40){

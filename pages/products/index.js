@@ -112,34 +112,34 @@ export default function Products(){
 
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-cleangray min-h-fit shadow">
+                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-[#E7EDEE] border-zinc-200 border min-h-fit shadow">
                     <div>
                         <div>
-                            <p className="bg-zinc-200 w-full h-fit py-3 text-center font-medium shadow">Paramètres d&apos;affichage</p>
+                            <p className="bg-light text-white w-full h-fit py-3 text-center font-medium shadow-stylish">Paramètres d&apos;affichage</p>
                         </div>
                         <div className="w-full h-fit grid space-y-1 mt-2 mb-5 px-1">
-                            <p className="mb-3">Trier par:</p>
-                        <select className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer">
+                            <p className="mb-3 font-[400]">Trier par:</p>
+                        <select className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer rounded-sm">
                             <option value="newest">du plus récent au plus ancien</option>
                             <option value="newest">du plus ancien au plus récent</option>
                             <option value="newest">du plus cher au moins cher</option>
                             <option value="newest">du moins cher au plus cher</option>
                         </select>
                         </div>
-                        <div className="w-full h-fit border-y-2 pb-3 border-white grid px-1">
-                            <p className="mt-3 mb-1">Afficher les produit:</p>
-                            <label htmlFor="all" className="ml-3 mt-1">
-                            <input type="radio" id="all" name="availability" value="all" className="mr-1"/>Tous
+                        <div className="w-full h-fit border-t-2 pb-3 border-zinc-200 grid px-1">
+                            <p className="mt-3 mb-1 font-[400]">Afficher les produit:</p>
+                            <label htmlFor="all" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="all" name="availability" value="all" className="mr-1 "/>Tous
                             </label>
-                            <label htmlFor="available" className="ml-3 mt-1">
-                            <input type="radio" id="available" name="availability" value="available" className="mr-1"/>Disponibles à tout moment
+                            <label htmlFor="available" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="available" name="availability" value="available" className="mr-1 "/>Disponibles à tout moment
                             </label>
-                            <label htmlFor="unavailable" className="ml-3 mt-1">
-                            <input type="radio" id="unavailable" name="availability" value="unavailable" className="mr-1"/>Disponibles sur commande
+                            <label htmlFor="unavailable" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="unavailable" name="availability" value="unavailable" className="mr-1 "/>Disponibles sur commande
                             </label>
                         </div>
                     </div>
-                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-1 border-b-2 border-white bg-zinc-200 hover:cursor-pointer hover:bg-na3ne3i hover:text-white" onClick={e => {
+                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky hover:text-black" onClick={e => {
                         handleHideCategories()
                     }}>
                         <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
