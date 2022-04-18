@@ -2,6 +2,7 @@ import { useEffect, useState,useContext } from "react";
 import ReactDOM from "react-dom";
 import { CategoriesContext } from '../utils/CategoriesContext'
 import 'animate.css'
+import Link from 'next/link'
 
 
 function CategoriesModal({show, onClose}) {
@@ -9,20 +10,19 @@ function CategoriesModal({show, onClose}) {
     const {categoriesAndSubcategories,setCategoriesAndSubcategories} = useContext(CategoriesContext)
     const [isBrowser, setIsBrowser] = useState(false)
     const [selected,setSelected] = useState(0)
-    const [subcats,setSubcats] = useState([])
     const [loading,setLoading] = useState(true)
   
     useEffect(() => {
         if(categoriesAndSubcategories.length != 0 && isBrowser){
           setLoading(false)
           const { subcategories } = categoriesAndSubcategories.find((item,index) => index == selected)
-          setSubcats(subcategories)
+
         }
     },[categoriesAndSubcategories,selected])
 
     useEffect(() => {
       setIsBrowser(true);
-    }, []);
+    }, [])
 
     const handleCloseClick = (e) => {
         e.preventDefault();
@@ -30,21 +30,50 @@ function CategoriesModal({show, onClose}) {
       };
 
       const modalContent = show ? 
-        <div id="categoriesModal" className={`fixed h-screen w-screen top-0 left-0 bg-trendy z-[9999] flex ${loading ? 'justify-center' : null} items-center flex-nowrap animate__animated animate__faster animate__fadeIn`}>
+        <div id="categoriesModal" className={`fixed h-screen w-screen top-0 left-0 bg-na3ne3i z-[9999] flex ${loading ? 'justify-center' : null} flex-nowrap animate__animated animate__faster animate__fadeIn overflow-y-auto`}>
             {loading ? <div className="w-8 h-8 rounded-full border-4  border-b-zinc-400  border-l-zinc-400 border-t-third border-r-third animate-spin">
               
             </div>
             : <>  
-            <button className="w-fit h-fit absolute right-5 hover:scale-125 top-1 font-medium font-mono text-xl" onClick={e => handleCloseClick(e)}>X</button>
-            <div className="w-[13%] min-h-[95vh] h-fit overflow-auto border-r flex flex-col border-third gap-8 px-3 pt-5">
-                {categoriesAndSubcategories.map((item,index) => 
-                    <button key={index} className={index != selected ? "w-full min-w-full h-fit px-2 py-1 text-third font-medium flex justify-between items-center hover:bg-third hover:text-white hover:rounded-lg" : "w-full min-w-full h-fit px-2 py-1  font-medium flex justify-between items-center bg-third text-white rounded-lg"} onClick={e => setSelected(index)}><p className="hover:underline" onClick={e => location.href=`/categories/${item.category}`}>{item.category}</p><p> &#62;</p></button>
+            <div className="w-10 h-10 absolute right-5 hover:scale-110 top-5 font-medium text-white text-xl hover:cursor-pointer" onClick={e => handleCloseClick(e)}>
+                <div className="w-6 h-[3px] bg-white absolute left-0 top-2 rotate-45 rounded-sm">
+                  
+                </div>
+                <div className="w-6 h-[3px] bg-white absolute left-0 top-2 -rotate-45 rounded-sm">
+                  
+                </div>
+            </div>
+              <div className="w-screen h-fit py-10 grid gap-3">
+                {categoriesAndSubcategories.map(item => {
+                return (<ul id={`ul${item.category}`} className="relative w-full h-10 overflow-hidden grid after:content-[''] after:absolute after:bottom-[1px] after:w-full after:h-[0.5px] after:bg-[#1b6a6e] transition-all after:left-0 after:right-0 after:mx-auto">
+                  <div className="flex w-full pl-5 items-center h-10">
+                    <p className="font-medium text-xl text-white w-fit h-fit hover:cursor-pointer" onClick={(e) => {
+                      const lisubs = document.querySelectorAll(`#ul${item.category} > li`)
+                      const ulelem = document.getElementById(`ul${item.category}`)
+                      if(ulelem.offsetHeight > 40){
+                        e.target.innerText = '+'
+                        ulelem.style.height = '40px'
+                      }else{
+                        e.target.innerText = '-'
+                        ulelem.style.height = 40 + lisubs.length * 40 + 'px'
+                    }}}>+</p>
+                    &nbsp;
+                    <Link href={`/categories/${item.category}`}>
+                    <a className="font-medium text-white w-fit h-fit hover:underline">{item.category}</a>
+                    </Link>
+                  </div>
+                  {item.subcategories.map(element => {
+                    return (
+                      <li className="h-10 w-full bg-pinky pl-10 font-medium py-2 text-gray-700 border-b-[0.5px] border-na3ne3i">&#62; 
+                      <Link href={`/categories/${item.category}/${element}`}>
+                      <a className="font-medium text-gray-700 w-fit h-fit hover:underline">{element}</a>
+                      </Link></li>
+                    )
+                  })}
+                </ul>
                 )}
-            </div>
-            <div className="w-9/12 h-[95vh] gap-8 flex-col flex-wrap flex pt-5 px-10">
-                {subcats.map(item =>  <p key={item} className="w-fit h-fit font-medium flex flex-nowrap items-center">&#62;&nbsp;<p className="hover:underline hover:cursor-pointer" onClick={e => location.href=`/categories/${categoriesAndSubcategories[selected].category}/${item}`}>
-                  {item}</p></p>)}
-            </div>
+                )}
+              </div>
             </>}
         </div>
       : null

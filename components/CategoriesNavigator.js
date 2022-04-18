@@ -4,10 +4,10 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
     return(
         <div className="w-full h-fit" id="categoriesOrderer">
         {categoriesAndSubcategories.map(item => 
-                        <ul id={item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-white last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-cleangray relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-[#636161] flex flex-nowrap items-center"><p id={`${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
-                            const element = document.querySelectorAll(`#${item.category} .expandable`)
+                        <ul id={'lu'+item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-white last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-cleangray relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-[#636161] flex flex-nowrap items-center"><p id={`lu${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
+                            const element = document.querySelectorAll(`#lu${item.category} .expandable`)
                             const ulElem = document.getElementById(item.category)
-                            const rotateArrow = document.getElementById(`${item.category}arrow`)
+                            const rotateArrow = document.getElementById(`lu${item.category}arrow`)
                             ulElem.style.height = '40px'
                             if(element[0].offsetHeight < 24 ) {
                                 element.forEach((elem,index) => {

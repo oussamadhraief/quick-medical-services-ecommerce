@@ -28,7 +28,7 @@ export default function CategoriesMenu(){
     })
 
     const handleDisplaySubcategories = (e) => {
-        const newValue = categoriesAndSubcategories.find(item => item.category == e.target.id)
+        const newValue = categoriesAndSubcategories.find(item => e.target.id.includes(item.category))
         const temp = newValue.subcategories
         setBoardContent(temp)
     }
@@ -57,8 +57,8 @@ export default function CategoriesMenu(){
                     <div id='categoriesContainer' className='min-w-[250px] grid w-fit pr-5 pl-1 bg-cleangray rounded-lg shadow-form hover:rounded-r-none hover:rounded-l-lg'>
                         {categoriesAndSubcategories.map(item => 
                         <Link key={item.category} href={`/categories/${item.category}`}>
-                            <a id={item.category} className="categorieItem w-fit h-fit py-3">
-                                    &#62;&nbsp;<span id={item.category} className='hover:underline'>{item.category}</span>
+                            <a id={'menu'+item.category}  className="categorieItem w-fit h-fit py-3">
+                                    &#62;&nbsp;<span id={'menu'+item.category} className='hover:underline'>{item.category}</span>
 
                             </a>
                         </Link>)}

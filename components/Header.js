@@ -75,7 +75,7 @@ export default function Header(props){
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-20 xl:py-32 2xl:py-52">
+            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
                 <div className="w-11/12 sm:w-10/12 md:w-7/12 mx-auto lg:w-8/12 z-0 lg:h-full relative lg:absolute lg:top-0 lg:right-0">
                     {isMobile ? <Image src={'pfe/Untitled_design_2_cfpmtb.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> : <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> }
                 </div>
@@ -83,7 +83,7 @@ export default function Header(props){
                     <div className="w-full h-fit animate__animated animate__backInLeft relative">
                         <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
                     </div>
-                <p className="break-words text-orange font-medium text-sm sm:text-base md:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
+                <p className="break-words text-orange font-medium text-sm sm:text-base md:text-lg xl:text-xl pl-1 animate__animated animate__delay-1s animate__bounceInLeft">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="mt-10 mb-16 w-[200px] sm:w-fit mx-auto h-fit flex flex-wrap sm:flex-nowrap  animate__animated animate__delay-2s animate__bounceInLeft">
                 <Link href='/products'>
                     <a className="sm:mr-3 text-black text-sm sm:text-base font-medium bg-orange w-[170px] sm:w-[200px] py-3 rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all min-w-fit">Explorer les produits &#x2192;</a>
