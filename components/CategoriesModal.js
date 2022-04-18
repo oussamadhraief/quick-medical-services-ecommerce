@@ -30,7 +30,7 @@ function CategoriesModal({show, onClose}) {
       };
 
       const modalContent = show ? 
-        <div id="categoriesModal" className={`fixed h-screen w-screen top-0 left-0 bg-na3ne3i z-[9999] flex ${loading ? 'justify-center' : null} flex-nowrap animate__animated animate__faster animate__fadeIn overflow-y-auto`}>
+        <div id="categoriesModal" className={`fixed h-screen w-screen top-0 left-0 bg-na3ne3i z-[9999] flex ${loading ? 'justify-center' : null} flex-nowrap  overflow-y-auto`}>
             {loading ? <div className="w-8 h-8 rounded-full border-4  border-b-zinc-400  border-l-zinc-400 border-t-third border-r-third animate-spin">
               
             </div>
@@ -45,7 +45,7 @@ function CategoriesModal({show, onClose}) {
             </div>
               <div className="w-screen h-fit py-10 grid gap-3">
                 {categoriesAndSubcategories.map(item => {
-                return (<ul id={`ul${item.category}`} className="relative w-full h-10 overflow-hidden grid after:content-[''] after:absolute after:bottom-[1px] after:w-full after:h-[0.5px] after:bg-[#1b6a6e] transition-all after:left-0 after:right-0 after:mx-auto">
+                return (<ul key={`ul${item.category}`} id={`ul${item.category}`} className="relative w-full h-10 overflow-hidden grid after:content-[''] after:absolute after:bottom-[1px] after:w-full after:h-[0.5px] after:bg-[#1b6a6e] transition-all after:left-0 after:right-0 after:mx-auto">
                   <div className="flex w-full pl-5 items-center h-10">
                     <p className="font-medium text-xl text-white w-fit h-fit hover:cursor-pointer" onClick={(e) => {
                       const lisubs = document.querySelectorAll(`#ul${item.category} > li`)
@@ -64,7 +64,7 @@ function CategoriesModal({show, onClose}) {
                   </div>
                   {item.subcategories.map(element => {
                     return (
-                      <li className="h-10 w-full bg-pinky pl-10 font-medium py-2 text-gray-700 border-b-[0.5px] border-na3ne3i">&#62; 
+                      <li key={`liol${element}`} className="h-10 w-full bg-pinky pl-10 font-medium py-2 text-gray-700 border-b-[0.5px] border-na3ne3i">&#62; 
                       <Link href={`/categories/${item.category}/${element}`}>
                       <a className="font-medium text-gray-700 w-fit h-fit hover:underline">{element}</a>
                       </Link></li>

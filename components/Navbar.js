@@ -71,13 +71,13 @@ export default function Navbar({ scrolled }){
             
             <ul id="navDropdown" className={dropDown? "fixed grid place-content-center pb-[150vh] pt-5 gap-14 w-screen h-[200vh] bg-na3ne3i -top-5 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
                 
-                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/'>
+                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/'>
                     <a>Accueil</a>
                     </Link></li>
-                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
+                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
                     <a>Produits</a>
                     </Link></li>
-                <li className={`lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/contact'>
+                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
                 <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
