@@ -159,13 +159,30 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 201){
+                    try{
+                        const res = await fetch('api/products',{
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json",
+                                "Content-Type": "application/json"
+                            },
+                        }).then(async res => {
+                            const { data } = await res.json()
+                            setValue(data)
+                            setLoading(false)
+                            setLoadingContext(false)
+                        })
+                        }catch(error){
+                            console.error(error)
+                        }
                     setAppear({display: true, action: 'ajouté'})
                     setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
                     setProductImage('')
                     setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
                 }else {
+                    const { error,data } = await res.json()
                     console.error(error)
-                    const { error } = await res.json()
+                    console.log(data);
                     if(error.keyPattern.hasOwnProperty('name')){
                         setNameError(true)
                     }else{
