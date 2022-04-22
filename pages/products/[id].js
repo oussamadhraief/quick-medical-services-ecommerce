@@ -32,7 +32,7 @@ export default function Details(){
             const { data } = await res.json()
             setProduct(data)
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 }

@@ -7,7 +7,7 @@ export default async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
-                const Instruments = await Instrument.find({}).sort({createdAt: -1});
+                const Instruments = await Instrument.find({}).sort({createdAt: -1}).select({_id: 0, name: 1, description:1, category: 1, subcategory: 1, sizes: 1,reference: 1, image: 1,createdAt: 1,availability:1});
 
                 res.status(200).json({ success: true, data: Instruments });
             } catch (error) {

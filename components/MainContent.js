@@ -45,6 +45,7 @@ export default function MainContent(){
         if(value.length < 1){
             const res = await fetch('api/products')
             const {data} = await res.json()
+            console.log(data);
             setValue(data)
             setLoading(false)
             let categories = data.map(item => item.category)
