@@ -159,22 +159,22 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 201){
-                    // try{
-                    //     const res = await fetch('api/products',{
-                    //         method: 'GET',
-                    //         headers: {
-                    //             "Accept": "application/json",
-                    //             "Content-Type": "application/json"
-                    //         },
-                    //     }).then(async res => {
-                    //         const { data } = await res.json()
-                    //         setValue(data)
-                    //         setLoading(false)
-                    //         setLoadingContext(false)
-                    //     })
-                    //     }catch(error){
-                    //         console.error(error)
-                    //     }
+                    try{
+                        const res = await fetch('api/products',{
+                            method: 'GET',
+                            headers: {
+                                "Accept": "application/json",
+                                "Content-Type": "application/json"
+                            },
+                        }).then(async res => {
+                            const { data } = await res.json()
+                            setValue(data)
+                            setLoading(false)
+                            setLoadingContext(false)
+                        })
+                        }catch(error){
+                            console.error(error)
+                        }
                     setAppear({display: true, action: 'ajouté'})
                     setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
                     setProductImage('')
