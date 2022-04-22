@@ -37,7 +37,6 @@ export default function ModifyProducts(props){
       
           })
         const { data } = await res.json()
-        console.log(data);
         setTimeout(() => {
             
         }, 3000);

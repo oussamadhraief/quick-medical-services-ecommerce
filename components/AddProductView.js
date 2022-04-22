@@ -182,7 +182,6 @@ export default function AddProductView(props){
                 }else {
                     const { error,data } = await res.json()
                     console.error(error)
-                    console.log(data);
                     if(error.keyPattern.hasOwnProperty('name')){
                         setNameError(true)
                     }else{

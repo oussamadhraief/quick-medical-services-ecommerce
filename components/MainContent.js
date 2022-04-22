@@ -43,13 +43,7 @@ export default function MainContent(){
     useEffect(() => {
         async function fetchData() {
         if(value.length < 1){
-            const res = await fetch('api/products', {
-                headers : { 
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                 }
-          
-              })
+            const res = await fetch('api/products')
             const {data} = await res.json()
             setValue(data)
             setLoading(false)

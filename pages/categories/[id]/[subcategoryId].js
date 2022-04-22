@@ -32,7 +32,6 @@ export default function Details(){
             const res = await fetch(`/api/category/${id}/${subcategoryId}`)
             const {data} = await res.json()
             setValue(data)
-            console.log(data);
         }
     }
     fetchData()
