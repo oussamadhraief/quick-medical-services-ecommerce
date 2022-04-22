@@ -29,7 +29,13 @@ export default function ModifyProducts(props){
         {
         setLoadingContext(true)
         props.handleClick(2)
-        const res = await fetch('api/products')
+        const res = await fetch('api/products', {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }
+      
+          })
         const { data } = await res.json()
         console.log(data);
         setTimeout(() => {
