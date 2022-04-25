@@ -1,4 +1,4 @@
-import { hashPassword } from "../../../utils/auth";
+import { hashPassword } from "../../../utils/Encryption";
 import { useSession } from 'next-auth/react';
 import { Router } from "next/router";
 import dbConnect from "../../../utils/dbConnect";
@@ -9,10 +9,10 @@ dbConnect()
 async function handler(req, res) {
 
   //redirect to home page if a user is already logged in
-  const {data: status} = useSession()
-  if (status === "authenticated") {
-    return Router.push('/')
-  }
+  // const {data: status} = useSession()
+  // if (status === "authenticated") {
+  //   return Router.push('/')
+  // }
 
   if(req.method !== 'POST'){
     return;

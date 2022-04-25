@@ -3,35 +3,38 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import User from "../../../models/User.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../utils/mongodb"
+import clientPromise from "../../../utils/mongoDBProvider"
 
 
-import { verifyPassword } from '../../../utils/auth';
+import { verifyPassword } from '../../../utils/Encryption';
+import bcrypt from "bcryptjs/dist/bcrypt";
 dbConnect()
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   session: {
-    strategy: 'jwt',
-  },
+    jwt: true,
+},
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-          email: { label: "Email", type: "email", placeholder: "exemple@gmail.com" },
-          password: {  label: "Password", type: "password" }
-        },
+      id: 'credentials',
+      name: 'credentials',
+      
       async authorize(credentials) {
-        const email = credentials.email
-        const password = credentials.password
-        const user = await User.findOne({email})
-        if(!user)  throw new Error ("no user found")
-        const isValid = await verifyPassword(password, user.password)
-        if (!isValid) {
-          throw new Error ('Could not log you in!')
+        // const client = await MongoClient.connect(process.env.MONGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true })
+        // const users = await client.db().users
+        const user = await User.findOne({email : credentials.email,})
+        if (!user){
+          throw new Error ('No User found with this email')
         }
-        return {email: user.email}
-      },
+        const validPassword = await bcrypt.compare(credentials.password, user.password)
+        if (!validPassword) {
+          
+          throw new Error('Password doesnt match');
+        }
+        
+        return user;
+        },
     })
   ],
   pages: {
