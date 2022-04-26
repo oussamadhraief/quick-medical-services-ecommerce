@@ -2,12 +2,15 @@ import Image from "next/image"
 import 'animate.css'
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useSession, signOut, signIn } from "next-auth/react"
+
 
 export default function Navbar({ scrolled }){
-
+    const { data: session, status } = useSession()
     const [isMobile,setIsMobile]= useState(false)
     const [dropDown , setDropDown] = useState(false)
     const logo = 'pfe/Quick_medical_services_3_dwzzzz.png'
+    const isAuthenticated = (status === "authenticated")
 
     useEffect(()=>{
         const mql= window.matchMedia('(max-width: 1023px)')
@@ -82,6 +85,9 @@ export default function Navbar({ scrolled }){
                     </Link></li>
                 <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
+                <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
+                {isAuthenticated? <li><p>Signed in as {session.user.email}</p></li>: <button onClick={() => signIn()}>Log in</button>}
+                {isAuthenticated? <button className="bg-red-500" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} >Log out</button> : null}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
                 <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>

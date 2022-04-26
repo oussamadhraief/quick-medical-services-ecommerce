@@ -1,20 +1,19 @@
-import { getCsrfToken, signIn } from "next-auth/react"
-import { useState } from 'react'
+import { getCsrfToken, useSession } from "next-auth/react"
+import { NextResponse } from 'next/server'
+
 
 
 
 export default function SignIn({ csrfToken }) {
-//   const [email, setEmail] = useState(null)
-//   const [password, setPassword] = useState(null)
-
-//   const onSubmit = async () => {
-//     e.preventDefault()
-//     const res = await signIn('credentials',{email, password, callbackUrl : '/'})
-//     if (res?.error){
-//       return res.error 
-//     }
-//     if (res.url) console.log(res.url)
-// }
+  const {data: session} = useSession()
+  if(session) {
+    return {
+      redirect: {
+        destination: '/hello-nextjs',
+        permanent: false,
+      },
+    }
+  }
   return (
     <form method="post" action="/api/auth/callback/credentials">
       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -29,6 +28,7 @@ export default function SignIn({ csrfToken }) {
       <button type="submit" >Sign in</button>
     </form>
   )
+  
 }
 export async function getServerSideProps(context) {
   return {
