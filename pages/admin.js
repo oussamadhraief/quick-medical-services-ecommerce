@@ -11,10 +11,12 @@ import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 import { SearchContext } from "../utils/SearchContext"
 import Head from "next/head"
+import { useSession, getSession } from "next-auth/react"
+
 
 
 export default function Admin(props){
-
+    const { data: session } = useSession()
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
     const [loggedIn,setLoggedIn] = useState(false)
@@ -94,9 +96,10 @@ export default function Admin(props){
             setLoggedIn(true)
         }
     }
-
-    
-
+    // const isAdmin = session.user.isAdmin
+    console.log(session)
+    if (typeof window === "undefined") return null
+    if (session){
     return(
         <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             <Head>
@@ -159,9 +162,12 @@ export default function Admin(props){
             </NotificationContext.Provider>
             </ProductsContext.Provider>}
         </div>
-    )
+    )}
+    window.location = '/'
+    return
+
 }
 
-export async function getServerSideProps() {
-    return { props: {username: "admin",password: "admin"} }
+export async function getServerSideProps(context) {
+    return { props: {username: "admin",password: "admin", session: await getSession(context)} }
 }

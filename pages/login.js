@@ -1,18 +1,13 @@
 import { getCsrfToken, useSession } from "next-auth/react"
-import { NextResponse } from 'next/server'
-
-
-
 
 export default function SignIn({ csrfToken }) {
-  const {data: session} = useSession()
+  const {data: session, status} = useSession()
   if(session) {
-    return {
-      redirect: {
-        destination: '/hello-nextjs',
-        permanent: false,
-      },
-    }
+    window.location = '/'
+    return 
+   }
+  if(status === 'loading'){
+    return <div>Loading...</div>
   }
   return (
     <form method="post" action="/api/auth/callback/credentials">

@@ -2,6 +2,7 @@ import {useState } from 'react'
 
 export default function signup () {
 
+  const {data: session, status} = useSession()
   const [signUpData, setSignUpData] = useState({
     email: '',
     password: '',
@@ -32,6 +33,13 @@ export default function signup () {
     } catch (error) {
       console.log(error)
     }
+  }
+  if(session) {
+    window.location = '/'
+    return 
+   }
+  if(status === 'loading'){
+    return <div>Loading...</div>
   }
   return (
     <form onSubmit={handleSubmit}>
