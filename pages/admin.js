@@ -182,3 +182,4 @@ export default function Admin(props){
 export async function getServerSideProps(context) {
     return { props: {username: "admin",password: "admin", session: await getSession(context)} }
 }
+Admin.auth = true
