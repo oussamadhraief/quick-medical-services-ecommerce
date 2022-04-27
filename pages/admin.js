@@ -22,8 +22,6 @@ export default function Admin(props){
     const [isAdmin,setIsAdmin] = useState()
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
-    const [loggedIn,setLoggedIn] = useState(false)
-    const [login,setLogin] = useState({username: '', password: ''})
     const [adminLoading,setAdminLoading] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(false)
@@ -138,23 +136,7 @@ export default function Admin(props){
         <meta name="twitter:image" value=""/>
       </Head>
             {adminLoading && status !== 'loading' && isAdmin !== null ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
-            {!loggedIn ? 
-            <div className="relative w-screen h-screen flex justify-center items-center bg-third"> 
-            <form className="relative w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-white grid p-5 sm:p-14 rounded-3xl shadow-[0_0px_80px_45px_rgba(0,0,0,0.4)]" action='submit' onSubmit={e => {
-            e.preventDefault()
-            handleSubmit()
-        }}>
-                <p className="font-extrabold text-xl mb-10 mx-auto text-third text-center">Connexion en tant qu&apos;administateur de QMS</p>
-                <label className="text-third font-bold ">Nom d&apos;utilisateur:
-                <input type="text" name="username" value={login.username} onChange={e => handleChange(e)} className='rounded-lg w-full h-10 mb-8 outline-none border-2 border-third' required minLength={4} />
-                </label>
-                <label className="text-third font-bold ">Mot de passe:
-                <input type="password" name="password" value={login.password} onChange={e => handleChange(e)}  className='rounded-lg w-full h-10 outline-none border-2 border-third' required minLength={4} />
-                </label>
-                <button type="submit" className="bg-third text-white mt-16 w-fit h-fit px-4 py-2 shadow-[0_3px_30px_5px_rgba(0,0,0,0.6)] rounded-lg mx-auto text-md font-bold hover:scale-105 hover:bg-yellow-500 hover:shadow-[0_0px_25px_10px_rgba(255,235,59,0.4)] hover:text-white">Connexion</button>
-            </form> 
-            </div>
-            : 
+            
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
@@ -171,7 +153,7 @@ export default function Admin(props){
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
-            </ProductsContext.Provider>}
+            </ProductsContext.Provider>
         </div>
     )}
     window.location = '/'
@@ -180,6 +162,7 @@ export default function Admin(props){
 }
 
 export async function getServerSideProps(context) {
-    return { props: {username: "admin",password: "admin", session: await getSession(context)} }
+    return { props: {session: await getSession(context)} }
 }
+
 Admin.auth = true
