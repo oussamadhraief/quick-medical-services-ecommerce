@@ -39,20 +39,4 @@ export default NextAuth({
   },
   database: process.env.MONGO_URI,
   secret: process.env.NEXTAUTH_SECRET,
-  // callbacks: {
-  //   // async jwt(token, user,){
-  //   //   if(user?.isAdmin){
-  //   //     token.isAdmin = user.isAdmin
-  //   //   }
-  //   //   return token
-  //   // },
-  //   async session(session, user){
-      
-  //     session.user.isAdmin = user.isAdmin
-      
-  //     return session
-  //   }
-  // }
   })
-
-

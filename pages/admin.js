@@ -12,11 +12,14 @@ import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 import { SearchContext } from "../utils/SearchContext"
 import Head from "next/head"
 import { useSession, getSession } from "next-auth/react"
+import {checkAdmin} from "../utils/isAdmin"
+
 
 
 
 export default function Admin(props){
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
+    const [isAdmin,setIsAdmin] = useState()
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
     const [loggedIn,setLoggedIn] = useState(false)
@@ -96,10 +99,18 @@ export default function Admin(props){
             setLoggedIn(true)
         }
     }
-    // const isAdmin = session.user.isAdmin
-    console.log(session)
+    useEffect(()=>{
+        console.log(session)
+        setIsAdmin(checkAdmin(session.user.email))
+        console.log(isAdmin)
+    },[])
+    
     if (typeof window === "undefined") return null
-    if (session){
+    if(status === 'loading'){
+        return <div>loading</div>
+    }
+    
+    if (session && isAdmin){
     return(
         <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             <Head>
@@ -126,7 +137,7 @@ export default function Admin(props){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            {adminLoading ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
+            {adminLoading && status !== 'loading' && isAdmin !== null ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             {!loggedIn ? 
             <div className="relative w-screen h-screen flex justify-center items-center bg-third"> 
             <form className="relative w-5/6 sm:w-4/6 xl:w-2/6 h-fit bg-white grid p-5 sm:p-14 rounded-3xl shadow-[0_0px_80px_45px_rgba(0,0,0,0.4)]" action='submit' onSubmit={e => {
@@ -164,7 +175,7 @@ export default function Admin(props){
         </div>
     )}
     window.location = '/'
-    return
+    return <div>deez</div>
 
 }
 

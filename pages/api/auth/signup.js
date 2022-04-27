@@ -18,7 +18,6 @@ async function handler(req, res) {
     return;
   }
   const data = req.body
-  console.log(data)
   const {email, password, passwordConfirm}= data
 
   if (!email || !email.includes('@') || !password || password.trim().length < 7 || passwordConfirm !== password){
@@ -35,8 +34,9 @@ async function handler(req, res) {
 
   const result = await User.create({
     email : email,
-    password: hashedPassword
+    password: hashedPassword,
+    isAdmin : false
   })
-  res.status(201).json({message : 'Created user!' , user: {email , password}})
+  res.status(201).json({message : 'Created user!' , user: {email , password, isAdmin}})
 }
 export default handler
