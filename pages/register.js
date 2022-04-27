@@ -1,107 +1,47 @@
-import {useState } from 'react'
-import {useSession} from "next-auth/react"
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import RegisterForm from '../components/RegisterForm'
 
-export default function signup () {
-
-  const {data: session, status} = useSession()
-  const [signUpData, setSignUpData] = useState({
-    email: '',
-    password: '',
-    passwordConfirm: '',
-  })
-
-  const handleChange = e => {
-    setSignUpData(prevSignUpData => {
-      return {
-        ...prevSignUpData,
-        [e.target.name]: e.target.value
-      }
-    })
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    try {
-      const res = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(signUpData)
-      })
-      console.log(res)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  if(session) {
-    window.location = '/'
-    return 
-   }
-  if(status === 'loading'){
-    return <div>Loading...</div>
-  }
+export default function Register () {
   return (
-    <form onSubmit={handleSubmit}>
-      <div class='mb-6'>
-        <label
-          for='email'
-          class='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-        >
-          Your email
-        </label>
-        <input
-          type='email'
-          id='email'
-          class='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-          placeholder='name@flowbite.com'
-          required=''
-          name="email"
-          value={signUpData.email}
-          onChange={handleChange}
-        />
+    <div id='body' className='relative'>
+      <Head>
+        <title>Authentification - QUICK Medical Services</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='description' content='Medical Supply Store' />
+        <meta name='robots' content='index, follow' />
+        <link rel='icon' href='/logo.png' />
+        <meta name='googlebot' content='index, follow' />
+        <meta name='keywords' content='' />
+        <meta name='image' content='' />
+        <meta itemProp='name' content='QUICK Medical Services' />
+        <meta itemProp='description' content='Medical Supply Store' />
+        <meta property='og:title' content='QUICK Medical Services' />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='' />
+        <meta property='og:image' content='' />
+        <meta property='og:description' content='Medical Supply Store' />
+        <meta itemProp='name' content='QUICK Medical Services' />
+        <meta itemProp='description' content='Medical Supply Store' />
+        <meta itemProp='image' content='' />
+        <meta name='twitter:card' value='summary_large_image' />
+        <meta name='twitter:title' value='QUICK Medical Services' />
+        <meta name='twitter:description' value='Medical Supply Store' />
+        <meta name='twitter:image' value='' />
+      </Head>
+      <div className='px-32 flex w-screen h-screen overflow-hidden justify-end bg-na3ne3i'>
+        <Link href='/'>
+          <a className='absolute text-white text-5xl scale-x-125 font-medium top-0 left-14 z-10'>&#x2190;</a>
+        </Link>
+        <RegisterForm />
+        <div className='absolute h-full aspect-square left-0 bottom-0'>
+          <Image src={'pfe/Untitled_design_g74cig.png'} alt="design" layout='fill' />
+        </div>
+        <div className='absolute h-20 w-24 left-1 bottom-3'>
+          <Image src={'pfe/Quick_medical_services_4_xhplx6.png'} alt="design" layout='fill' />
+        </div>
       </div>
-      <div class='mb-6'>
-        <label
-          for='password'
-          class='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-        >
-          Your password
-        </label>
-        <input
-          type='password'
-          id='password'
-          class='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-          required=''
-          name="password"
-          value={signUpData.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div class='mb-6'>
-        <label
-          for='repeat-password'
-          class='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-        >
-          Repeat password
-        </label>
-        <input
-          type='password'
-          id='repeat-password'
-          class='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-          required=''
-          name="passwordConfirm"
-          value={signUpData.passwordConfirm}
-          onChange={handleChange}
-        />
-      </div>
-      <button
-        type='submit'
-        class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'     
-      >
-        Register new account
-      </button>
-    </form>
+    </div>
   )
 }

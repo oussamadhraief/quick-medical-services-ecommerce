@@ -84,9 +84,12 @@ export default function Navbar({ scrolled }){
                     <a>Contact</a>
                     </Link></li>
                 <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
+                {isAuthenticated? <li><p>Signed in as {session.user.email}</p></li> : 
+                <>  
+                    <li><Link href='/login'><a className="whitespace-nowrap text-white font-[400] underlineAnimatedLink relative">Se connecter</a></Link></li>
+                    <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky w-fit h-fit px-4 py-2 rounded-lg text-white font-medium">S'inscrire</a></Link></li>
+                </>}
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
-                <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
-                {isAuthenticated? <li><p>Signed in as {session.user.email}</p></li>: <button onClick={() => signIn()}>Log in</button>}
                 {isAuthenticated? <button className="bg-red-500" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} >Log out</button> : null}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
