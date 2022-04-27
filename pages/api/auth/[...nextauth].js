@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import FacebookProvider from "next-auth/providers/facebook"
 import User from "../../../models/User.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
@@ -15,6 +16,10 @@ export default NextAuth({
     strategy: 'jwt',
   },
   providers: [
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+    }),
     CredentialsProvider({
       id: 'credentials',
       name: 'credentials',

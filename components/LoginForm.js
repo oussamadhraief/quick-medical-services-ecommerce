@@ -41,9 +41,11 @@ export default function LoginForm() {
                 </Link>
             </div>
         </form>
-        <button className="w-fit h-fit flex flex-nowrap bg-[#546AA3] px-3 py-2 justify-center gap-1 text-white font-medium items-center rounded-md shadow"><Image src={'pfe/facebook_dryelz.png'} alt='facebook icon' width={30} height={30} layout='fixed' /> Se connecter avec Facebook</button>
+        <button className="w-fit h-fit flex flex-nowrap bg-[#546AA3] px-3 py-2 justify-center gap-1 text-white font-medium items-center rounded-md shadow" onClick={e => {
+          signIn('facebook',
+          {callbackUrl: 'localhost:3000/'})
+        }}><Image src={'pfe/facebook_dryelz.png'} alt='facebook icon' width={30} height={30} layout='fixed' /> Se connecter avec Facebook</button>
     </div>
   )
   
 }
-
