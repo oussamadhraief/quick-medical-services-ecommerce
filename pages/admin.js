@@ -17,14 +17,14 @@ import {checkAdmin} from "../utils/isAdmin"
 
 
 
-export default function Admin(props){
+export default function Admin(){
     const { data: session, status } = useSession()
     const [isAdmin,setIsAdmin] = useState()
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
-    const [adminLoading,setAdminLoading] = useState(false)
+    const [adminLoading,setAdminLoading] = useState(true)
     const [appear,setAppear] = useState({display: false, action: ''})
-    const [loadingContext,setLoadingContext] = useState(false)
+    const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
@@ -83,32 +83,10 @@ export default function Admin(props){
         if(mql.matches)document.getElementById('navbutton').click()
     }
 
-    function handleChange(e){
-        setLogin(
-            {...login,
-            [e.target.name]: e.target.value}
-        )
-    }
-
-    const handleSubmit = () => {
-        if(login.username.toLowerCase().trim() == props.username && login.password == props.password){
-             if (value.length < 1) {setAdminLoading(true)
-            setLoadingContext(true)}
-            setLoggedIn(true)
-        }
-    }
     useEffect(()=>{
-        console.log(session)
         setIsAdmin(checkAdmin(session.user.email))
-        console.log(isAdmin)
     },[])
     
-    if (typeof window === "undefined") return null
-    if(status === 'loading'){
-        return <div>loading</div>
-    }
-    
-    if (session && isAdmin){
     return(
         <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             <Head>
@@ -155,14 +133,11 @@ export default function Admin(props){
             </NotificationContext.Provider>
             </ProductsContext.Provider>
         </div>
-    )}
-    window.location = '/'
-    return <div>deez</div>
-
+    )
 }
 
 export async function getServerSideProps(context) {
-    return { props: {session: await getSession(context)} }
+    return { props: {session: await getSession(context)}}
 }
 
 Admin.auth = true

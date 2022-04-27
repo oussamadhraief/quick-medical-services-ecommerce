@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LoginForm from '../components/LoginForm'
 
-export default function Home (props) {
+export default function Login () {
   return (
     <div id='body' className='relative'>
       <Head>
