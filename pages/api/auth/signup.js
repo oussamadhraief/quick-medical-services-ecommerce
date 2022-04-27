@@ -7,13 +7,6 @@ import User from "../../../Models/User"
 dbConnect()
 
 async function handler(req, res) {
-
-  //redirect to home page if a user is already logged in
-  // const {data: status} = useSession()
-  // if (status === "authenticated") {
-  //   return Router.push('/')
-  // }
-
   if(req.method !== 'POST'){
     return;
   }

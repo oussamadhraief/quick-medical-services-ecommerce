@@ -39,4 +39,5 @@ export default NextAuth({
   },
   database: process.env.MONGO_URI,
   secret: process.env.NEXTAUTH_SECRET,
+  
   })
