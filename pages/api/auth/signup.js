@@ -26,7 +26,7 @@ async function handler(req, res) {
   const name = `${req.body.firstName} ${req.body.lastName}`
 
   const result = await Docteur.create({
-    name: req.body.name,
+    name: name,
     email: req.body.email,
     password: hashedPassword,
     isAdmin : false,

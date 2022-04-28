@@ -35,10 +35,9 @@ export default function RegisterForm() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(signUpData)
+      }).then(res => {
+        if(res.status == 201) window.location = '/login'
       })
-      console.log(res)
-      const { user } = await res.json()
-      console.log(user);
     } catch (error) {
       console.log(error)
     }
