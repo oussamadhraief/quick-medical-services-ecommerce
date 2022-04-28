@@ -3,7 +3,7 @@ import {useSession} from "next-auth/react"
 import Link from 'next/link'
 import 'animate.css'
 
-export default function signup () {
+export default function RegisterForm() {
 
   const {data: session, status} = useSession()
   const [signUpData, setSignUpData] = useState({
