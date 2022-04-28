@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import FacebookProvider from "next-auth/providers/facebook"
-import Docteur from "../../../models/Docteur.js"
+import Docteur from "../../../Models/Docteur.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../utils/mongoDBProvider"
+import clientPromise from "../../../utils/MongoDBProvider"
 
 
 import { verifyPassword } from '../../../utils/Encryption';
@@ -43,7 +43,7 @@ export default NextAuth({
     signIn: '/login',
   },
   database: process.env.MONGO_URI,
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks:{
     async session({session, user}){
       const thisDocteur = await Docteur.findOne({email : session.user.email})
