@@ -12,7 +12,6 @@ import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 import { SearchContext } from "../utils/SearchContext"
 import Head from "next/head"
 import { useSession, getSession } from "next-auth/react"
-import {checkAdmin} from "../utils/isAdmin"
 
 
 
@@ -29,6 +28,11 @@ export default function Admin(){
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
     const [searchContext,setSearchContext] = useState({searching: false, value: []})
+
+
+    useEffect(() =>{
+        if(session.user.isAdmin == false) window.location = '/'
+    },[session])
 
     useEffect(() => {
         if (value.length < 1){
@@ -82,11 +86,8 @@ export default function Admin(){
         let mql = window.matchMedia('(max-width: 767px)');
         if(mql.matches)document.getElementById('navbutton').click()
     }
-
-    useEffect(()=>{
-        setIsAdmin(checkAdmin(session.user.email))
-    },[])
     
+    if(session.user.isAdmin)
     return(
         <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             <Head>
@@ -113,7 +114,7 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            {adminLoading && status !== 'loading' && isAdmin !== null ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
+            {adminLoading && status !== 'loading' ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
@@ -134,6 +135,7 @@ export default function Admin(){
             </ProductsContext.Provider>
         </div>
     )
+    return null
 }
 
 export async function getServerSideProps(context) {

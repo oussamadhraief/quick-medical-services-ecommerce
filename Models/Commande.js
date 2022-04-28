@@ -16,7 +16,7 @@ const CommandeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    adress: {
+    address: {
         type: String,
         required: [true, " Insérez votre adresse"],
         trim: true,

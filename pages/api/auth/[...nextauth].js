@@ -47,6 +47,12 @@ export default NextAuth({
   callbacks:{
     async session({session, user}){
       const thisUser = await User.findOne({email : session.user.email})
+      if (typeof(thisUser.isAdmin) == 'undefined') {const newUser = await User.findOneAndUpdate({email : session.user.email},{
+        ...thisUser,
+        isAdmin: false,
+      })}
+      session.user.address = thisUser.address
+      session.user.phone = thisUser.phone
       session.user.isAdmin = thisUser.isAdmin
       
       return Promise.resolve(session)

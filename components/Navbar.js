@@ -66,6 +66,7 @@ export default function Navbar({ scrolled }){
          
     }
     
+    
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
@@ -99,7 +100,9 @@ export default function Navbar({ scrolled }){
                     <div id="second" className="absolute h-[4px] w-5 bg-white rounded-sm   top-2 left-0"></div>
                     <div id="third" className="absolute h-[4px] w-5 bg-white rounded-sm transition-all top-4 left-0"></div>
                 </div>
-                </div>:null}
+                </div>
+                :
+                null}
             
             
         </div>

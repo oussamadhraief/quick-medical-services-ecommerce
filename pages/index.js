@@ -1,8 +1,28 @@
 import Head from 'next/head'
 import MainContent from '../components/MainContent'
 import Footer from '../components/Footer'
+import { useSession } from "next-auth/react"
+import { useEffect } from 'react'
 
 export default function Home (props) {
+  const { data: session, status } = useSession()
+  
+  
+  useEffect(() => {
+    if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) window.location = '/login'
+  })
+
+  if (status === 'loading') {
+    return (
+      <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+        <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+          <div className="reverse-spinner "></div>
+        </div>
+      </div>
+     )
+    }
+
+
   return (
     <div id='body' className='relative'>
       <Head>

@@ -3,12 +3,29 @@ const UserSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
-      trim: true
+      trim: true,
+      lowercase: true,
+      required: [true, "L'adresse email est obligatoire"],
+      match: [
+          /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
+          "Please fill a valid email address",
+      ],
     },
     password: {
       type: String,
       required: true
+    },
+    address: {
+      type: String,
+      required: [true, " Insérez votre adresse"],
+      trim: true,
+      default: null
+    },
+    phoneNumber: {
+        type: String,
+        required: [true, "Insérez votre numéro de téléphone"],
+        minlength: [4, "Insérez un numéro de téléphone valide"],
+        default: null
     },
     name: {
       type: String,
