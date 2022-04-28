@@ -158,3 +158,8 @@ export default function Contact() {
             
         )
 }
+
+
+export async function getServerSideProps () {
+    return { props: { hi: 'hi' } }
+  }

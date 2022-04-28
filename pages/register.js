@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import RegisterForm from '../components/RegisterForm'
 
-export default function Register () {
+export default function Register (props) {
   return (
     <div id='body' className='relative'>
       <Head>
@@ -44,4 +44,8 @@ export default function Register () {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps () {
+  return { props: { hi: 'hi' } }
 }

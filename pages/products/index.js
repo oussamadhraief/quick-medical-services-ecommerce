@@ -157,3 +157,7 @@ export default function Products(){
         </div>
     )
 }
+
+export async function getServerSideProps () {
+    return { props: { hi: 'hi' } }
+  }

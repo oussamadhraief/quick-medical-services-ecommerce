@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LoginForm from '../components/LoginForm'
 
-export default function Login () {
+export default function Login (props) {
   return (
     <div id='body' className='relative'>
       <Head>
@@ -44,4 +44,8 @@ export default function Login () {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps () {
+  return { props: { hi: 'hi' } }
 }

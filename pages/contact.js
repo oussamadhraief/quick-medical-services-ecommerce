@@ -244,3 +244,7 @@ export default function Contact () {
     </div>
   )
 }
+
+export async function getServerSideProps () {
+  return { props: { hi: 'hi' } }
+}
