@@ -43,7 +43,7 @@ export default NextAuth({
     signIn: '/login',
   },
   database: process.env.MONGO_URI,
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks:{
     async session({session, user}){
       const thisDocteur = await Docteur.findOne({email : session.user.email})
