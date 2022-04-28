@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const UserSchema = new mongoose.Schema(
+const DocteurSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -17,13 +17,13 @@ const UserSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: [true, " Insérez votre adresse"],
+      // required: [true, "L'adresse email est obligatoire"],
       trim: true,
       default: null
     },
-    phoneNumber: {
+    phone: {
         type: String,
-        required: [true, "Insérez votre numéro de téléphone"],
+        // required: [true, "L'adresse email est obligatoire"],
         minlength: [4, "Insérez un numéro de téléphone valide"],
         default: null
     },
@@ -38,4 +38,4 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
-module.exports = mongoose.models.User || mongoose.model('User', UserSchema)
+module.exports = mongoose.models.Docteur || mongoose.model('Docteur', DocteurSchema)

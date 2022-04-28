@@ -9,8 +9,8 @@ export default function signup () {
   const [signUpData, setSignUpData] = useState({
     lastName: '',
     firstName: '',
-    adress: '',
-    phone: '',
+    address: '',
+    phone: null,
     email: '',
     password: '',
     passwordConfirm: '',
@@ -31,12 +31,14 @@ export default function signup () {
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(signUpData)
       })
       console.log(res)
+      const { user } = await res.json()
+      console.log(user);
     } catch (error) {
       console.log(error)
     }
@@ -64,66 +66,66 @@ export default function signup () {
           type='text'
           placeholder='Nom'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-[48%]'
-          required=''
+          required={true}
           name="lastName"
           value={signUpData.lastName}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
         />
         <input
           type='text'
           placeholder='Prénom'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-[48%]'
-          required=''
+          required={true}
           name="firstName"
           value={signUpData.firstName}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
         />
     </div>
         <input
           type='text'
           placeholder='Adresse'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-          required=''
-          name="adress"
-          value={signUpData.adress}
-          onChange={handleChange}
+          required={true}
+          name="address"
+          value={signUpData.address}
+          onChange={ e => handleChange(e)}
         />
         <input
           type='number'
           placeholder='Numéro de tél.'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-          required=''
+          required={true}
           name="phone"
           value={signUpData.phone}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
         />
          <input
           type='email'
           placeholder='Email'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full'
-          required=''
+          required={true}
           name="email"
           value={signUpData.email}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
         />
         <input
           type='password'
           placeholder='Mot de passe'
-          required=''
+          required={true}
           className="h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mt-7"
           name="password"
           value={signUpData.password}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
           />
         <input
           type='password'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full my-7'
           id='repeat-password'
           placeholder='Confirmez le mot de passe'
-          required=''
+          required={true}
           name="passwordConfirm"
           value={signUpData.passwordConfirm}
-          onChange={handleChange}
+          onChange={ e => handleChange(e)}
         />
         <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">S'inscrire</button>
         <div className="text-white">

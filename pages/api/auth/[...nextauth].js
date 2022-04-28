@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import FacebookProvider from "next-auth/providers/facebook"
-import User from "../../../models/User.js"
+import Docteur from "../../../models/Docteur.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../utils/mongoDBProvider"
@@ -25,9 +25,9 @@ export default NextAuth({
       name: 'credentials',
       
       async authorize(credentials) {
-        const user = await User.findOne({email : credentials.email,})
+        const user = await Docteur.findOne({email : credentials.email,})
         if (!user){
-          throw new Error ('No User found with this email')
+          throw new Error ('No Docteur found with this email')
         }
         const validPassword = await verifyPassword(credentials.password, user.password)
         if (!validPassword) {
@@ -46,14 +46,14 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks:{
     async session({session, user}){
-      const thisUser = await User.findOne({email : session.user.email})
-      if (typeof(thisUser.isAdmin) == 'undefined') {const newUser = await User.findOneAndUpdate({email : session.user.email},{
-        ...thisUser,
+      const thisDocteur = await Docteur.findOne({email : session.user.email})
+      if (typeof(thisDocteur.isAdmin) == 'undefined') {const newDocteur = await Docteur.findOneAndUpdate({email : session.user.email},{
+        ...thisDocteur,
         isAdmin: false,
       })}
-      session.user.address = thisUser.address
-      session.user.phone = thisUser.phone
-      session.user.isAdmin = thisUser.isAdmin
+      session.user.address = thisDocteur.address
+      session.user.phone = thisDocteur.phone
+      session.user.isAdmin = thisDocteur.isAdmin
       
       return Promise.resolve(session)
     }

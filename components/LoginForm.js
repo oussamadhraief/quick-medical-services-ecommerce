@@ -19,7 +19,7 @@ export default function LoginForm() {
 
   function handleAddChange(e) {
     setAddData({
-      ...login,
+      ...addData,
       [e.target.name]: e.target.value
     })
   }
@@ -46,28 +46,27 @@ export default function LoginForm() {
               })
             })
             const { data } = await res.json()
-            console.log(data);
           }
         } className='h-fit min-h-full w-full flex flex-col items-center mb-10'>
           <p className="text-3xl font-medium text-white border-b-2 border-orange mb-10 whitespace-nowrap">Remplir les informations manquantes</p>
-              <input
+              {session.user.address == null ? <input
                 type='text'
                 placeholder='Adresse'
                 className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-                required=''
-                name="adress"
+                required={true}
+                name="address"
                 value={addData.address}
-                onChange={handleAddChange}
-              />
-              <input
+                onChange={e => handleAddChange(e)}
+              /> : null }
+              {session.user.phone == null ? <input
                 type='number'
                 placeholder='Numéro de tél.'
                 className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-                required=''
+                required={true}
                 name="phone"
                 value={addData.phone}
-                onChange={handleAddChange}
-              />
+                onChange={e => handleAddChange(e)}
+              /> : null}
           
               <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">Sauvegarder</button>
           </form>
