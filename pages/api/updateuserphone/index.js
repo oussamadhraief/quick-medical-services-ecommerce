@@ -6,7 +6,7 @@ export default  async (req, res) => {
   if (req.method !== 'POST') return res.status(400).json({success : false , message :'Only POST request accepted'})
   try {
     const userData = await Docteur.findOneAndUpdate({email : req.body.email},
-        {phone: req.body.phone, address: req.body.address},
+        {phone: req.body.phone},
         { new: true, runValidators: true })
   
     res.status(200).json({ success: true, data: userData });

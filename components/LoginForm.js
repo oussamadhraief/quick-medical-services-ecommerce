@@ -34,6 +34,37 @@ export default function LoginForm() {
         <form onSubmit={
          async e=> {
             e.preventDefault()
+            if(addData.phone == '')
+            { 
+              const res = await fetch('/api/updateuseraddress',{
+                method: 'POST',
+                  headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  address: addData.address,
+                  email: session.user.email
+                })
+              }).then(res => {
+                if(res.status == 200) window.location = '/'
+              })
+              
+          }else if (addData.address == ''){
+            const res = await fetch('/api/updateuserphone',{
+              method: 'POST',
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                phone: addData.phone,
+                email: session.user.email
+              })
+            }).then(res => {
+              if(res.status == 200) window.location = '/'
+            })
+          }else{
             const res = await fetch('/api/fillmissingdata',{
               method: 'POST',
                 headers: {
@@ -44,8 +75,10 @@ export default function LoginForm() {
                 ...addData,
                 email: session.user.email
               })
+            }).then(res => {
+              if(res.status == 200) window.location = '/'
             })
-            const { data } = await res.json()
+          }
           }
         } className='h-fit min-h-full w-full flex flex-col items-center mb-10'>
           <p className="text-3xl font-medium text-white border-b-2 border-orange mb-10 whitespace-nowrap">Remplir les informations manquantes</p>
