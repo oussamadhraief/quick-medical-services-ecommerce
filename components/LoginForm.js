@@ -100,7 +100,7 @@ export default function LoginForm() {
             <input name="password" type="password" value={login.password} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full my-7" placeholder="Mot de passe" />
             <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">Se connecter</button>
             <div className="text-white">
-            Vous n'êtes pas déjà inscrit ?&nbsp;
+            Vous n&apos;êtes pas déjà inscrit ?&nbsp;
                 <Link href='/register'>
                     <a className="font-semibold underline hover:no-underline text-orange">Créez un compte</a>
                 </Link>
