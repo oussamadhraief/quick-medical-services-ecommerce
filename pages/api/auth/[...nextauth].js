@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import FacebookProvider from "next-auth/providers/facebook"
-import Docteur from "../../../models/Docteur.js"
+import Docteur from "../../../Models/Docteur.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../utils/mongoDBProvider"
+import clientPromise from "../../../utils/MongoDBProvider"
 
 
 import { verifyPassword } from '../../../utils/Encryption';
