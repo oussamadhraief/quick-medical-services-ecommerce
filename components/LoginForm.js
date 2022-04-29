@@ -46,8 +46,10 @@ export default function LoginForm() {
                   address: addData.address,
                   email: session.user.email
                 })
-              }).then(res => {
+              }).then(async res => {
                 if(res.status == 200) window.location = '/'
+                const { data } = await res.json()
+                console.log(data);
               })
               
           }else if (addData.address == ''){
