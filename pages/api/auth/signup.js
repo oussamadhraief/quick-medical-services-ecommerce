@@ -1,6 +1,4 @@
 import { hashPassword } from "../../../utils/Encryption";
-import { useSession } from 'next-auth/react';
-import { Router } from "next/router";
 import dbConnect from "../../../utils/dbConnect";
 import Docteur from "../../../Models/Docteur"
 
