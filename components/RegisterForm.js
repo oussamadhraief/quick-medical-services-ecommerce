@@ -39,7 +39,7 @@ export default function RegisterForm() {
         if(res.status == 201) window.location = '/login'
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
   if(session) {

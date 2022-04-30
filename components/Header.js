@@ -20,10 +20,11 @@ export default function Header(props){
                 document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
                 document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
             }
-            setTimeout(() => {
+            const cartTimeout = setTimeout(() => {
                 document.getElementById('cart').style.transitionProperty = 'all'
                 document.getElementById('cart').style.transitionDuration = '1s'
             }, 1000);
+            return clearTimeout(cartTimeout)
     },[])
 
     useEffect(() => {
@@ -112,7 +113,7 @@ export default function Header(props){
             : 
             <>
             <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 gap-0 md:gap-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
-                <div className="w-11/12 sm:w-10/12 md:w-4/6 lg:w-3/6 h-fit mt-28 mb-20 mx-auto">
+                <div className="w-11/12 sm:w-10/12 md:w-4/6 lg:w-3/6 h-fit mt-12 mb-8 mx-auto">
                     
                 <NavigationSection landingPage={props.landingPage} />
                 </div>

@@ -49,7 +49,6 @@ export default function LoginForm() {
               }).then(async res => {
                 if(res.status == 200) window.location = '/'
                 const { data } = await res.json()
-                console.log(data);
               })
               
           }else if (addData.address == ''){
