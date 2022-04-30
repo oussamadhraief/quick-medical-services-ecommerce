@@ -11,19 +11,21 @@ export default async (req, res) => {
       .json({ success: false, message: 'Only POST request accepted' })
   if (session) {
     const user = await Docteur.findOne({ email: req.body.email })
-    if (session.user.email === user.email) {
-      try {
-        const userData = await Docteur.findOneAndUpdate(
-          { email: req.body.email },
-          { phone: req.body.phone },
-          { new: true, runValidators: true }
-        )
+    if (!user) {
+      res.status(404).json({ success: false, message: 'no uder found' })
+    }
+    try {
+      const userData = await Docteur.findOneAndUpdate(
+        { email: req.body.email },
+        { phone: req.body.phone },
+        { new: true, runValidators: true }
+      )
 
-        res.status(200).json({ success: true, data: userData })
-      } catch (error) {
-        res.status(400).json({ success: false })
-      }
-    } else res.status(401).json({ suceess: false, message: 'nice try bro !' })
-  } else
+      res.status(200).json({ success: true, data: userData })
+    } catch (error) {
+      res.status(400).json({ success: false })
+    }
+  } else {
     res.status(401).json({ sucess: false, message: 'must be authenticated' })
+  }
 }
