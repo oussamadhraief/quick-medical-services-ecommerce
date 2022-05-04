@@ -35,6 +35,8 @@ const DocteurSchema = new mongoose.Schema(
       type: Boolean,
       default: 0
     },
+    cart:[{type: mongoose.Schema.Types.ObjectId, ref: 'Instrument'}]
+    
   },
   { timestamps: true }
 )
