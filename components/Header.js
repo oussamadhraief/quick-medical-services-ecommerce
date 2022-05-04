@@ -72,10 +72,15 @@ export default function Header(props){
             <Navbar scrolled={scrolled} />
             {props.landingPage ? 
             <>
-            <div id="header" className="w-full h-full gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
-                <div className="w-11/12 sm:w-10/12 md:w-7/12 mx-auto lg:w-8/12 z-0 lg:h-full relative lg:absolute lg:top-0 lg:right-0">
-                    {isMobile ? <Image src={'pfe/Untitled_design_2_cfpmtb.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> : <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> }
-                </div>
+            <div id="header" className="w-full h-fit gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
+                {isMobile ? 
+                <div className="w-11/12 sm:w-10/12 md:w-7/12 aspect-square mx-auto z-0 relative lg:absolute lg:top-0 lg:right-0">
+                     <Image src={'pfe/Untitled_design_2_cfpmtb.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> 
+                     </div>:
+                     
+                    <div className="aspect-[13/10] h-full z-0 relative lg:absolute lg:top-0 lg:right-0">
+                     <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> 
+                     </div>}
                 <div className="grid place-items-start w-full px-5 md:px-0 mx-auto lg:mx-0 md:w-11/12 order-2 md:order-1 lg:w-[40%] z-[1]">
                     <div className="w-full h-fit relative">
                         <Image src={slogan} alt='slogan' width={550} height={50} layout="responsive" />
@@ -94,15 +99,15 @@ export default function Header(props){
 
                 </div>
                 <div id="banner" className="relative w-1/2 order-1 md:order-2  md:w-5/12 sm:ml-[9%]">
-                    {/* <Image src={banner} alt='surgeon' width={700} height={700} layout='fill' /> */}
+                    
                 </div>
             </div>
-            <div id="cart" className={scrolled ? ` text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? `transition-all duration-1000 text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999] transition-all duration-1000`}>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
                 <Link href='/cart'>
-                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
                 <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
             </div>
@@ -118,12 +123,12 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className={scrolled ? ` text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999]`}>
+            <div id="cart" className={scrolled ? `transition-all duration-1000 text-medium font-medium bg-transparent rounded-full text-third fixed hover:cursor-pointer h-fit w-fit pt-2 pb-0 px-1.5 z-[9999] group` : `group text-medium font-medium text-third fixed h-fit w-fit hover:cursor-pointer z-[9999] transition-all duration-1000`}>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
                 <Link href='/cart'>
-                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={47} height={42} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
                 <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
             </div>

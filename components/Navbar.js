@@ -70,28 +70,33 @@ export default function Navbar({ scrolled }){
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
-                <a className="relative ml-4 w-44 lg:m-0 h-12 md:w-60 md:h-16 flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} width={439}  height={107} layout='responsive' objectFit="center" /></a>
+                <a className="relative ml-4 w-44 lg:m-0 md:w-60 aspect-[43/10] flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>
             
-            <ul id="navDropdown" className={dropDown? "fixed grid place-content-center pb-[150vh] gap-14 w-screen h-[200vh] bg-na3ne3i top-0 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-20 items-center"}>
+            <ul id="navDropdown" className={dropDown? "fixed grid place-content-center place-items-center pb-[150vh] gap-14 w-screen h-[200vh] bg-na3ne3i top-0 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-10 xl:gap-16 items-center"}>
                 
-                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/'>
-                    <a>Accueil</a>
-                    </Link></li>
-                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
-                    <a>Produits</a>
+                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} whitespace-nowrap text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
+                    <a>Nos Produits</a>
                     </Link></li>
                 <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/contact'>
                     <a>Contact</a>
                     </Link></li>
-                <li className={`whitespace-nowrap lg:block ${ dropDown? 'font-medium' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}>À propos</li>
-                {isAuthenticated? <li><p>Signed in as {session.user.email}</p></li> : 
+                {isAuthenticated? <li>
+                    <div className="flex w-fit h-fit flex-nowrap group justify-center items-center relative">
+                    <Image src={'pfe/user-6781_dtonfu.png'} alt='account' width={15} height={15} layout='fixed' className="hover:cursor-pointer" />
+                    <p className="text-white font-[400] ml-2 hover:cursor-pointer">{session.user.name.charAt(0).toUpperCase() + session.user.name.slice(1).toLowerCase()}</p>
+                    <ul className="invisible group-hover:visible transition-[visibility] grid absolute top-[120%] before:absolute before:content-[''] before:-top-1 before:w-3 before:h-3 before:bg-white before:rotate-45 rounded-md -left-8 w-36 place-content-center place-items-center h-fit bg-white py-1 px-2">
+                    <li className="w-full group-hover:block h-fit text-center  font-medium border-b pb-1 z-10">Mon compte</li>
+                    <li className="w-full group-hover:block h-fit text-center  font-medium border-b pb-1 z-10">Mes commandes</li>
+                    <li className="w-full group-hover:block h-fit text-center  pb-1 z-10"><button className="font-medium" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} >Log out</button></li>
+                    </ul>
+                    </div>
+                </li> : 
                 <>  
-                    <li><Link href='/login'><a className="whitespace-nowrap text-white font-[400] underlineAnimatedLink relative">Se connecter</a></Link></li>
-                    <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky w-fit h-fit px-4 py-2 rounded-lg text-white font-medium">S&apos;inscrire</a></Link></li>
+                    <li><Link href='/login'><a className="whitespace-nowrap text-white text-center font-medium lg:font-[400] ml-3 underlineAnimatedLink relative">Se connecter</a></Link></li>
+                    <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky w-fit h-fit ml-3 px-4 py-2 rounded-lg text-white font-medium">S&apos;inscrire</a></Link></li>
                 </>}
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
-                {isAuthenticated? <button className="bg-red-500" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} >Log out</button> : null}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
                 <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>
