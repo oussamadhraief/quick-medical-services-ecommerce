@@ -1,6 +1,5 @@
-import Image from "next/image"
 
-export default function LoadingAnimation(props){
+export default function LoadingAnimation(){
 
     const logo = 'pfe/logo_hq43sm.png'
 

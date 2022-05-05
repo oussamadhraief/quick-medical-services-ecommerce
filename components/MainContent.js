@@ -2,13 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ProductsCarousel from './ProductsCarousel'
 import { useEffect, useState } from 'react'
-import LoadingAnimation from './LoadingAnimation'
-import { ProductsContext } from '../utils/ProductsContext'
-import Header from "../components/Header"
 import TestimonialSection from "../components/TestimonialSection"
-import { ActivatedModalContext } from '../utils/ActivatedModalContext'
-import { CategoriesContext } from '../utils/CategoriesContext'
-import { SearchContext } from '../utils/SearchContext'
 
 export default function MainContent(){
 
@@ -24,14 +18,9 @@ export default function MainContent(){
     const rapidity = 'pfe/3_av1ccn.png'
     const satisfaction = 'pfe/4_gutx7r.png'
     
-    const [value,setValue] = useState([])
-    const [search,setSearch] = useState('')
     const [availableSearch,setAvailableSearch] = useState('')
     const [unavailableSearch,setUnavailableSearch] = useState('')
-    const [loading,setLoading] = useState(true)
     const [isMobile,setIsMobile] = useState(false)
-    const [activatedModal,setActivatedModal] = useState(false)
-    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
 
     useEffect(() => {
         const mq1 = window.matchMedia('(max-width: 767px)')
@@ -39,38 +28,9 @@ export default function MainContent(){
              setIsMobile(true)
          }
     },[])
-
-    useEffect(() => {
-        async function fetchData() {
-        if(value.length < 1){
-            const res = await fetch('api/products')
-            const {data} = await res.json()
-            setValue(data)
-            setLoading(false)
-            let categories = data.map(item => item.category)
-            categories = [...new Set(categories)]
-            const orderedStuff = categories.map(item => orderedTable(item,data))
-            setCategoriesAndSubcategories(orderedStuff)
-            }
-        }
-    fetchData()
-    },[value])
-
-    function orderedTable(item,data){
-        return {
-            category: item,
-            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
-        }
-    }
     
     return(
-        <ProductsContext.Provider value={{value,setValue}}>
-        <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
-        <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
-        <SearchContext.Provider value={{search,setSearch}}>
-            <Header landingPage={true} />
-        </SearchContext.Provider>
-        </CategoriesContext.Provider>
+        
         <main className="h-fit w-full bg-white overflow-hidden">
             <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
             
@@ -211,7 +171,5 @@ export default function MainContent(){
             </div>
             <TestimonialSection />
         </main>
-        </ActivatedModalContext.Provider>
-        </ProductsContext.Provider>
     )
 }
