@@ -7,9 +7,9 @@ const DocteurSchema = new mongoose.Schema(
       lowercase: true,
       required: [true, "L'adresse email est obligatoire"],
       match: [
-          /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
-          "Please fill a valid email address",
-      ],
+        /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
+        'Please fill a valid email address'
+      ]
     },
     password: {
       type: String,
@@ -22,22 +22,24 @@ const DocteurSchema = new mongoose.Schema(
       default: null
     },
     phone: {
-        type: String,
-        // required: [true, "L'adresse email est obligatoire"],
-        minlength: [4, "Insérez un numéro de téléphone valide"],
-        default: null
+      type: String,
+      // required: [true, "L'adresse email est obligatoire"],
+      minlength: [4, 'Insérez un numéro de téléphone valide'],
+      default: null
     },
     name: {
       type: String,
-      default: "guest"
+      default: 'guest'
     },
     isAdmin: {
       type: Boolean,
       default: 0
     },
-    cart:[{type: mongoose.Schema.Types.ObjectId, ref: 'Instrument'}]
-    
+    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' }],
+    ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Commande' }],
+    // estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
   },
   { timestamps: true }
 )
-module.exports = mongoose.models.Docteur || mongoose.model('Docteur', DocteurSchema)
+module.exports =
+  mongoose.models.Docteur || mongoose.model('Docteur', DocteurSchema)

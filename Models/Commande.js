@@ -1,57 +1,38 @@
-const mongoose = require("mongoose");
-const CommandeSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: [true, "Insérez votre prénom"],
-        trim: true,
-        maxlength: [40, "Le prénom ne doit pas dépasser 20 caractères"],
+const mongoose = require('mongoose')
+const CommandeSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Docteur',
+      required: true
     },
-    lastName: {
-        type: String,
-        required: [true, "Insérez votre nom"],
-        trim: true,
-        maxlength: [20, "Le nom ne doit pas dépasser 20 caractères"],
-    },
-    cart: {
-        type: String,
-        required: true,
-    },
-    address: {
-        type: String,
-        required: [true, " Insérez votre adresse"],
-        trim: true,
-    },
-    phoneNumber: {
-        type: String,
-        required: [true, "Insérez votre numéro de téléphone"],
-        minlength: [4, "Insérez un numéro de téléphone valide"]
-    },
+
+    cart: [
+      {
+        // _id : false,
+        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' },
+        quantity: { type: Number, default: 1 }
+      }
+    ],
+
     clinicName: {
-        type: String,
-        required: [true, "Insérez le nom de la  clinic"],
-        trim: true,
+      type: String,
+      required: [true, 'Insérez le nom de la  clinic'],
+      trim: true
     },
     taxRegistrationNumber: {
-        type: String,
-        required: [true, "Le numéro de matricule fiscale est obligatoire"],
-        trim: true,
-    },
-    email: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        required: [true, "L'adresse email est obligatoire"],
-        match: [
-            /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
-            "Please fill a valid email address",
-        ],
+      type: String,
+      required: [true, 'Le numéro de matricule fiscale est obligatoire'],
+      trim: true
     },
     archived: {
-        type: Boolean,
-        default: false,
-        required: false,
+      type: Boolean,
+      default: false,
+      required: false
     }
-},
-{ timestamps: true });
+  },
+  { timestamps: true }
+)
 
-module.exports = mongoose.models.Commande || mongoose.model("Commande", CommandeSchema);
+module.exports =
+  mongoose.models.Commande || mongoose.model('Commande', CommandeSchema)
