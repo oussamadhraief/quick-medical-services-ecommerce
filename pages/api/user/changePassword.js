@@ -21,6 +21,7 @@ async function handler(req, res) {
   const userEmail = session.user.email
   const oldPassword = req.body.oldPassword
   const newPassword = req.body.newPassword
+  const newPassword2 = req.body.newPassword2
 
   const user = await Docteur.findOne({ email: userEmail })
 
@@ -35,8 +36,10 @@ async function handler(req, res) {
   if (!oldPasswordsAreEqual) {
     console.log('invalid old password')
     return res.status(403).json({ message: 'Invalid password.' })
-    
-  }
+    }
+    if (newPassword !== newPassword2){
+      res.status(401).json({message: 'new password dosent match'})
+    }
 
   // const newPasswordsAreEqual = (newPassword === verifyNewPassword )
   // if (!newPasswordsAreEqual) {

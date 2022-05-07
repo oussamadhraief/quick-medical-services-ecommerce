@@ -9,8 +9,9 @@ const CommandeSchema = new mongoose.Schema(
 
     cart: [
       {
-        // _id : false,
+        _id: false,
         product: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' },
+        size: Number,
         quantity: { type: Number, default: 1 }
       }
     ],
@@ -25,6 +26,7 @@ const CommandeSchema = new mongoose.Schema(
       required: [true, 'Le numéro de matricule fiscale est obligatoire'],
       trim: true
     },
+    note: { String },
     archived: {
       type: Boolean,
       default: false,
