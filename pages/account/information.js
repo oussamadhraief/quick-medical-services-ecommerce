@@ -112,7 +112,7 @@ export default function Information () {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false} />
+          <Header landingPage={false} cartPage={false} />
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-start items-start px-10 my-52'>

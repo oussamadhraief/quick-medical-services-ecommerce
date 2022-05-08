@@ -118,7 +118,7 @@ export default function Results(){
             </Head>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <SearchContext.Provider value={{search,setSearch}} >
-                <Header landingPage={false} />
+                <Header landingPage={false} cartPage={false} />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >

@@ -5,11 +5,13 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { SearchContext } from "../utils/SearchContext"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
 
 
 
-export default function Contact() {
+export default function Cart() {
+    const { data: session, status } = useSession()
 
     const produit = 'pfe/product_mfoz0n.png'
 
@@ -19,10 +21,11 @@ export default function Contact() {
     const [orderForm, setOrderForm] = useState({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: ''})
 
 
-    useEffect(() => {
-        document.getElementById('cart').style.display = 'none'
-        document.getElementById('anotherPositioning').style.display = 'none'
-    },[])
+    // useEffect(() => {
+    //     if( typeof(document.getElementById('cart')) != 'undefined'){
+    //         document.getElementById('cart').style.visibility = 'hidden'
+    //     }
+    // },[])
 
     useEffect(() => {
         async function fetchData() {
@@ -46,6 +49,19 @@ export default function Contact() {
             subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
         }
     }
+
+    if(status == 'loading') return  (
+        <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+          <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+            <div className="reverse-spinner "></div>
+          </div>
+        </div>
+       )
+       
+       if(status == 'unauthenticated') {
+        window.location = '/login'  
+        return null
+       }
     
     return(
         
@@ -76,7 +92,7 @@ export default function Contact() {
       </Head>
             <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
-                <Header landingPage={false} />
+                <Header landingPage={false} cartPage={true} />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-[#E7EDEE]'>

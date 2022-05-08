@@ -90,7 +90,7 @@ export default function Details(){
             </Head>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <SearchContext.Provider value={{search,setSearch}} >
-                <Header landingPage={false} />
+                <Header landingPage={false} cartPage={false} />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <div className="w-full flex flex-nowrap justify-start items-start mt-32">

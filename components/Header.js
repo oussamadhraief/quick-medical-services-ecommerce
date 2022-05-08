@@ -13,6 +13,9 @@ export default function Header(props){
 
 
     useEffect(() => {
+        if(props.cartPage){
+            document.getElementById('cart').style.visibility = 'hidden'
+        }
         const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
@@ -42,6 +45,7 @@ export default function Header(props){
                     document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
                 }
             )
+            
             return clearTimeout(cartTimeout)
     },[])
 
