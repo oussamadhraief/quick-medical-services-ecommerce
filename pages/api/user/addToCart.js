@@ -9,6 +9,7 @@ export default async function handler (req, res) {
   if (req.method !== 'PATCH') {
     return
   }
+  
   if (session) {
     const user = await Docteur.findOne({ email: session.user.email })
     if (!user) {
@@ -20,12 +21,13 @@ export default async function handler (req, res) {
     }
 
     let productExists
-    console.log(user)
+    
     user.cart.forEach(elem => {
       if (String(elem) === String(product._id)) {
         productExists = true
       }
     })
+    
     if (productExists) {
       res
         .status(200)
@@ -36,9 +38,9 @@ export default async function handler (req, res) {
         .status(201)
         .json({ success: true, message: 'product added successfully' })
     }
+    
 
     user.save()
-    user.populate('cart').then(e => console.log(e))
   } else {
     res.status(401).json({ sucess: false, message: 'must be authenticated' })
   }

@@ -12,6 +12,9 @@ export default async (req, res) => {
   if (session) {
     const user = await Docteur.findOne({ email: session.email })
     try {
+      if(!user){
+        res.status(404).json({success: false, message: 'User not found'})
+      }
       const userData = await Docteur.findOneAndUpdate(
         { email: req.body.email },
         { address: req.body.address },

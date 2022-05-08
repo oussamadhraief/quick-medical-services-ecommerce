@@ -26,11 +26,27 @@ const CommandeSchema = new mongoose.Schema(
       required: [true, 'Le numéro de matricule fiscale est obligatoire'],
       trim: true
     },
-    note: { String },
-    archived: {
-      type: Boolean,
-      default: false,
-      required: false
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      required: [true, "L'adresse email est obligatoire"],
+      match: [
+        /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
+        'Please fill a valid email address'
+      ]
+    },
+    address: [{ type: String }],
+    name: { type: String, trim: true },
+    phoneNumber: {
+      type: String,
+      minlength: [4, 'Insérez un numéro de téléphone valide'],
+      default: null
+    },
+    note: { type: String, trim: true },
+    status: {
+      type: String,
+      default: 'processing'
     }
   },
   { timestamps: true }

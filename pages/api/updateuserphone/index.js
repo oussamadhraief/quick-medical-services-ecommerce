@@ -15,6 +15,9 @@ export default async (req, res) => {
       res.status(404).json({ success: false, message: 'no user found' })
     }
     try {
+      if(!user){
+        res.status(404).json({success: false, message: 'User not found'})
+      }
       const userData = await Docteur.findOneAndUpdate(
         { email: req.body.email },
         { phone: req.body.phone },

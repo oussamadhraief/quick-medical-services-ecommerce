@@ -6,8 +6,11 @@ import Image from 'next/image'
 import { SearchContext } from '../utils/SearchContext'
 import Link from 'next/link'
 import Head from 'next/head'
+import { useSession } from 'next-auth/react'
+
 
 export default function Contact () {
+  const { data: session } = useSession()
   const facebook = 'pfe/facebook_dryelz.png'
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
@@ -30,6 +33,17 @@ export default function Contact () {
       }
     })
   }
+  useEffect(() => {
+    if (session) {
+      setFormData({
+        name: session.user.name,
+        email: session.user.email,
+        phoneNumber: session.user.phone,
+        subject: '',
+        message: ''
+      })
+    }
+  }, [session])
 
   useEffect(() => {
     async function fetchData () {
@@ -47,8 +61,6 @@ export default function Contact () {
     fetchData()
   }, [])
 
-  
-
   function orderedTable (item, data) {
     return {
       category: item,
@@ -61,11 +73,20 @@ export default function Contact () {
       ]
     }
   }
+  function clearForm () {
+    setFormData({
+      name: '',
+      email: '',
+      phoneNumber: '',
+      subject: '',
+      message: ''
+    })
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
-    let loading = document.getElementById("contact-loading")
-    loading.style.display = "block"
+    let loading = document.getElementById('contact-loading')
+    loading.style.display = 'block'
     try {
       const formInputs = { ...formData, isRead: false, isReview: false }
       const res = await fetch('/api/contact', {
@@ -75,8 +96,11 @@ export default function Contact () {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formInputs)
-      }).then(async (res) => {
-        
+      }).then(res => {
+        if (res.ok) {
+          loading.style.display = 'none'
+          clearForm()
+        }
       })
     } catch (error) {
       console.error(error)
@@ -152,14 +176,17 @@ export default function Contact () {
             </p>
           </div>
         </div>
-        
+
         <form
           className='lg:w-1/2 h-full relative bg-white py-4  lg:my-12 space-y-8 lg:space-y-5'
           onSubmit={handleSubmit}
         >
-        <div id="contact-loading" className="hidden absolute w-full h-full bg-white/70 z-[9999] ">
-          <div className="reverse-spinner "></div>
-        </div>  
+          <div
+            id='contact-loading'
+            className='hidden absolute w-full h-full bg-white/70 z-[9999] '
+          >
+            <div className='reverse-spinner '></div>
+          </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
               className='form-input invalid:border-red-500 peer invalid:text-red-500'
@@ -196,7 +223,7 @@ export default function Contact () {
               type='number'
               name='phoneNumber'
               id='formPhoneNumber'
-              value={formData.phone}
+              value={formData.phoneNumber}
               onChange={handleChange}
             />
             <label className='form-label' htmlFor='formPhoneNumber'>
