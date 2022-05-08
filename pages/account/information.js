@@ -136,7 +136,7 @@ export default function Information () {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <div className='w-full h-fit  px-10'>
+          <div className='w-full h-fit px-10'>
           <form onSubmit={e => handleSubmit(e)} className='w-5/12 h-full py-5 grid gap-14'>
             <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Nom et prénom:
                 <input type="text" onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-fit'/>
@@ -150,15 +150,15 @@ export default function Information () {
           <p className='text-xl font-medium w-fit mx-auto'>Modifer <span className='border-b-2 border-orange'> vos adresses</span>: </p>
           </form>
             <div className='flex flex-nowrap w-fit h-fit gap-16'>
-              <div className='w-96 h-fit grid  relative  rounded-sm pl-5 pr-32 pt-4 gap-8'>
-                <p className="w-fit font-medium after:content-[''] after:absolute after:top-[110%] after:left-0 after:bg-orange after:h-[1px] after:w-96 relative">Adresse de facturation</p>
+              <div className='w-96 h-fit grid  relative  rounded-sm pl-5 pr-32 pt-4 gap-10 pb-10 border border-na3ne3i'>
+                <p className="w-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative">Adresse de facturation</p>
                 <p>{session.user.address}</p>
-                <button className='absolute top-4 text-na3ne3i underline right-1'>Modifier</button>
+                <button className='absolute top-4 bg-orange px-1 font-medium rounded-sm right-5'>Modifier</button>
               </div>
-              <div className='grid w-96 h-fit  relative  rounded-sm pl-5 pr-32 pt-4 gap-8'>
-              <p className="w-fit font-medium after:content-[''] after:absolute after:top-[110%] after:left-0 after:bg-orange after:h-[1px] after:w-96 relative">Adresse de livraison</p>
+              <div className='grid w-96 h-fit  relative  rounded-sm pl-5 pr-32 pt-4 gap-10 pb-10 border border-na3ne3i'>
+              <p className="w-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative">Adresse de livraison</p>
               <p className='w-full'>{session.user.address}</p>
-              <button className='absolute top-4 text-na3ne3i underline right-1'>Modifier</button>
+              <button className='absolute top-4 bg-orange px-1 font-medium rounded-sm right-5'>Modifier</button>
               </div>
             </div>
           </div>

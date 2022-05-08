@@ -151,7 +151,7 @@ export default function Password() {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-      <form onSubmit={handleSubmit} class='w-8/12 h-full px-10 py-5 grid gap-14'>
+      <form onSubmit={handleSubmit} className='w-10/12 h-full px-10 py-5 grid gap-14'>
           
             <input
               type='password'

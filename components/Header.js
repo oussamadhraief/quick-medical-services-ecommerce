@@ -24,31 +24,26 @@ export default function Header(props){
                 document.getElementById('cart').style.transitionProperty = 'all'
                 document.getElementById('cart').style.transitionDuration = '1s'
             }, 1000);
+            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+
+                window.addEventListener("scroll", () => {
+                    handleAnimation()
+                }
+            )
+                window.addEventListener("resize", () => {
+                    
+                    const mq1 = window.matchMedia("(max-width: 1023px)")
+                    if(mq1.matches){
+                        setIsMobile(true)
+                    }else {
+                        setIsMobile(false)
+                    }
+                    handleAnimation()
+                    document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+                }
+            )
             return clearTimeout(cartTimeout)
     },[])
-
-    useEffect(() => {
-        document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
-    },[])
-
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            handleAnimation()
-          }
-    )
-        window.addEventListener("resize", () => {
-            
-            const mq1 = window.matchMedia("(max-width: 1023px)")
-            if(mq1.matches){
-                setIsMobile(true)
-            }else {
-                setIsMobile(false)
-            }
-            handleAnimation()
-            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
-          }
-    )
-})
 
     const handleAnimation = () => {
         if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
