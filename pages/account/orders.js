@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import OrderComponent from '../../components/OrderComponent'
 import { CategoriesContext } from '../../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -15,16 +16,7 @@ export default function Orders() {
     []
   )
   const [search, setSearch] = useState('')
-  const [information,setInformation] = useState({name: '',phone: '',address: {}})
-
-  const handleChange = e => {
-    setFormData(prevFormData => {
-      return {
-        ...prevFormData,
-        [e.target.name]: e.target.value
-      }
-    })
-  }
+  const [orders,setOrders] = useState([])
 
   useEffect(() => {
     async function fetchData () {
@@ -39,7 +31,17 @@ export default function Orders() {
         console.error(error)
       }
     }
+    async function fetchOrders() {
+      try {
+        const res = await fetch('/api/user/userorders')
+        const { data } = await res.json()
+        setOrders(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchData()
+    fetchOrders()
   }, [])
 
   
@@ -135,15 +137,7 @@ export default function Orders() {
                   <th></th>
               </thead>
               <tbody className='w-full'>
-                <tr className='w-full h-10 border-b'>
-                    <td className='font-medium text-center'>626a13cc248944eb44d50a6b</td>
-                    <td className='font-medium text-center'>8/5/2022</td>
-                    <td className='font-medium text-center'>oussema.dhraief@gmail.com</td>
-                    <td> <p className='font-medium bg-orange w-28 px-2 py-0.5 rounded-md text-center mx-auto'>EN COURS</p> </td>
-                    <td className='flex justify-center items-center'>
-                      <button className='font-medium w-fit h-fit px-3 py-0.5 rounded-3xl bg-[#E7EDEE] shadow-form flex items-center mt-[4px]'> Voir</button>
-                    </td>
-                </tr>
+                {orders.map(item => <OrderComponent id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
       </main>
