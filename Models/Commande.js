@@ -32,7 +32,7 @@ const CommandeSchema = new mongoose.Schema(
       lowercase: true,
       required: [true, "L'adresse email est obligatoire"],
       match: [
-        /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
+        /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
         'Please fill a valid email address'
       ]
     },

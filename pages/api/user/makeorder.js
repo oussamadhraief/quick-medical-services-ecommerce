@@ -42,11 +42,11 @@ export default async function handler (req, res) {
       taxRegistrationNumber: req.body.taxRegistrationNumber,
       note: req.body.note
     })
-    User.ordersHistory.push(commande._id)
-    console.log('walid:', commande)
+
+    User.ordersHistory.push(commande)
     User.save()
 
-    res.status(201).json({ success: true, data: commande })
+    res.status(201).json({ success: true, data: commande, user: User })
 
     
   } else {
