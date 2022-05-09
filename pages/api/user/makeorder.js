@@ -9,47 +9,47 @@ export default async function handler (req, res) {
   const session = await getSession({ req })
 
   if (req.method !== 'POST') return
-  // if (session) {
-    const user = await Docteur.findOne({ email: req.body.email })
-    if(!user){
+  if (session) {
+    
+    const User = await Docteur.findOne({ email: session.user.email })
+    if(!User){
       res.status(404).json({success: false, message: 'User not found'})
     }
-    console.log(req.body.address)
-    const commande = await Commande.create({
-      user: user,
-      cart: [],
-      name: req.body.name,
-      address : [],
-      phone : req.body.phoneNumber,
-      clinicName: req.body.clinicName,
-      taxRegistrationNumber: req.body.taxRegistrationNumber,
-      note: req.body.note
-    })
-    for (const elem of req.body.address){
 
-      commande.adress.push(elem)
-    }
-    // await commande.address.push(req.body.address)
+    let orderData = []
 
-    for (const elem of req.body.products) {
-      let myArray = elem.reference.split('.')
-      let reference = `${myArray[0]}.${myArray[1]}.${myArray[2]}`
-      let size = parseInt(myArray[3])
-      let product = await Instrument.findOne({ reference: reference })
+    for (const item of req.body.cart) {
+      let product = await Instrument.findOne({ reference: item.reference })
       if(!product){
         res.status(404).json({success: false , message: 'Product not found'})
       }
       
-      commande.cart.push({
+      orderData.push({
         product: product,
-        size: size,
-        quantity: elem.quantity
+        size: item.size,
+        quantity: item.quantity
       })
     }
-    commande.save()
+
+    const commande = await Commande.create({
+      user: User,
+      email: req.body.email,
+      cart: orderData,
+      name: req.body.name,
+      address : req.body.address,
+      phoneNumber : req.body.phone,
+      clinicName: req.body.clinicName,
+      taxRegistrationNumber: req.body.taxRegistrationNumber,
+      note: req.body.note
+    })
+
+    // User.ordersHistory.push(commande)
+    // User.save()
 
     res.status(201).json({ success: true, data: commande })
-  // } else {
-  //   res.status(401).json({ sucess: false, message: 'must be authenticated' })
-  // }
+
+    
+  } else {
+    res.status(401).json({ sucess: false, message: 'must be authenticated' })
+  }
 }

@@ -16,7 +16,7 @@ export default function ProductPreview(props){
                 <p className="font-bold text-2xl text-main">{props.name}</p>
                 <p className="font-medium text-zinc-600 text-md">Tailles:&nbsp;</p>
                 <SizeSelectionContext.Provider value={{ selectedSize,setSelectedSize}} >
-                <SizeSelection sizes={props.sizes} />
+                    <SizeSelection sizes={props.sizes} />
                 </SizeSelectionContext.Provider>
                 <p className="font-medium text-zinc-600 text-md">Description:&nbsp;</p>
                 <p>{props.description}</p>

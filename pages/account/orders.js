@@ -71,6 +71,7 @@ export default function Orders() {
     return null
    }
 
+
   return (
     <div>
       <Head>
@@ -125,10 +126,26 @@ export default function Orders() {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <div className='w-10/12 h-full px-10 py-5 grid gap-14'>
-                
-
-          </div>
+            <table className='w-9/12 mx-auto h-full'>
+              <thead className='w-full'>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Référence</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Date</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Email</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Status</th>
+                  <th></th>
+              </thead>
+              <tbody className='w-full'>
+                <tr className='w-full h-10 border-b'>
+                    <td className='font-medium text-center'>626a13cc248944eb44d50a6b</td>
+                    <td className='font-medium text-center'>8/5/2022</td>
+                    <td className='font-medium text-center'>oussema.dhraief@gmail.com</td>
+                    <td> <p className='font-medium bg-orange w-28 px-2 py-0.5 rounded-md text-center mx-auto'>EN COURS</p> </td>
+                    <td className='flex justify-center items-center'>
+                      <button className='font-medium w-fit h-fit px-3 py-0.5 rounded-3xl bg-[#E7EDEE] shadow-form flex items-center mt-[4px]'> Voir</button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
       </main>
       <Footer />
     </div>
