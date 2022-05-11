@@ -2,7 +2,6 @@ import Navbar from "./Navbar"
 import NavigationSection from "./NavigationSection"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import 'animate.css'
 import Link from 'next/link'
 
 export default function Header(props){
@@ -46,7 +45,9 @@ export default function Header(props){
                 }
             )
             
-            return clearTimeout(cartTimeout)
+            return () => {
+                clearTimeout(cartTimeout)
+            }
     },[])
 
     const handleAnimation = () => {

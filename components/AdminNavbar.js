@@ -44,7 +44,7 @@ export default function AdminNavbar(props){
     })
 
     const handleClick = (event) => {
-        setMenu(!menu)
+        setMenu(prevMenu => !prevMenu)
         if(menu){
             if(matches){
                 setOpen(true)

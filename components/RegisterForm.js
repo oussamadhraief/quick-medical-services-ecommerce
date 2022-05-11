@@ -2,10 +2,14 @@ import {useState } from 'react'
 import {useSession} from "next-auth/react"
 import Link from 'next/link'
 import 'animate.css'
+import { useRouter } from 'next/router'
 
 export default function RegisterForm() {
 
   const {data: session, status} = useSession()
+
+  const router = useRouter()
+
   const [signUpData, setSignUpData] = useState({
     lastName: '',
     firstName: '',
@@ -27,6 +31,11 @@ export default function RegisterForm() {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    setSignUpData({
+      ...signUpData,
+        firstName: signUpData.firstName.charAt(0).toUpperCase() + signUpData.firstName.slice(1).toLowerCase(),
+        lastName: signUpData.lastName.charAt(0).toUpperCase() + signUpData.lastName.slice(1).toLowerCase()
+    })
     try {
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -36,16 +45,17 @@ export default function RegisterForm() {
         },
         body: JSON.stringify(signUpData)
       }).then(res => {
-        if(res.status == 201) window.location = '/login'
+        if(res.status == 201) router.push('/login')
       })
     } catch (error) {
       console.error(error)
     }
   }
   if(session) {
-    window.location = '/'
+    router.back()
     return 
    }
+
    if (status === 'loading') {
     return (
       <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -56,6 +66,7 @@ export default function RegisterForm() {
       </div>
      )
   }
+  
   return (
       <div className='h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[13vh] rounded-md z-10 animate__animated animate__fadeInLeft'>
     <form onSubmit={handleSubmit} className='h-fit min-h-full w-full flex flex-col items-center mb-10'>

@@ -8,11 +8,14 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { data } from '../utils/data'
+import { useRouter } from 'next/router'
 
 
 
 export default function Cart() {
     const { data: session, status } = useSession()
+
+    const router = useRouter()
 
 
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
@@ -59,7 +62,6 @@ export default function Cart() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(value);
         if(seperateAdresses){
             globalThis.orderData = {
                 ...orderForm,
@@ -73,6 +75,7 @@ export default function Cart() {
                 cart: value
             }
         }
+        console.log(orderData);
         delete orderData.address2
         console.log(orderData);
         const res = await fetch('/api/user/makeorder',{
@@ -96,7 +99,7 @@ export default function Cart() {
        )
        
        if(status == 'unauthenticated') {
-        window.location = '/login'  
+        router.push('/login')
         return null
        }
     
@@ -152,7 +155,7 @@ export default function Cart() {
                     <tbody className='w-full h-full mt-32'>
                         {data.data.map((item,index) => {
                             return (
-                                <CartProduct reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
+                                <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
                             )
                         })}     
                     </tbody>
@@ -166,7 +169,7 @@ export default function Cart() {
                     
                     <label className='w-11/12 mx-auto font-medium text-sm mt-5 hover:cursor-pointer flex flex-nowrap items-center mb-1'>
                     <input type="checkbox" checked={seperateAdresses} name="seperate" onChange={e => {
-                        setSeperateAdresses(!seperateAdresses)
+                        setSeperateAdresses(prevSeperateAdresses => !prevSeperateAdresses)
                         if(seperateAdresses){
 
                             document.querySelector('.mainAdress').placeholder = 'Adresse de livraison et de facturation'
@@ -224,3 +227,5 @@ export default function Cart() {
 export async function getServerSideProps () {
     return { props: { hi: 'hi' } }
   }
+
+  Cart.auth = true

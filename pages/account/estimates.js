@@ -7,9 +7,12 @@ import { SearchContext } from '../../utils/SearchContext'
 import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 export default function Estimates() {
   const { data: session, status } = useSession()
+
+  const router = useRouter()
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
@@ -67,7 +70,7 @@ export default function Estimates() {
    )
    
    if(status == 'unauthenticated') {
-    window.location = '/login'  
+    router.push('/login')  
     return null
    }
 

@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import {SessionProvider} from "next-auth/react"
 import { useSession } from "next-auth/react"
-import { useEffect } from 'react'
 
 
 
@@ -24,7 +23,7 @@ export default function MyApp({
 }
 
 function Auth({ children }) {
-  const { status } = useSession({ required: true })
+  const { status } = useSession({ required: true})
 
   if (status === 'loading') {
     return (
@@ -36,6 +35,5 @@ function Auth({ children }) {
      )
     }
 
-  
   return children
 }

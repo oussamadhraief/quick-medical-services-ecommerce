@@ -3,9 +3,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import 'animate.css'
 import { useState } from "react"
+import { useRouter } from 'next/router'
 
 export default function LoginForm() {
   const {data: session, status} = useSession()
+  
+  const router = useRouter()
 
   const [login,setLogin] = useState({email: '',password: ''})
   const [addData,setAddData] = useState({phone: '',address: ''})
@@ -26,7 +29,7 @@ export default function LoginForm() {
 
   if(session) {
     if(session.user.phone != null && session.user.address != null){
-      window.location = '/'
+      router.back()
       return 
     }else{
       return (
@@ -47,7 +50,7 @@ export default function LoginForm() {
                   email: session.user.email
                 })
               }).then(async res => {
-                if(res.status == 200) window.location = '/'
+                if(res.status == 200) router.push('/')
                 const { data } = await res.json()
               })
               
@@ -63,7 +66,7 @@ export default function LoginForm() {
                 email: session.user.email
               })
             }).then(res => {
-              if(res.status == 200) window.location = '/'
+              if(res.status == 200) router.push('/')
             })
           }else{
             const res = await fetch('/api/fillmissingdata',{
@@ -77,7 +80,7 @@ export default function LoginForm() {
                 email: session.user.email
               })
             }).then(res => {
-              if(res.status == 200) window.location = '/'
+              if(res.status == 200) router.push('/')
             })
           }
           }
@@ -125,7 +128,7 @@ export default function LoginForm() {
       <div className="h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[12vh] rounded-md z-10 animate__animated animate__fadeInRight">
         <form onSubmit={e => {
           e.preventDefault()
-          signIn("credentials", { email: login.email, password: login.password })
+          signIn("credentials", {redirect: false, email: login.email, password: login.password })
         }} className="h-fit min-h-full w-full flex flex-col items-center mb-10">
             <p className="text-[44px] font-medium text-white border-b-2 border-orange mb-10">Se connecter</p>
             <input name="email" type="email" value={login.email} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full" placeholder="Nom d'utilisateur"/>
@@ -140,8 +143,7 @@ export default function LoginForm() {
             </div>
         </form>
         <button className="w-fit h-fit flex flex-nowrap bg-[#546AA3] px-3 py-2 justify-center gap-1 text-white font-medium items-center rounded-md shadow" onClick={e => {
-          signIn('facebook',
-          {callbackUrl: 'localhost:3000/login'})
+          signIn('facebook')
         }}><Image src={'pfe/facebook_dryelz.png'} alt='facebook icon' width={30} height={30} layout='fixed' /> Se connecter avec Facebook</button>
     </div>
   )

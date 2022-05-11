@@ -9,9 +9,13 @@ import Header from "../components/Header"
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
+import { useRouter } from 'next/router'
 
 export default function Home (props) {
   const { data: session, status } = useSession()
+
+  const router = useRouter()
+
 
   const [activatedModal,setActivatedModal] = useState(false)
   const [loading,setLoading] = useState(true)
@@ -43,7 +47,7 @@ function orderedTable(item,data){
 }
   
   useEffect(() => {
-    if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) window.location = '/login'
+    if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) router.push('/login')
   })
 
   if (status === 'loading' || loading) {

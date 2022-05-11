@@ -12,16 +12,20 @@ import { RenderedArrayContext } from "../utils/RenderedArrayContext"
 import { SearchContext } from "../utils/SearchContext"
 import Head from "next/head"
 import { useSession, getSession } from "next-auth/react"
+import { useRouter } from 'next/router'
 
 
 
 
 export default function Admin(){
     const { data: session, status } = useSession()
-    const [isAdmin,setIsAdmin] = useState()
+
+    const router = useRouter()
+    
     const [value,setValue] = useState([])
     const [selection,setSelection] = useState(1)
     const [adminLoading,setAdminLoading] = useState(true)
+    const [isAdmin,setIsAdmin] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
@@ -29,10 +33,6 @@ export default function Admin(){
     const [renderedArray,setRenderedArray] = useState([])
     const [searchContext,setSearchContext] = useState({searching: false, value: []})
 
-
-    useEffect(() =>{
-        if(session.user.isAdmin == false) window.location = '/'
-    },[session])
 
     useEffect(() => {
         if (value.length < 1){
@@ -80,6 +80,8 @@ export default function Admin(){
                 console.error(error)
             }
     }
+
+    
     
     function handleClick(id){
         setSelection(id)
@@ -87,7 +89,20 @@ export default function Admin(){
         if(mql.matches)document.getElementById('navbutton').click()
     }
     
-    if(session.user.isAdmin)
+    if(status == 'loading') return  (
+        <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+          <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+            <div className="reverse-spinner "></div>
+          </div>
+        </div>
+       )
+    
+    if(status == 'authenticated' && !session.user.isAdmin){
+        console.log('1');
+        return null
+    }
+
+    if(status == 'authenticated' &&  session.user.isAdmin)
     return(
         <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
             <Head>
@@ -135,11 +150,13 @@ export default function Admin(){
             </ProductsContext.Provider>
         </div>
     )
-    return null
+
+    if(status == 'unauthenticated'){
+        router.push('/login')
+         return null
+     }
 }
 
-export async function getServerSideProps(context) {
-    return { props: {session: await getSession(context)}}
+export async function getServerSideProps() {
+    return { props: {hi: 'hi'}}
 }
-
-Admin.auth = true

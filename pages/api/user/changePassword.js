@@ -14,47 +14,44 @@ async function handler(req, res) {
   const session = await getSession({ req: req });
 
   if (!session) {
-    return res.status(401).json({ message: 'Not authenticated!' });
+    return res.status(401).json({success: false, message: 'Not authenticated!' });
     
   }
 
-  const userEmail = session.user.email
-  const oldPassword = req.body.oldPassword
-  const newPassword = req.body.newPassword
-  const newPassword2 = req.body.newPassword2
-
-  const user = await Docteur.findOne({ email: userEmail })
+  const user = await Docteur.findOne({ email: session.user.email })
 
   if (!user) {
     return res.status(404).json({ message: 'User not found.' })
   }
 
-  const currentPassword = user.password
+  const oldPasswordsAreEqual = await verifyPassword(req.body.oldPassword, user.password)
 
-  const oldPasswordsAreEqual = await verifyPassword(oldPassword, currentPassword)
+    if (!oldPasswordsAreEqual) {
+    
+      return res.status(403).json({success: false, message: 'Invalid password.' })
 
-  if (!oldPasswordsAreEqual) {
-    console.log('invalid old password')
-    return res.status(403).json({ message: 'Invalid password.' })
     }
-    if (newPassword !== newPassword2){
-      res.status(401).json({message: 'new password dosent match'})
+    
+    if (req.body.newPassword !== req.body.newPassword2){
+
+      res.status(401).json({success: false, message: 'new password dosent match'})
     }
 
-  // const newPasswordsAreEqual = (newPassword === verifyNewPassword )
-  // if (!newPasswordsAreEqual) {
-  //   return res.status(403).json({message : "Password dosen't match"})
-  //  }
+  const oldAndNewEqual = await verifyPassword(req.body.newPassword, currentPassword)
 
-  const hashedPassword = await hashPassword(newPassword);
+  if (oldAndNewEqual) {
+    return res.status(401).json({success: false, message : "New password can't be equal to old password"})
+   }
+
+  const hashedPassword = await hashPassword(req.body.newPassword)
 
   const result = await Docteur.updateOne(
-    { email: userEmail },
+    { email: session.user.email },
     { password: hashedPassword },
     { new: true, runValidators: true }
   );
-  console.log('Password updated!')
-  return res.status(200).json({ message: 'Password updated!' });
+
+  return res.status(200).json({success: true, message: 'Password updated!' });
   }
   catch (error){
     console.error(error)

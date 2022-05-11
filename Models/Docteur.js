@@ -15,12 +15,12 @@ const DocteurSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    address: {
-      type: String,
-      // required: [true, "L'adresse email est obligatoire"],
+    address: 
+    [{ type: String,
       trim: true,
-      default: null
-    },
+      default: null }],
+    
+      // required: [true, "L'adresse email est obligatoire"],
     phone: {
       type: String,
       // required: [true, "L'adresse email est obligatoire"],

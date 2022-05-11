@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+import { isEmail } from 'validator';
 const CommandeSchema = new mongoose.Schema(
   {
     user: {
@@ -31,8 +32,8 @@ const CommandeSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       required: [true, "L'adresse email est obligatoire"],
-      match: [
-        /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
+      validate: [
+        isEmail,
         'Please fill a valid email address'
       ]
     },

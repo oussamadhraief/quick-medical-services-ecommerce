@@ -7,11 +7,13 @@ import { SearchContext } from '../../utils/SearchContext'
 import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 
 export default function Password() {
   const { data: session, status } = useSession()
 
+  const router = useRouter()
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
@@ -73,10 +75,13 @@ export default function Password() {
         const res = await fetch('/api/user/changepassword', {
           method: 'PATCH',
           headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
-          },
+        },
           body: JSON.stringify(passwordData)
         })
+        const { result } = await res.json()
+        console.log(result);
       } catch (error) {
         console.error(error)
       }
@@ -93,14 +98,14 @@ export default function Password() {
    )
    
    if(status == 'unauthenticated') {
-    window.location = '/login'  
+    router.push('/login')
     return null
    }
 
   return (
 <div>
       <Head>
-        <title>Historique des devis - QUICK Medical Services</title>
+        <title>Sécurité - QUICK Medical Services</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content='Medical Supply Store' />
         <meta name='robots' content='index, follow' />
@@ -159,7 +164,7 @@ export default function Password() {
               onChange={e=>handleChange(e)}
               name='oldPassword'
               className='outline-none border-b min-w-[300px] w-1/3'
-              placeholder='Enter old password'
+              placeholder='Mot de passe actuel'
             />
             
           
@@ -169,7 +174,7 @@ export default function Password() {
               onChange={e=> handleChange(e)}
               name='newPassword'
               className='newPassword outline-none border-b min-w-[300px] w-1/3 '
-              placeholder='Enter new password'
+              placeholder='Nouveau mot de passe'
             />
 
           
@@ -179,7 +184,7 @@ export default function Password() {
               onChange={e=> handleChange(e)}
               name='newPassword2'
               className='newPassword outline-none border-b min-w-[300px] w-1/3 '
-              placeholder='Confirm new password'
+              placeholder='Confirmer le nouveau mot de passe'
             />
           
 

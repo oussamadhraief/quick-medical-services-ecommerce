@@ -62,7 +62,7 @@ export default function Navbar({ scrolled }){
 
 
             }
-            setDropDown(!dropDown)
+            setDropDown(prevDropDown => !prevDropDown)
          
     }
     
@@ -84,7 +84,7 @@ export default function Navbar({ scrolled }){
                 {isAuthenticated? <li>
                     <div className="flex w-fit h-fit flex-nowrap group justify-center items-center relative">
                     <Image src={'pfe/user-6781_dtonfu.png'} alt='account' width={15} height={15} layout='fixed' className="hover:cursor-pointer" />
-                    <p className="text-white font-[400] ml-2 hover:cursor-pointer">{session.user.name.charAt(0).toUpperCase() + session.user.name.slice(1).toLowerCase()}</p>
+                    <p className="text-white font-[400] ml-2 hover:cursor-pointer">{session.user.name}</p>
                     <ul className="invisible group-hover:visible transition-[visibility] grid absolute top-[120%] before:absolute before:content-[''] before:-top-1 before:w-3 before:h-3 before:bg-white before:rotate-45 rounded-md left-0 right-0 w-36 place-content-center mx-auto place-items-center h-fit bg-white py-1 px-2">
                     <li className="w-full group-hover:block h-fit text-center  font-medium border-b pb-1 z-10">
                         <Link href='/account/information'>
