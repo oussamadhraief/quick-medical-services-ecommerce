@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "deez": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
