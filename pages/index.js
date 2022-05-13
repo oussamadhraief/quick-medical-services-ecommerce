@@ -91,7 +91,7 @@ function orderedTable(item,data){
         <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
         <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
         <SearchContext.Provider value={{search,setSearch}}>
-          <Header landingPage={true} cartPage={false} />
+          <Header landingPage={true}  />
         </SearchContext.Provider>
         </CategoriesContext.Provider>
           <MainContent />

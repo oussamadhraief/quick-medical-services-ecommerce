@@ -137,7 +137,7 @@ export default function Contact () {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false} cartPage={false} />
+          <Header landingPage={false}  />
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-3/4  mx-auto  shadow-form mt-20 rounded-2xl'>

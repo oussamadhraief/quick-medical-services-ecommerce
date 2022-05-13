@@ -114,7 +114,7 @@ export default function Estimates() {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false} cartPage={false} />
+          <Header landingPage={false}  />
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>

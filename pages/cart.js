@@ -102,7 +102,7 @@ export default function Cart() {
       </Head>
             <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
-                <Header landingPage={false} cartPage={true} />
+                <Header landingPage={false}  />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-[#E7EDEE]'>
@@ -114,6 +114,7 @@ export default function Cart() {
             <div  className='w-full h-fit bg-[#E7EDEE] grid pb-10 pt-10'>
                 <table className='w-[99%] h-fit mx-auto bg-white table-auto rounded-md'>
                     <thead className="w-full h-14 after:content-[''] after:absolute after:w-[99%] after:h-[1px] after:bg-zinc-300 relative after:-bottom-[1px] after:mx-auto after:right-0 after:left-0">
+                        <tr>
                         <th className='text-center text-base font-medium text-third pl-3'>RÉFÉRENCE</th>
                         <th className='text-center text-base font-medium text-third'>IMAGE</th>
                         <th className='text-center text-base font-medium text-third'>NOM</th>
@@ -121,6 +122,7 @@ export default function Cart() {
                         <th className='text-center text-base font-medium text-third'>TAILLE</th>
                         <th className='text-center text-base font-medium text-third'>QUANTITÉ</th>
                         <th className='text-center text-base font-medium text-third px-5'></th>
+                        </tr>
                     </thead>
                     <tbody className='w-full h-full mt-32'>
                         {data.data.map((item,index) => {

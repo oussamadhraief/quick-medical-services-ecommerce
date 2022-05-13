@@ -97,7 +97,7 @@ export default function Products(){
       </Head>
             <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
-                <Header landingPage={false} cartPage={false} />
+                <Header landingPage={false}  />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
