@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
-const CommandeSchema = new mongoose.Schema(
+const JumiaSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -47,11 +47,11 @@ const CommandeSchema = new mongoose.Schema(
     note: { type: String, trim: true },
     status: {
       type: String,
-      default: 'processing'
+      default: 'En cours'
     }
   },
   { timestamps: true }
 )
 
 module.exports =
-  mongoose.models.Commande || mongoose.model('Commande', CommandeSchema)
+mongoose.models.Jumia || mongoose.model('Jumia', JumiaSchema)

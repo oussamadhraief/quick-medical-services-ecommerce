@@ -1,30 +1,28 @@
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import { CategoriesContext } from '../../utils/CategoriesContext'
+import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
+import OrderComponent from '../../../components/OrderComponent'
+import { CategoriesContext } from '../../../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { SearchContext } from '../../utils/SearchContext'
+import { SearchContext } from '../../../utils/SearchContext'
 import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-
-export default function Password() {
-  const { data: session,status } = useSession()
+export default function Orders() {
+  const { data: session, status } = useSession()
 
   const router = useRouter()
+
+  
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
   )
   const [search, setSearch] = useState('')
-  const [passwordData , setPasswordData] = useState({
-    oldPassword : '' ,
-    newPassword : '',
-    newPassword2 : ''
-  })
-
+  const [orders,setOrders] = useState([])
+  const [loading,setLoading] = useState(true)
 
 
   useEffect(() => {
@@ -42,10 +40,21 @@ export default function Password() {
         console.error(error)
       }
     }
+    async function fetchOrders() {
+      try {
+        const res = await fetch('/api/user/userorders',{ signal: abortController.signal })
+        const { data } = await res.json()
+        setOrders(data)
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchOrders()
     fetchData()
     return () => {
-        abortController.abort();
-      }
+      abortController.abort();
+    }
   }, [])
 
   
@@ -63,38 +72,8 @@ export default function Password() {
     }
   }
 
-  const handleChange = (e) => {
-    
-    setPasswordData({
-      ...passwordData,
-      [e.target.name]: e.target.value
-    }
-    )
-    
-  }
 
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-      try {
-        const res = await fetch('/api/user/changepassword', {
-          method: 'PATCH',
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-          body: JSON.stringify(passwordData)
-        })
-        const { result } = await res.json()
-        console.log(result);
-      } catch (error) {
-        console.error(error)
-      }
-    
-  }
-
-
-  if(status == 'loading') return  (
+  if(status == 'loading' || loading) return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
       <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
         <div className="reverse-spinner "></div>
@@ -107,10 +86,11 @@ export default function Password() {
     return null
    }
 
+
   return (
-<div>
+    <div>
       <Head>
-        <title>Sécurité - QUICK Medical Services</title>
+        <title>Mes commandes - QUICK Medical Services</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content='Medical Supply Store' />
         <meta name='robots' content='index, follow' />
@@ -147,56 +127,41 @@ export default function Password() {
                 </Link>
                 
                 <Link href='/account/estimates'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed'  /><p>Historique des devis</p></a>
+                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
                 </Link>
                 
                 <Link href='/account/orders'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[8px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historiques des commandes</p></a>
+                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE]'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
                 </Link>
                 
                 <Link href='/account/password'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE]'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[12px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
                 </Link>
               
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-      <form onSubmit={handleSubmit} className='w-10/12 h-full px-10 py-5 grid gap-14'>
-          
-            <input
-              type='password'
-              value= {passwordData.oldPassword}
-              onChange={e=>handleChange(e)}
-              name='oldPassword'
-              className='outline-none border-b min-w-[300px] w-1/3'
-              placeholder='Mot de passe actuel'
-            />
-            
-          
-            <input
-              type='password'
-              value= {passwordData.newPassword}
-              onChange={e=> handleChange(e)}
-              name='newPassword'
-              className='outline-none border-b min-w-[300px] w-1/3 '
-              placeholder='Nouveau mot de passe'
-            />
-
-          
-            <input
-              type='password'
-              value= {passwordData.newPassword2}
-              onChange={e=> handleChange(e)}
-              name='newPassword2'
-              className='outline-none border-b min-w-[300px] w-1/3 '
-              placeholder='Confirmer le nouveau mot de passe'
-            />
-          
-
-        <button type="submit" className='w-fit h-fit bg-orange px-4 py-2 rounded-md shadow-form font-medium hover:scale-105 transition-all'>Enregistrer</button>
-      </form>
+            <table className='w-9/12 mx-auto h-full'>
+              <thead className='w-full'>
+                <tr>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Référence</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Date</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Email</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Status</th>
+                  <th></th>
+                </tr>
+                  
+              </thead>
+              <tbody className='w-full'>
+                {orders.map(item => <OrderComponent id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+              </tbody>
+            </table>
       </main>
       <Footer />
     </div>
   )
+}
+
+export async function getServerSideProps () {
+  return { props: { hi: 'hi' } }
 }

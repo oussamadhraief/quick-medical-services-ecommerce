@@ -34,9 +34,11 @@ export default function Information () {
   }
 
   useEffect(() => {
+    const AbortController = window.AbortController;
+    const abortController = new AbortController()
     async function fetchData () {
       try {
-        const res = await fetch('/api/categoriesandsubcategories')
+        const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
         const { data } = await res.json()
         let categories = data.map(item => item.category)
         categories = [...new Set(categories)]
@@ -47,6 +49,9 @@ export default function Information () {
       }
     }
     fetchData()
+    return () => {
+      abortController.abort();
+    }
   }, [])
 
   useEffect(() => {
@@ -131,7 +136,7 @@ export default function Information () {
           <Header landingPage={false} cartPage={false} />
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit flex flex-nowrap justify-start items-start px-10 my-52'>
+      <main className='w-full h-fit flex flex-nowrap justify-start items-start px-10 mt-20'>
           <div className='w-2/12 h-fit grid'>
                 <Link href='/account/information'>
                     <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE] whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' /><p>Informations personnelles</p></a>
@@ -153,7 +158,8 @@ export default function Information () {
   
           </div>
           <div className='w-full h-fit px-10'>
-          <form onSubmit={e => handleSubmit(e)} className='w-[836px] h-full py-5 grid gap-10'>
+          <form onSubmit={e => handleSubmit(e)} className='max-w-[836px] w-full h-full py-5 grid gap-10'>
+            <p className='font-medium text-3xl mx-auto'>Vos <span className='border-b border-orange'>informations personnelles</span> </p>
             <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Nom et prénom:
                 <input type="text" onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-8/12'/>
             </label>

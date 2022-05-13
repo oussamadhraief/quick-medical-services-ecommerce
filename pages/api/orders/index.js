@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect"
-import Commande from "../../../Models/Commande"
+import Jumia from "../../../Models/Jumia"
 import { getSession } from "next-auth/react"
 
 dbConnect();
@@ -11,7 +11,7 @@ export default async (req, res) => {
             try {
                 if(session){
                     if(session.user.isAdmin){
-                        const commande = await Commande.find({});
+                        const commande = await Jumia.find({});
                         res.status(200).json({ success: true, data: commande });
                     }
                     else{
@@ -32,7 +32,7 @@ export default async (req, res) => {
         case "POST":
             try {
                 if(session){
-                    const commande = await Commande.create(req.body);
+                    const commande = await Jumia.create(req.body);
                     res.status(201).json({ success: true, data: commande }); 
                 }
                 else{

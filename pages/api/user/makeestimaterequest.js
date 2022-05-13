@@ -1,10 +1,12 @@
-import Jumia from '../../../Models/Jumia'
+import Devis from '../../../Models/Estimate'
 import Docteur from '../../../Models/Docteur'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
+
 // quick note : fel mongo maktouba adress fi 3oudh address
+
 export default async function handler (req, res) {
   const session = await getSession({ req })
 
@@ -16,7 +18,7 @@ export default async function handler (req, res) {
       res.status(404).json({success: false, message: 'User not found'})
     }
 
-    let orderData = []
+    let estimateData = []
 
     for (const item of req.body.cart) {
       let product = await Instrument.findOne({ reference: item.reference })
@@ -24,29 +26,26 @@ export default async function handler (req, res) {
         res.status(404).json({success: false , message: 'Product not found'})
       }
       
-      orderData.push({
+      estimateData.push({
         product: product,
         size: item.size,
         quantity: item.quantity
       })
     }
 
-    const commande = await Jumia.create({
+    const devis = await Devis.create({
       user: User,
       email: req.body.email,
-      cart: orderData,
+      cart: estimateData,
       name: req.body.name,
-      address : req.body.address,
       phoneNumber : req.body.phone,
-      clinicName: req.body.clinicName,
-      taxRegistrationNumber: req.body.taxRegistrationNumber,
       note: req.body.note
     })
 
-    User.ordersHistory.push(commande)
+    User.estimatesHistory.push(Devis)
     User.save()
 
-    res.status(201).json({ success: true, data: commande, user: User })
+    res.status(201).json({ success: true, data: devis, user: User })
 
     
   } else {

@@ -4,7 +4,6 @@ import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
 import 'animate.css'
 import { SizeSelectionContext } from '../utils/SizeSelectionContext'
-import LoadingAnimation from '../components/LoadingAnimation'
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import Link from 'next/link'
 
@@ -14,13 +13,11 @@ export default function ScrollableProduct ({ product }) {
   const [show, setShow] = useState(false)
   const [selectedSize, setSelectedSize] = useState(0)
   const [productContent, setProductContent] = useState({})
-  const [loading, setLoading] = useState(false)
   const { activatedModal, setActivatedModal } = useContext(
     ActivatedModalContext
   )
 
   const fetchProduct = async () => {
-    setLoading(true)
     const res = await fetch('/api/products/' + product.reference)
     const { data } = await res.json()
     setProductContent(data)
@@ -101,7 +98,6 @@ export default function ScrollableProduct ({ product }) {
           }}
         />
       </SizeSelectionContext.Provider>
-      {loading ? <LoadingAnimation bgOpacity={false} /> : null}
     </div>
   )
 }

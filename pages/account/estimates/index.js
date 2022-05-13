@@ -1,13 +1,14 @@
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import { CategoriesContext } from '../../utils/CategoriesContext'
+import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
+import { CategoriesContext } from '../../../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { SearchContext } from '../../utils/SearchContext'
+import { SearchContext } from '../../../utils/SearchContext'
 import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import EstimateComponent from '../../../components/EstimateComponent'
 
 export default function Estimates() {
   const { data: session, status } = useSession()
@@ -18,21 +19,16 @@ export default function Estimates() {
     []
   )
   const [search, setSearch] = useState('')
-  const [information,setInformation] = useState({name: '',phone: '',address: {}})
-
-  const handleChange = e => {
-    setFormData(prevFormData => {
-      return {
-        ...prevFormData,
-        [e.target.name]: e.target.value
-      }
-    })
-  }
+  const [estimates,setEstimates] = useState([])
+  const [loading,setLoading] = useState(true)
+  
 
   useEffect(() => {
+    const AbortController = window.AbortController;
+    const abortController = new AbortController()
     async function fetchData () {
       try {
-        const res = await fetch('/api/categoriesandsubcategories')
+        const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
         const { data } = await res.json()
         let categories = data.map(item => item.category)
         categories = [...new Set(categories)]
@@ -42,7 +38,21 @@ export default function Estimates() {
         console.error(error)
       }
     }
+    async function fetchEstimates() {
+      try {
+        const res = await fetch('/api/user/userestimaterequests',{ signal: abortController.signal })
+        const { data } = await res.json()
+        setEstimates(data)
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchEstimates()
     fetchData()
+    return () => {
+      abortController.abort();
+    }
   }, [])
 
   
@@ -61,7 +71,7 @@ export default function Estimates() {
   }
 
 
-  if(status == 'loading') return  (
+  if(status == 'loading' || loading) return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
       <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
         <div className="reverse-spinner "></div>
@@ -107,7 +117,7 @@ export default function Estimates() {
           <Header landingPage={false} cartPage={false} />
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 my-52'>
+      <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>
           <div className='w-2/12 h-fit grid'>
                 <Link href='/account/information'>
                     <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
@@ -128,10 +138,21 @@ export default function Estimates() {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <div className='w-10/12 h-full px-10 py-5 grid gap-14'>
-                
-
-          </div>
+          <table className='w-9/12 mx-auto h-full'>
+              <thead className='w-full'>
+                <tr>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Référence</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Date</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Email</th>
+                  <th className='bg-[#E7EDEE] border-r border-white'>Status</th>
+                  <th></th>
+                </tr>
+                  
+              </thead>
+              <tbody className='w-full'>
+                {estimates.map(item => <EstimateComponent id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+              </tbody>
+            </table>
       </main>
       <Footer />
     </div>

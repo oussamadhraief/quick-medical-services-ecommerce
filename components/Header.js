@@ -18,15 +18,17 @@ export default function Header(props){
         const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
+                document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
             }else {
                 document.getElementById('cart').style.top = document.getElementById('anotherPositioning').getBoundingClientRect().top + 3 +'px'
                 document.getElementById('cart').style.left = document.getElementById('anotherPositioning').getBoundingClientRect().left +'px'
+            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+
             }
             const cartTimeout = setTimeout(() => {
                 document.getElementById('cart').style.transitionProperty = 'all'
                 document.getElementById('cart').style.transitionDuration = '1s'
             }, 1000);
-            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
 
                 window.addEventListener("scroll", () => {
                     handleAnimation()
@@ -37,11 +39,12 @@ export default function Header(props){
                     const mq1 = window.matchMedia("(max-width: 1023px)")
                     if(mq1.matches){
                         setIsMobile(true)
+                        document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
                     }else {
                         setIsMobile(false)
+                        document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
                     }
                     handleAnimation()
-                    document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
                 }
             )
             
@@ -74,11 +77,11 @@ export default function Header(props){
             <>
             <div id="header" className="w-full h-fit gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
                 {isMobile ? 
-                <div className="w-11/12 sm:w-10/12 md:w-7/12 aspect-square mx-auto z-0 relative lg:absolute lg:top-0 lg:right-0">
-                     <Image src={'pfe/Untitled_design_2_cfpmtb.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> 
+                <div className="headerbanner w-full aspect-square bg-light pt-8 sm:pt-0 mx-auto z-0 absolute top-0 right-0">
+                     <Image src={'pfe/Untitled_design_6_gcpmn0.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> 
                      </div>:
                      
-                    <div className="aspect-[13/10] h-full z-0 relative lg:absolute lg:top-0 lg:right-0">
+                    <div className="headerbanner aspect-[13/10] h-full z-0 relative lg:absolute lg:top-0 lg:right-0">
                      <Image src={'pfe/Copy_of_Copy_of_Unnamed_Design_5_vdtssl.png'} alt='surgeon' width={1000} height={700} quality={100} layout='fill' /> 
                      </div>}
                 <div className="grid place-items-start w-full px-5 md:px-0 mx-auto lg:mx-0 md:w-11/12 order-2 md:order-1 lg:w-[40%] z-[1]">

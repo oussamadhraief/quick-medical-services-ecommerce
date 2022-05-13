@@ -29,7 +29,11 @@ export default function LoginForm() {
 
   if(session) {
     if(session.user.phone != null && session.user.address != null){
-      router.back()
+      if(document.referrer.includes('localhost')) {
+        router.back()
+      }else{
+        router.push('/')
+      }
       return 
     }else{
       return (

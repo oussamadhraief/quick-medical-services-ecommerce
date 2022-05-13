@@ -47,6 +47,11 @@ const InstrumentSchema = new mongoose.Schema(
             required: [true, "Insérez une image"],
             unique: true,
         },
+        archived: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
     },
     { timestamps: true }
 );

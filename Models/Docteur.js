@@ -36,8 +36,8 @@ const DocteurSchema = new mongoose.Schema(
       default: 0
     },
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' }],
-    ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Commande' }],
-    // estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
+    ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Jumia' }],
+    estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
   },
   { timestamps: true }
 )
