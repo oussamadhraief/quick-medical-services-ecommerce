@@ -1,7 +1,6 @@
 import Navbar from "./Navbar"
 import NavigationSection from "./NavigationSection"
-import CartObject from "./CartObject"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useLayoutEffect } from "react"
 import Image from "next/image"
 import Link from 'next/link'
 
@@ -11,16 +10,11 @@ export default function Header(props){
     const [scrolled,setscrolled] = useState(false)
     const [isMobile,setIsMobile] = useState(false)
 
+    
 
     useEffect(() => {
-        window.addEventListener("scroll", () => {
-            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
-                setscrolled(true)
-            } else {
-                setscrolled(false)
-            }
-        }
-    )
+        const root = document.querySelector(':root')
+        const navInvisibleDiv = document.getElementById('anotherPositioning')
         const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
@@ -28,20 +22,62 @@ export default function Header(props){
             }else {
                 document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
             }
+        const top = navInvisibleDiv.getBoundingClientRect().top
+        const left = navInvisibleDiv.getBoundingClientRect().left
+
+        root.style.setProperty('--calculatedTop', top+'px')        
+        root.style.setProperty('--calculatedLeft', left+'px')      
+
+    },[])   
     
-                window.addEventListener("resize", () => {
-                    
-                    const mq1 = window.matchMedia("(max-width: 1023px)")
-                    if(mq1.matches){
-                        setIsMobile(true)
-                        document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
-                    }else {
-                        setIsMobile(false)
-                        document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
-                    }
-                }
-            )
-    },[])
+
+    useLayoutEffect(() => {
+
+        const handleAnimation = () => {
+            const bottomRightInvisibleDiv = document.getElementById('positioning')
+            const navInvisibleDiv = document.getElementById('anotherPositioning')
+            const root = document.querySelector(':root')
+            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                setscrolled(true)
+                const top = bottomRightInvisibleDiv.getBoundingClientRect().top
+                const left = bottomRightInvisibleDiv.getBoundingClientRect().left
+                root.style.setProperty('--calculatedTop', top+'px')        
+                root.style.setProperty('--calculatedLeft', left+'px') 
+            } else {
+                setscrolled(false)
+                const top = navInvisibleDiv.getBoundingClientRect().top
+                const left = navInvisibleDiv.getBoundingClientRect().left -50
+                root.style.setProperty('--calculatedTop', top+'px')        
+                root.style.setProperty('--calculatedLeft', left+'px') 
+            }
+        
+    }
+
+    const handleResize = () => {
+        const mq1 = window.matchMedia("(max-width: 1023px)")
+        if(mq1.matches){
+            setIsMobile(true)
+            document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+        }else {
+            setIsMobile(false)
+            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+        }
+        handleAnimation()
+    }
+
+        window.addEventListener('scroll', handleAnimation)
+        
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('scroll', handleAnimation)
+        
+             window.removeEventListener('resize', handleResize)
+        }
+
+    })
+
+   
 
    
 
@@ -80,7 +116,18 @@ export default function Header(props){
                     
                 </div>
             </div>
-                <CartObject scrolled={scrolled} isMobile={isMobile}  />
+            <div id="cart" className='transition-all duration-1000 text-medium font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9999] group'>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
+                    panier
+                </div>
+                <Link href='/cart'>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                </Link>
+                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
+            </div>
+            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
+                
+            </div>
             </> 
             : 
             <>
@@ -90,7 +137,18 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-                    <CartObject scrolled={scrolled} isMobile={isMobile} />
+            <div id="cart" className='transition-all duration-1000 text-medium font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9999] group'>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[90%] top-4 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
+                    panier
+                </div>
+                <Link href='/cart'>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                </Link>
+                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-1.5 right-4 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
+            </div>
+            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
+                
+            </div>
             </> }
         </header>
     )

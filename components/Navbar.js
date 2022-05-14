@@ -38,7 +38,6 @@ export default function Navbar({ scrolled }){
                 thirdElem.style.transform = 'rotate(-45deg)'
                 document.body.style.height= "100vh"
                 document.body.style.overflow= "hidden"
-                document.getElementById('cart').style.display= "none"
                 document.getElementById('clickableMenu').style.position= "fixed"
                 document.getElementById('clickableMenu').style.top= "15px"
                 document.getElementById('clickableMenu').style.right= "10px"
@@ -58,7 +57,6 @@ export default function Navbar({ scrolled }){
                 thirdElem.style.bottom = '0px'
                 document.body.style.height= "fit-content"
                 document.body.style.overflow= "auto"
-                document.getElementById('cart').style.display= "block"
 
 
             }
@@ -96,7 +94,7 @@ export default function Navbar({ scrolled }){
                             <a className="hover:text-pinky">Mes commandes</a>
                         </Link>
                     </li>
-                    <li className="w-full group-hover:block h-fit text-center  pb-1 z-10"><button className="font-medium hover:text-pinky" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} >Déconnexion</button></li>
+                    <li className="w-full group-hover:block h-fit text-center  pb-1 z-10"><button className="font-medium hover:text-pinky" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })} >Déconnexion</button></li>
                     </ul>
                     </div>
                 </li> : 

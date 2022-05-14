@@ -47,28 +47,28 @@ export default function Footer () {
           </div>
         </address>
 
-        <p className='text-white italic flex flex-wrap sm:flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
+        <div className='text-white italic flex flex-wrap sm:flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
           Créé par&nbsp;
           <p className='font-medium text-ciel hover:cursor-pointer relative group'>
             Oussema&nbsp;
-            <p className="absolute -top-[90px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
+            <span className="absolute -top-[90px] -left-20 text-center bg-white hidden text-third group-hover:grid px-2 py-1 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-24 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
               Oussema Dhraief
               <br />oussema.dhraief@gmail.com <br />
               <Link href='https://www.oussama-dhraief.tech'>
                 <a target='_blank'>www.oussama-dhraief.tech</a>
               </Link>
-            </p>
+            </span>
           </p>
           et &nbsp;
           <p className='font-medium text-secondary hover:cursor-pointer relative group'>
             Mohamed
-            <p className="absolute -top-[75px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
+            <span className="absolute -top-[75px] -left-16 text-center bg-white hidden text-third group-hover:grid px-3 py-2 rounded-xl after:content-[''] after:absolute after:-bottom-3 after:right-20 after:border-b-0 after:border-r-[15px] after:border-r-transparent after:border-l-[15px] after:border-l-transparent after:border-t-[15px] after:border-t-white">
               Mohamed Halouani
               <br />halouani142@gmail.com
-            </p>
+            </span>
           </p>
           &nbsp; &#xa9; 2022, Tunisie.
-        </p>
+        </div>
         <div className='w-fit h-fit grid hover:cursor-pointer relative place-self-center'>
           <div className='relative w-fit h-fit group'>
             <Image

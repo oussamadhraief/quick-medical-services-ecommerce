@@ -4,6 +4,8 @@
 
 :root {
   --animate-delay: 0.1s;
+  --calculatedTop: 0px;
+  --calculatedLeft: 0px;
 }
 
 html,
@@ -238,5 +240,10 @@ input[type=number] {
 
 #categoriesContainer:hover  #categoriesBoard {
   visibility: visible;
+}
+
+#cart {
+  top: var(--calculatedTop);
+  left: var(--calculatedLeft);
 }
           

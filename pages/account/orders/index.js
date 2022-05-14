@@ -153,7 +153,7 @@ export default function Orders() {
                   
               </thead>
               <tbody className='w-full'>
-                {orders.map(item => <OrderComponent id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+                {orders.map(item => <OrderComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
       </main>
