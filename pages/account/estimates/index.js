@@ -150,7 +150,7 @@ export default function Estimates() {
                   
               </thead>
               <tbody className='w-full'>
-                {estimates.map(item => <EstimateComponent id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+                {estimates.map(item => <EstimateComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
       </main>
