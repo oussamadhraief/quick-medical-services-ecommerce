@@ -193,6 +193,7 @@ export default function Information () {
               </div>
               <div className='grid w-96 h-52  relative  rounded-sm pl-5 pr-32 pt-4 gap-10 pb-10 border border-na3ne3i'>
               <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de livraison</p>
+              {session.user.address ? <p>gg</p> : <p>hahahah</p>}
               {editingSecondAddress ? <input type="text" name="secondAddress" value={secondAddress} onChange={e => setSecondAddress(e.target.value)} className='w-full border border-na3ne3i rounded-md h-8' /> : <p className='w-full'>{secondAddress}</p>}
               <div className='absolute top-4 right-5 flex flex-nowrap items-center'>
               {editingSecondAddress ? <button onClick={e => {

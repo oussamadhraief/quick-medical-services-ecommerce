@@ -13,7 +13,6 @@ export default function RegisterForm() {
   const [signUpData, setSignUpData] = useState({
     lastName: '',
     firstName: '',
-    address: '',
     phone: null,
     email: '',
     password: '',
@@ -21,13 +20,11 @@ export default function RegisterForm() {
   })
 
   const handleChange = e => {
-    setSignUpData(prevSignUpData => {
-      return {
-        ...prevSignUpData,
+    setSignUpData({
+        ...signUpData,
         [e.target.name]: e.target.value
       }
-    })
-  }
+    )}
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -91,15 +88,7 @@ export default function RegisterForm() {
           onChange={ e => handleChange(e)}
         />
     </div>
-        <input
-          type='text'
-          placeholder='Adresse'
-          className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-          required={true}
-          name="address"
-          value={signUpData.address}
-          onChange={ e => handleChange(e)}
-        />
+
         <input
           type='number'
           placeholder='Numéro de tél.'
@@ -131,7 +120,7 @@ export default function RegisterForm() {
           type='password'
           className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full my-7'
           id='repeat-password'
-          placeholder='Confirmez le mot de passe'
+          placeholder='Confirmer le mot de passe'
           required={true}
           name="passwordConfirm"
           value={signUpData.passwordConfirm}

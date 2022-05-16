@@ -19,15 +19,11 @@ export default async function handler (req, res) {
     if (!product) {
       res.status(400).json({ success: false, message: 'Product not found' })
     }
-
-    let productExists
     
-    user.cart.forEach(elem => {
-      if (String(elem) === String(product._id)) {
-        productExists = true
-      }
+    const productExists = user.cart.some(item => {
+      return item.toString() == product._id.toString()
     })
-    
+
     if (productExists) {
       res
         .status(200)

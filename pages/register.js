@@ -1,9 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import RegisterForm from '../components/RegisterForm'
+import { useRouter } from 'next/router'
+
 
 export default function Register (props) {
+  
+  const router = useRouter()
+
   return (
     <div id='body' className='relative'>
       <Head>
@@ -31,9 +35,8 @@ export default function Register (props) {
         <meta name='twitter:image' value='' />
       </Head>
       <div className='px-32 flex w-screen h-screen overflow-hidden justify-end bg-na3ne3i'>
-        <Link href='/'>
-          <a className='absolute text-white text-5xl scale-x-125 font-medium top-0 left-14 z-10'>&#x2190;</a>
-        </Link>
+       
+          <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-0 left-14 z-10'>&#x2190;</button>
         <RegisterForm />
         <div className='absolute h-full aspect-square left-0 bottom-0'>
           <Image src={'pfe/Untitled_design_g74cig.png'} alt="design" layout='fill' />

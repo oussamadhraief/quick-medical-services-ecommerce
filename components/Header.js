@@ -3,8 +3,11 @@ import NavigationSection from "./NavigationSection"
 import { useState, useEffect, useLayoutEffect } from "react"
 import Image from "next/image"
 import Link from 'next/link'
+import { useSession } from "next-auth/react"
 
 export default function Header(props){
+
+    const { data: session,status} = useSession()
 
     const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
     const [scrolled,setscrolled] = useState(false)
@@ -123,7 +126,7 @@ export default function Header(props){
                 <Link href='/cart'>
                 <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
+                {/* <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{session.user.cart.length}</p> */}
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 
@@ -144,7 +147,7 @@ export default function Header(props){
                 <Link href='/cart'>
                 <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2 text-black font-medium text-xs px-1.5 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1.5 text-center'}>2</p>
+                {/* <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{session.user.cart.length}</p> */}
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 

@@ -8,15 +8,18 @@ const JumiaSchema = new mongoose.Schema(
       required: true
     },
 
-    cart: [
+    cart: {
+      type: [
       {
         _id: false,
         product: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' },
         size: Number,
-        quantity: { type: Number, default: 1 }
-      }
+        quantity: { type: Number, default: 1 },
+      },
     ],
-
+    required: true,
+    default: []
+  },
     clinicName: {
       type: String,
       required: [true, 'Insérez le nom de la  clinic'],
@@ -38,16 +41,21 @@ const JumiaSchema = new mongoose.Schema(
       ]
     },
     address: [{ type: String }],
-    name: { type: String, trim: true },
+    city: [{ type: String }],
+    country: [{ type: String }],
+    zipCode: [{ type: Number }],
+    name: { type: String, trim: true, required: true },
     phoneNumber: {
       type: String,
       minlength: [4, 'Insérez un numéro de téléphone valide'],
-      default: null
+      default: null,
+      required: true
     },
     note: { type: String, trim: true },
     status: {
       type: String,
-      default: 'En cours'
+      default: 'En cours',
+      required: true
     }
   },
   { timestamps: true }

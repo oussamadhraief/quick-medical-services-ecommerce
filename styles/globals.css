@@ -246,4 +246,12 @@ input[type=number] {
   top: var(--calculatedTop);
   left: var(--calculatedLeft);
 }
+
+/* :required:where(input):where(:not(:placeholder-shown, :invalid)) {
+  outline: 2px solid green;
+}
+
+:required:where(input):where(:placeholder-shown, :invalid) {
+  outline: 2px solid red;
+} */
           

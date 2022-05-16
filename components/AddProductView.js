@@ -203,12 +203,19 @@ export default function AddProductView(props){
         })
     }
 
-    function handleImageInput(e){
-        
+   async  function handleImageInput(e){
+
         setImageError(false)
         const reader = new FileReader();
-        reader.onload = function () {
+        reader.onload = async function () {
             setProductImage(reader.result)
+            await fetch('/api/upload',{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({image: reader.result})
+            })
         }
         reader.readAsDataURL(e.target.files[0]);
     }

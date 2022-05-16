@@ -19,6 +19,7 @@ async function handler(req, res) {
     res.status(422).json({message: 'User exists already'})
     return;
   }
+
   const hashedPassword = await hashPassword(req.body.password)
 
   const name = `${req.body.firstName} ${req.body.lastName}`
@@ -29,9 +30,8 @@ async function handler(req, res) {
     password: hashedPassword,
     isAdmin : false,
     phone: parseInt(req.body.phone),
-    address: req.body.address,
     cart : []
   })
-  res.status(201).json({message : 'Created user!' , user: result, address: req.body.address})
+  res.status(201).json({message : 'Created user!' , user: result})
 }
 export default handler

@@ -54,6 +54,8 @@ export default NextAuth({
       session.user.address = thisDocteur.address
       session.user.phone = thisDocteur.phone
       session.user.isAdmin = thisDocteur.isAdmin
+      session.user.cart = thisDocteur.cart
+
       
       return Promise.resolve(session)
     }

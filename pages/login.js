@@ -1,9 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import LoginForm from '../components/LoginForm'
+import { useRouter } from 'next/router'
 
 export default function Login (props) {
+
+  const router = useRouter()
+
   return (
     <div id='body' className='relative'>
       <Head>
@@ -31,9 +34,7 @@ export default function Login (props) {
         <meta name='twitter:image' value='' />
       </Head>
       <div className='px-32 flex w-screen h-screen overflow-hidden justify-start bg-na3ne3i'>
-        <Link href='/'>
-          <a className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4'>&#x2190;</a>
-        </Link>
+          <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4'>&#x2190;</button>
         <LoginForm />
         <div className='absolute h-full aspect-square right-0 bottom-0'>
           <Image src={'pfe/Untitled_design_texm1t.png'} alt="design" layout='fill' />

@@ -9,7 +9,6 @@ import { SearchContext } from "../utils/SearchContext"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
-import { data } from '../utils/data'
 import { useRouter } from 'next/router'
 
 
@@ -23,6 +22,7 @@ export default function Cart() {
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [search,setSearch] = useState('')
     const [value,setValue] = useState([])
+    const [cartProducts,setCartProducts] = useState([])
 
     useEffect(() => {
         const AbortController = window.AbortController;
@@ -40,12 +40,23 @@ export default function Cart() {
             }
         }
         fetchData()
-        const newValue = data.data.map(item => { return ({
-            reference: item.reference,
-            quantity: 1,
-            size: item.sizes[0]
-        })})
-        setValue(newValue)
+        async function fetchProducts() {
+            try {
+                const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
+                const { data } = await res.json()
+                console.log(data);
+                setCartProducts(data)
+                const newValue = data.map(item => { return ({
+                    reference: item.reference,
+                    quantity: 1,
+                    size: item.sizes[0]
+                })})
+                setValue(newValue)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        fetchProducts()
         return () => {
             abortController.abort();
           }
@@ -125,7 +136,7 @@ export default function Cart() {
                         </tr>
                     </thead>
                     <tbody className='w-full h-full mt-32'>
-                        {data.data.map((item,index) => {
+                        {cartProducts.map((item,index) => {
                             return (
                                 <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
                             )
