@@ -1,6 +1,6 @@
 import Jumia from '../../../../Models/Jumia'
 import Instrument from '../../../../Models/Instrument'
-import Docteur,{db} from '../../../../Models/Docteur'
+import Testeur,{db} from '../../../../Models/Testeur'
 import dbConnect from '../../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
@@ -11,7 +11,7 @@ export default async function handler (req, res) {
   if (req.method !== 'GET') return
   if (session) {
     try {
-        const User = await Docteur.findOne({ email: session.user.email })
+        const User = await Testeur.findOne({ email: session.user.email })
         if(!User){
           res.status(404).json({success: false, data: 'User not found'})
           return

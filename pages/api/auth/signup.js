@@ -1,6 +1,6 @@
 import { hashPassword } from "../../../utils/Encryption";
 import dbConnect from "../../../utils/dbConnect";
-import Docteur from "../../../Models/Docteur"
+import Testeur from "../../../Models/Testeur"
 
 dbConnect()
 
@@ -13,7 +13,7 @@ async function handler(req, res) {
     res.status(422).json({message:  'Invalid input - password should also be at least 7 characters long.'})
     return;
   }
-  const existingUser = await Docteur.findOne({email: req.body.email})
+  const existingUser = await Testeur.findOne({email: req.body.email})
 
   if (existingUser) {
     res.status(422).json({message: 'User exists already'})
@@ -24,7 +24,7 @@ async function handler(req, res) {
 
   const name = `${req.body.firstName} ${req.body.lastName}`
 
-  const result = await Docteur.create({
+  const result = await Testeur.create({
     name: name,
     email: req.body.email,
     password: hashedPassword,

@@ -11,6 +11,7 @@ import { PagesContext } from "../../../utils/PagesContext"
 import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../../utils/CategoriesContext"
 import { SearchContext } from "../../../utils/SearchContext"
+import { CartContext } from "../../../utils/CartContext"
 import Head from "next/head"
 
 export default function Results(){
@@ -23,6 +24,7 @@ export default function Results(){
     const [search,setSearch] = useState('')
     const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
+    const [cartNumber,setCartNumber] = useState(0)
 
     useEffect( () => {
         async function fetchData() {
@@ -46,6 +48,10 @@ export default function Results(){
         let arr = value.filter((item,index) => index >= count && index < count + 9)
         setRenderedArray(arr)
     },[pageSelection,value])
+
+    useEffect(() => {
+        if(session)setCartNumber(session.user.cart.length)
+    },[session])
 
     useEffect(() => {
         async function fetchData() {
@@ -118,11 +124,15 @@ export default function Results(){
             </Head>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <SearchContext.Provider value={{search,setSearch}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
                 <Header landingPage={false}  />
+            </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
+
                 <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
                     <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-cool" onClick={e => {
                         handleHideCategories()
@@ -154,6 +164,7 @@ export default function Results(){
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
+            </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
             <Footer />

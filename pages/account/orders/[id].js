@@ -1,6 +1,6 @@
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
-import OrderComponent from '../../../components/OrderComponent'
+import { CartContext } from "../../../utils/CartContext"
 import { CategoriesContext } from '../../../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -22,6 +22,7 @@ export default function Orders() {
   )
   const [search, setSearch] = useState('')
   const [order,setOrder] = useState([])
+  const [cartNumber,setCartNumber] = useState(0)
   const [loading,setLoading] = useState(true)
 
 
@@ -57,7 +58,9 @@ export default function Orders() {
     }
   }, [])
 
-  
+  useEffect(() => {
+    if(session)setCartNumber(session.user.cart.length)
+},[session])
 
   function orderedTable (item, data) {
     return {
@@ -117,7 +120,9 @@ export default function Orders() {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>

@@ -1,4 +1,4 @@
-import Docteur from '../../../Models/Docteur'
+import Testeur from '../../../Models/Testeur'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
@@ -10,7 +10,7 @@ export default async function handler (req, res) {
 
   if (session) {
     try {
-        const products = await Docteur.findOne({ email: session.user.email }).populate('cart')
+        const products = await Testeur.findOne({ email: session.user.email }).populate('cart')
     
         res.status(200).json({ success: true, data: products.cart })
 

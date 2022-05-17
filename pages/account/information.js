@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { SearchContext } from '../../utils/SearchContext'
 import Link from 'next/link'
-import { useSession, signOut } from "next-auth/react"
+import { useSession, signOut, getSession } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { CartContext } from "../../utils/CartContext"
+
 
 export default function Information () {
   const { data: session, status } = useSession()
@@ -19,10 +21,13 @@ export default function Information () {
   )
   const [search, setSearch] = useState('')
   const [information,setInformation] = useState({name: '',phone: ''})
-  const [firstAddress,setFirstAddress] = useState('')
+  const [firstAddress,setFirstAddress] = useState({address: '',city: '', country: '', zipCode: null})
   const [editingFirstAddress,setEditingFirstAddress] = useState(false)
-  const [secondAddress,setSecondAddress] = useState('')
+  const [secondAddress,setSecondAddress] = useState({address: '',city: '', country: '', zipCode: null})
   const [editingSecondAddress,setEditingSecondAddress] = useState(false)
+  const [NullAddresses,setNullAddresses] = useState(false)
+  const [cartNumber,setCartNumber] = useState(0)
+
 
   const handleChange = e => {
     document.querySelector('.saveAccountDataButton').disabled = false
@@ -56,20 +61,48 @@ export default function Information () {
 
   useEffect(() => {
     if(session){
-    setInformation({
-      name: session.user.name,
-      phone: session.user.phone,
-    })
-    setFirstAddress(session.user.address[0])
-    if(session.user.address.length == 1){
-      setSecondAddress(session.user.address[0])
-    }else{
-      setSecondAddress(session.user.address[1])
+      setCartNumber(session.user.cart.length)
+      setInformation({
+        name: session.user.name,
+        phone: session.user.phone,
+      })
+
+      if (session.user.address.length == 1) {
+        setFirstAddress({
+          address: session.user.address[0],
+          city: session.user.city[0],
+          country: session.user.country[0],
+          zipCode: session.user.zipCode[0]
+        })
+        setSecondAddress({
+          address: session.user.address[0],
+        city: session.user.city[0],
+        country: session.user.country[0],
+        zipCode: session.user.zipCode[0]
+        })
+      }
+
+      if (session.user.address.length == 2) {
+        setFirstAddress({
+          address: session.user.address[0],
+          city: session.user.city[0],
+          country: session.user.country[0],
+          zipCode: session.user.zipCode[0]
+        })
+      setSecondAddress({
+        address: session.user.address[1],
+        city: session.user.city[1],
+        country: session.user.country[1],
+        zipCode: session.user.zipCode[1]
+      })
+    }
+
+    if (session.user.address.length == 0) {
+      setNullAddresses(true)
     }
   }
   },[status])
 
-  
 
   function orderedTable (item, data) {
     return {
@@ -84,11 +117,67 @@ export default function Information () {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
     document.querySelector('.saveAccountDataButton').disabled = true
+    const res = await fetch('/api/updatenameandphone',{
+      method: 'PATCH',
+      headers: {
+        "Accept" : "application/json",
+        "Content-type" : "application/json"
+      },
+      body: JSON.stringify(information)
+    })
   }
 
+  const handleFirstAddressChange = e => {
+    setFirstAddress({
+      ...firstAddress,
+      [e.target.name]: e.target.value
+    }
+  )
+  }
+
+  const handleFirstAddressSubmit = async e => {
+    // e.preventDefault()
+    setEditingFirstAddress(false)
+    await fetch('/api/updateuseraddress',{
+      method: 'PATCH',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        address: firstAddress,
+        addressType: 'first'
+      })
+    })
+  }
+
+  const handleSecondAddressChange = e => {
+    setSecondAddress({
+      ...secondAddress,
+      [e.target.name]: e.target.value
+    }
+  )
+  }
+
+  const handleSecondAddressSubmit = async e => {
+    // e.preventDefault()
+    setEditingSecondAddress(false)
+    await fetch('/api/updateuseraddress',{
+      method: 'PATCH',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        address: secondAddress,
+        addressType: 'second'
+      })
+    })
+  }
+
+ 
 
   if(status == 'loading') return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -133,7 +222,9 @@ export default function Information () {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-start items-start px-10 mt-20'>
@@ -157,71 +248,144 @@ export default function Information () {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[12px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <div className='w-full h-fit px-10'>
-          <form onSubmit={e => handleSubmit(e)} className='max-w-[836px] w-full h-full py-5 grid gap-10'>
-            <p className='font-medium text-3xl mx-auto'>Vos <span className='border-b border-orange'>informations personnelles</span> </p>
-            <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Nom et prénom:
-                <input type="text" onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-8/12'/>
-            </label>
-            <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Num de téléphone:
-                <input type="text" onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-8/12' />
-            </label>
+          <div className='w-10/12 h-fit px-10'>
+          <form onSubmit={e => handleSubmit(e)} className='w-[836px] h-fit grid gap-16 mb-10 px-10'>
+              <p className='font-medium text-3xl mx-auto'>Vos <span className='border-b border-orange'>informations personnelles</span> </p>
+              <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Nom et prénom:
+                  <input type="text" required minLength={4} onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-8/12'/>
+              </label>
+              <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Num de téléphone:
+                  <input type="number" required minLength={8} onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-8/12' />
+              </label>
+              <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-orange px-4 py-2 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer tous les <br></br> changements</button>
+          </form>
 
-          <div className='grid w-fit mt-5 gap-5'>
+          <div className='grid w-fit gap-5'>
             
                 <p className='text-xl font-medium w-fit mx-auto'>Modifer <span className='border-b-2 border-orange'> vos adresses</span>: </p>
                 <div className='flex flex-nowrap w-fit h-fit gap-16'>
-              <div className='w-96 h-52 grid  relative  rounded-sm pl-5 pr-32 pt-4 gap-10 pb-10 border border-na3ne3i'>
+              <form onSubmit={e => handleFirstAddressSubmit(e)}  className='w-96 h-fit grid  relative  rounded-sm px-5 pt-4 pb-10 border border-na3ne3i'>
                 <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de facturation</p>
-                {editingFirstAddress ? <input type="text" name="firstAddress" value={firstAddress} onChange={e => setFirstAddress(e.target.value)} className='w-full border border-na3ne3i rounded-md h-8' /> : <p className='w-full'>{firstAddress}</p>}
-                <div className='absolute top-4 right-5 flex flex-nowrap items-center'>
-                {editingFirstAddress ? <button onClick={e => {
-                setEditingFirstAddress(false)
-                setFirstAddress(session.user.address[0])
-                document.querySelector('.ModifyFirstAddressButton').innerText = 'Modifier'
-              }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button> : null }
-                  <button className='ModifyFirstAddressButton bg-orange px-1 font-medium rounded-sm ' onClick={e => {
-                    if(!editingFirstAddress){
-                      setEditingFirstAddress(true)
-                      e.target.innerText = 'Enregistrer'
-                    }else{
-                      setEditingFirstAddress(false)
-                      e.target.innerText = 'Modifier'
-                    }
-                  }}>Modifier</button>
-                </div>
-              </div>
-              <div className='grid w-96 h-52  relative  rounded-sm pl-5 pr-32 pt-4 gap-10 pb-10 border border-na3ne3i'>
-              <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de livraison</p>
-              {session.user.address ? <p>gg</p> : <p>hahahah</p>}
-              {editingSecondAddress ? <input type="text" name="secondAddress" value={secondAddress} onChange={e => setSecondAddress(e.target.value)} className='w-full border border-na3ne3i rounded-md h-8' /> : <p className='w-full'>{secondAddress}</p>}
-              <div className='absolute top-4 right-5 flex flex-nowrap items-center'>
-              {editingSecondAddress ? <button onClick={e => {
-                if(session.user.address.length == 1){
-                  setSecondAddress(session.user.address[0])
-                }else{
-                  setSecondAddress(session.user.address[1])
+                {
+                  editingFirstAddress ? <>
+                  <input type="text" name="address" value={firstAddress.address} required onChange={e => handleFirstAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Adresse' />
+                  <input type="text" name="city" value={firstAddress.city} required onChange={e => handleFirstAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Ville' />
+                  <input type="text" name="country" value={firstAddress.country} required onChange={e => handleFirstAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Pays' />
+                  <input type="Number" name="zipCode" value={firstAddress.zipCode} required onChange={e => handleFirstAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Code postal' />
+                  </> : 
+                  NullAddresses ?
+                  <p className='my-10'>Auncune adresse insérée</p>
+                  
+                   : 
+                   <>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.address}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.city}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.country}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.zipCode}</p>
+                   </>
                 }
-                document.querySelector('.ModifySecondAddressButton').innerText = 'Modifier'
+                
+                <div className='absolute top-4 right-5 flex flex-nowrap items-center'>
+                    {editingFirstAddress ? 
+                    <>
+                    <button type='button' onClick={e => {
+                    setEditingFirstAddress(false)
+                      if(session.user.address.length >1 )
+                      setFirstAddress({
+                        address: session.user.address[0],
+                        city: session.user.city[0],
+                        country: session.user.country[0],
+                        zipCode: session.user.zipCode[0]
+                      })
+                      if(session.user.address.length == 0){
+                        setFirstAddress({
+                          address: '',
+                          city: '',
+                          country: '',
+                          zipCode: ''
+                        })
+                      }
+
+                  }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button>
+                  <button type='submit' className='bg-orange px-1 font-medium rounded-sm '>Enregistrer</button> 
+                  </> :                  
+                  <button type='button' onClick={e => {
+                      setEditingFirstAddress(true)
+                    }} className='bg-orange px-1 font-medium rounded-sm '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
+                }
+            
+                </div> 
+              </form>
+
+
+
+
+
+
+              <form onSubmit={e => handleSecondAddressSubmit(e)} className='grid w-96 h-fit relative rounded-sm px-5 pt-4 pb-10 border border-na3ne3i'>
+              <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de livraison</p>
+              {
+                  editingSecondAddress ? 
+                  <>
+                  <input type="text" name="address" value={secondAddress.address} required onChange={e => handleSecondAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Adresse' />
+                  <input type="text" name="city" value={secondAddress.city} required onChange={e => handleSecondAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Ville' />
+                  <input type="text" name="country" value={secondAddress.country} required onChange={e => handleSecondAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Pays' />
+                  <input type="Number" name="zipCode" value={secondAddress.zipCode} required onChange={e => handleSecondAddressChange(e)} className='w-full border-b border-na3ne3i h-6 outline-none mt-10' placeholder='Code postal' />
+                  </>
+                  :
+                NullAddresses ? <p className='my-10'>Auncune adresse insérée</p>
+                :
+                   <>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.address}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.city}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.country}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.zipCode}</p>
+                  </>
+                }
+                
+                <div className='absolute top-4 right-5 flex flex-nowrap items-center'>
+                {editingSecondAddress ? <> <button type='button' onClick={e => {
                 setEditingSecondAddress(false)
-              }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button> : null }
-              <button className='ModifySecondAddressButton bg-orange px-1 font-medium rounded-sm' onClick={e => {
-                if(!editingSecondAddress){
-                  setEditingSecondAddress(true)
-                    e.target.innerText = 'Enregistrer'
-                  }else{
-                    e.target.innerText = 'Modifier'
-                    setEditingSecondAddress(false)
-                  }
-                }}>Modifier</button>
+                if(session.user.address.length == 1){
+                  setSecondAddress({
+                    address: session.user.address[0],
+                    city: session.user.city[0],
+                    country: session.user.country[0],
+                    zipCode: session.user.zipCode[0]
+                  })
+                }
+                if(session.user.address.length == 2){
+                  setSecondAddress({
+                    address: session.user.address[1],
+                    city: session.user.city[1],
+                    country: session.user.country[1],
+                    zipCode: session.user.zipCode[1]
+                  })
+                }
+                if(session.user.address.length == 0){
+                  setSecondAddress({
+                    address: '',
+                    city: '',
+                    country: '',
+                    zipCode: ''
+                  })
+                }
+              }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button>
+              <button type="submit" className='bg-orange px-1 font-medium rounded-sm '>Enregistrer</button> 
+              </> : 
+              <button type='button' onClick={e => {
+                setEditingSecondAddress(true)
+                }} className='bg-orange px-1 font-medium rounded-sm '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
+                }
                 </div>
-              </div>
+              </form>
+
+
+
+
             </div>
           </div>
-          <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-orange px-4 py-2 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer tous les <br></br> changements</button>
-                </form>
-            
-          </div>
+        </div> 
           
       </main>
       <Footer />

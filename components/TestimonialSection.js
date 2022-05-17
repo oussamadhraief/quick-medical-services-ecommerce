@@ -61,6 +61,8 @@ export default function TestimonialSection () {
   const [isMobile, setIsMobile] = useState(32.5)
   const [ind, setInd] = useState(0)
 
+  const timeouts = []
+
   useEffect(() => {
     setActiveReviews([
       testimonials[0],
@@ -78,22 +80,28 @@ export default function TestimonialSection () {
     right.addEventListener('click', () => {
       right.disabled = true
       left.disabled = true
-      setTimeout(() => {
+      timeouts.push(setTimeout(() => {
         left.disabled = false
         right.disabled = false
-      }, 1000)
+      }, 1000))
     })
     left.addEventListener('click', () => {
       left.disabled = true
       right.disabled = true
-      setTimeout(() => {
+      timeouts.push(setTimeout(() => {
         right.disabled = false
         left.disabled = false
-      }, 1000)
+      }, 1000))
     })
-    setInterval(() => {
+    const interval = setInterval(() => {
       right.click()
     }, 10000)
+    return () => {
+      clearInterval(interval)
+      for( const item of timeouts){
+        clearTimeout(item)
+      }
+    }
   }, [])
 
   const handleScrollRight = () => {
@@ -102,7 +110,7 @@ export default function TestimonialSection () {
       item.style.transitionDuration = '0.3s'
       item.style.transform = `translateX(-${isMobile}vw)`
     })
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       section.forEach((item, index) => {
         item.style.transitionDuration = '0s'
         item.style.transform = 'translateX(0px)'
@@ -146,15 +154,15 @@ export default function TestimonialSection () {
         testimonials[ind3],
         testimonials[ind4]
       ])
-      setTimeout(() => {
+      timeouts.push(setTimeout(() => {
         document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transitionDuration = '0.3s'
         if(isMobile == 32.5)document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transform = 'scale(1.3)'
-      }, 50)
-    }, 300)
+      }, 50))
+    }, 300))
   }
 
   const handleScrollLeft = () => {
@@ -163,7 +171,7 @@ export default function TestimonialSection () {
       item.style.transitionDuration = '0.3s'
       item.style.transform = `translateX(${isMobile}vw)`
     })
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       section.forEach((item, index) => {
         item.style.transitionDuration = '0s'
         item.style.transform = 'translateX(0px)'
@@ -208,15 +216,15 @@ export default function TestimonialSection () {
         testimonials[ind4]
       ])
 
-      setTimeout(() => {
+      timeouts.push(setTimeout(() => {
         document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transitionDuration = '0.3s'
         if(isMobile == 32.5)document.querySelector(
           '#scrollableTestimonial > div:nth-child(3)'
         ).style.transform = 'scale(1.3)'
-      }, 50)
-    }, 300)
+      }, 50))
+    }, 300))
   }
 
   return (

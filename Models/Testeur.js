@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
-const DocteurSchema = new mongoose.Schema(
+import { isEmail } from 'validator';
+
+const TesteurSchema = new mongoose.Schema(
   {
     email: {
       type: String,
       trim: true,
       lowercase: true,
       required: [true, "L'adresse email est obligatoire"],
-      match: [
-        /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/,
+      validate: [
+        isEmail,
         'Please fill a valid email address'
       ]
     },
@@ -19,11 +21,21 @@ const DocteurSchema = new mongoose.Schema(
     [{ type: String,
       trim: true,
       default: null }],
-    
-      // required: [true, "L'adresse email est obligatoire"],
+    city: 
+    [{ type: String,
+      trim: true,
+      default: null }],
+    country: 
+    [{ type: String,
+      trim: true,
+      default: null }],
+    zipCode: 
+    [{ type: String,
+      trim: true,
+      default: null }],
     phone: {
       type: String,
-      // required: [true, "L'adresse email est obligatoire"],
+      required: [true, "L'adresse email est obligatoire"],
       minlength: [4, 'Insérez un numéro de téléphone valide'],
       default: null
     },
@@ -42,4 +54,4 @@ const DocteurSchema = new mongoose.Schema(
   { timestamps: true }
 )
 module.exports =
-  mongoose.models.Docteur || mongoose.model('Docteur', DocteurSchema)
+  mongoose.models.Testeur || mongoose.model('Testeur', TesteurSchema)

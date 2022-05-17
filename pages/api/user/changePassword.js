@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/react"
 import dbConnect from "../../../utils/dbConnect";
 import { hashPassword, verifyPassword } from '../../../utils/Encryption';
-import Docteur from "../../../Models/Docteur";
+import Testeur from "../../../Models/Testeur";
 
 dbConnect()
 
@@ -18,7 +18,7 @@ async function handler(req, res) {
     
   }
 
-  const user = await Docteur.findOne({ email: session.user.email })
+  const user = await Testeur.findOne({ email: session.user.email })
 
   if (!user) {
     return res.status(404).json({ message: 'User not found.' })
@@ -45,7 +45,7 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(req.body.newPassword)
 
-  const result = await Docteur.updateOne(
+  const result = await Testeur.updateOne(
     { email: session.user.email },
     { password: hashedPassword },
     { new: true, runValidators: true }

@@ -10,6 +10,8 @@ import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
 import { useRouter } from 'next/router'
+import { CartContext } from "../utils/CartContext"
+
 
 export default function Home (props) {
   const { data: session, status } = useSession()
@@ -22,6 +24,8 @@ export default function Home (props) {
   const [value,setValue] = useState([])
   const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
   const [search,setSearch] = useState('')
+  const [cartNumber,setCartNumber] = useState(0)
+
   
   useEffect(() => {
     async function fetchData() {
@@ -38,6 +42,10 @@ export default function Home (props) {
     }
 fetchData()
 },[value])
+
+useEffect(() => {
+  if(session)setCartNumber(session.user.cart.length)
+},[session])
 
 function orderedTable(item,data){
   return {
@@ -89,12 +97,14 @@ function orderedTable(item,data){
       </Head>
       <ProductsContext.Provider value={{value,setValue}}>
         <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
         <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
         <SearchContext.Provider value={{search,setSearch}}>
-          <Header landingPage={true}  />
+            <Header landingPage={true}  />
         </SearchContext.Provider>
         </CategoriesContext.Provider>
           <MainContent />
+        </CartContext.Provider>
         </ActivatedModalContext.Provider>
         </ProductsContext.Provider>
       <Footer />

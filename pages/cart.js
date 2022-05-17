@@ -6,6 +6,7 @@ import CartProduct from '../components/CartProduct'
 import { useEffect, useState } from "react"
 import { CategoriesContext } from "../utils/CategoriesContext"
 import { SearchContext } from "../utils/SearchContext"
+import { CartContext } from "../utils/CartContext"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
@@ -23,6 +24,7 @@ export default function Cart() {
     const [search,setSearch] = useState('')
     const [value,setValue] = useState([])
     const [cartProducts,setCartProducts] = useState([])
+    const [cartNumber,setCartNumber] = useState(0)
 
     useEffect(() => {
         const AbortController = window.AbortController;
@@ -40,11 +42,19 @@ export default function Cart() {
             }
         }
         fetchData()
-        async function fetchProducts() {
+        
+        return () => {
+            abortController.abort();
+          }
+    },[])
+
+    useEffect(() => {
+        const AbortController = window.AbortController;
+        const abortController = new AbortController()
+       async function fetchProducts() {
             try {
                 const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
                 const { data } = await res.json()
-                console.log(data);
                 setCartProducts(data)
                 const newValue = data.map(item => { return ({
                     reference: item.reference,
@@ -57,10 +67,15 @@ export default function Cart() {
             }
         }
         fetchProducts()
+        
         return () => {
             abortController.abort();
           }
-    },[])
+    },[cartNumber])
+
+    useEffect(() => {
+        if(session)setCartNumber(session.user.cart.length)
+    },[session])
 
     function orderedTable(item,data){
         return {
@@ -111,6 +126,7 @@ export default function Cart() {
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
             <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
                 <Header landingPage={false}  />
@@ -129,7 +145,6 @@ export default function Cart() {
                         <th className='text-center text-base font-medium text-third pl-3'>RÉFÉRENCE</th>
                         <th className='text-center text-base font-medium text-third'>IMAGE</th>
                         <th className='text-center text-base font-medium text-third'>NOM</th>
-                        <th className='text-center text-base font-medium text-third' colSpan={2}>DÉSCRIPTION</th>
                         <th className='text-center text-base font-medium text-third'>TAILLE</th>
                         <th className='text-center text-base font-medium text-third'>QUANTITÉ</th>
                         <th className='text-center text-base font-medium text-third px-5'></th>
@@ -139,8 +154,8 @@ export default function Cart() {
                         {cartProducts.map((item,index) => {
                             return (
                                 <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
-                            )
-                        })}     
+                                )
+                            })}     
                     </tbody>
                 </table>
                 <p className='mt-10  w-10/12 mx-auto bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
@@ -168,6 +183,7 @@ export default function Cart() {
                 </div>
             </div>
             <Footer/>
+            </CartContext.Provider>
         </div>
             
         )
@@ -176,6 +192,6 @@ export default function Cart() {
 
 export async function getServerSideProps () {
     return { props: { hi: 'hi' } }
-  }
+}
 
   Cart.auth = true

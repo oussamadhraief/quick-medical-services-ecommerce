@@ -97,9 +97,14 @@ export default function Admin(){
         </div>
        )
     
+    if(status == 'unauthenticated'){
+    router.push('/login')
+        return
+    }
+
     if(status == 'authenticated' && !session.user.isAdmin){
-        console.log('1');
-        return null
+        router.push('/')
+        return
     }
 
     if(status == 'authenticated' &&  session.user.isAdmin)
@@ -151,10 +156,7 @@ export default function Admin(){
         </div>
     )
 
-    if(status == 'unauthenticated'){
-        router.push('/login')
-         return null
-     }
+    
 }
 
 export async function getServerSideProps() {

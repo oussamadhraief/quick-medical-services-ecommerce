@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { CartContext } from "../../utils/CartContext"
+
 
 
 export default function Password() {
@@ -24,7 +26,7 @@ export default function Password() {
     newPassword : '',
     newPassword2 : ''
   })
-
+  const [cartNumber,setCartNumber] = useState(0)
 
 
   useEffect(() => {
@@ -48,7 +50,9 @@ export default function Password() {
       }
   }, [])
 
-  
+  useEffect(() => {
+    if(session)setCartNumber(session.user.cart.length)
+},[session])
 
   function orderedTable (item, data) {
     return {
@@ -137,7 +141,9 @@ export default function Password() {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>

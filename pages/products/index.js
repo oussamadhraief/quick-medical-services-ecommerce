@@ -10,14 +10,20 @@ import { PagesContext } from "../../utils/PagesContext"
 import { ActivatedModalContext } from "../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../utils/CategoriesContext"
 import { SearchContext } from "../../utils/SearchContext"
+import { CartContext } from "../../utils/CartContext"
 import Head from "next/head"
+import { useSession } from "next-auth/react"
+
 
 
 
 export default function Products(){
+  const { data: session, status } = useSession()
+
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
+    const [cartNumber , setCartNumber] = useState(0)
     const [pages , setPages] = useState(1)
     const [renderedArray , setRenderedArray]=useState([])
     const [search,setSearch] = useState('')
@@ -43,6 +49,11 @@ export default function Products(){
     }
     fetchData()
     },[value])
+
+    
+    useEffect(() => {
+        if(session)setCartNumber(session.user.cart.length)
+    },[session])
 
     useEffect(() => {
             let count = pageSelection * 9
@@ -97,11 +108,15 @@ export default function Products(){
       </Head>
             <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
                 <Header landingPage={false}  />
+            </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
+
                 <div className="w-full h-fit flex justify-end items-center mt-32 px-10">
                     
                         <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
@@ -151,6 +166,7 @@ export default function Products(){
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
+            </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
             <Footer />

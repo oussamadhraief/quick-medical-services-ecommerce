@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { CartContext } from "../../../utils/CartContext"
 import EstimateComponent from '../../../components/EstimateComponent'
 
 export default function Estimates() {
@@ -21,6 +22,8 @@ export default function Estimates() {
   const [search, setSearch] = useState('')
   const [estimates,setEstimates] = useState([])
   const [loading,setLoading] = useState(true)
+  const [cartNumber,setCartNumber] = useState(0)
+
   
 
   useEffect(() => {
@@ -54,6 +57,10 @@ export default function Estimates() {
       abortController.abort();
     }
   }, [])
+
+  useEffect(() => {
+    if(session)setCartNumber(session.user.cart.length)
+},[session])
 
   
 
@@ -114,7 +121,9 @@ export default function Estimates() {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>

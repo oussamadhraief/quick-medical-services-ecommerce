@@ -4,7 +4,7 @@ const DevisSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Docteur',
+      ref: 'Testeur',
       required: true
     },
 

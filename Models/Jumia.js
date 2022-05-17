@@ -4,7 +4,7 @@ const JumiaSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Docteur',
+      ref: 'Testeur',
       required: true
     },
 
@@ -40,10 +40,26 @@ const JumiaSchema = new mongoose.Schema(
         'Please fill a valid email address'
       ]
     },
-    address: [{ type: String }],
-    city: [{ type: String }],
-    country: [{ type: String }],
-    zipCode: [{ type: Number }],
+    address: 
+    [{ type: String,
+      trim: true,
+      required: [true, "L'adresse est obligatoire"],
+      default: null }],
+    city: 
+    [{ type: String,
+      trim: true,
+      required: [true, "La ville est obligatoire"],
+      default: null }],
+    country: 
+    [{ type: String,
+      trim: true,
+      required: [true, "Le pays est obligatoire"],
+      default: null }],
+    zipCode: 
+    [{ type: String,
+      trim: true,
+      required: [true, "Le code postal est obligatoire"],
+      default: null }],
     name: { type: String, trim: true, required: true },
     phoneNumber: {
       type: String,

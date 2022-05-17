@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { CartContext } from "../../../utils/CartContext"
+
 
 export default function Orders() {
   const { data: session, status } = useSession()
@@ -23,6 +25,7 @@ export default function Orders() {
   const [search, setSearch] = useState('')
   const [orders,setOrders] = useState([])
   const [loading,setLoading] = useState(true)
+  const [cartNumber,setCartNumber] = useState(0)
 
 
   useEffect(() => {
@@ -57,6 +60,9 @@ export default function Orders() {
     }
   }, [])
 
+  useEffect(() => {
+    if(session)setCartNumber(session.user.cart.length)
+},[session])
   
 
   function orderedTable (item, data) {
@@ -117,7 +123,9 @@ export default function Orders() {
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
         <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
+        <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
       <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>

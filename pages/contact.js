@@ -7,6 +7,8 @@ import { SearchContext } from '../utils/SearchContext'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useSession } from 'next-auth/react'
+import { CartContext } from "../utils/CartContext"
+
 
 
 export default function Contact () {
@@ -24,6 +26,8 @@ export default function Contact () {
     subject: '',
     message: ''
   })
+  const [cartNumber,setCartNumber] = useState(0)
+
 
   const handleChange = e => {
     setFormData(prevFormData => {
@@ -60,6 +64,10 @@ export default function Contact () {
     }
     fetchData()
   }, [])
+  
+  useEffect(() => {
+    if(session)setCartNumber(session.user.cart.length)
+},[session])
 
   function orderedTable (item, data) {
     return {
@@ -136,9 +144,11 @@ export default function Contact () {
       <CategoriesContext.Provider
         value={{ categoriesAndSubcategories, setCategoriesAndSubcategories }}
       >
-        <SearchContext.Provider value={{ search, setSearch }}>
-          <Header landingPage={false}  />
-        </SearchContext.Provider>
+        <SearchContext.Provider value={{search,setSearch}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
+            </SearchContext.Provider>
       </CategoriesContext.Provider>
       <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-3/4  mx-auto  shadow-form mt-20 rounded-2xl'>
         <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto '>

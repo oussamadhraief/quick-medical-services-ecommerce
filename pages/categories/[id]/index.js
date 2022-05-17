@@ -12,6 +12,7 @@ import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../../utils/CategoriesContext"
 import Head from "next/head"
 import { SearchContext } from "../../../utils/SearchContext"
+import { CartContext } from "../../../utils/CartContext"
 
 export default function Details(){
 
@@ -23,6 +24,8 @@ export default function Details(){
     const [search,setSearch] = useState('')
     const [activatedModal,setActivatedModal] = useState(false)
     const router = useRouter()
+    const [cartNumber,setCartNumber] = useState(0)
+
 
     useEffect(() => {
         async function fetchData() {
@@ -63,6 +66,10 @@ export default function Details(){
     }
     fetchData()
     },[])
+
+    useEffect(() => {
+        if(session)setCartNumber(session.user.cart.length)
+    },[session])
 
     function orderedTable(item,data){
         return {
@@ -119,11 +126,14 @@ export default function Details(){
       </Head>
             <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
             <SearchContext.Provider value={{search,setSearch}} >
-            <Header landingPage={false}  />
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
+                <Header landingPage={false}  />
+            </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
+            <CartContext.Provider value={{cartNumber,setCartNumber}} >
                 <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
                     <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-cool" onClick={e => {
                         handleHideCategories()
@@ -154,6 +164,7 @@ export default function Details(){
                     {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
+            </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
             <Footer />

@@ -1,5 +1,5 @@
 import Jumia from '../../../Models/Jumia'
-import Docteur from '../../../Models/Docteur'
+import Testeur from '../../../Models/Testeur'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
@@ -11,7 +11,7 @@ export default async function handler (req, res) {
   if (req.method !== 'POST') return
   if (session) {
     
-    const User = await Docteur.findOne({ email: session.user.email })
+    const User = await Testeur.findOne({ email: session.user.email })
     if(!User){
       res.status(404).json({success: false, message: 'User not found'})
     }
@@ -37,6 +37,9 @@ export default async function handler (req, res) {
       cart: orderData,
       name: req.body.name,
       address : req.body.address,
+      city : req.body.city,
+      country : req.body.country,
+      zipCode : req.body.zipCode,
       phoneNumber : req.body.phone,
       clinicName: req.body.clinicName,
       taxRegistrationNumber: req.body.taxRegistrationNumber,

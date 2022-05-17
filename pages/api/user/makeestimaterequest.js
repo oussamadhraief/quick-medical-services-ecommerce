@@ -1,5 +1,5 @@
 import Devis from '../../../Models/Estimate'
-import Docteur from '../../../Models/Docteur'
+import Testeur from '../../../Models/Testeur'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
@@ -13,7 +13,7 @@ export default async function handler (req, res) {
   if (req.method !== 'POST') return
   if (session) {
     
-    const User = await Docteur.findOne({ email: session.user.email })
+    const User = await Testeur.findOne({ email: session.user.email })
     if(!User){
       res.status(404).json({success: false, message: 'User not found'})
     }

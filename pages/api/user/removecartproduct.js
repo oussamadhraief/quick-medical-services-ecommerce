@@ -19,24 +19,14 @@ export default async function handler (req, res) {
     if (!product) {
       res.status(400).json({ success: false, message: 'Product not found' })
     }
-    
-    const productExists = user.cart.some(item => {
-      return item.toString() == product._id.toString()
-    })
 
-    if (productExists) {
+      user.cart.pull(product)
+      
+      user.save()
+      
       res
         .status(200)
-        .json({ success: true, message: 'products exists already' })
-    } else {
-      user.cart.push(product)
-      res
-        .status(201)
-        .json({ success: true, message: 'product added successfully' })
-    }
-    
-
-    user.save()
+        .json({ success: true, message: 'product removed successfully', user: user })
   } else {
     res.status(401).json({ sucess: false, message: 'must be authenticated' })
   }

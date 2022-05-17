@@ -5,6 +5,7 @@ import ContentfulModal from './ContentfulModal'
 import 'animate.css'
 import { SizeSelectionContext } from '../utils/SizeSelectionContext'
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
+import { CartContext } from '../utils/CartContext'
 import Link from 'next/link'
 
 export default function ScrollableProduct ({ product }) {
@@ -15,6 +16,9 @@ export default function ScrollableProduct ({ product }) {
   const [productContent, setProductContent] = useState({})
   const { activatedModal, setActivatedModal } = useContext(
     ActivatedModalContext
+  )
+  const { cartNumber, setCartNumber } = useContext(
+    CartContext
   )
 
   const fetchProduct = async () => {
@@ -32,6 +36,9 @@ export default function ScrollableProduct ({ product }) {
         },
         body : JSON.stringify({reference : product.reference})
     })
+    const { success } = await res.json()
+    if(success) setCartNumber(prev => prev + 1)
+    
   }
 
   return (

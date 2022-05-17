@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import FacebookProvider from "next-auth/providers/facebook"
-import Docteur from "../../../Models/Docteur.js"
+import Testeur from "../../../Models/Testeur.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../utils/MongoDBProvider"
@@ -25,9 +25,9 @@ export default NextAuth({
       name: 'credentials',
       
       async authorize(credentials) {
-        const user = await Docteur.findOne({email : credentials.email,})
+        const user = await Testeur.findOne({email : credentials.email,})
         if (!user){
-          throw new Error ('No Docteur found with this email')
+          throw new Error ('No Testeur found with this email')
         }
         const validPassword = await verifyPassword(credentials.password, user.password)
         if (!validPassword) {
@@ -46,15 +46,19 @@ export default NextAuth({
   secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks:{
     async session({session, user}){
-      const thisDocteur = await Docteur.findOne({email : session.user.email})
-      if (typeof(thisDocteur.isAdmin) == 'undefined') {const newDocteur = await Docteur.findOneAndUpdate({email : session.user.email},{
-        ...thisDocteur,
+      const thisTesteur = await Testeur.findOne({email : session.user.email})
+      if (typeof(thisTesteur.isAdmin) == 'undefined') {const newTesteur = await Testeur.findOneAndUpdate({email : session.user.email},{
+        ...thisTesteur,
         isAdmin: false,
       })}
-      session.user.address = thisDocteur.address
-      session.user.phone = thisDocteur.phone
-      session.user.isAdmin = thisDocteur.isAdmin
-      session.user.cart = thisDocteur.cart
+      session.user.address = thisTesteur.address
+      session.user.city = thisTesteur.city
+      session.user.country = thisTesteur.country
+      session.user.zipCode = thisTesteur.zipCode
+      session.user.name = thisTesteur.name
+      session.user.phone = thisTesteur.phone
+      session.user.isAdmin = thisTesteur.isAdmin
+      session.user.cart = thisTesteur.cart
 
       
       return Promise.resolve(session)
