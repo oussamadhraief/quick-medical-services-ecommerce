@@ -135,62 +135,75 @@ export default function AddProductView(props){
         setLoadingContext(true)
         document.getElementById('scrolltop').scroll(0,0)
         try {
+            
             let trimmedCategory = form.category.trim()
             let trimmedSubcategory = form.subcategory.trim()
             let capCategory = trimmedCategory.charAt(0).toUpperCase() + trimmedCategory.slice(1).toLowerCase();
             let capSubcategory = trimmedSubcategory.charAt(0).toUpperCase() + trimmedSubcategory.slice(1).toLowerCase();
             let reference = handleReference(capCategory,capSubcategory)
-            let produit = {
-                image: productImage,
-                reference: reference,
-                category: capCategory,
-                subcategory: capSubcategory,
-                name: form.name,
-                description: form.description,
-                sizes: form.sizes,
-                availability: form.availability
-            }
-            const res = await fetch('api/products', {
+            const formData = new FormData()
+            formData.append('file',productImage)
+            formData.append('upload_preset','test123')
+            await fetch('https://api.cloudinary.com/v1_1/dwvwjxizk/image/upload',{
                 method: 'POST',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(produit)
-            }).then(async (res) => {
-                if(res.status == 201){
-                    try{
-                        const res = await fetch('api/products',{
-                            method: 'GET',
-                            headers: {
-                                "Accept": "application/json",
-                                "Content-Type": "application/json"
-                            },
-                        }).then(async res => {
-                            const { data } = await res.json()
-                            setValue(data)
-                            setLoading(false)
-                            setLoadingContext(false)
-                        })
-                        }catch(error){
-                            console.error(error)
-                        }
-                    setAppear({display: true, action: 'ajouté'})
-                    setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
-                    setProductImage('')
-                    setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
-                }else {
-                    const { error,data } = await res.json()
-                    console.error(error)
-                    if(error.keyPattern.hasOwnProperty('name')){
-                        setNameError(true)
-                    }else{
-                        setImageError(true)
-                    }
+                body: formData
+            }).then(async r => {
+                const image = await r.json()
+                console.log(image);
+                let produit = {
+                    image: image.public_id,
+                    reference: reference,
+                    category: capCategory,
+                    subcategory: capSubcategory,
+                    name: form.name,
+                    description: form.description,
+                    sizes: form.sizes,
+                    availability: form.availability
                 }
-                setLoading(false)
-                setLoadingContext(false)
+                const res = await fetch('api/products', {
+                    method: 'POST',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(produit)
+                }).then(async (res) => {
+                    if(res.status == 201){
+                        try{
+                            const res = await fetch('api/products',{
+                                method: 'GET',
+                                headers: {
+                                    "Accept": "application/json",
+                                    "Content-Type": "application/json"
+                                },
+                            }).then(async res => {
+                                const { data } = await res.json()
+                                setValue(data)
+                                setLoading(false)
+                                setLoadingContext(false)
+                            })
+                            }catch(error){
+                                console.error(error)
+                            }
+                        setAppear({display: true, action: 'ajouté'})
+                        setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
+                        setProductImage('')
+                        setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
+                    }else {
+                        const { error,data } = await res.json()
+                        console.error(error)
+                        if(error.keyPattern.hasOwnProperty('name')){
+                            setNameError(true)
+                        }else{
+                            setImageError(true)
+                        }
+                    }
+                    setLoading(false)
+                    setLoadingContext(false)
+                })
+
             })
+            
         } catch (error) {
             console.error(error)
         }
@@ -209,13 +222,6 @@ export default function AddProductView(props){
         const reader = new FileReader();
         reader.onload = async function () {
             setProductImage(reader.result)
-            await fetch('/api/upload',{
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({image: reader.result})
-            })
         }
         reader.readAsDataURL(e.target.files[0]);
     }
