@@ -51,7 +51,7 @@ function ContentfulModal({show, onClose, content}) {
                 <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{content.category}</span></p>
                 <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{content.subcategory}</span></p>
                 <input type="number" name="quantity" value="1" min={1} className='border-2 border-main ml-14 rounded-lg h-fit w-20 text-center mt-10' />
-                <button className="mt-5 bg-ciel w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md:text-medium xl:text-lg font-medium hover:bg-main"> Ajouter au panier</button>
+                <button className="mt-5 text-orange w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
             </div>
             <div className="h-fit py-5 px-14 w-fit grid gap-5">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">

@@ -55,7 +55,7 @@ export default function TestimonialSection () {
     }
   ]
 
-  const quotes = 'pfe/right-quotes-13252_m2dsct.png'
+  const quotes = 'pfe/right-quotes-13252_m2dsct_ijvj9k.png'
 
   const [activeReviews, setActiveReviews] = useState([])
   const [isMobile, setIsMobile] = useState(32.5)
@@ -229,10 +229,10 @@ export default function TestimonialSection () {
 
   return (
     <div className='w-full h-fit grid mb-12 mt-32 overflow-hidden'>
-      <p className="w-fit h-fit mx-auto text-[44px] text-na3ne3i font-bold after:content-[''] after:bg-zinc-400 after:w-7/12 after:h-[1px] after:absolute after:-bottom-1 after:left-0 after:right-0 after:mx-auto relative">
-        Avis de nos clients
+      <p className="w-fit h-fit mx-auto text-[36px] font-bold after:content-['']  after:w-7/12 after:h-[3px] after:bg-pinky after:absolute after:bottom-1.5 after:-right-0.5 relative">
+        Avis de nos clients 
       </p>
-      <p className='w-fit h-fit mx-auto text-base text-third font-medium mt-1.5'>
+      <p className='w-fit h-fit mx-auto text-third font-medium mt-1.5'>
         Ils nous ont fait confiance et témoignent
       </p>
       <div
@@ -257,7 +257,7 @@ export default function TestimonialSection () {
                 </div>
 
                 <q className='text-sm italic text-third h-fit'>{item.message}</q>
-                <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
+                <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
@@ -288,7 +288,7 @@ export default function TestimonialSection () {
                 </div>
 
                 <q className='text-sm italic text-third h-fit'>{item.message}</q>
-                <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
+                <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
@@ -319,7 +319,7 @@ export default function TestimonialSection () {
                 </div>
 
                 <q className='text-sm italic text-third h-fit'>{item.message}</q>
-                <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
+                <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
@@ -355,7 +355,7 @@ export default function TestimonialSection () {
                 edited by volunteers around the world and hosted by the
                 Wikimedia Foundation.
               </q>
-              <div className='absolute w-full h-2 hidden group-hover:block bg-secondary left-0 bottom-0 rounded-b-md'></div>
+              <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
               <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                 <div
                   className='w-12 h-12 rounded-full shadow relative'
@@ -374,14 +374,14 @@ export default function TestimonialSection () {
       <div className='w-fit h-fit flex flex-nowrap mx-auto mt-10 md:mt-20 gap-3'>
         <button
           id='navigateLeftReview'
-          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary'
+          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-orange'
           onClick={e => handleScrollLeft()}
         >
           &#x2190;
         </button>
         <button
           id='navigateRightReview'
-          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-secondary'
+          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-orange'
           onClick={e => handleScrollRight()}
         >
           &#x2192;

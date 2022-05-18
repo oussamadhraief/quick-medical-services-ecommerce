@@ -79,7 +79,7 @@ export default function ScrollableProduct ({ product }) {
 
         <div className='h-fit w-fit max-w-full overflow-hidden mx-auto px-1'>
           <Link href={`/products/${product.reference}`}>
-            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-clip hover:text-ciel hover:underline'>
+            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-clip hover:text-orange hover:underline'>
               {product.name}
             </a>
           </Link>

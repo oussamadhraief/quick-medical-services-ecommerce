@@ -26,7 +26,7 @@ export default function Notification(props){
 })
     
     return (
-        <div id="notification" className={appear.display ? "absolute block bottom-3 z-[9999] mx-auto left-0 right-0 w-fit h-fit px-5 py-3 bg-emerald-700 text-center font-normal whitespace-nowrap text-medium text-white rounded-xl animate__animated animate__bounceInUp" : "absolute hidden"}>
+        <div id="notification" className={appear.display ? "absolute block bottom-3 z-[9999] mx-auto left-0 right-0 w-fit h-fit px-5 py-3 bg-emerald-700 text-center font-normal whitespace-nowrap  text-white rounded-xl animate__animated animate__bounceInUp" : "absolute hidden"}>
             <span className=" w-4 h-4 bg-white rounded-full text-emerald-700 font-bold px-1">✔</span> Le produit a bien été {appear.action}
         </div>
     )

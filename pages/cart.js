@@ -151,11 +151,16 @@ export default function Cart() {
                         </tr>
                     </thead>
                     <tbody className='w-full h-full mt-32'>
-                        {cartProducts.map((item,index) => {
+                        {cartProducts.length > 0 ? 
+                        cartProducts.map((item,index) => {
                             return (
                                 <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
                                 )
-                            })}     
+                            })
+                            : <tr>
+                                <td className='font-medium text-center h-20' colSpan={6}>Votre panier est vide, <Link href='/products'><a className='text-orange hover:underline'>explorez nos produits !</a></Link></td>
+                            </tr> 
+                            } 
                     </tbody>
                 </table>
                 <p className='mt-10  w-10/12 mx-auto bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>

@@ -52,14 +52,14 @@ export default function CartProduct(props){
                 <div className='text-center  flex flex-wrap items-center justify-center'>
                     
                 {props.sizes.map((item,index) => {
-                    if(productSize != index){ return <p className="border-[1px] border-ciel ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer" onClick={e => 
+                    if(productSize != index){ return <p className="border-[1px] border-na3ne3i ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer" onClick={e => 
                         {setProductSize(index)
                             const temp = props.value
                             temp[props.index].size = props.sizes[index]
                             props.setValue(temp)
                         }}>{item >= 0 ? item : 0} cm</p>}
                 else{
-                    return <p className="border-[1px] border-ciel bg-ciel text-white ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer">{item >= 0 ? item : 0} cm</p>
+                    return <p className="border-[1px] border-na3ne3i bg-na3ne3i text-white ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer">{item >= 0 ? item : 0} cm</p>
                 }})}
                 </div>
            </td>

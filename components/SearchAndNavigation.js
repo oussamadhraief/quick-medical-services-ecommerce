@@ -8,7 +8,7 @@ export default function SearchAndNavigation(){
 
     const {search,setSearch} = useContext(SearchContext)
     
-    const syringe = 'pfe/searchIcon_ooxkbe.png'
+    const syringe = 'pfe/searchIcon_ooxkbe_tg1uir.png'
 
     return (
         <div className="grid sm:flex relative flex-nowrap pl-3 sm:pl-0 pr-3 bg-white border-[1px] h-fit sm:h-14 rounded-lg w-11/12 mx-auto md:w-10/12 mb-10 mt-5 sm:my-10">

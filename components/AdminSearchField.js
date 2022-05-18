@@ -7,7 +7,7 @@ import { SearchContext } from "../utils/SearchContext"
 
 export default function AdminSearchField(props){
 
-    const searchIcon = 'pfe/searchIcon_ooxkbe.png'
+    const searchIcon = 'pfe/searchIcon_ooxkbe_tg1uir.png'
 
     const [search,setSearch] = useState('')
     const {value,setValue} = useContext(ProductsContext)
@@ -32,7 +32,7 @@ export default function AdminSearchField(props){
     function handleClick(){
         document.getElementById('modifyProducts').click()
         const newValue = value.filter(item => item.reference.includes(search) || item.name.toLowerCase().includes(search.toLowerCase()))
-        // if(newValue.length < 1 && search != '') newValue.push(<p className="font-medium text-medium mx-auto">Aucun produit trouvé !</p>)
+        // if(newValue.length < 1 && search != '') newValue.push(<p className="font-medium  mx-auto">Aucun produit trouvé !</p>)
         setSearchContext({searching: true, value: newValue})
         const mql = window.matchMedia('(max-width: 767px)');
         if(mql.matches) document.getElementById('navbutton').click()
