@@ -105,7 +105,7 @@ export default function Header(props){
                     </div>
                 <p className="break-words text-orange font-medium text-sm sm:text-base md:text-lg xl:text-xl pl-1">Import & distribution du matériel chirurgical et dentaire sur toute la Tunisie</p>
                 <div className="mt-10 mb-16 w-[200px] sm:w-fit mx-auto h-fit flex flex-wrap sm:flex-nowrap">
-                <Link href='/products'>
+                <Link href={{pathname: '/products',query: {page: 0}}}>
                     <a className="sm:mr-3 text-black text-sm sm:text-base font-medium bg-orange w-[170px] sm:w-[200px] py-3 rounded-lg whitespace-nowrap text-center hover:scale-105 transition-all min-w-fit">Explorer les produits &#x2192;</a>
                 </Link>
                 <Link href='/contact'>

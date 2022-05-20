@@ -16,6 +16,7 @@ export default async (req, res) => {
         const data = await Feedback.create(req.body)
         return res.status(201).json({ success: true, data: data })
       } catch (error) {
+        console.log(error);
         return res.status(400).json({ success: false })
       }
     case 'PUT':

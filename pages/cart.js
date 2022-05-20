@@ -158,7 +158,7 @@ export default function Cart() {
                                 )
                             })
                             : <tr>
-                                <td className='font-medium text-center h-20' colSpan={6}>Votre panier est vide, <Link href='/products'><a className='text-orange hover:underline'>explorez nos produits !</a></Link></td>
+                                <td className='font-medium text-center h-20' colSpan={6}>Votre panier est vide, <Link href={{pathname: '/products',query: {page: 0}}}><a className='text-orange hover:underline'>explorez nos produits !</a></Link></td>
                             </tr> 
                             } 
                     </tbody>

@@ -124,7 +124,7 @@ a {
     @apply my-2 py-2 flex w-full mx-auto border-b border-zinc-400 focus:placeholder-third focus:border-third placeholder:text-sm outline-none focus:placeholder:-translate-y-10 ;
   }
   .form-label {
-  @apply absolute hidden text-zinc-400 hover:cursor-text top-3 left-3 peer-focus:block peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-focus:peer-invalid:text-red-500  w-fit h-fit transition-all peer-placeholder-shown:block 
+  @apply absolute hidden text-zinc-400 hover:cursor-text top-3 left-3 peer-focus:block peer-focus:text-third peer-focus:left-0 peer-focus:-top-4 peer-focus:peer-invalid:text-pinky  w-fit h-fit transition-all peer-placeholder-shown:block 
   }
 }
 
@@ -245,6 +245,13 @@ input[type=number] {
 #cart {
   top: var(--calculatedTop);
   left: var(--calculatedLeft);
+}
+
+.contactside {
+  background: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1652881143/pfe/layered-waves-haikei_ylgvbh.svg") #0E5052;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* :required:where(input):where(:not(:placeholder-shown, :invalid)) {

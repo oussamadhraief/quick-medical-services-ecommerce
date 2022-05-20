@@ -5,8 +5,11 @@ import 'animate.css'
 import { LoadingContext } from "../utils/LoadingContext"
 import { NotificationContext } from "../utils/NotificationContext"
 import Modal from "../components/Modal"
+import { useRouter } from "next/router"
 
 export default function AdminProducts(props){
+    
+    const Router = useRouter()
 
     const {value,setValue} = useContext(ProductsContext)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
@@ -20,7 +23,7 @@ export default function AdminProducts(props){
         setLoadingContext(true)
         document.getElementById('scrolltopdiv').scroll(0,0)
         try {
-            const res = await fetch('api/products/'+props.reference,{
+            const res = await fetch('/api/products/'+props.reference,{
                 method: 'DELETE',
                 headers: {
                     "Accept": "application/json",
@@ -47,7 +50,15 @@ export default function AdminProducts(props){
                     <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1">
-                    <button className="h-fit w-fit p-1 border-[1px] border-main rounded-lg font-normal text-main text-sm hover:scale-105" onClick={e => props.handleClick(props.reference)}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => setShow(true)}>Supprimer</button>
+                    <button className="h-fit w-fit p-1 border-[1px] border-main rounded-lg font-normal text-main text-sm hover:scale-105" onClick={e => {
+                        Router.push({
+                            pathname: Router.pathname,
+                            query: { product: props.reference }
+                            }, 
+                            undefined, { shallow: true }
+                            )
+                        props.handleClick(props.reference)
+                    }}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => setShow(true)}>Supprimer</button>
                 </div>
                 <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleDelete()} action={'delete'} content={'Êtes-vous sûr de vouloir supprimer ce produit ?'} />
         </div>

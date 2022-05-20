@@ -73,7 +73,7 @@ export default function Navbar({ scrolled }){
             
             <ul id="navDropdown" className={dropDown? "fixed grid place-content-center place-items-center pb-[150vh] gap-14 w-screen h-[200vh] bg-na3ne3i top-0 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-10 xl:gap-16 items-center"}>
                 
-                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} whitespace-nowrap text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/products'>
+                <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} whitespace-nowrap text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href={{pathname: '/products',query: {page: 0}}}>
                     <a>Nos Produits</a>
                     </Link></li>
                 <li className={`lg:block ${ dropDown? 'font-medium mx-auto' : 'font-[400]'} text-white relative hover:cursor-pointer underlineAnimatedLink hover:text-pinky`}><Link href='/contact'>

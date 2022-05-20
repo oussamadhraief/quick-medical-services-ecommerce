@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+import { isEmail } from 'validator';
 
 const ContactSchema = new mongoose.Schema({
     name: {
@@ -12,7 +13,7 @@ const ContactSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         required: [true,'Email address is required'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        validate: [isEmail, 'Please fill a valid email address']
     },
     phoneNumber:{
         type:String,

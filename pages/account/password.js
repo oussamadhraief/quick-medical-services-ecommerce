@@ -36,9 +36,6 @@ export default function Password() {
       try {
         const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
         const { data } = await res.json()
-        let categories = data.map(item => item.category)
-        categories = [...new Set(categories)]
-        const orderedStuff = categories.map(item => orderedTable(item, data))
         setCategoriesAndSubcategories(orderedStuff)
       } catch (error) {
         console.error(error)
@@ -54,18 +51,6 @@ export default function Password() {
     if(session)setCartNumber(session.user.cart.length)
 },[session])
 
-  function orderedTable (item, data) {
-    return {
-      category: item,
-      subcategories: [
-        ...new Set(
-          data
-            .filter(element => element.category == item)
-            .map(elem => elem.subcategory)
-        )
-      ]
-    }
-  }
 
   const handleChange = (e) => {
     
@@ -98,13 +83,13 @@ export default function Password() {
   }
 
 
-  if(status == 'loading') return  (
+  if(status == 'loading') {return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
       <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
         <div className="reverse-spinner "></div>
       </div>
     </div>
-   )
+   )}
    
    if(status == 'unauthenticated') {
     router.push('/login')  
@@ -157,14 +142,14 @@ export default function Password() {
                 </Link>
                 
                 <Link href='/account/orders'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[8px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historiques des commandes</p></a>
+                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[8px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historiques des commandes</p></a>
                 </Link>
                 
                 <Link href='/account/password'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE]'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE] whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
                 </Link>
               
-                <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
+                <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
       <form onSubmit={handleSubmit} className='w-10/12 h-full px-10 py-5 grid gap-14'>

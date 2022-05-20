@@ -101,6 +101,22 @@ export default function TestimonialSection () {
       for( const item of timeouts){
         clearTimeout(item)
       }
+      right.removeEventListener('click', () => {
+        right.disabled = true
+        left.disabled = true
+        timeouts.push(setTimeout(() => {
+          left.disabled = false
+          right.disabled = false
+        }, 1000))
+      })
+      left.removeEventListener('click', () => {
+        left.disabled = true
+        right.disabled = true
+        timeouts.push(setTimeout(() => {
+          right.disabled = false
+          left.disabled = false
+        }, 1000))
+      })
     }
   }, [])
 

@@ -13,60 +13,50 @@ import { SearchContext } from "../../utils/SearchContext"
 import { CartContext } from "../../utils/CartContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
 
 
 
 
 export default function Products(){
   const { data: session, status } = useSession()
+  const router = useRouter()
 
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
     const [cartNumber , setCartNumber] = useState(0)
     const [pages , setPages] = useState(1)
-    const [renderedArray , setRenderedArray]=useState([])
     const [search,setSearch] = useState('')
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
 
+    useEffect(() => {
+        async function fetchCategories() {
+           const res = await fetch('/api/categoriesandsubcategories')
+           const { data } = await res.json()
+           setCategoriesAndSubcategories(data)
+        }
+            fetchCategories()
+    },[])
 
     useEffect(() => {
         async function fetchData() {
-        if(value.length < 1 ){
-            const res = await fetch('/api/products')
-            const { data } = await res.json()
+            const res = await fetch('/api/products?page='+pageSelection)
+            const { data,number } = await res.json()
             setValue(data)
-            let categories = data.map(item => item.category)
-            categories = [...new Set(categories)]
-            const orderedStuff = categories.map(item => orderedTable(item,data))
-            setCategoriesAndSubcategories(orderedStuff)
-        }else{
-            const numberOfPages = Math.ceil(value.length /9)
-            if(numberOfPages >= 1) {setPages(numberOfPages)} else {setPages(1)}
-            setPageSelection(0)
-        }
+            console.log(number);
+            const numberOfPages = Math.ceil(number /10)
+            setPages(numberOfPages)
     }
     fetchData()
-    },[value])
+    },[pageSelection])
 
     
     useEffect(() => {
-        if(session)setCartNumber(session.user.cart.length)
+        if(session) setCartNumber(session.user.cart.length)
     },[session])
-
-    useEffect(() => {
-            let count = pageSelection * 9
-            let arr = value.filter((item,index) => index >= count && index < count + 9)
-            setRenderedArray(arr)
-        },[pageSelection,value])
-
-    function orderedTable(item,data){
-        return {
-            category: item,
-            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
-        }
-    }
+    
 
     function handleHideCategories() {
         const CategoriesNavigator = document.getElementById('categoriesOrderer')
@@ -163,7 +153,7 @@ export default function Products(){
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
-                    {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
+                    {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
             </CartContext.Provider>

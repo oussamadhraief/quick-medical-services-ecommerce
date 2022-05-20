@@ -12,7 +12,7 @@ import { CartContext } from "../utils/CartContext"
 
 
 export default function Contact () {
-  const { data: session } = useSession()
+  const { data: session,status } = useSession()
   const facebook = 'pfe/facebook_dryelz.png'
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
@@ -27,6 +27,7 @@ export default function Contact () {
     message: ''
   })
   const [cartNumber,setCartNumber] = useState(0)
+  const [loading,setLoading] = useState(false)
 
 
   const handleChange = e => {
@@ -37,6 +38,8 @@ export default function Contact () {
       }
     })
   }
+
+  
   useEffect(() => {
     if (session) {
       setFormData({
@@ -47,7 +50,7 @@ export default function Contact () {
         message: ''
       })
     }
-  }, [session])
+  }, [status])
 
   useEffect(() => {
     async function fetchData () {
@@ -81,20 +84,10 @@ export default function Contact () {
       ]
     }
   }
-  function clearForm () {
-    setFormData({
-      name: '',
-      email: '',
-      phoneNumber: '',
-      subject: '',
-      message: ''
-    })
-  }
 
   const handleSubmit = async e => {
     e.preventDefault()
-    let loading = document.getElementById('contact-loading')
-    loading.style.display = 'block'
+    setLoading(true)
     try {
       const formInputs = { ...formData, isRead: false, isReview: false }
       const res = await fetch('/api/contact', {
@@ -105,9 +98,15 @@ export default function Contact () {
         },
         body: JSON.stringify(formInputs)
       }).then(res => {
+        setLoading(false)
         if (res.ok) {
-          loading.style.display = 'none'
-          clearForm()
+          setFormData({
+            name: '',
+            email: '',
+            phoneNumber: '',
+            subject: '',
+            message: ''
+          })
         }
       })
     } catch (error) {
@@ -150,13 +149,12 @@ export default function Contact () {
             </CartContext.Provider>
             </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-3/4  mx-auto  shadow-form mt-20 rounded-2xl'>
-        <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto '>
+      <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-10/12  mx-auto  shadow-form mt-20 rounded-br-[50px] h-fit rounded-tl-[50px] overflow-hidden'>
+        <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto contactside bg-[#E7EDEE]'>
           <div className='w-9/12 mx-auto mt-12 mb-8'>
-            <h1 className='text-white text-4xl font-bold'>Contact us</h1>
-            <hr className='w-4/12' />
-            <p className='text-white text-lg mt-2 font-medium'>
-              dont hesitate to contact us , were open for suggestion
+            <h1 className='text-white text-4xl font-bold'><span className='border-b-2 border-pinky'>Contactez</span>  nous</h1>
+            <p className='text-white mt-2 font-medium'>
+              Vos suggestions sont bienvenues
             </p>
           </div>
 
@@ -164,7 +162,7 @@ export default function Contact () {
             <Link href='https://www.facebook.com/QMSJRIBI'>
               <a
                 target='_blank'
-                className='flex text-white items-center flex-nowrap whitespace-nowrap font-medium'
+                className='flex text-white w-fit items-center flex-nowrap whitespace-nowrap font-medium'
               >
                 <Image
                   src={facebook}
@@ -188,19 +186,21 @@ export default function Contact () {
         </div>
 
         <form
-          className='lg:w-1/2 h-full relative bg-white py-4  lg:my-12 space-y-8 lg:space-y-5'
+          className='lg:w-6/12 h-fit relative bg-[#E7EDEE] space-y-10 pb-14 pt-8 lg:space-y-10'
           onSubmit={handleSubmit}
         >
-          <div
+          {loading ? <div
             id='contact-loading'
-            className='hidden absolute w-full h-full bg-white/70 z-[9999] '
+            className=' absolute w-full h-full bg-[#e7edeea5] z-[9] '
           >
             <div className='reverse-spinner '></div>
-          </div>
+          </div> :null }
+
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='form-input invalid:border-red-500 peer invalid:text-red-500'
+              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
               placeholder=' '
+              required
               type='text'
               name='name'
               id='formName'
@@ -208,56 +208,60 @@ export default function Contact () {
               minLength={4}
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='formName'>
+            <label className='form-label text-na3ne3i' htmlFor='formName'>
               Nom et Prénom
             </label>
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='form-input invalid:border-red-500 peer invalid:text-red-500'
+              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
               placeholder=' '
               type='email'
+              required
               name='email'
               id='formEmail'
               value={formData.email}
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='formEmail'>
+            <label className='form-label text-na3ne3i' htmlFor='formEmail'>
               Email
             </label>
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='form-input invalid:border-red-500 peer invalid:text-red-500 appearance'
+              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky appearance'
               placeholder=' '
               type='number'
+              required
               name='phoneNumber'
               id='formPhoneNumber'
               value={formData.phoneNumber}
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='formPhoneNumber'>
+            <label className='form-label text-na3ne3i' htmlFor='formPhoneNumber'>
               Num. de téléphone
             </label>
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='form-input invalid:border-red-500 peer invalid:text-red-500'
+              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
               placeholder=' '
               type='text'
+              required
               name='subject'
               id='formSubject'
               value={formData.subject}
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='formSubject'>
+            <label className='form-label text-na3ne3i' htmlFor='formSubject'>
               Sujet
             </label>
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <textarea
-              className='h-32 form-input invalid:border-red-500 peer invalid:text-red-500'
+              className='h-32 bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
               placeholder=' '
+              required
               col={50}
               row={4}
               name='message'
@@ -265,12 +269,12 @@ export default function Contact () {
               value={formData.message}
               onChange={handleChange}
             />
-            <label className='form-label' htmlFor='formTextArea'>
+            <label className='form-label text-na3ne3i' htmlFor='formTextArea'>
               Message
             </label>
           </div>
           <button
-            className='flex text-white text-base px-4 rounded-lg py-2 mx-auto bg-orange shadow-form hover:scale-110 transition-all'
+            className='flex text-white px-5 font-medium rounded-lg py-2 mx-auto bg-orange shadow-form hover:scale-110 transition-all'
             type='submit'
           >
             Envoyer

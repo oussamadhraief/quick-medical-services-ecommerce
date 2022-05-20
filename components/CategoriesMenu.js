@@ -28,7 +28,7 @@ export default function CategoriesMenu(){
     })
 
     const handleDisplaySubcategories = (e) => {
-        const newValue = categoriesAndSubcategories.find(item => e.target.id.includes(item.category))
+        const newValue = categoriesAndSubcategories.find(item => e.target.id == ('menu' + item.category))
         const temp = newValue.subcategories
         setBoardContent(temp)
     }

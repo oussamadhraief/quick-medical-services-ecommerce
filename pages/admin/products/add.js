@@ -1,20 +1,18 @@
-import PageView from "../components/PageView"
-import AdminNavbar from "../components/AdminNavbar"
+import AdminNavbar from "../../../components/AdminNavbar"
+import AddProductView from "../../../components/AddProductView"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../utils/ProductsContext"
-import LoadingAnimation from "../components/LoadingAnimation"
-import Notification from '../components/Notification'
-import { NotificationContext } from '../utils/NotificationContext'
-import { LoadingContext } from "../utils/LoadingContext"
-import { PagesContext } from "../utils/PagesContext"
-import { PageSelectionContext } from "../utils/PageSelectionContext"
-import { RenderedArrayContext } from "../utils/RenderedArrayContext"
-import { SearchContext } from "../utils/SearchContext"
+import { ProductsContext } from "../../../utils/ProductsContext"
+import LoadingAnimation from "../../../components/LoadingAnimation"
+import Notification from '../../../components/Notification'
+import { NotificationContext } from '../../../utils/NotificationContext'
+import { LoadingContext } from "../../../utils/LoadingContext"
+import { PagesContext } from "../../../utils/PagesContext"
+import { PageSelectionContext } from "../../../utils/PageSelectionContext"
+import { RenderedArrayContext } from "../../../utils/RenderedArrayContext"
+import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
-import { useSession, getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
-
-
 
 
 export default function Admin(){
@@ -23,9 +21,7 @@ export default function Admin(){
     const router = useRouter()
     
     const [value,setValue] = useState([])
-    const [selection,setSelection] = useState(1)
     const [adminLoading,setAdminLoading] = useState(true)
-    const [isAdmin,setIsAdmin] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
@@ -64,7 +60,7 @@ export default function Admin(){
 
     const getProducts = async () => {
         try{
-            const res = await fetch('api/products',{
+            const res = await fetch('/api/products',{
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
@@ -143,8 +139,8 @@ export default function Admin(){
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={selection} handleClick={handleClick} />
-                <PageView selected={selection} />
+                <AdminNavbar selected={1} />
+                <AddProductView addForm={true} />
                 <Notification />
             </SearchContext.Provider>
             </RenderedArrayContext.Provider>

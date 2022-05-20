@@ -11,6 +11,7 @@ import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
 import { useRouter } from 'next/router'
 import { CartContext } from "../utils/CartContext"
+import { set } from 'mongoose'
 
 
 export default function Home (props) {
@@ -30,29 +31,43 @@ export default function Home (props) {
   useEffect(() => {
     async function fetchData() {
     if(value.length < 1){
-        const res = await fetch('api/products')
-        const {data} = await res.json()
-        setValue(data)
+        Promise.all([
+        fetch('/api/products/availability?page='+0,{
+          method: 'POST',
+          headers: {
+              "Accept": "application/json",
+              "Content-type": "application/json"
+          } ,
+          body: JSON.stringify({availability: 'available'})
+        }).then(res =>  res.json()),
+        fetch('/api/products/availability?page='+0,{
+          method: 'POST',
+         headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+         } ,
+          body: JSON.stringify({availability: 'unavailable'})
+        }).then(res =>  res.json())]).then((res) => {
+          const newValue = res[0].data.concat(res[1].data)
+          setValue(newValue)
+        })
         setLoading(false)
-        let categories = data.map(item => item.category)
-        categories = [...new Set(categories)]
-        const orderedStuff = categories.map(item => orderedTable(item,data))
-        setCategoriesAndSubcategories(orderedStuff)
         }
     }
-fetchData()
-},[value])
+    async function fetchCategories() {
+      const res = await fetch('/api/categoriesandsubcategories')
+      const { data } = await res.json()
+      setCategoriesAndSubcategories(data)
+   }
+      fetchCategories()
+      fetchData()
+
+},[])
 
 useEffect(() => {
   if(session)setCartNumber(session.user.cart.length)
 },[session])
 
-function orderedTable(item,data){
-  return {
-      category: item,
-      subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
-  }
-}
   
   useEffect(() => {
     if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) router.push('/login')

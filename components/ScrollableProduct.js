@@ -35,9 +35,9 @@ export default function ScrollableProduct ({ product }) {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({reference : product.reference})
+    }).then(res => {
+        if(res.status == 201)  setCartNumber(prev => prev + 1)
     })
-    const { success } = await res.json()
-    if(success) setCartNumber(prev => prev + 1)
     
   }
 

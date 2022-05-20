@@ -1,76 +1,125 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import AddProduct from './AddProduct'
-import ModifyProducts from './ModifyProducts'
-import ViewOrders from './ViewOrders'
-import ArchivedOrders from './ArchivedOrders'
-import Return from './Return'
 import AdminSearchField from './AdminSearchField'
+import { useRouter } from "next/router"
 
 export default function AdminNavbar(props){
+    const router = useRouter()
 
-    const arrow = 'pfe/arrow_vbhjlp.png'
     const menuIcon = 'pfe/menu_jfmx7a.png'
-    const closeMenu = 'pfe/closeMenu_bpepwc.png'
-
-    const [navIcon,setNavIcon] = useState(false)
+    const returnIcon = 'pfe/return_cpjn4d.png'
+    const closeMenu = 'pfe/closeMenu_bpepwc.png' 
+    const add = 'pfe/add_ufxdwy.png'
+    const addselected = 'pfe/plusselected_xpokri_lz0tlc.png'
+    const Modify = 'pfe/modify_p9iu6t.png'
+    const Modifyselected = 'pfe/modifyselected_ncujpy_fdlkhp.png'
+    const orders = 'pfe/orders_kkbnuv.png'
+    const ordersselected = 'pfe/ordersselected_m3jukr_io8hiq.png'
+    const archived = 'pfe/archived_ljkyaa.png'
+    const archivedselected = 'pfe/archivedselected_bodb8b_pbgvvx.png'
+    
     const [menu,setMenu] = useState(true)
-    const [classes,setClasses] = useState("bg-na3ne3i h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full md:w-72 pt-2 pr-2 md:pr-1 md:pt-1")
-    const [matches,setMatches] = useState(true)
-    const [open,setOpen] = useState(true)
+    const [open,setOpen] = useState(false)
 
     useEffect(() => {
-        const mql = window.matchMedia('(max-width: 767px)');
-        setMatches(mql.matches)
+        const mql = window.matchMedia('(max-width: 767px)')
         if(mql.matches){ 
-            setNavIcon(true)
             setMenu(false)
-        }else{
-            setNavIcon(false)
+            setOpen(true)
+
         }
     },[])
 
     useEffect(() => {
         window.addEventListener('resize',() => {
-            let mql = window.matchMedia('(max-width: 767px)');
-            setMatches(mql.matches)
+            let mql = window.matchMedia('(max-width: 767px)')
             if(mql.matches){ 
-                setNavIcon(true)
                 setMenu(false)
-            }else{
-                setNavIcon(false)
             }
         })
+        return () => {
+            window.removeEventListener('resize',() => {
+            let mql = window.matchMedia('(max-width: 767px)')
+            if(mql.matches){ 
+                setMenu(false)
+            }
+        })
+        }
     })
 
-    const handleClick = (event) => {
+    const handleClick = () => {
         setMenu(prevMenu => !prevMenu)
         if(menu){
-            if(matches){
-                setOpen(true)
-            }else{event.target.style.transform = 'rotateY(180deg)'}
-            setClasses("bg-na3ne3i h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full md:w-10 pt-2 pr-2 md:pr-1 md:pt-1")
+            setOpen(true)
         }
         else{
-            if(matches){
-                setOpen(false)
-            }else{event.target.style.transform = 'rotateY(0deg)'}
-            setClasses("bg-na3ne3i h-screen md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-1")
+            setOpen(false)
         }
     }
 
     return (
-        <nav id='nav' className={classes}>
-            <div className='float-right p-2 w-fit h-fit'>
-                <Image src={navIcon ? open ? menuIcon : closeMenu : arrow} id='navbutton' alt="arrow" width={20} height={20} layout='fixed' className='hover:cursor-pointer transition'  onClick={e => handleClick(e)} />
+        <nav id='nav' className={open ? "bg-na3ne3i h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full md:w-10 pt-2 pr-2 md:pr-1 md:pt-5" : "bg-na3ne3i h-screen md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-5"}>
+            <div className='py-2 px-1 w-7 h-9 top-1 right-1 absolute'>
+                <Image src={open ? menuIcon : closeMenu} id='navbutton' alt="arrow" width={20} height={20} layout='fixed' className='hover:cursor-pointer transition'  onClick={e => handleClick(e)} />
             </div>
-            <AdminSearchField selected={props.selected} show={menu} />
-            <AddProduct selected={props.selected} handleClick={props.handleClick} show={menu} />
-            <ModifyProducts selected={props.selected} handleClick={props.handleClick} show={menu} />
+            {menu ? 
+            <>
+            <AdminSearchField selected={props.selected} />
+            <Link href='/admin/products/add'>
+            <div className={props.selected == 1 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer rounded-lg" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg"}>
+            {props.selected == 1 ? <Image src={addselected} alt="plus" width={15} height={15} layout="fixed" id='addIcon' /> : <Image src={add} alt="plus" width={15} height={15} layout="fixed" id='addIcon' />}
+            <a className={props.selected == 1 ? "font-medium text-na3ne3i whitespace-nowrap" : "font-medium text-white whitespace-nowrap"}>Ajouter des produits</a>
+            </div>
+            </Link>
+            
+            
+
+            <Link href='/admin/products/modify?page=0'>
+            <div id="modifyProducts" className={props.selected == 2 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer rounded-lg" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg"}>
+            {props.selected == 2 ? <Image src={Modifyselected} alt="plus" width={15} height={17} layout="fixed" /> : <Image src={Modify} alt="plus" width={15} height={17} layout="fixed" />}
+            <p className={props.selected == 2 ? "font-medium text-na3ne3i whitespace-nowrap" : "font-medium text-white whitespace-nowrap"}>Modifier les produits</p>
+        </div>
+            </Link>
+
+
+
+
             <br></br>
-            <ViewOrders selected={props.selected} handleClick={props.handleClick} show={menu} />
-            <ArchivedOrders selected={props.selected} handleClick={props.handleClick} show={menu} />
-            <Return show={menu} />
+
+            <Link href='/admin/orders/manage'>
+            <div
+            className={props.selected === 3 ? 'mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-lg' : 'mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg'}
+            >
+            {props.selected === 3 ? (
+                <Image
+                src={ordersselected}
+                alt='plus'
+                width={15}
+                height={15}
+                layout='fixed'
+                />
+            ) : (
+                <Image src={orders} alt='plus' width={15} height={15} layout='fixed' />
+            )}
+            <p className={props.selected === 3 ? ' font-medium text-na3ne3i whitespace-nowrap' : ' font-medium text-white whitespace-nowrap'}>Voir les commandes</p>
+            </div>
+            </Link>
+
+            <Link href='/admin/orders/archived'>
+
+            <div className={props.selected == 4 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-lg" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg"}>
+            {props.selected == 4 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
+            <p className={props.selected === 4 ? ' font-medium text-na3ne3i whitespace-nowrap' : ' font-medium text-white whitespace-nowrap'}>Commandes archivées</p>
+            </div>
+            </Link>
+
+
+            <div className="mt-9 w-fit pr-1 pl-0.5 flex flex-nowrap items-center space-x-1 hover:cursor-pointer group absolute bottom-3" onClick={() => {if(!loadingContext) router.push("/")}}>
+                <Image src={returnIcon} alt="plus" width={20} height={20} layout="fixed" />
+                <p className=" font-sm text-white whitespace-nowrap group-hover:border-b-[1px] border-white">Retour à la page client</p>
+            </div>
+            </> : null}
         </nav>
     )
 }

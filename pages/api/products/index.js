@@ -6,12 +6,19 @@ dbConnect();
 
 export default async (req, res) => {
     const session = await getSession({ req })
-    switch (req.method) {
+
+    const {
+        query : {page},
+        method 
+    } = req
+
+    switch (method) {
         case 'GET':
             try {
-                const Instruments = await Instrument.find({}).sort({createdAt: -1}).select({_id: 0, name: 1, description:1, category: 1, subcategory: 1, sizes: 1,reference: 1, image: 1,createdAt: 1,availability:1});
-
-                res.status(200).json({ success: true, data: Instruments });
+                const Instruments = await Instrument.find({}).sort({createdAt: -1}).skip(page*10).limit(10)
+                const NumberOfInstruments = await Instrument.countDocuments({})
+                
+                res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments });
             } catch (error) {
                 res.status(400).json({ success: false });
             }

@@ -160,7 +160,7 @@ export default function AddProductView(props){
                     sizes: form.sizes,
                     availability: form.availability
                 }
-                const res = await fetch('api/products', {
+                const res = await fetch('/api/products', {
                     method: 'POST',
                     headers: {
                         "Accept": "application/json",
@@ -170,7 +170,7 @@ export default function AddProductView(props){
                 }).then(async (res) => {
                     if(res.status == 201){
                         try{
-                            const res = await fetch('api/products',{
+                            const res = await fetch('/api/products',{
                                 method: 'GET',
                                 headers: {
                                     "Accept": "application/json",
@@ -246,7 +246,7 @@ export default function AddProductView(props){
                 ...form,
                 image: productImage,
             }
-            const res = await fetch('api/products/'+props.modifiedProduct.reference,{
+            const res = await fetch('/api/products/'+props.modifiedProduct.reference,{
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -276,17 +276,17 @@ export default function AddProductView(props){
     }
 
     return (
-        <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-14" : "relative h-full overflow-y-auto w-full border-2 border-zinc-300 rounded-md flex flex-wrap justify-around pt-14"}>
+        <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full flex flex-wrap justify-around pt-14" : "relative h-full overflow-y-auto w-full  flex flex-wrap justify-around pt-14"}>
             {loading || loadingContext ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
             {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
-            <form className="relative grid w-11/12 h-fit bg-white shadow-3xl lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
+            <form className="relative grid w-11/12 h-fit bg-white shadow-form lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
                 e.preventDefault()
                 setShow(true)
             }}>
                 
                     
                 <p className="text-gray-bg-na3ne3i font-medium">Nom:</p>
-                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-full border-2 border-main focus:border-secondary" required minLength={2} />
+                <input type="text" name="name" value={form.name} onChange={(e) => handleChange(e)}  className="rounded-lg h-10 outline-none w-full border border-na3ne3i focus:border-secondary" required minLength={2} />
                 
                 {nameError ? <p className="text-red-500">Un produit avec ce nom déjà existe</p> : null}
                 <p className="text-gray-bg-na3ne3i font-medium mt-3">Taille&#40;s&#41;:</p>
@@ -294,7 +294,7 @@ export default function AddProductView(props){
                
                 {form.sizes.map((item,index) => {
                     return (<div key={index} className="w-full flex flex-nowrap justify-center items-center my-1">
-                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border-2 border-main focus:border-secondary" required />
+                                <input type="number" name="sizes" min={0} value={item} onChange={(e) => handleSizesChange(e,index)} className="w-5/12 ml-8 rounded-lg mr-2 outline-none h-10 text-center border border-na3ne3i focus:border-secondary" required />
                                 {sizeRemoval ? <Image src={remove} alt="remove" width={20} height={20} layout="fixed" id="removeSize" className="hover:cursor-pointer grayscale" /> : <Image src={remove} alt="remove" width={20} height={20} layout="fixed" id="removeSize" className="hover:cursor-pointer" onClick={e => handleRemove(index)}/>}
                             </div>
                     )
@@ -304,7 +304,7 @@ export default function AddProductView(props){
                     handleClick()
                     }} className="w-fit mx-auto bg-na3ne3i px-3 font-bold text-white py-1 rounded-lg h-fit" >+</button>
                 <p className="text-gray-bg-na3ne3i font-medium">Description:</p>
-                <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border-2 w-full border-main focus:border-secondary" ></textarea>
+                <textarea rows="4" cols="50"  name="description" value={form.description} onChange={(e) => handleChange(e)}  className="rounded-lg outline-none border w-full border-na3ne3i focus:border-secondary" ></textarea>
 
                 <label className="bg-orange mt-5 mx-auto rounded-lg px-3 py-2 text-gray-bg-na3ne3i text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}
                 <input type="file" accept="image/*" name="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
@@ -312,16 +312,16 @@ export default function AddProductView(props){
                 {imageError ? 
                 <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
                 <p className="text-gray-bg-na3ne3i font-medium mt-5">Catégorie:</p>
-                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-secondary rounded-lg h-10 outline-none border-2 w-full border-main" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border-2 w-full border-main bg-zinc-300" />}
+                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-secondary rounded-lg h-10 outline-none border w-full border-na3ne3i" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border w-full border-na3ne3i bg-zinc-300" />}
                 <p className="text-gray-bg-na3ne3i font-medium mt-5">Sous-catégorie:</p>
-                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-secondary rounded-lg h-10 outline-none w-full border-2 border-main" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  readOnly className="rounded-lg h-10 outline-none w-full border-2 bg-zinc-300 border-main" />}
+                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-secondary rounded-lg h-10 outline-none w-full border border-na3ne3i" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  readOnly className="rounded-lg h-10 outline-none w-full border bg-zinc-300 border-na3ne3i" />}
                 <p className="text-gray-bg-na3ne3i font-medium mt-5">Disponibilité:</p>
                 <label className="text-gray-bg-na3ne3i">
                 <input type="radio" name="availability" value='available' className="mr-1 ml-3" checked={form.availability === 'available'} onChange={e => handleRadioChange(e)} />Disponible
                 </label>
                 <label className="text-gray-bg-na3ne3i">
                 <input type="radio" name="availability" value='unavailable' className="mr-1 ml-3" checked={form.availability === 'unavailable'} onChange={e => handleRadioChange(e)} />Sur commande</label>
-                <button type="button" className="absolute top-2 right-2 border-2 px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
+                <button type="button" className="absolute top-2 right-2 border px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-na3ne3i text-white p-3 rounded-lg font-medium text-sm md: xl:text-lg hover:text-orange hover:scale-105 whitespace-nowrap text-gray-bg-na3ne3i mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
             </form>
             <Modal show={show} onClose={() => setShow(false)} onConfirm={() => 
