@@ -107,18 +107,18 @@ export default function AdminNavbar(props){
             </Link>
 
             <Link href='/admin/orders/archived'>
-
-            <div className={props.selected == 4 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-lg" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg"}>
-            {props.selected == 4 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
-            <p className={props.selected === 4 ? ' font-medium text-na3ne3i whitespace-nowrap' : ' font-medium text-white whitespace-nowrap'}>Commandes archivées</p>
-            </div>
+                <div className={props.selected == 4 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-lg" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-lg"}>
+                {props.selected == 4 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
+                <p className={props.selected === 4 ? ' font-medium text-na3ne3i whitespace-nowrap' : ' font-medium text-white whitespace-nowrap'}>Commandes archivées</p>
+                </div>
             </Link>
 
-
-            <div className="mt-9 w-fit pr-1 pl-0.5 flex flex-nowrap items-center space-x-1 hover:cursor-pointer group absolute bottom-3" onClick={() => {if(!loadingContext) router.push("/")}}>
-                <Image src={returnIcon} alt="plus" width={20} height={20} layout="fixed" />
-                <p className=" font-sm text-white whitespace-nowrap group-hover:border-b-[1px] border-white">Retour à la page client</p>
-            </div>
+            <Link href='/'>
+                <div className="mt-9 w-fit pr-1 pl-0.5 flex flex-nowrap items-center space-x-1 hover:cursor-pointer group absolute bottom-3">
+                    <Image src={returnIcon} alt="plus" width={20} height={20} layout="fixed" />
+                    <p className=" font-sm text-white whitespace-nowrap group-hover:border-b-[1px] border-white">Retour à la page client</p>
+                </div>
+            </Link>
             </> : null}
         </nav>
     )

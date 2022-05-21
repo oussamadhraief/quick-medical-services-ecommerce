@@ -1,16 +1,15 @@
 import Head from 'next/head'
-import MainContent from '../components/MainContent'
 import Footer from '../components/Footer'
 import { useSession } from "next-auth/react"
 import { useEffect,useState } from 'react'
-import { ProductsContext } from '../utils/ProductsContext'
 import Header from "../components/Header"
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { SearchContext } from '../utils/SearchContext'
 import { useRouter } from 'next/router'
 import { CartContext } from "../utils/CartContext"
-
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home (props) {
   const { data: session, status } = useSession()
@@ -19,7 +18,6 @@ export default function Home (props) {
 
 
   const [activatedModal,setActivatedModal] = useState(false)
-  const [loading,setLoading] = useState(true)
   const [value,setValue] = useState([])
   const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
   const [search,setSearch] = useState('')
@@ -27,39 +25,12 @@ export default function Home (props) {
 
   
   useEffect(() => {
-    async function fetchData() {
-    if(value.length < 1){
-        Promise.all([
-        fetch('/api/products/availability?page='+0,{
-          method: 'POST',
-          headers: {
-              "Accept": "application/json",
-              "Content-type": "application/json"
-          } ,
-          body: JSON.stringify({availability: 'available'})
-        }).then(res =>  res.json()),
-        fetch('/api/products/availability?page='+0,{
-          method: 'POST',
-         headers: {
-            "Accept": "application/json",
-            "Content-type": "application/json"
-         } ,
-          body: JSON.stringify({availability: 'unavailable'})
-        }).then(res =>  res.json())]).then((res) => {
-          const newValue = res[0].data.concat(res[1].data)
-          setValue(newValue)
-        })
-        setLoading(false)
-        }
-    }
     async function fetchCategories() {
       const res = await fetch('/api/categoriesandsubcategories')
       const { data } = await res.json()
       setCategoriesAndSubcategories(data)
    }
       fetchCategories()
-      fetchData()
-
 },[])
 
 useEffect(() => {
@@ -71,7 +42,7 @@ useEffect(() => {
     if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) router.push('/login')
   })
 
-  if (status === 'loading' || loading) {
+  if (status === 'loading') {
     return (
       <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
         <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
@@ -108,23 +79,24 @@ useEffect(() => {
         <meta name='twitter:description' value='Medical Supply Store' />
         <meta name='twitter:image' value='' />
       </Head>
-      <ProductsContext.Provider value={{value,setValue}}>
         <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}}>
         <CartContext.Provider value={{cartNumber,setCartNumber}} >
         <SearchContext.Provider value={{search,setSearch}}>
         <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
-            <Header landingPage={true}  />
+            <Header landingPage={false}  />
         </CategoriesContext.Provider>
-          <MainContent />
+          <div className='w-full h-fit grid place-content-center place-items-center font-medium mt-14 items-center text-light'>
+                    <div className='relative w-[30vw] min-h-full aspect-[13/9]'>  
+                        <Image src='pfe/jungle-tab-1_jmqpew' alt=' 404' layout='fill' />
+                    </div> 
+                        <Link href='/'>
+                            <a className='whitespace-nowrap text-xl mt-5 hover:text-orange'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
+                        </Link>
+        </div>
         </SearchContext.Provider>
         </CartContext.Provider>
         </ActivatedModalContext.Provider>
-        </ProductsContext.Provider>
       <Footer />
     </div>
   )
-}
-
-export async function getServerSideProps () {
-  return { props: { hi: 'hi' } }
 }

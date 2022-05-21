@@ -44,13 +44,13 @@ export default function AdminProducts(props){
     }
 
     return (
-        <div id="scrolltopdiv" className={loadingContext ? "hidden" : "w-60 h-fit grid place-items-center border-[1px] sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-lg overflow-hidden"}>
+        <div id="scrolltopdiv" className={loadingContext ? "hidden" : "w-60 h-fit grid place-items-center border-[1px] sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-md overflow-hidden"}>
                 <Image src={props.image} alt='product image' height={220} width={240} layout='fixed'  objectFit="contain" objectPosition="center" />
-                <div className="flex flex-nowrap h-fit w-full overflow-hidden justify-center mx-auto px-1">
+                <div className="flex flex-nowrap h-fit w-full overflow-hidden justify-center mx-auto px-1 mb-3 mt-1">
                     <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1">
-                    <button className="h-fit w-fit p-1 border-[1px] border-main rounded-lg font-normal text-main text-sm hover:scale-105" onClick={e => {
+                    <button className="h-fit w-fit p-1 bg-na3ne3i rounded-lg font-normal hover:text-orange text-white text-sm hover:scale-105" onClick={e => {
                         Router.push({
                             pathname: Router.pathname,
                             query: { product: props.reference }
@@ -58,7 +58,7 @@ export default function AdminProducts(props){
                             undefined, { shallow: true }
                             )
                         props.handleClick(props.reference)
-                    }}>Modifier</button> <button className="h-fit w-fit p-1 border-[1px] hover:text-white hover:bg-red-500 border-red-500 text-red-500 rounded-lg font-normal text-sm" onClick={e => setShow(true)}>Supprimer</button>
+                    }}>Modifier</button> <button className="h-fit w-fit p-1 border border-red-400 hover:border-orange hover:bg-orange bg-red-400 text-white rounded-lg font-normal text-sm" onClick={e => setShow(true)}>Archiver</button>
                 </div>
                 <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleDelete()} action={'delete'} content={'Êtes-vous sûr de vouloir supprimer ce produit ?'} />
         </div>

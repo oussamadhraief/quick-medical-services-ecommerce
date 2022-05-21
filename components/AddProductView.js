@@ -22,7 +22,6 @@ export default function AddProductView(props){
     const {value,setValue} = useContext(ProductsContext)
     const [loading,setLoading] = useState(false)
     const [nameError,setNameError] = useState(false)
-    const [imageError,setImageError] = useState(false)
     const {appear,setAppear} = useContext(NotificationContext)
     const [show,setShow] = useState(false)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
@@ -99,37 +98,6 @@ export default function AddProductView(props){
         }
     }
 
-    const handleReference = (capCategory,capSubcategory) => {
-        if(value.length > 0){
-        const categoryExists = value.some(item => item.category == capCategory)
-        if(categoryExists){
-        const subcategoryExists = value.some(item => item.subcategory == capSubcategory && item.category == capCategory)
-            if(subcategoryExists){
-                const productWithCategoryAndSubcategoryRef = value.find(item => item.subcategory == capSubcategory && item.category == capCategory)
-                const categoryAndSubcategoryRefArray = productWithCategoryAndSubcategoryRef.reference.split('.')
-                const productsReferences = value.filter(item => item.subcategory == capSubcategory)
-                const productRef = productsReferences.map(item => item.reference.split('.'))
-                const maxProdRef = productRef.map(item => item[2])
-                const productCounter = Math.max(...maxProdRef) + 1
-                return `${categoryAndSubcategoryRefArray[0]}.${categoryAndSubcategoryRefArray[1]}.${productCounter}`
-            }else{
-                const subcategoryReferences = value.filter(item => item.category == capCategory)
-                const subRefCount = subcategoryReferences.map(item => item.reference.split('.'))
-                const subRef = subRefCount.map(item => item[1])
-                const subcategoryCount = Math.max(...subRef) +1
-                const categoryAndSubcategoryRefArray = subRefCount[0]
-                return `${categoryAndSubcategoryRefArray[0]}.${subcategoryCount}.0`
-            }
-        }else {  
-            const references = value.map(item => item.reference.split('.'))
-            const categoryReferences = references.map(item => item[0])
-            const categoryCount = Math.max(...categoryReferences) + 1
-            return `${categoryCount}.0.0`
-        }}else {
-            return '0.0.0'
-        }
-    }
-
     const handleSubmit = async () => {
         setLoading(true)
         setLoadingContext(true)
@@ -139,8 +107,7 @@ export default function AddProductView(props){
             let trimmedCategory = form.category.trim()
             let trimmedSubcategory = form.subcategory.trim()
             let capCategory = trimmedCategory.charAt(0).toUpperCase() + trimmedCategory.slice(1).toLowerCase();
-            let capSubcategory = trimmedSubcategory.charAt(0).toUpperCase() + trimmedSubcategory.slice(1).toLowerCase();
-            let reference = handleReference(capCategory,capSubcategory)
+            let capSubcategory = trimmedSubcategory.charAt(0).toUpperCase() + trimmedSubcategory.slice(1).toLowerCase()
             const formData = new FormData()
             formData.append('file',productImage)
             formData.append('upload_preset','test123')
@@ -149,10 +116,8 @@ export default function AddProductView(props){
                 body: formData
             }).then(async r => {
                 const image = await r.json()
-                console.log(image);
                 let produit = {
                     image: image.public_id,
-                    reference: reference,
                     category: capCategory,
                     subcategory: capSubcategory,
                     name: form.name,
@@ -169,22 +134,8 @@ export default function AddProductView(props){
                     body: JSON.stringify(produit)
                 }).then(async (res) => {
                     if(res.status == 201){
-                        try{
-                            const res = await fetch('/api/products',{
-                                method: 'GET',
-                                headers: {
-                                    "Accept": "application/json",
-                                    "Content-Type": "application/json"
-                                },
-                            }).then(async res => {
-                                const { data } = await res.json()
-                                setValue(data)
-                                setLoading(false)
-                                setLoadingContext(false)
-                            })
-                            }catch(error){
-                                console.error(error)
-                            }
+                        setLoading(false)
+                        setLoadingContext(false)
                         setAppear({display: true, action: 'ajouté'})
                         setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
                         setProductImage('')
@@ -192,11 +143,7 @@ export default function AddProductView(props){
                     }else {
                         const { error,data } = await res.json()
                         console.error(error)
-                        if(error.keyPattern.hasOwnProperty('name')){
-                            setNameError(true)
-                        }else{
-                            setImageError(true)
-                        }
+                        setNameError(true)
                     }
                     setLoading(false)
                     setLoadingContext(false)
@@ -218,7 +165,6 @@ export default function AddProductView(props){
 
    async  function handleImageInput(e){
 
-        setImageError(false)
         const reader = new FileReader();
         reader.onload = async function () {
             setProductImage(reader.result)
@@ -258,12 +204,7 @@ export default function AddProductView(props){
                     setAppear({display: true, action: 'modifié'})
                     props.handleCancel()
                 }else{
-                    const { error } = await res.json()
-                    if(error.keyPattern.hasOwnProperty('name')){
-                        setNameError(true)
-                    }else{
-                        setImageError(true)
-                    }
+                    setNameError(true)
                     setLoading(false)
                 }
                 setLoadingContext(false)
@@ -309,8 +250,6 @@ export default function AddProductView(props){
                 <label className="bg-orange mt-5 mx-auto rounded-lg px-3 py-2 text-gray-bg-na3ne3i text-xs font-bold hover:cursor-pointer hover:bg-gray-500 hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}
                 <input type="file" accept="image/*" name="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
                 </label>
-                {imageError ? 
-                <p className="text-red-500 whitespace-nowrap text-center w-full mt-1">Un produit avec cette image déjà existe</p> : null}
                 <p className="text-gray-bg-na3ne3i font-medium mt-5">Catégorie:</p>
                 {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-secondary rounded-lg h-10 outline-none border w-full border-na3ne3i" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border w-full border-na3ne3i bg-zinc-300" />}
                 <p className="text-gray-bg-na3ne3i font-medium mt-5">Sous-catégorie:</p>

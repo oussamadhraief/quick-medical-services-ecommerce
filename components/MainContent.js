@@ -35,7 +35,7 @@ export default function MainContent(){
             <div className='w-full h-fit bg-white py-20 mb-32 mt-10 '>
             
             
-        <p className='text-lg sm:text-2xl md:text-4xl font-bold mx-auto w-fit mb-20 whitespace-nowrap'>Comment commander <span className='border-b-[3px] border-pinky'> en ligne</span>  ?</p>
+        <p className='text-lg sm:text-2xl md:text-4xl font-bold mx-auto w-fit mb-20 whitespace-nowrap text-third mainPageTitle'>Comment commander <span className='border-b-[3px] border-pinky'> en ligne</span>  ?</p>
         <div id='steps' className='w-full px-5 lg:px-0 lg:w-11/12 xl:w-10/12 2xl:w-9/12 gap-5 mx-auto h-fit bg-transparent py-0  flex flex-wrap lg:flex-nowrap justify-evenly items-center'>
            
             <div className='w-60 h-96 bg-white relative overflow-visible rounded-xl hover:cursor-pointer hover:scale-105 transition-all'>
@@ -93,7 +93,7 @@ export default function MainContent(){
         </div>
         </div>
             <div className='flex flex-col md:flex-row justify-center items-center md:justify-between w-screen h-fit px-5 md:px-0 py-2'>
-            <p className=' w-fit font-medium text-2xl text-center md:ml-10 '>Produits disponibles <span className='border-b-2 border-pinky'>à tout moment</span>: </p>
+            <p className=' w-fit font-medium text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-2 border-pinky'>à tout moment</span> </p>
             <div className='mt-3 md:mt-0 flex flex-nowrap justify-between items-center w-60 border-b border-na3ne3i md:mr-10 h-fit px-2 py-1'>
             <input type='text' name='availableSearch' value={availableSearch} onChange={(e) => {
                     setAvailableSearch(e.target.value)
@@ -139,7 +139,7 @@ export default function MainContent(){
                 </div>
             </div>
             <div className='flex flex-col md:flex-row justify-center items-center md:justify-between w-screen h-fit px-5 md:px-0 py-2'>
-            <p className=' w-fit font-medium text-2xl text-center md:ml-10 '>Produits disponibles <span className='border-b-2 border-pinky'>sur commande</span>: </p>
+            <p className=' w-fit font-medium text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-2 border-pinky'>sur commande</span> </p>
 
 
             <div className='mt-3 md:mt-0 flex flex-nowrap justify-between items-center w-60 border-b border-na3ne3i md:mr-10 h-fit px-2 py-1'>
@@ -155,10 +155,10 @@ export default function MainContent(){
 
             <div id='encourageSection' className='bg-[#8EB0A5] w-full h-fit md:h-[40vh] lg:h-[50vh] xl:h-[60vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-between items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-20'>
                 <div className='w-fit md:w-2/12 xl:w-1/4 h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0'>
-                    <h1 className='w-full h-fit text-third text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap'>Vous avez une question?</h1>
-                    <h1 className='w-fit h-fit text-third text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap mb-5'>Ou vous voulez nous laisser un commentaire ?</h1>
+                    <h1 className='w-full h-fit  text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap text-third mainPageTitle'>Vous avez une question?</h1>
+                    <h1 className='w-fit h-fit text-third text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap mb-5  mainPageTitle'>Ou vous voulez nous laisser un commentaire ?</h1>
                     <Link href='/contact'>
-                        <a className='text-white bg-third text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit'>Contactez-nous !</a>
+                        <a className='text-white bg-third text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit  mainPageTitle'>Contactez-nous !</a>
                     </Link>
                 </div>
                 {isMobile ? null :<ul className='w-5/12 lg:w-7/12 xl:w-1/2 h-full flex lg:min-h-[300px] flex-nowrap justify-start lg:justify-center items-center gap-5 relative order-1 md:order-2'>

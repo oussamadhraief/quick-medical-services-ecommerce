@@ -44,8 +44,7 @@ const InstrumentSchema = new mongoose.Schema(
         },
         image: {
             type: String,
-            required: [true, "Insérez une image"],
-            unique: true,
+            required: [true, "Insérez une image"]
         },
         archived: {
             type: Boolean,

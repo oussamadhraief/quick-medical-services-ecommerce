@@ -3,6 +3,7 @@ import { PageSelectionContext } from "../utils/PageSelectionContext"
 import { PagesContext } from "../utils/PagesContext"
 import { LoadingContext } from "../utils/LoadingContext"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 
 export default function PagesNavigator(props){
@@ -27,6 +28,7 @@ export default function PagesNavigator(props){
         }
         return arr
     }
+
     if(loadingContext) return null
     return(
         <div className={props.relative ? "relative  h-fit w-fit flex justify-center flex-nowrap py-1 bg-white z-50" : "absolute bottom-0 h-fit w-full flex justify-center flex-nowrap py-1 bg-[rgba(255,255,255,0.9)] z-50 rounded-b-lg"}>

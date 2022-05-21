@@ -35,6 +35,15 @@ export default function Admin(){
     useEffect(() => {
         async function fetchData() {
             setLoadingContext(true)
+            if(typeof(router.query.page) == 'undefined') {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+            }
+
             const res = await fetch('/api/products?page='+pageSelection)
             const { data,number } = await res.json()
             setValue(data)
