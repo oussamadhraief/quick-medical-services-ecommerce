@@ -125,7 +125,7 @@ export default function AddProductView(props){
                     sizes: form.sizes,
                     availability: form.availability
                 }
-                const res = await fetch('/api/products', {
+                await fetch('/api/products', {
                     method: 'POST',
                     headers: {
                         "Accept": "application/json",
@@ -141,7 +141,7 @@ export default function AddProductView(props){
                         setProductImage('')
                         setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
                     }else {
-                        const { error,data } = await res.json()
+                        const { error } = await res.json()
                         console.error(error)
                         setNameError(true)
                     }

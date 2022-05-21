@@ -21,70 +21,15 @@ export default function Admin(){
     const router = useRouter()
     
     const [value,setValue] = useState([])
-    const [adminLoading,setAdminLoading] = useState(true)
+    const [adminLoading,setAdminLoading] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
-    const [loadingContext,setLoadingContext] = useState(true)
+    const [loadingContext,setLoadingContext] = useState(false)
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
     const [searchContext,setSearchContext] = useState({searching: false, value: []})
 
 
-    useEffect(() => {
-        if (value.length < 1){
-            getProducts()
-        }else{
-            let count = 1
-            if(searchContext.searching){
-                count = Math.ceil(searchContext.value.length / 8)
-                if(count > 0) {setPages(count)} else {setPages(1)}
-                setPageSelection(0)
-            }else
-                count = Math.ceil(value.length / 8)
-                if(count > 0) {setPages(count)} else {setPages(1)}
-                setPageSelection(0)
-            }
-        },[value,searchContext])
-
-    useEffect(() => {
-        if(searchContext.searching){
-            let count = pageSelection * 8
-            let arr = searchContext.value.filter((item,index) => index >= count && index < count + 8)
-            setRenderedArray(arr)
-        }else{
-            let count = pageSelection * 8
-            let arr = value.filter((item,index) => index >= count && index < count + 8)
-            setRenderedArray(arr)
-        }
-    },[pageSelection,value,searchContext])
-
-    const getProducts = async () => {
-        try{
-            const res = await fetch('/api/products',{
-                method: 'GET',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-            })
-            const { data } = await res.json()
-            setValue(data)
-            setAdminLoading(false)
-            setLoadingContext(false)}
-            
-            catch(error){
-                console.error(error)
-            }
-    }
-
-    
-    
-    function handleClick(id){
-        setSelection(id)
-        let mql = window.matchMedia('(max-width: 767px)');
-        if(mql.matches)document.getElementById('navbutton').click()
-    }
-    
     if(status == 'loading') return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
           <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">

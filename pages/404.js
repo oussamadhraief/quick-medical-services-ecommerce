@@ -85,13 +85,15 @@ useEffect(() => {
         <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
             <Header landingPage={false}  />
         </CategoriesContext.Provider>
-          <div className='w-full h-fit grid place-content-center place-items-center font-medium mt-14 items-center text-light'>
-                    <div className='relative w-[30vw] min-h-full aspect-[13/9]'>  
-                        <Image src='pfe/jungle-tab-1_jmqpew' alt=' 404' layout='fill' />
-                    </div> 
-                        <Link href='/'>
-                            <a className='whitespace-nowrap text-xl mt-5 hover:text-orange'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
-                        </Link>
+          <div className='w-full h-fit grid place-items-center font-medium mt-14 text-na3ne3i'>
+                          <p className='text-6xl text-orange font-extrabold'>PAGE NON TROUVÉE</p>
+                          <div className='relative w-1/3 aspect-[46/19]'>
+                              <Image src={'pfe/feelin_1_c5xhto'} alt='404' layout='fill' />
+                          </div>
+                          <p className='text-lg mt-5'>Veuillez nous excuser pour ce désagrément</p>
+                          <Link href='/'>
+                              <div className='whitespace-nowrap mt-5 flex items-center justify-center hover:text-orange'><span className='text-4xl'>&#x2190;</span>&nbsp;<span className='text-xl'>Retour à la page d&apos;acceuil</span> </div>
+                          </Link>
         </div>
         </SearchContext.Provider>
         </CartContext.Provider>

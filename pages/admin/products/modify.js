@@ -44,12 +44,21 @@ export default function Admin(){
                     )
             }
 
-            const res = await fetch('/api/products?page='+pageSelection)
+            const res = await fetch('/api/products?page='+router.query.page)
             const { data,number } = await res.json()
+            const numberOfPages = Math.ceil(number /10)
+            if(router.query.page > (numberOfPages - 1)) {
+                console.log('gg');
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+            }
             setValue(data)
             setAdminLoading(false)
             setLoadingContext(false)
-            const numberOfPages = Math.ceil(number /10)
             setPages(numberOfPages)
     }
     fetchData()

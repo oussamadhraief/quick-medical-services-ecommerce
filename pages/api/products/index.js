@@ -7,16 +7,16 @@ dbConnect();
 export default async (req, res) => {
     const session = await getSession({ req })
 
-    const {
-        query : {page},
-        method 
-    } = req
-
-    switch (method) {
+    switch (req.method) {
         case 'GET':
             try {
-                const Instruments = await Instrument.find({}).sort({createdAt: -1}).skip(page*10).limit(10)
                 const NumberOfInstruments = await Instrument.countDocuments({})
+                let Instruments
+                if(req.query.page > Math.ceil(NumberOfInstruments /10) -1){
+                    Instruments = await Instrument.find({}).sort({createdAt: -1}).limit(10)
+                }else{
+                    Instruments = await Instrument.find({}).sort({createdAt: -1}).skip(req.query.page*10).limit(10)
+                }
                 
                 res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments });
             } catch (error) {
@@ -28,7 +28,6 @@ export default async (req, res) => {
                 if(session.user.isAdmin){
                     try {
                             let reference
-                            
                             const productsExist = await Instrument.countDocuments({})
                             if(productsExist > 0){
                                 const categoryExists = await Instrument.findOne({category: req.body.category}).select({_id: 0, reference:1,subcategory: 1})
