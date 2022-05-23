@@ -1,50 +1,49 @@
 import dbConnect from "../../../utils/dbConnect"
-import Jumia from "../../../Models/Jumia"
+import Amazon from "../../../Models/Amazon"
 import { getSession } from "next-auth/react"
 
 dbConnect();
 
 export default async (req, res) => {
     const session = await getSession({ req })
-    switch (req.method) {
-        case "GET":
+
             try {
                 if(session){
                     if(session.user.isAdmin){
-                        const commande = await Jumia.find({});
-                        res.status(200).json({ success: true, data: commande });
-                    }
-                    else{
-                        console.log('Must be authorized')
+                        const NumberOfOrders = await Amazon.countDocuments({status: "En cours"})
+
+                        let Orders
+                        
+                        if(req.query.page > Math.ceil(NumberOfOrders / 20) -1){
+                            
+                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).limit( 20).populate('user')
+                            
+                            res.status(200).json({ success: true, data: Orders, number: NumberOfOrders, index: 0 })
+                            
+                            return
+                            
+                        }else{
+                            
+                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).skip(req.query.page* 20).limit( 20).populate('user')
+
+                            res.status(200).json({ success: true, data: Orders, number: NumberOfOrders, index: req.query.page });
+
+                            return
+                        }
+                    }else{
                         res.status(401).json({success: false , message: 'Must be authorized'})
+                        
+                        return
                     }
                 }
                 else{
-                    console.log('Must be authenticated')
                     res.status(401).json({success: false , message: 'Must be authenticated'})
+                    
+                    return
                 }
                 
             } catch(error) {
-                console.error(error)
                 res.status(400).json({ success: false });
-            }
-            break;
-        case "POST":
-            try {
-                if(session){
-                    const commande = await Jumia.create(req.body);
-                    res.status(201).json({ success: true, data: commande }); 
-                }
-                else{
-                    console.log('Must be authenticated')
-                    res.status(401).json({success: false , message: 'Must be authenticated'})
-                }
-                
-            } catch (error) {
-                console.error(error)
-                res.status(400).json({ success: false });
-            }
-            break;
-        
-    }
-};
+            }  
+    
+}

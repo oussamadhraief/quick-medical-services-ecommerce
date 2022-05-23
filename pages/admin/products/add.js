@@ -21,7 +21,6 @@ export default function Admin(){
     const router = useRouter()
     
     const [value,setValue] = useState([])
-    const [adminLoading,setAdminLoading] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(false)
     const [pages,setPages] = useState(0)
@@ -75,7 +74,6 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            {adminLoading && status !== 'loading' ? <LoadingAnimation key='admin' bgOpacity={true} /> : null}
             
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>

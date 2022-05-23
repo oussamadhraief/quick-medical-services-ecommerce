@@ -2,14 +2,14 @@ import Image from "next/image"
 import 'animate.css'
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { useSession, signOut, signIn } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 
 
 export default function Navbar({ scrolled }){
     const { data: session, status } = useSession()
     const [isMobile,setIsMobile]= useState(false)
     const [dropDown , setDropDown] = useState(false)
-    const logo = 'pfe/Quick_medical_services_3_dwzzzz.png'
+    const logo = 'pfe/Quick_medical_services_j8u9c6'
     const isAuthenticated = (status === "authenticated")
 
     useEffect(()=>{
@@ -68,7 +68,7 @@ export default function Navbar({ scrolled }){
     return(
         <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
             <Link href='/'>
-                <a className="relative ml-4 w-44 lg:m-0 md:w-60 aspect-[43/10] flex flex-nowrap justify-center items-center hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
+                <a className="relative ml-4 w-44 lg:m-0 md:w-56 aspect-[4/1] hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>
             
             <ul id="navDropdown" className={dropDown? "fixed grid place-content-center place-items-center pb-[150vh] gap-14 w-screen h-[200vh] bg-na3ne3i top-0 left-0":"lg:w-3/6 h-fit hidden lg:flex  justify-end mr-8 gap-10 xl:gap-16 items-center"}>

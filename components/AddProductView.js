@@ -136,6 +136,7 @@ export default function AddProductView(props){
                     if(res.status == 201){
                         setLoading(false)
                         setLoadingContext(false)
+                        setAppear({display: false, action: ''})
                         setAppear({display: true, action: 'ajouté'})
                         setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
                         setProductImage('')
@@ -201,6 +202,7 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 200){
+                    setAppear({display: false, action: ''})
                     setAppear({display: true, action: 'modifié'})
                     props.handleCancel()
                 }else{

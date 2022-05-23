@@ -1,4 +1,4 @@
-import Jumia from '../../../Models/Jumia'
+import Amazon from '../../../Models/Amazon'
 import Testeur from '../../../Models/Testeur'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
@@ -31,7 +31,7 @@ export default async function handler (req, res) {
       })
     }
 
-    const commande = await Jumia.create({
+    const commande = await Amazon.create({
       user: User,
       email: req.body.email,
       cart: orderData,

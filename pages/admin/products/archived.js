@@ -31,42 +31,40 @@ export default function Admin(){
     const [searchContext,setSearchContext] = useState({searching: false, value: []})
 
 
-    
     useEffect(() => {
-        fetchData()
-    },[router.query.page])
-    
-    async function fetchData() {
-        setLoadingContext(true)
-        let querypage 
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,
-                query: { page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-                querypage = 0
-            }else{
-                querypage = router.query.page
+        async function fetchData() {
+            setLoadingContext(true)
+            let querypage 
+            if(typeof(router.query.page) == 'undefined') {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+                    querypage = 0
+                }else{
+                    querypage = router.query.page
+                }
+            const res = await fetch('/api/products/archived?page='+querypage)
+            const { data,number,index } = await res.json()
+            const numberOfPages = Math.ceil(number /10)
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: index }
+                    }, 
+                    undefined, { shallow: true }
+                    )
             }
-        const res = await fetch('/api/products?page='+querypage)
-        const { data,number,index } = await res.json()
-        const numberOfPages = Math.ceil(number /10)
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setAdminLoading(false)
-        setLoadingContext(false)
-        setPages(numberOfPages)
-}
+            setValue(data)
+            setPageSelection(index)
+            setAdminLoading(false)
+            setLoadingContext(false)
+            setPages(numberOfPages)
+    }
+    fetchData()
+    },[router.query.page])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -113,7 +111,6 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            {/* {adminLoading && status !== 'loading' ? <LoadingAnimation key='admin' bgOpacity={true} /> : null} */}
             
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
@@ -121,8 +118,8 @@ export default function Admin(){
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={2} />
-                <ModifyProductsView editing={editing} setEditing={setEditing} />
+                <AdminNavbar selected={3} />
+                <ModifyProductsView archived={true} editing={editing} setEditing={setEditing} />
                 <Notification />
             </SearchContext.Provider>
             </PageSelectionContext.Provider>

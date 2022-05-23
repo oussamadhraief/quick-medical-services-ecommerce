@@ -1,4 +1,4 @@
-import Jumia from '../../../../Models/Jumia'
+import Amazon from '../../../../Models/Amazon'
 import Instrument from '../../../../Models/Instrument'
 import Testeur,{db} from '../../../../Models/Testeur'
 import dbConnect from '../../../../utils/dbConnect'
@@ -17,7 +17,7 @@ export default async function handler (req, res) {
           return
         }
     
-        let commande = await Jumia.findOne({user: User, _id: req.query.id}).populate('cart.product')
+        let commande = await Amazon.findOne({user: User, _id: req.query.id}).populate('cart.product')
     
         if(!commande){
             res.status(404).json({success: false, data: 'Order not found'})

@@ -10,15 +10,16 @@ export default async (req, res) => {
     switch (req.method) {
         case 'GET':
             try {
-                const NumberOfInstruments = await Instrument.countDocuments({})
+                const NumberOfInstruments = await Instrument.countDocuments({archived: false})
                 let Instruments
                 if(req.query.page > Math.ceil(NumberOfInstruments /10) -1){
-                    Instruments = await Instrument.find({}).sort({createdAt: -1}).limit(10)
+                    Instruments = await Instrument.find({archived: false}).sort({createdAt: -1}).limit(10)
+                    res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments, index: 0 });
                 }else{
-                    Instruments = await Instrument.find({}).sort({createdAt: -1}).skip(req.query.page*10).limit(10)
+                    Instruments = await Instrument.find({archived: false}).sort({createdAt: -1}).skip(req.query.page*10).limit(10)
+                    res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments, index: req.query.page });
                 }
                 
-                res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments });
             } catch (error) {
                 res.status(400).json({ success: false });
             }
@@ -90,30 +91,6 @@ export default async (req, res) => {
                         res.status(200).json({ success: true, data: Instrument });
                     } catch (error) {
                         res.status(400).json({ success: false });
-                    }
-                }
-                else{
-                    res.status(401).json({success: false, message: ' Must be authorized'})
-                }
-            }
-            else{
-                res.status(401).json({success: false, message: ' Must be authenticated'})
-            }
-            
-            break;
-        case 'DELETE':
-            if(session){
-                if(session.user.isAdmin){
-                    try {
-                        const deletedInstrument = await Instrument.deleteOne({
-                            reference: req.body.reference,
-                        });
-                        if (!deletedInstrument) {
-                            return res.status(400).json({ success: false });
-                        }
-                        return res.status(200).json({ sucees: true, data: {} });
-                    } catch (error) {
-                        return res.status(400).json({ success: false });
                     }
                 }
                 else{

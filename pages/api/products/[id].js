@@ -43,17 +43,42 @@ const handleSingleProduct =  async (req, res) => {
             break;
         case "DELETE":
             try {
-                const deletedInstrument = await Instrument.deleteOne({
+                const deletedInstrument = await Instrument.findOneAndUpdate({
                     reference: id,
-                });
-                if (!deletedInstrument) {
-                    return res.status(400).json({ success: false });
-                }
-                return res.status(200).json({ sucees: true, data: {} });
+                },
+                {archived: true}
+                ,
+                { new: true, runValidators: true });
+                    if (!deletedInstrument) {
+                        return res.status(400).json({ success: false });
+                    }
+                 res.status(200).json({ sucees: true, data: deletedInstrument })
             } catch (error) {
-                return res.status(400).json({ success: false });
+                 res.status(400).json({ success: false });
             }
             break;
+            case "PATCH":
+                try {
+                    const deletedInstrument = await Instrument.findOneAndUpdate({
+                        reference: id,
+                    },
+                    {archived: false}
+                    ,
+                    { new: true, runValidators: true });
+                    
+                        if (!deletedInstrument) {
+                            return res.status(400).json({ success: false });
+                        }
+
+                     res.status(200).json({ sucees: true, data: deletedInstrument })
+                } catch (error) {
+                     res.status(400).json({ success: false });
+                }
+                break
+
+        default:
+        res.status(400).json({ success: false });
+        break;
     }
 };
 

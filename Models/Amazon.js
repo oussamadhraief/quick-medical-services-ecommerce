@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
-const JumiaSchema = new mongoose.Schema(
+const AmazonSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -78,4 +78,4 @@ const JumiaSchema = new mongoose.Schema(
 )
 
 module.exports =
-mongoose.models.Jumia || mongoose.model('Jumia', JumiaSchema)
+mongoose.models.Amazon || mongoose.model('Amazon', AmazonSchema)

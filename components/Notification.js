@@ -16,7 +16,7 @@ export default function Notification(props){
             temp.push(setTimeout(() => {
                 setAppear({display: false, action: ''})
             }, 1000))
-        }, 3000))
+        }, 1000))
     }
 
         return () => {

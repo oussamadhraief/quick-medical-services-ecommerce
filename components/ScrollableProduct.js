@@ -35,15 +35,18 @@ export default function ScrollableProduct ({ product }) {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({reference : product.reference})
-    }).then(res => {
-        if(res.status == 201)  setCartNumber(prev => prev + 1)
     })
+    const { cart } = await res.json()
+    setCartNumber(cart)
     
   }
 
   return (
     <div className='w-60 min-w-min p-3 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[320px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
       <SizeSelectionContext.Provider value={{ selectedSize, setSelectedSize }}>
+      {product.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
+                    <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
+        </div> : null }
         <div className='mx-auto w-[95%] h-fit flex justify-center items-center relative  hover:cursor-pointer'>
           <div className='bg-white h-fit w-fit rounded-full shadow-3xl px-2 justify-center items-center absolute z-[9999] bottom-1/2 top-1/2 hidden group-hover:flex animate__animated animate__fadeInUp'>
             <Image

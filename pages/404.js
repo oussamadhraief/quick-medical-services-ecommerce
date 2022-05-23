@@ -34,8 +34,15 @@ export default function Home (props) {
 },[])
 
 useEffect(() => {
-  if(session)setCartNumber(session.user.cart.length)
-},[session])
+  if(session){
+    async function fetchCart(){
+        const res = await fetch('/api/user/usercart')
+        const { data } = await res.json()
+        setCartNumber(data.length)
+    }
+    fetchCart()
+  }
+},[status])
 
   
   useEffect(() => {
@@ -85,15 +92,20 @@ useEffect(() => {
         <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}}>
             <Header landingPage={false}  />
         </CategoriesContext.Provider>
-          <div className='w-full h-fit grid place-items-center font-medium mt-14 text-na3ne3i'>
-                          <p className='text-6xl text-orange font-extrabold'>PAGE NON TROUVÉE</p>
-                          <div className='relative w-1/3 aspect-[46/19]'>
+          <div className='w-full h-fit grid place-items-center sm:flex justify-center items-center font-medium mt-10 text-na3ne3i'>
+                          <div className='relative w-60 aspect-[3/4]'>
+                              <Image src={'pfe/feelin_2_dglf5i'} alt='404' layout='fill' />
+                          </div>
+                          <div className='grid h-full'>
+                            
+                          <p className='text-2xl text-orange text-center font-extrabold'>OOPS ! PAGE NON TROUVÉE</p>
+                          <div className='relative w-80 aspect-[46/20]'>
                               <Image src={'pfe/feelin_1_c5xhto'} alt='404' layout='fill' />
                           </div>
-                          <p className='text-lg mt-5'>Veuillez nous excuser pour ce désagrément</p>
                           <Link href='/'>
-                              <div className='whitespace-nowrap mt-5 flex items-center justify-center hover:text-orange'><span className='text-4xl'>&#x2190;</span>&nbsp;<span className='text-xl'>Retour à la page d&apos;acceuil</span> </div>
+                              <div className='whitespace-nowrap mt-2 flex items-center justify-center hover:text-orange hover:cursor-pointer'><span className='text-3xl'>&#x2190;</span>&nbsp;<span className='text-lg'>Retour à la page d&apos;acceuil</span> </div>
                           </Link>
+                          </div>
         </div>
         </SearchContext.Provider>
         </CartContext.Provider>

@@ -61,7 +61,13 @@ export default function Information () {
 
   useEffect(() => {
     if(session){
-      setCartNumber(session.user.cart.length)
+      async function fetchCart(){
+          const res = await fetch('/api/user/usercart')
+          const { data } = await res.json()
+          setCartNumber(data.length)
+      }
+      fetchCart()
+        
       setInformation({
         name: session.user.name,
         phone: session.user.phone,
@@ -257,7 +263,7 @@ export default function Information () {
               <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Num de téléphone:
                   <input type="number" required minLength={8} onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-8/12' />
               </label>
-              <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-orange px-4 py-2 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer tous les <br></br> changements</button>
+              <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-orange px-5 py-2.5 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
           </form>
 
           <div className='grid w-fit gap-5'>

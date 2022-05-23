@@ -47,10 +47,12 @@ export default NextAuth({
   callbacks:{
     async session({session, user}){
       const thisTesteur = await Testeur.findOne({email : session.user.email})
-      if (typeof(thisTesteur.isAdmin) == 'undefined') {const newTesteur = await Testeur.findOneAndUpdate({email : session.user.email},{
-        ...thisTesteur,
-        isAdmin: false,
-      })}
+      
+      // if (typeof(thisTesteur.isAdmin) == 'undefined') {
+      //   const newTesteur = await Testeur.findOneAndUpdate({email : session.user.email},{
+      //   ...thisTesteur,
+      //   isAdmin: false,
+      // })}
       session.user.address = thisTesteur.address
       session.user.city = thisTesteur.city
       session.user.country = thisTesteur.country
@@ -58,7 +60,6 @@ export default NextAuth({
       session.user.name = thisTesteur.name
       session.user.phone = thisTesteur.phone
       session.user.isAdmin = thisTesteur.isAdmin
-      session.user.cart = thisTesteur.cart
 
       
       return Promise.resolve(session)

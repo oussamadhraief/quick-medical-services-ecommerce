@@ -48,7 +48,7 @@ const TesteurSchema = new mongoose.Schema(
       default: 0
     },
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' }],
-    ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Jumia' }],
+    ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Amazon' }],
     estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
   },
   { timestamps: true }

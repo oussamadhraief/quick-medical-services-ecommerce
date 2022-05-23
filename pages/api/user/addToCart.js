@@ -20,6 +20,10 @@ export default async function handler (req, res) {
       res.status(400).json({ success: false, message: 'Product not found' })
     }
     
+    if(product.archived){
+      res.status(400).json({ success: false, message: 'Unable to add product to cart' })
+    }
+    
     const productExists = user.cart.some(item => {
       return item.toString() == product._id.toString()
     })
@@ -27,12 +31,12 @@ export default async function handler (req, res) {
     if (productExists) {
       res
         .status(200)
-        .json({ success: true, message: 'products exists already' })
+        .json({ success: true, message: 'products exists already', cart: user.cart.length })
     } else {
       user.cart.push(product)
       res
         .status(201)
-        .json({ success: true, message: 'product added successfully' })
+        .json({ success: true, message: 'product added successfully', cart: user.cart.length })
     }
     
 

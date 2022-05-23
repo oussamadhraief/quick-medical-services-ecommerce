@@ -1,17 +1,20 @@
+import Link from 'next/link'
 
-
-export default function OrderBody(){
+export default function OrderBody(props){
     return (
-        <tr className="border-b-[1px] min-w-full w-fit border-zinc-300 h-fit even:bg-zinc-200">
-            <td className="text-center p-3">Oussema Dhraief</td>
-            <td className="text-center p-3">10 Janv. 2022</td>
-            <td colSpan={2} className="text-center p-3">Hamlock&#40;1&#41;, Flatline&#40;1&#41;, R-301&#40;1&#41;, Mastiff&#40;1&#41;, Deez&#40;1&#41;, Halouani&#40;1&#41;,Hamlock&#40;1&#41;, Flatline&#40;1&#41;, R-301&#40;1&#41;, Mastiff&#40;1&#41;, Deez&#40;1&#41;, Halouani&#40;1&#41;,</td>
-            <td className="text-center p-3">num 2 rue hammem sousse sousse tunisia</td>
-            <td className="text-center p-3">95237383</td>
-            <td className="text-center p-3">oussema@deezhalouani.nuts</td>
-            <td className="text-center p-3">YOSR</td>
-            <td className="text-center p-3">123456789</td>
-            <td className='text-center'><button className="px-2 text-red-500 border-[1px] border-red-500 rounded-md mx-1 hover:text-white hover:bg-red-500">Archiver</button></td>
+        
+        <tr className='w-full h-10 border-b'>
+                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.id}</td>
+                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.createdAt.substr(0,10)}</td>
+                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.name}</td>
+                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.email}</td>
+                    <td> <p className='font-medium bg-orange w-28 px-2 py-0.5 rounded-md text-center mx-auto '>{props.status}</p> </td>
+                    <td className='flex justify-center items-center h-full px-2'>
+                        <Link href={`/account/orders/${props.id}`}>
+                            <a className='font-medium w-fit h-fit px-3 py-0.5 rounded-3xl bg-[#E7EDEE] shadow-form flex items-center mt-[4px]'> Voir</a>
+                        </Link>
+                    </td>
         </tr>
+           
     )
 }

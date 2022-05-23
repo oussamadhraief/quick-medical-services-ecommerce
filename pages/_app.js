@@ -10,7 +10,7 @@ export default function MyApp({
 }) {
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session}  >
       {Component.auth ? (
         <Auth>
           <Component {...pageProps} />

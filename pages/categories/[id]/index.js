@@ -68,8 +68,15 @@ export default function Details(){
     },[])
 
     useEffect(() => {
-        if(session)setCartNumber(session.user.cart.length)
-    },[session])
+        if(session){
+          async function fetchCart(){
+              const res = await fetch('/api/user/usercart')
+              const { data } = await res.json()
+              setCartNumber(data.length)
+          }
+          fetchCart()
+        }
+      },[status])
 
     function orderedTable(item,data){
         return {

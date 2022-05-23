@@ -74,8 +74,20 @@ export default function Cart() {
     },[cartNumber])
 
     useEffect(() => {
-        if(session)setCartNumber(session.user.cart.length)
-    },[session])
+        const AbortController = window.AbortController;
+        const abortController = new AbortController()
+        if(session){
+          async function fetchCart(){
+              const res = await fetch('/api/user/usercart',{ signal: abortController.signal })
+              const { data } = await res.json()
+              setCartNumber(data.length)
+          }
+          fetchCart()
+        }
+        return () => {
+            abortController.abort();
+          }
+      },[status])
 
     function orderedTable(item,data){
         return {

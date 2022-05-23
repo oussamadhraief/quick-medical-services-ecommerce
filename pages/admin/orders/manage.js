@@ -1,7 +1,6 @@
 import AdminNavbar from "../../../components/AdminNavbar"
-import ModifyProductsView from "../../../components/ModifyProductsView"
+import OrdersTable from "../../../components/OrdersTable"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../utils/ProductsContext"
 import LoadingAnimation from "../../../components/LoadingAnimation"
 import Notification from '../../../components/Notification'
 import { NotificationContext } from '../../../utils/NotificationContext'
@@ -26,47 +25,44 @@ export default function Admin(){
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState({searching: false, value: []})
 
 
-    
     useEffect(() => {
-        fetchData()
-    },[router.query.page])
-    
-    async function fetchData() {
-        setLoadingContext(true)
-        let querypage 
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,
-                query: { page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-                querypage = 0
-            }else{
-                querypage = router.query.page
+        async function fetchData() {
+            setLoadingContext(true)
+            let querypage 
+            if(typeof(router.query.page) == 'undefined') {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+                    querypage = 0
+                }else{
+                    querypage = router.query.page
+                }
+            const res = await fetch('/api/orders?page='+querypage)
+            const { data,number,index } = await res.json()
+            const numberOfPages = Math.ceil(number /20)
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: index }
+                    }, 
+                    undefined, { shallow: true }
+                    )
             }
-        const res = await fetch('/api/products?page='+querypage)
-        const { data,number,index } = await res.json()
-        const numberOfPages = Math.ceil(number /10)
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setAdminLoading(false)
-        setLoadingContext(false)
-        setPages(numberOfPages)
-}
+            setValue(data)
+            setPageSelection(index)
+            setAdminLoading(false)
+            setLoadingContext(false)
+            setPages(numberOfPages)
+    }
+    fetchData()
+    },[router.query.page])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -113,23 +109,21 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            {/* {adminLoading && status !== 'loading' ? <LoadingAnimation key='admin' bgOpacity={true} /> : null} */}
             
-            <ProductsContext.Provider value={{ value,setValue }}>
+
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={2} />
-                <ModifyProductsView editing={editing} setEditing={setEditing} />
+                <AdminNavbar selected={4} />
+                <OrdersTable orders={value} />
                 <Notification />
             </SearchContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
-            </ProductsContext.Provider>
         </div>
     )
 
