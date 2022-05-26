@@ -56,10 +56,15 @@ export default function AdminProducts(props){
                             })
                     }else{
                         let res
-                        if(props.archived){
-                            res = await fetch('/api/products/archived?page='+0)
+                        if(Router.pathname.includes('search')){
+                            res = await fetch('/api/search/'+Router.query.id+'?page='+0)
                         }else{
-                            res = await fetch('/api/products?page='+0)
+
+                            if(props.archived){
+                                res = await fetch('/api/products/archived?page='+0)
+                            }else{
+                                res = await fetch('/api/products?page='+0)
+                            }
                         }
                         
                         const { data,number } = await res.json()
@@ -79,19 +84,20 @@ export default function AdminProducts(props){
     }
 
     return (
-        <div id="scrolltopdiv" className={loadingContext ? "hidden" : "w-60 h-fit grid place-items-center border-[1px] sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-md overflow-hidden relative"}>
+        <div id="scrolltopdiv" className={loadingContext ? "hidden" : "w-64 h-fit grid place-items-center border-[1px] sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-md overflow-hidden relative"}>
                 {props.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
                     <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
                 </div> : null }
                 <Image src={props.image} alt='product image' height={220} width={240} layout='fixed'  objectFit="contain" objectPosition="center" />
                 <div className="flex flex-nowrap h-fit w-full overflow-hidden justify-center mx-auto px-1 mb-3 mt-1">
-                    <p className="font-semibold text-ellipsis overflow-clip">{props.name}</p><i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
+                    <Link href={'/products/'+props.reference}> 
+                        <a target='_blank' className="font-semibold text-ellipsis overflow-clip hover:underline">{props.name}</a>
+                    </Link>
+                    <i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1 flex gap-1 flex-nowrap items-center">
-                    <Link href={'/products/'+props.reference}> 
-                        <a target='_blank' className="h-fit w-fit py-1 px-3 border border-orange hover:border-pinky hover:bg-pinky bg-orange text-white rounded-lg font-normal text-sm">Voir</a>
-                    </Link>
-                    {props.archived ? null : <button className="h-fit w-fit p-1 bg-na3ne3i rounded-lg font-normal hover:border-pinky hover:bg-pinky text-white text-sm hover:scale-105" onClick={e => {
+                    
+                    {props.archived ? null : <button className="h-fit w-fit p-1 bg-emerald-700 rounded-lg font-normal hover:border-green-600 hover:bg-green-600 text-white text-sm hover:scale-105" onClick={e => {
                         Router.push({
                             pathname: Router.pathname,
                             query: { product: props.reference }
@@ -100,7 +106,7 @@ export default function AdminProducts(props){
                             )
                         props.handleClick(props.reference)
                     }}>Modifier</button> }
-                     <button className="h-fit w-fit p-1 border border-red-400 hover:border-pinky hover:bg-pinky bg-red-400 text-white rounded-lg font-normal text-sm" onClick={e => setShow(true)}>{props.archived ? 'Désarchiver' : 'Archiver'}</button>
+                     <button className={props.archived ? "h-fit w-fit p-1 border border-emerald-700 hover:border-red-400 hover:bg-red-400 bg-emerald-700 text-white rounded-lg font-normal text-sm" : "h-fit w-fit p-1 border border-bandena hover:border-red-400 hover:bg-red-400 bg-bandena text-white rounded-lg font-normal text-sm"} onClick={e => setShow(true)}>{props.archived ? 'Désarchiver' : 'Archiver'}</button>
                 </div>
                 {props.archived ? <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver ce produit ?'} /> :
                 <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'add'} content={'Êtes-vous sûr de vouloir désarchiver ce produit ?'} />  }

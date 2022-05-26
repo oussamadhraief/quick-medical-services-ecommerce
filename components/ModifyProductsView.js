@@ -41,8 +41,7 @@ export default function ModifyProductsView(props){
             <div className='min-h-full w-full grid'>
                 <div className="min-h-full h-full relative w-full overflow-y-auto gap-5 overflow-x-hidden rounded-md pb-8 pt-5 2xl:pt-10 2xl:px-10  lg:pt-5 lg:px-5 flex justify-evenly flex-wrap">
                 {value.map(item => {
-                    if(props.archived) return (<AdminProducts key={item.name} image={item.image} name={item.name} reference={item.reference} availability={item.availability} handleLoading={setLoading} archived={props.archived} />)
-                    return (<AdminProducts key={item.name} image={item.image} name={item.name} reference={item.reference} availability={item.availability} handleClick={handleEdit} handleLoading={setLoading} archived={props.archived} />)
+                    return (<AdminProducts key={item.name} image={item.image} name={item.name} reference={item.reference} availability={item.availability} handleClick={handleEdit} handleLoading={setLoading} archived={item.archived} />)
                 })}
                 </div>
                 <PagesNavigator relative={false}/>

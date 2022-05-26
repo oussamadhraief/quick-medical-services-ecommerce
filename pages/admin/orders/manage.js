@@ -1,4 +1,4 @@
-import AdminNavbar from "../../../components/AdminNavbar"
+import AdminMenu from "../../../components/AdminMenu"
 import OrdersTable from "../../../components/OrdersTable"
 import { useEffect, useState } from "react"
 import LoadingAnimation from "../../../components/LoadingAnimation"
@@ -26,7 +26,7 @@ export default function Admin(){
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(0)
-    const [searchContext,setSearchContext] = useState({searching: false, value: []})
+    const [searchContext,setSearchContext] = useState('')
 
 
     useEffect(() => {
@@ -111,19 +111,19 @@ export default function Admin(){
       </Head>
             
 
+            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={4} />
+                <AdminMenu selected={4} />
                 <OrdersTable orders={value} />
                 <Notification />
-            </SearchContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
+            </SearchContext.Provider>
         </div>
     )
 

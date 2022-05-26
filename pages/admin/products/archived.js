@@ -1,4 +1,4 @@
-import AdminNavbar from "../../../components/AdminNavbar"
+import AdminMenu from "../../../components/AdminMenu"
 import ModifyProductsView from "../../../components/ModifyProductsView"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
@@ -28,7 +28,7 @@ export default function Admin(){
     const [pages,setPages] = useState(0)
     const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
-    const [searchContext,setSearchContext] = useState({searching: false, value: []})
+    const [searchContext,setSearchContext] = useState('')
 
 
     useEffect(() => {
@@ -112,21 +112,21 @@ export default function Admin(){
         <meta name="twitter:image" value=""/>
       </Head>
             
+            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={3} />
+                <AdminMenu selected={3} />
                 <ModifyProductsView archived={true} editing={editing} setEditing={setEditing} />
                 <Notification />
-            </SearchContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
             </ProductsContext.Provider>
+            </SearchContext.Provider>
         </div>
     )
 

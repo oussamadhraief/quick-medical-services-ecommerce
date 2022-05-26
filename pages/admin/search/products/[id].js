@@ -1,14 +1,14 @@
-import AdminMenu from "../../../components/AdminMenu"
-import ModifyProductsView from "../../../components/ModifyProductsView"
+import AdminMenu from "../../../../components/AdminMenu"
+import ModifyProductsView from "../../../../components/ModifyProductsView"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../utils/ProductsContext"
-import Notification from '../../../components/Notification'
-import AdminNavbar from '../../../components/AdminNavbar'
-import { NotificationContext } from '../../../utils/NotificationContext'
-import { LoadingContext } from "../../../utils/LoadingContext"
-import { PagesContext } from "../../../utils/PagesContext"
-import { PageSelectionContext } from "../../../utils/PageSelectionContext"
-import { SearchContext } from "../../../utils/SearchContext"
+import { ProductsContext } from "../../../../utils/ProductsContext"
+import Notification from '../../../../components/Notification'
+import AdminNavbar from '../../../../components/AdminNavbar'
+import { NotificationContext } from '../../../../utils/NotificationContext'
+import { LoadingContext } from "../../../../utils/LoadingContext"
+import { PagesContext } from "../../../../utils/PagesContext"
+import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
+import { SearchContext } from "../../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
@@ -39,25 +39,26 @@ export default function Admin(){
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage 
+        let querypage = 0
+        const id = router.query.id
+        setSearchContext(id)
         if(typeof(router.query.page) == 'undefined') {
             router.push({
-                pathname: router.pathname,
-                query: { page: 0 }
+                pathname: router.pathname,  
+                query: { id: id,page: 0 }
                 }, 
                 undefined, { shallow: true }
                 )
-                querypage = 0
             }else{
                 querypage = router.query.page
             }
-        const res = await fetch('/api/products?page='+querypage)
+        const res = await fetch('/api/search/'+id+'?page='+querypage)
         const { data,number,index } = await res.json()
         const numberOfPages = Math.ceil(number /10)
         if(querypage != index) {
             router.push({
                 pathname: router.pathname,
-                query: { page: index }
+                query: { id: id,page: index }
                 }, 
                 undefined, { shallow: true }
                 )
@@ -114,7 +115,7 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
+                <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
                 <ProductsContext.Provider value={{ value,setValue }}>
@@ -122,8 +123,8 @@ export default function Admin(){
                 <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={2} open={open} setOpen={setOpen} />
-                    <ModifyProductsView archvied={false} editing={editing} setEditing={setEditing} />
+                    <AdminMenu selected={9} open={open} setOpen={setOpen} />
+                    <ModifyProductsView editing={editing} setEditing={setEditing} />
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>
@@ -131,7 +132,7 @@ export default function Admin(){
                 </NotificationContext.Provider>
                 </ProductsContext.Provider>
             </div>
-            </SearchContext.Provider>
+                </SearchContext.Provider>
 
         </div>
     )

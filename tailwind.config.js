@@ -30,7 +30,8 @@ module.exports = {
         rainy: '#B8C8DD',
         cleangray: '#F5F5F5',
         orange:'#F9BF87',
-        pinky: '#F7B1A2'
+        pinky: '#F7B1A2',
+        bandena: '#8A3D47'
       }
     }
   },

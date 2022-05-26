@@ -261,6 +261,12 @@ input[type=number] {
   background-size: cover;
 }
 
+.adminNavbar {
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
 /* :required:where(input):where(:not(:placeholder-shown, :invalid)) {
   outline: 2px solid green;
 }

@@ -1,4 +1,4 @@
-import AdminNavbar from "../../../components/AdminNavbar"
+import AdminMenu from "../../../components/AdminMenu"
 import AddProductView from "../../../components/AddProductView"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
@@ -26,7 +26,7 @@ export default function Admin(){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
-    const [searchContext,setSearchContext] = useState({searching: false, value: []})
+    const [searchContext,setSearchContext] = useState('')
 
 
     if(status == 'loading') return  (
@@ -75,23 +75,23 @@ export default function Admin(){
         <meta name="twitter:image" value=""/>
       </Head>
             
+            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
-            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
-                <AdminNavbar selected={1} />
+                <AdminMenu selected={1} />
                 <AddProductView addForm={true} />
                 <Notification />
-            </SearchContext.Provider>
             </RenderedArrayContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
             </ProductsContext.Provider>
+            </SearchContext.Provider>
         </div>
     )
 
