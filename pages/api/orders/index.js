@@ -16,7 +16,7 @@ export default async (req, res) => {
                         
                         if(req.query.page > Math.ceil(NumberOfOrders / 20) -1){
                             
-                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).limit( 20).populate('user')
+                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).limit(20).populate('user')
                             
                             res.status(200).json({ success: true, data: Orders, number: NumberOfOrders, index: 0 })
                             

@@ -68,7 +68,13 @@ export default function AdminProducts(props){
                         }
                         
                         const { data,number } = await res.json()
-                        const numberOfPages = Math.ceil(number /10)
+                        let numberOfPages
+                        if(number> 0){
+
+                            numberOfPages = Math.ceil(number /10)
+                        }else{
+                            numberOfPages = 1
+                        }
                         
                         setValue(data)
                         setPages(numberOfPages)

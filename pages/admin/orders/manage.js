@@ -1,8 +1,8 @@
 import AdminMenu from "../../../components/AdminMenu"
 import OrdersTable from "../../../components/OrdersTable"
 import { useEffect, useState } from "react"
-import LoadingAnimation from "../../../components/LoadingAnimation"
 import Notification from '../../../components/Notification'
+import AdminNavbar from '../../../components/AdminNavbar'
 import { NotificationContext } from '../../../utils/NotificationContext'
 import { LoadingContext } from "../../../utils/LoadingContext"
 import { PagesContext } from "../../../utils/PagesContext"
@@ -27,9 +27,11 @@ export default function Admin(){
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
+    const [open,setOpen] = useState(true)
 
 
     useEffect(() => {
+        console.log(router.query.id);
         async function fetchData() {
             setLoadingContext(true)
             let querypage 
@@ -46,7 +48,13 @@ export default function Admin(){
                 }
             const res = await fetch('/api/orders?page='+querypage)
             const { data,number,index } = await res.json()
-            const numberOfPages = Math.ceil(number /20)
+            let numberOfPages
+            if(number> 0){
+             numberOfPages = Math.ceil(number /20)
+            }else{
+                numberOfPages= 1
+            }
+            
             if(querypage != index) {
                 router.push({
                     pathname: router.pathname,
@@ -84,7 +92,7 @@ export default function Admin(){
 
     if(status == 'authenticated' &&  session.user.isAdmin)
     return(
-        <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
+        <div className="bg-white relative h-screen w-screen flex-col flex overflow-hidden">
             <Head>
         <title>Admin - QUICK Medical Services</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -112,17 +120,20 @@ export default function Admin(){
             
 
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
+            <AdminNavbar open={open} setOpen={setOpen} />
+            <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                <AdminMenu selected={4} />
+                <AdminMenu selected={4} open={open} setOpen={setOpen} />
                 <OrdersTable orders={value} />
                 <Notification />
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
             </NotificationContext.Provider>
+        </div>
             </SearchContext.Provider>
         </div>
     )

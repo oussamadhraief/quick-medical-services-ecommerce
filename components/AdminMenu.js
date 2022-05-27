@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import AdminSearchField from './AdminSearchField'
 import { useRouter } from "next/router"
 
 export default function AdminMenu(props){
@@ -51,7 +50,7 @@ export default function AdminMenu(props){
 
 
     return (
-        <nav id='nav' className={props.open ? "bg-na3ne3i h-screen md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-1" : "bg-na3ne3i border-t border-pinky h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 md:pl-0 z-40 w-full md:w-0 pt-2 pr-2 md:pr-0 md:pt-1"}>
+        <aside id='nav' className={props.open ? "bg-na3ne3i h-screen md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-1" : "bg-na3ne3i border-t border-pinky h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 md:pl-0 z-40 w-full md:w-0 pt-2 pr-2 md:pr-0 md:pt-1"}>
             
             {props.open ? 
             <>
@@ -78,7 +77,7 @@ export default function AdminMenu(props){
         </div>
             </Link>
 
-            <Link href='/admin/orders/manage'>
+            <Link href='/admin/orders/manage?page=0'>
             <div
             className={props.selected === 4 ? 'mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md' : 'mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md'}
             >
@@ -97,28 +96,28 @@ export default function AdminMenu(props){
             </div>
             </Link>
 
-            <Link href='/admin/orders/archived'>
+            <Link href='/admin/orders/archived?page=0'>
                 <div className={props.selected == 5 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 5 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
                 <p className={props.selected === 5 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Commandes archivées</p>
                 </div>
             </Link>
 
-            <Link href='/admin/estimates/manage'>
+            <Link href='/admin/estimates/manage?page=0'>
                 <div className={props.selected == 6 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 6 ? <Image src={quoteselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={quote} alt="plus" width={17} height={17} layout="fixed" />}
                 <p className={props.selected == 6 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Voir les demandes de devis</p>
                 </div>
             </Link>
 
-            <Link href='/admin/estimates/archived'>
+            <Link href='/admin/estimates/archived?page=0'>
                 <div className={props.selected == 7 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 7 ? <Image src={oldselected} alt="plus" width={13} height={15} layout="fixed" /> : <Image src={old} alt="plus" width={13} height={15} layout="fixed" />}
                 <p className={props.selected == 7 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Demandes de devis archivées</p>
                 </div>
             </Link>
 
-            <Link href='/admin/messages'>
+            <Link href='/admin/messages?page=0'>
                 <div className={props.selected == 8 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 8 ? <Image src={messagesselected} alt="plus" width={15} height={15} layout="fixed" /> : <Image src={messages} alt="plus" width={15} height={15} layout="fixed" />}
                 <p className={props.selected == 8 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Messages reçus</p>
@@ -137,6 +136,6 @@ export default function AdminMenu(props){
                 </div>
             </Link>
             </> : null}
-        </nav>
+        </aside>
     )
 }

@@ -54,7 +54,12 @@ export default function Admin(){
             }
         const res = await fetch('/api/search/'+id+'?page='+querypage)
         const { data,number,index } = await res.json()
-        const numberOfPages = Math.ceil(number /10)
+        let numberOfPages
+            if(number> 0){
+             numberOfPages = Math.ceil(number /10)
+            }else{
+                numberOfPages= 1
+            }
         if(querypage != index) {
             router.push({
                 pathname: router.pathname,
@@ -115,7 +120,7 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-                <SearchContext.Provider value={{ searchContext,setSearchContext }}>
+            <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
                 <ProductsContext.Provider value={{ value,setValue }}>

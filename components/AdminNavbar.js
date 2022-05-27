@@ -3,6 +3,7 @@ import UserNavigation from './UserNavigation'
 import { useState,useContext } from "react"
 import { useRouter } from 'next/router'
 import { SearchContext } from '../utils/SearchContext'
+import { useEffect } from 'react'
 
 function AdminNavbar(props) {
 
@@ -16,6 +17,14 @@ function AdminNavbar(props) {
     const menuIcon = 'pfe/icons8-menu-rounded-48_hjad2s'
     const closeMenu = 'pfe/icons8-menu-rounded-48_1_ncncux'
 
+    useEffect(() => {
+        if(router){
+            if(router.pathname.includes('orders')) setSearchCategory("Commandes")
+            if(router.pathname.includes('products')) setSearchCategory("Produits")
+            if(router.pathname.includes('quote')) setSearchCategory("Devis")
+        }
+    },[])
+
     function handleOpenMenu(){
        props.setOpen(prev => !prev)
     }
@@ -27,11 +36,13 @@ function AdminNavbar(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const searchText = searchContext.toLowerCase()
         switch(searchCategory){
             case 'Produits':
-                router.push('/admin/search/products/'+searchContext+'?page=0')
+                window.location = '/admin/search/products/'+searchText+'?page=0'
                 break;
             case 'Commandes':
+                window.location = '/admin/search/orders/'+searchText+'?page=0'
                 break;
             case 'Devis':
                 break;

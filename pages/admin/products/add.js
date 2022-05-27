@@ -2,8 +2,8 @@ import AdminMenu from "../../../components/AdminMenu"
 import AddProductView from "../../../components/AddProductView"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
-import LoadingAnimation from "../../../components/LoadingAnimation"
 import Notification from '../../../components/Notification'
+import AdminNavbar from '../../../components/AdminNavbar'
 import { NotificationContext } from '../../../utils/NotificationContext'
 import { LoadingContext } from "../../../utils/LoadingContext"
 import { PagesContext } from "../../../utils/PagesContext"
@@ -27,6 +27,8 @@ export default function Admin(){
     const [pageSelection,setPageSelection] = useState(null)
     const [renderedArray,setRenderedArray] = useState([])
     const [searchContext,setSearchContext] = useState('')
+    const [open,setOpen] = useState(true)
+
 
 
     if(status == 'loading') return  (
@@ -49,7 +51,7 @@ export default function Admin(){
 
     if(status == 'authenticated' &&  session.user.isAdmin)
     return(
-        <div className="bg-white relative h-screen w-screen grid md:flex md:flex-nowrap overflow-hidden">
+        <div className="bg-white relative h-screen w-screen flex-col flex overflow-hidden">
             <Head>
         <title>Admin - QUICK Medical Services</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -74,15 +76,17 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            
+
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
+                <AdminNavbar open={open} setOpen={setOpen} />
+             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
             <ProductsContext.Provider value={{ value,setValue }}>
             <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
-                <AdminMenu selected={1} />
+                <AdminMenu selected={1} open={open} setOpen={setOpen} />
                 <AddProductView addForm={true} />
                 <Notification />
             </RenderedArrayContext.Provider>
@@ -91,6 +95,7 @@ export default function Admin(){
             </LoadingContext.Provider>
             </NotificationContext.Provider>
             </ProductsContext.Provider>
+        </div>
             </SearchContext.Provider>
         </div>
     )

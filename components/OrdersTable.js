@@ -10,9 +10,10 @@ export default function OrdersTable({orders}){
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
     return(
-        <div className='h-screen pt-10 pb-12 w-full relative overflow-y-auto'>
+        <div className='h-full min-h-full pt-10 w-full relative grid overflow-y-auto'>
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
-            <table className='w-[99%] mx-auto h-fit py-10'>
+            <div className='w-[99%] mx-auto h-full pb-20 overflow-y-auto max-h-full'>
+            <table className='w-full h-fit'>
                 <thead className='w-full'>
                     <tr>
                     <th className='bg-[#E7EDEE] border-r border-white'>Référence</th>
@@ -28,7 +29,9 @@ export default function OrdersTable({orders}){
                     {orders.map(item => <OrderBody key={item._id} id={item._id} name={item.user.name} createdAt={item.createdAt} status={item.status} email={item.email} />)}
                 </tbody>
             </table>
-            <div className='fixed bottom-0 left-0 w-full'>
+            </div>
+            <div className='absolute bottom-0 left-0 w-full'>
+                
                 <PagesNavigator relative={false}/>
             </div>
         </div>

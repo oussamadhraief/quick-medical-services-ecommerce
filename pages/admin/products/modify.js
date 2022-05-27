@@ -53,7 +53,12 @@ export default function Admin(){
             }
         const res = await fetch('/api/products?page='+querypage)
         const { data,number,index } = await res.json()
-        const numberOfPages = Math.ceil(number /10)
+        let numberOfPages
+            if(number> 0){
+             numberOfPages = Math.ceil(number /10)
+            }else{
+                numberOfPages= 1
+            }
         if(querypage != index) {
             router.push({
                 pathname: router.pathname,
