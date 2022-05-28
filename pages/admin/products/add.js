@@ -44,12 +44,12 @@ export default function Admin(){
         return
     }
 
-    if(status == 'authenticated' && !session.user.isAdmin){
+    if(status == 'authenticated' && !session.user?.isAdmin){
         router.push('/')
         return
     }
 
-    if(status == 'authenticated' &&  session.user.isAdmin)
+    if(status == 'authenticated' &&  session.user?.isAdmin)
     return(
         <div className="bg-white relative h-screen w-screen flex-col flex overflow-hidden">
             <Head>

@@ -7,9 +7,12 @@ import { NotificationContext } from "../utils/NotificationContext"
 import { LoadingContext } from "../utils/LoadingContext"
 import 'animate.css'
 import Modal from "./Modal"
+import { useRouter } from "next/router"
 
 
 export default function AddProductView(props){
+
+    const router = useRouter()
 
     const remove = 'pfe/remove_kqcrbj.png' 
     const product = 'pfe/productPreview_gwcvck.png'
@@ -204,13 +207,12 @@ export default function AddProductView(props){
                 if(res.status == 200){
                     setAppear({display: false, action: ''})
                     setAppear({display: true, action: 'modifié'})
-                    props.handleCancel()
                 }else{
                     setNameError(true)
                     setLoading(false)
                 }
                 setLoadingContext(false)
-                if(res.status == 200 ) document.getElementById('modifyProducts').click()
+                setLoading(false)
             })
             
         } catch (error) {
@@ -221,7 +223,7 @@ export default function AddProductView(props){
     return (
         <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full flex flex-wrap justify-around pt-14" : "relative h-full overflow-y-auto w-full  flex flex-wrap justify-around pt-14"}>
             {loading || loadingContext ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
-            {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => props.handleCancel()}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
+            {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => router.push('/admin/products/manage?page=0')}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
             <form className="relative grid w-11/12 max-w-[700px] h-fit bg-white shadow-form lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
                 e.preventDefault()
                 setShow(true)

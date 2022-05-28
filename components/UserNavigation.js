@@ -24,10 +24,10 @@ const UserNavigation = () => {
             <Link href='/account/orders'>
                     <a className="hover:text-pinky w-full group-hover:block h-fit text-center  font-medium border-b pb-1 z-10">Mes commandes</a>
             </Link>
-            <button className="font-medium hover:text-pinky w-full group-hover:block h-fit text-center  pb-1 z-10" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/login' })} >Déconnexion</button>
+            <button className="font-medium hover:text-pinky w-full group-hover:block h-fit text-center  pb-1 z-10" onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} >Déconnexion</button>
             
         </div>
     </div> )
 }
 
-export default UserNavigation;
+export default UserNavigation

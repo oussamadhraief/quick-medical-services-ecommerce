@@ -1,17 +1,19 @@
-import AdminMenu from "../../../../components/AdminMenu"
-import ModifyProductsView from "../../../../components/ModifyProductsView"
+import AdminMenu from "../../components/AdminMenu"
+import Gallery from "../../components/Gallery"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../../utils/ProductsContext"
-import Notification from '../../../../components/Notification'
-import AdminNavbar from '../../../../components/AdminNavbar'
-import { NotificationContext } from '../../../../utils/NotificationContext'
-import { LoadingContext } from "../../../../utils/LoadingContext"
-import { PagesContext } from "../../../../utils/PagesContext"
-import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
-import { SearchContext } from "../../../../utils/SearchContext"
+import { ProductsContext } from "../../utils/ProductsContext"
+import Notification from '../../components/Notification'
+import AdminNavbar from '../../components/AdminNavbar'
+import { NotificationContext } from '../../utils/NotificationContext'
+import { LoadingContext } from "../../utils/LoadingContext"
+import { PagesContext } from "../../utils/PagesContext"
+import { PageSelectionContext } from "../../utils/PageSelectionContext"
+import { SearchContext } from "../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
+import useMessagesInfiniteScroll from "../../utils/useMessagesInfiniteScroll"
+import { useRef,useCallback } from "react"
 
 
 
@@ -19,61 +21,31 @@ import { useRouter } from 'next/router'
 export default function Admin(){
     const { data: session, status } = useSession()
 
+    
     const router = useRouter()
     
-    const [value,setValue] = useState([])
-    const [adminLoading,setAdminLoading] = useState(true)
+    // const [value,setValue] = useState([])
+    const [adminLoading,setAdminLoading] = useState(false)
     const [appear,setAppear] = useState({display: false, action: ''})
-    const [loadingContext,setLoadingContext] = useState(true)
+    const [loadingContext,setLoadingContext] = useState(false)
     const [pages,setPages] = useState(0)
     const [open,setOpen] = useState(true)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-
-
+    const { loading, Error, value, hasMore} = useMessagesInfiniteScroll(pageSelection)
     
-    useEffect(() => {
-        fetchData()
-    },[router.query.page])
-    
-    async function fetchData() {
-        setLoadingContext(true)
-        let querypage = 0
-        const id = router.query.id
-        setSearchContext(id)
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,  
-                query: { id: id,page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-            }else{
-                querypage = router.query.page
+    const observer = useRef()
+    const lastElementRef = useCallback(node => {
+        if(loading) return 
+        if(observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && hasMore){
+                setPageSelection(prev => prev + 1)
+                console.log('visible');
             }
-        const res = await fetch('/api/search/'+id+'?page='+querypage)
-        const { data,number,index } = await res.json()
-        let numberOfPages
-            if(number> 0){
-             numberOfPages = Math.ceil(number /10)
-            }else{
-                numberOfPages= 1
-            }
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { id: id,page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setAdminLoading(false)
-        setLoadingContext(false)
-        setPages(numberOfPages)
-}
+        })
+        if(node) observer.current.observe(node)
+    },[loading,hasMore])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -85,12 +57,12 @@ export default function Admin(){
     
     if(status == 'unauthenticated'){
     router.push('/login')
-        return
+        return null
     }
 
     if(status == 'authenticated' && !session.user?.isAdmin){
         router.push('/')
-        return
+        return null
     }
 
     if(status == 'authenticated' &&  session.user?.isAdmin)
@@ -123,21 +95,19 @@ export default function Admin(){
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
-                <ProductsContext.Provider value={{ value,setValue }}>
                 <NotificationContext.Provider value={{ appear,setAppear }}>
                 <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <ModifyProductsView editing={editing} setEditing={setEditing} />
+                    <AdminMenu selected={8} open={open} setOpen={setOpen} />
+                    <Gallery value={value} lastElementRef={lastElementRef} loading={loading} />
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>
                 </LoadingContext.Provider>
                 </NotificationContext.Provider>
-                </ProductsContext.Provider>
             </div>
-                </SearchContext.Provider>
+            </SearchContext.Provider>
 
         </div>
     )

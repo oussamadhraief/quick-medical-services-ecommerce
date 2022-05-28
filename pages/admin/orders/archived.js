@@ -1,14 +1,13 @@
-import AdminMenu from "../../../../components/AdminMenu"
-import ModifyProductsView from "../../../../components/ModifyProductsView"
+import AdminMenu from "../../../components/AdminMenu"
+import OrdersTable from "../../../components/OrdersTable"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../../utils/ProductsContext"
-import Notification from '../../../../components/Notification'
-import AdminNavbar from '../../../../components/AdminNavbar'
-import { NotificationContext } from '../../../../utils/NotificationContext'
-import { LoadingContext } from "../../../../utils/LoadingContext"
-import { PagesContext } from "../../../../utils/PagesContext"
-import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
-import { SearchContext } from "../../../../utils/SearchContext"
+import Notification from '../../../components/Notification'
+import AdminNavbar from '../../../components/AdminNavbar'
+import { NotificationContext } from '../../../utils/NotificationContext'
+import { LoadingContext } from "../../../utils/LoadingContext"
+import { PagesContext } from "../../../utils/PagesContext"
+import { PageSelectionContext } from "../../../utils/PageSelectionContext"
+import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
@@ -26,54 +25,52 @@ export default function Admin(){
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
-    const [open,setOpen] = useState(true)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
+    const [open,setOpen] = useState(true)
 
 
-    
     useEffect(() => {
-        fetchData()
-    },[router.query.page])
-    
-    async function fetchData() {
-        setLoadingContext(true)
-        let querypage = 0
-        const id = router.query.id
-        setSearchContext(id)
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,  
-                query: { id: id,page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-            }else{
-                querypage = router.query.page
-            }
-        const res = await fetch('/api/search/'+id+'?page='+querypage)
-        const { data,number,index } = await res.json()
-        let numberOfPages
+        console.log(router.query.id);
+        async function fetchData() {
+            setLoadingContext(true)
+            let querypage 
+            if(typeof(router.query.page) == 'undefined') {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+                    querypage = 0
+                }else{
+                    querypage = router.query.page
+                }
+            const res = await fetch('/api/orders/archived?page='+querypage)
+            const { data,number,index } = await res.json()
+            let numberOfPages
             if(number> 0){
-             numberOfPages = Math.ceil(number /10)
+             numberOfPages = Math.ceil(number /20)
             }else{
                 numberOfPages= 1
             }
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { id: id,page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setAdminLoading(false)
-        setLoadingContext(false)
-        setPages(numberOfPages)
-}
+            
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: index }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+            }
+            setValue(data)
+            setPageSelection(index)
+            setAdminLoading(false)
+            setLoadingContext(false)
+            setPages(numberOfPages)
+    }
+    fetchData()
+    },[router.query.page])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -120,25 +117,24 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
+            
+
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
-                <ProductsContext.Provider value={{ value,setValue }}>
-                <NotificationContext.Provider value={{ appear,setAppear }}>
-                <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
-                <PagesContext.Provider value={{ pages,setPages }}>
-                <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <ModifyProductsView editing={editing} setEditing={setEditing} />
-                    <Notification />
-                </PageSelectionContext.Provider>
-                </PagesContext.Provider>
-                </LoadingContext.Provider>
-                </NotificationContext.Provider>
-                </ProductsContext.Provider>
-            </div>
-                </SearchContext.Provider>
-
+            <NotificationContext.Provider value={{ appear,setAppear }}>
+            <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
+            <PagesContext.Provider value={{ pages,setPages }}>
+            <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
+                <AdminMenu selected={5} open={open} setOpen={setOpen} />
+                <OrdersTable orders={value} />
+                <Notification />
+            </PageSelectionContext.Provider>
+            </PagesContext.Provider>
+            </LoadingContext.Provider>
+            </NotificationContext.Provider>
+        </div>
+            </SearchContext.Provider>
         </div>
     )
 

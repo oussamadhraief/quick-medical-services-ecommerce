@@ -1,14 +1,14 @@
-import AdminMenu from "../../../../components/AdminMenu"
-import ModifyProductsView from "../../../../components/ModifyProductsView"
+import AdminMenu from "../../../components/AdminMenu"
+import ModifyProductsView from "../../../components/ModifyProductsView"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../../utils/ProductsContext"
-import Notification from '../../../../components/Notification'
-import AdminNavbar from '../../../../components/AdminNavbar'
-import { NotificationContext } from '../../../../utils/NotificationContext'
-import { LoadingContext } from "../../../../utils/LoadingContext"
-import { PagesContext } from "../../../../utils/PagesContext"
-import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
-import { SearchContext } from "../../../../utils/SearchContext"
+import { ProductsContext } from "../../../utils/ProductsContext"
+import Notification from '../../../components/Notification'
+import AdminNavbar from '../../../components/AdminNavbar'
+import { NotificationContext } from '../../../utils/NotificationContext'
+import { LoadingContext } from "../../../utils/LoadingContext"
+import { PagesContext } from "../../../utils/PagesContext"
+import { PageSelectionContext } from "../../../utils/PageSelectionContext"
+import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
@@ -39,20 +39,19 @@ export default function Admin(){
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage = 0
-        const id = router.query.id
-        setSearchContext(id)
+        let querypage 
         if(typeof(router.query.page) == 'undefined') {
             router.push({
-                pathname: router.pathname,  
-                query: { id: id,page: 0 }
+                pathname: router.pathname,
+                query: { page: 0 }
                 }, 
                 undefined, { shallow: true }
                 )
+                querypage = 0
             }else{
                 querypage = router.query.page
             }
-        const res = await fetch('/api/search/'+id+'?page='+querypage)
+        const res = await fetch('/api/products?page='+querypage)
         const { data,number,index } = await res.json()
         let numberOfPages
             if(number> 0){
@@ -63,7 +62,7 @@ export default function Admin(){
         if(querypage != index) {
             router.push({
                 pathname: router.pathname,
-                query: { id: id,page: index }
+                query: { page: index }
                 }, 
                 undefined, { shallow: true }
                 )
@@ -85,12 +84,12 @@ export default function Admin(){
     
     if(status == 'unauthenticated'){
     router.push('/login')
-        return
+        return null
     }
 
     if(status == 'authenticated' && !session.user?.isAdmin){
         router.push('/')
-        return
+        return null
     }
 
     if(status == 'authenticated' &&  session.user?.isAdmin)
@@ -128,8 +127,8 @@ export default function Admin(){
                 <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <ModifyProductsView editing={editing} setEditing={setEditing} />
+                    <AdminMenu selected={2} open={open} setOpen={setOpen} />
+                    <ModifyProductsView archvied={false} editing={editing} setEditing={setEditing} />
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>
@@ -137,7 +136,7 @@ export default function Admin(){
                 </NotificationContext.Provider>
                 </ProductsContext.Provider>
             </div>
-                </SearchContext.Provider>
+            </SearchContext.Provider>
 
         </div>
     )

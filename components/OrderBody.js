@@ -1,17 +1,34 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function OrderBody(props){
     return (
         
-        <tr className='w-full h-10 border-b'>
-                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.id}</td>
-                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.createdAt.substr(0,10)}</td>
-                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.name}</td>
-                    <td className='font-medium text-center whitespace-nowrap px-2'>{props.email}</td>
-                    <td> <p className='font-medium bg-orange w-28 px-2 py-0.5 rounded-md text-center mx-auto '>{props.status}</p> </td>
-                    <td className='flex justify-center items-center h-full px-2'>
-                        <Link href={`/account/orders/${props.id}`}>
-                            <a className='font-medium w-fit h-fit px-3 py-0.5 rounded-3xl bg-[#E7EDEE] shadow-form flex items-center mt-[4px]'> Voir</a>
+        <tr className='w-full h-fit even:bg-zinc-100 hover:cursor-pointer hover:bg-[#E7EDEE] relative'>
+                    <td className='font-bold text-center whitespace-nowrap px-2'>{props.id}</td>
+                    <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.name}</td>
+                    <td className='font-medium text-zinc-600 text-left px-3 space-y-1 py-3'>
+                        <p className=' font-thin'><span className='text-base font-medium'>Adresse:</span> {props.address}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Ville:</span> {props.city}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Pays</span> {props.country}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Code postal:</span> {props.zipCode}</p>
+                        </td>
+                        <td className='font-medium text-zinc-600 text-left px-3 space-y-1 py-3'>
+                        <p className=' font-thin'><span className='text-base font-medium'>Adresse:</span> {props.address2}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Ville:</span> {props.city2}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Pays</span> {props.country2}</p>
+                        <p className=' font-thin'><span className='text-base font-medium'>Code postal:</span> {props.zipCode2}</p>
+                        </td>
+                    <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.phoneNumber}</td>
+                    <td className='font-medium text-sm text-zinc-600 text-center whitespace-nowrap px-2'>{props.createdAt.substr(0,10)}</td>
+                    <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.email}</td>
+                    <td className='px-2'> <p className='font-bold bg-[#ffe8d3c6] text-orange w-24 px-2 py-1 rounded-md text-center mx-auto '>{props.status}</p> </td>
+                    <td className='w-14 flex justify-center items-center h-full'>
+                        <Link href={'admin/order/edit/'+props.id}>
+                            <div className='relative h-fit w-fit group'>
+                                <Image src={'pfe/icons8-edit-32_fuir9r'} alt='modifer' height={25} width={25} layout='fixed' />
+                                <p className='absolute top-0 right-[135%] hidden bg-white px-2 py-0.5 z-[99] rounded-md group-hover:block'>modifier</p>
+                            </div>
                         </Link>
                     </td>
         </tr>

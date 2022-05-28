@@ -63,7 +63,7 @@ export default function AdminMenu(props){
             
             
 
-            <Link href='/admin/products/modify?page=0'>
+            <Link href='/admin/products/manage?page=0'>
             <div id="modifyProducts" className={props.selected == 2 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap justify-center md:justify-start items-center space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
             {props.selected == 2 ? <Image src={Modifyselected} alt="plus" width={15} height={17} layout="fixed" /> : <Image src={Modify} alt="plus" width={15} height={17} layout="fixed" />}
             <p className={props.selected == 2 ? "font-medium text-[15px] text-na3ne3i whitespace-nowrap" : "font-medium text-[15px] text-white whitespace-nowrap"}>Modifier les produits</p>
@@ -103,14 +103,14 @@ export default function AdminMenu(props){
                 </div>
             </Link>
 
-            <Link href='/admin/estimates/manage?page=0'>
+            <Link href='/admin/quoterequests/manage?page=0'>
                 <div className={props.selected == 6 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 6 ? <Image src={quoteselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={quote} alt="plus" width={17} height={17} layout="fixed" />}
                 <p className={props.selected == 6 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Voir les demandes de devis</p>
                 </div>
             </Link>
 
-            <Link href='/admin/estimates/archived?page=0'>
+            <Link href='/admin/quoterequests/archived?page=0'>
                 <div className={props.selected == 7 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 7 ? <Image src={oldselected} alt="plus" width={13} height={15} layout="fixed" /> : <Image src={old} alt="plus" width={13} height={15} layout="fixed" />}
                 <p className={props.selected == 7 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Demandes de devis archivées</p>

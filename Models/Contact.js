@@ -32,11 +32,6 @@ const ContactSchema = new mongoose.Schema({
         trim: true,
         minlength: [4, 'Please enter a valid message']
     },
-    isRead :{
-        type : Boolean,
-        required : true , 
-        default: false
-    },
     isReview :{
         type : Boolean,
         required : true , 

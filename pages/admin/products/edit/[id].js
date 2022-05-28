@@ -1,13 +1,11 @@
 import AdminMenu from "../../../../components/AdminMenu"
-import ModifyProductsView from "../../../../components/ModifyProductsView"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../../utils/ProductsContext"
 import Notification from '../../../../components/Notification'
 import AdminNavbar from '../../../../components/AdminNavbar'
+import AddProductView from '../../../../components/AddProductView'
 import { NotificationContext } from '../../../../utils/NotificationContext'
 import { LoadingContext } from "../../../../utils/LoadingContext"
-import { PagesContext } from "../../../../utils/PagesContext"
-import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
 import { SearchContext } from "../../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
@@ -21,58 +19,29 @@ export default function Admin(){
 
     const router = useRouter()
     
-    const [value,setValue] = useState([])
+    const [value,setValue] = useState({reference: '',name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available',productImage: ''})
     const [adminLoading,setAdminLoading] = useState(true)
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
-    const [pages,setPages] = useState(0)
     const [open,setOpen] = useState(true)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
 
 
     
     useEffect(() => {
+        if(typeof(router.query.id) == 'string'){
         fetchData()
-    },[router.query.page])
+    }
+    },[])
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage = 0
-        const id = router.query.id
-        setSearchContext(id)
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,  
-                query: { id: id,page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-            }else{
-                querypage = router.query.page
-            }
-        const res = await fetch('/api/search/'+id+'?page='+querypage)
-        const { data,number,index } = await res.json()
-        let numberOfPages
-            if(number> 0){
-             numberOfPages = Math.ceil(number /10)
-            }else{
-                numberOfPages= 1
-            }
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { id: id,page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
+        const res = await fetch('/api/products/'+router.query.id)
+        const { data } = await res.json()
         setValue(data)
-        setPageSelection(index)
         setAdminLoading(false)
         setLoadingContext(false)
-        setPages(numberOfPages)
 }
     
     if(status == 'loading' || adminLoading) return  (
@@ -126,18 +95,14 @@ export default function Admin(){
                 <ProductsContext.Provider value={{ value,setValue }}>
                 <NotificationContext.Provider value={{ appear,setAppear }}>
                 <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
-                <PagesContext.Provider value={{ pages,setPages }}>
-                <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <ModifyProductsView editing={editing} setEditing={setEditing} />
+                    <AdminMenu selected={2} open={open} setOpen={setOpen} />
+                    <AddProductView key='edit' addForm={false} modifiedProduct={value} /> 
                     <Notification />
-                </PageSelectionContext.Provider>
-                </PagesContext.Provider>
                 </LoadingContext.Provider>
                 </NotificationContext.Provider>
                 </ProductsContext.Provider>
             </div>
-                </SearchContext.Provider>
+            </SearchContext.Provider>
 
         </div>
     )

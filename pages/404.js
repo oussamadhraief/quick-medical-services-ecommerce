@@ -99,9 +99,7 @@ useEffect(() => {
                           <div className='grid h-full'>
                             
                           <p className='text-2xl text-orange text-center font-extrabold'>OOPS ! PAGE NON TROUVÉE</p>
-                          <div className='relative w-80 aspect-[46/20]'>
-                              <Image src={'pfe/feelin_1_c5xhto'} alt='404' layout='fill' />
-                          </div>
+                  
                           <Link href='/'>
                               <div className='whitespace-nowrap mt-2 flex items-center justify-center hover:text-orange hover:cursor-pointer'><span className='text-3xl'>&#x2190;</span>&nbsp;<span className='text-lg'>Retour à la page d&apos;acceuil</span> </div>
                           </Link>

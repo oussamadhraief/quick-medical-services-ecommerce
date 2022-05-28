@@ -1,7 +1,6 @@
 import AdminMenu from "../../../components/AdminMenu"
-import ModifyProductsView from "../../../components/ModifyProductsView"
+import QuotesTable from "../../../components/QuotesTable"
 import { useEffect, useState } from "react"
-import { ProductsContext } from "../../../utils/ProductsContext"
 import Notification from '../../../components/Notification'
 import AdminNavbar from '../../../components/AdminNavbar'
 import { NotificationContext } from '../../../utils/NotificationContext'
@@ -26,53 +25,52 @@ export default function Admin(){
     const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
-    const [open,setOpen] = useState(true)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
+    const [open,setOpen] = useState(true)
 
 
-    
     useEffect(() => {
-        fetchData()
-    },[router.query.page])
-    
-    async function fetchData() {
-        setLoadingContext(true)
-        let querypage 
-        if(typeof(router.query.page) == 'undefined') {
-            router.push({
-                pathname: router.pathname,
-                query: { page: 0 }
-                }, 
-                undefined, { shallow: true }
-                )
-                querypage = 0
-            }else{
-                querypage = router.query.page
-            }
-        const res = await fetch('/api/products?page='+querypage)
-        const { data,number,index } = await res.json()
-        let numberOfPages
+        console.log(router.query.id);
+        async function fetchData() {
+            setLoadingContext(true)
+            let querypage 
+            if(typeof(router.query.page) == 'undefined') {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: 0 }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+                    querypage = 0
+                }else{
+                    querypage = router.query.page
+                }
+            const res = await fetch('/api/quoterequests/archived?page='+querypage)
+            const { data,number,index } = await res.json()
+            let numberOfPages
             if(number> 0){
-             numberOfPages = Math.ceil(number /10)
+             numberOfPages = Math.ceil(number /20)
             }else{
                 numberOfPages= 1
             }
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setAdminLoading(false)
-        setLoadingContext(false)
-        setPages(numberOfPages)
-}
+            
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: { page: index }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+            }
+            setValue(data)
+            setPageSelection(index)
+            setAdminLoading(false)
+            setLoadingContext(false)
+            setPages(numberOfPages)
+    }
+    fetchData()
+    },[router.query.page])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -87,12 +85,12 @@ export default function Admin(){
         return
     }
 
-    if(status == 'authenticated' && !session.user.isAdmin){
+    if(status == 'authenticated' && !session.user?.isAdmin){
         router.push('/')
         return
     }
 
-    if(status == 'authenticated' &&  session.user.isAdmin)
+    if(status == 'authenticated' &&  session.user?.isAdmin)
     return(
         <div className="bg-white relative h-screen w-screen flex-col flex overflow-hidden">
             <Head>
@@ -119,25 +117,24 @@ export default function Admin(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
+            
+
             <SearchContext.Provider value={{ searchContext,setSearchContext }}>
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
-                <ProductsContext.Provider value={{ value,setValue }}>
-                <NotificationContext.Provider value={{ appear,setAppear }}>
-                <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
-                <PagesContext.Provider value={{ pages,setPages }}>
-                <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
-                    <AdminMenu selected={2} open={open} setOpen={setOpen} />
-                    <ModifyProductsView archvied={false} editing={editing} setEditing={setEditing} />
-                    <Notification />
-                </PageSelectionContext.Provider>
-                </PagesContext.Provider>
-                </LoadingContext.Provider>
-                </NotificationContext.Provider>
-                </ProductsContext.Provider>
-            </div>
+            <NotificationContext.Provider value={{ appear,setAppear }}>
+            <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
+            <PagesContext.Provider value={{ pages,setPages }}>
+            <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
+                <AdminMenu selected={7} open={open} setOpen={setOpen} />
+                <QuotesTable quotes={value} />
+                <Notification />
+            </PageSelectionContext.Provider>
+            </PagesContext.Provider>
+            </LoadingContext.Provider>
+            </NotificationContext.Provider>
+        </div>
             </SearchContext.Provider>
-
         </div>
     )
 

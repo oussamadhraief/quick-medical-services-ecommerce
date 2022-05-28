@@ -7,7 +7,7 @@ const handleSingleProduct =  async (req, res) => {
     const {
         query: { id },
         method
-    } = req;
+    } = req
 
     switch (method) {
         case "GET":

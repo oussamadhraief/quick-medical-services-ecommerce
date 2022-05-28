@@ -21,7 +21,6 @@ export default function AdminProducts(props){
     const [show,setShow] = useState(false)
 
 
-
     const handleArchived = async () => {
         props.handleLoading(true)
         setLoadingContext(true)
@@ -97,21 +96,14 @@ export default function AdminProducts(props){
                 <Image src={props.image} alt='product image' height={220} width={240} layout='fixed'  objectFit="contain" objectPosition="center" />
                 <div className="flex flex-nowrap h-fit w-full overflow-hidden justify-center mx-auto px-1 mb-3 mt-1">
                     <Link href={'/products/'+props.reference}> 
-                        <a target='_blank' className="font-semibold text-ellipsis overflow-clip hover:underline">{props.name}</a>
+                        <a target='_blank' className="font-semibold text-ellipsis overflow-clip hover:underline whitespace-nowrap">{props.name}</a>
                     </Link>
                     <i>&nbsp;-&nbsp;Ref:&nbsp;</i> <p className="font-thin text-zinc-500 w-fit">{props.reference}</p>
                 </div>
                 <div className="h-fit w-fit mx-auto mt-1 flex gap-1 flex-nowrap items-center">
                     
                     {props.archived ? null : <button className="h-fit w-fit p-1 bg-emerald-700 rounded-lg font-normal hover:border-green-600 hover:bg-green-600 text-white text-sm hover:scale-105" onClick={e => {
-                        Router.push({
-                            pathname: Router.pathname,
-                            query: { product: props.reference }
-                            }, 
-                            undefined, { shallow: true }
-                            )
-                        props.handleClick(props.reference)
-                    }}>Modifier</button> }
+                        Router.push('/admin/products/edit/'+props.reference)}}>Modifier</button> }
                      <button className={props.archived ? "h-fit w-fit p-1 border border-emerald-700 hover:border-red-400 hover:bg-red-400 bg-emerald-700 text-white rounded-lg font-normal text-sm" : "h-fit w-fit p-1 border border-bandena hover:border-red-400 hover:bg-red-400 bg-bandena text-white rounded-lg font-normal text-sm"} onClick={e => setShow(true)}>{props.archived ? 'Désarchiver' : 'Archiver'}</button>
                 </div>
                 {props.archived ? <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver ce produit ?'} /> :
