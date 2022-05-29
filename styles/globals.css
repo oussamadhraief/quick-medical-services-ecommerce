@@ -149,20 +149,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.hoverablecontainer {
-  background-image: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1653686303/pfe/office_ak16xs.png");
-  background-repeat: no-repeat;
-  background-position: 40%;
-  background-size: cover;
-}
-
-/* .hoverablecontainer:last-child {
-  background-image: url("https://res.cloudinary.com/dwvwjxizk/image/upload/v1646653950/pfe/2_n7sczd.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-} */
-
 #categoriesBoard {
   grid-template-rows: repeat(10, minmax(0, 1fr));
 }
@@ -268,6 +254,14 @@ input[type=number] {
 }
 
 .galleryScroller {
+  scroll-behavior: smooth;
+}
+
+.mainScreen {
+  height: calc(100%-240px);
+}
+
+.sizeScroller {
   scroll-behavior: smooth;
 }
 

@@ -30,6 +30,7 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter a message'],
         trim: true,
+        maxlength: [400, 'Message is too long'],
         minlength: [4, 'Please enter a valid message']
     },
     isReview :{

@@ -115,7 +115,7 @@ export default function Details(){
                         <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{product.subcategory}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5 ">Tailles:&nbsp;</p>
                         <SizeSelectionContext.Provider value={{selectedSize, setSelectedSize}} >
-                        <SizeSelection sizes={product.sizes} />
+                        <SizeSelection sizes={product.sizes} id={product._id} />
                         </SizeSelectionContext.Provider>
                         <p className="font-medium text-zinc-600 text-md mt-5">Description:&nbsp;</p>
                         <p>{product.description != '' ? product.description: 'pas de description'}</p>

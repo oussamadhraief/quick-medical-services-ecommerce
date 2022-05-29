@@ -153,27 +153,20 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
 
-            <div id='encourageSection' className='bg-[#E7EDEE] relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-between items-center pt-5 pr-5 md:pr-0 lg:pt-10 pl-5 lg:pl-10 xl:pl-20'>
-                {/* {isMobile ? null :<ul className='w-5/12 lg:w-7/12 xl:w-1/2 h-full flex lg:min-h-[300px] flex-nowrap justify-start lg:justify-center items-center gap-5 relative order-1 md:order-2'>
-                    <li className='hoverablecontainer hover:cursor-pointer hover:w-7/12 xl:hover:w-1/2 overflow-hidden h-full bg-[#0E5052] rounded-3xl transition-all duration-500 peer w-20 lg:w-32 shadow-float'>
-                        
-                    </li>
-                    <li className='hoverablecontainer peer-hover:w-20 lg:peer-hover:w-32 hover:cursor-pointer overflow-hidden w-7/12 xl:w-1/2 h-full bg-[#0E5052] rounded-3xl transition-all duration-300 peer shadow-float'>
-                        
-                    </li>
-                </ul>}
-                {isMobile ? 
-                    <div className='hoverablecontainer hover:cursor-pointer overflow-hidden bg-[#0E5052] rounded-3xl transition-all duration-300 shadow-float w-64 h-64'>
-                        
-                    </div> : null} */}
-                <div className='hoverablecontainer absolute -bottom-3.5 left-10 hover:cursor-pointer overflow-hidden bg-transparent rounded-md transition-all duration-300 aspect-square h-full'>
-                    
+            <div id='encourageSection' className='bg-[#E7EDEE] gap-20 relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-start items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-[5vw]'>
+                <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/68] h-full'>
+                    <Image src={'pfe/Untitled_design_2_zzbtlv'} alt='contact' layout='fill' />
+                    <div className='absolute top-3/4 left-3/4 w-fit h-fit bg-white shadow-float px-8 py-5 grid gap-2 hover:scale-105 transition-all'>
+                        <i className='font-medium w-fit h-fit text-lg'>"Qualité du service et de produits <br></br> excepionnelle  !"</i>
+                        <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>
+                        <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky text-white rounded py-2 hover:scale-105 transition-all'>Envoyer</p>
+                    </div>
                 </div>
-                <div className='w-fit md:w-2/12 xl:w-1/4 h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0 absolute right-20'>
-                    <h1 className='w-full h-fit  text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap text-third mainPageTitle'>Vous avez une question?</h1>
-                    <h1 className='w-fit h-fit text-third text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap mb-5  mainPageTitle'>Ou vous voulez nous laisser un commentaire ?</h1>
+                <div className='w-fit h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0'>
+                    <h1 className='w-full h-fit  text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap text-third mainPageTitle'>Vous avez une <span className='border-b-2 border-pinky'>question</span> ?</h1>
+                    <h1 className='w-fit h-fit text-third text-base lg:text-lg xl:text-2xl font-medium whitespace-nowrap mb-5  mainPageTitle'>Ou vous voulez nous laisser un <span className='border-b-2 border-pinky'>commentaire</span> ?</h1>
                     <Link href='/contact'>
-                        <a className='text-white bg-third text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit  mainPageTitle'>Contactez-nous !</a>
+                        <a className='text-white bg-na3ne3i text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit rounded shadow-form'>Contactez-nous !</a>
                     </Link>
                 </div>
             </div>

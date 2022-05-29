@@ -2,100 +2,58 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 export default function TestimonialSection () {
-  const testimonials = [
-    {
-      author: 'gdoura',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: 'dhraief',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '3',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: 'mohamed',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '5',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: 'sameh derbali',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '7',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '8',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '9',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    },
-    {
-      author: '10',
-      message:
-        'Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation. Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.'
-    }
-  ]
 
   const quotes = 'pfe/right-quotes-13252_m2dsct_ijvj9k.png'
 
   const [activeReviews, setActiveReviews] = useState([])
+  const [testimonials,setTestimonials] = useState([])
   const [isMobile, setIsMobile] = useState(32.5)
   const [ind, setInd] = useState(0)
 
   const timeouts = []
 
   useEffect(() => {
-    setActiveReviews([
-      testimonials[0],
-      testimonials[1],
-      testimonials[2],
-      testimonials[3],
-      testimonials[4]
-    ])
-    const mq1 = window.matchMedia("(max-width: 1023px)")
-     if(mq1.matches){
-       setIsMobile(100)
-     }
-    const right = document.getElementById('navigateRightReview')
-    const left = document.getElementById('navigateLeftReview')
-    right.addEventListener('click', () => {
-      right.disabled = true
-      left.disabled = true
-      timeouts.push(setTimeout(() => {
-        left.disabled = false
-        right.disabled = false
-      }, 1000))
-    })
-    left.addEventListener('click', () => {
-      left.disabled = true
-      right.disabled = true
-      timeouts.push(setTimeout(() => {
-        right.disabled = false
-        left.disabled = false
-      }, 1000))
-    })
-    const interval = setInterval(() => {
-      right.click()
-    }, 10000)
+    async function getData(){
+
+      const res = await fetch('/api/testimonials')
+      const { data } = await res.json()
+      setTestimonials(data)
+      setActiveReviews([
+        data[0],
+        data[1],
+        data[2],
+        data[3],
+        data[4]
+      ])
+      
+    }
+    getData()
+      
+      const mq1 = window.matchMedia("(max-width: 1023px)")
+       if(mq1.matches){
+         setIsMobile(100)
+       }
+      const right = document.getElementById('navigateRightReview')
+      const left = document.getElementById('navigateLeftReview')
+      right.addEventListener('click', () => {
+        right.disabled = true
+        left.disabled = true
+        timeouts.push(setTimeout(() => {
+          left.disabled = false
+          right.disabled = false
+        }, 1000))
+      })
+      left.addEventListener('click', () => {
+        left.disabled = true
+        right.disabled = true
+        timeouts.push(setTimeout(() => {
+          right.disabled = false
+          left.disabled = false
+        }, 1000))
+      })
+      const interval = setInterval(() => {
+        right.click()
+      }, 10000)
     return () => {
       clearInterval(interval)
       for( const item of timeouts){
@@ -260,7 +218,7 @@ export default function TestimonialSection () {
             return (
               <div
                 key={index}
-                className={`relative w-[100vw] lg:w-[25vw] lg:mx-[5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+                className={`relative w-[100vw] flex flex-col min-h-[250px] lg:w-[25vw] lg:mx-[5vw] h-64 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -272,17 +230,17 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third h-fit'>{item.message}</q>
+                <q className='text-sm italic text-third h-44 overflow-hidden w-full text-ellipsis break-words'>{item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
                     style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
+                      background: `url("https://avatars.dicebear.com/api/personas/${item.name}.svg?mood[]=happy") no-repeat center center`
                     }}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
-                    {item.author}
+                    {item.name}
                   </h1>
                 </div>
               </div>
@@ -291,7 +249,7 @@ export default function TestimonialSection () {
             return (
               <div
                 key={index}
-                className={`relative w-[100vw] lg:w-[25vw] lg:ml-[5vw] lg:mr-[2.5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+                className={`relative w-[100vw] flex flex-col lg:w-[25vw] lg:ml-[5vw] lg:mr-[2.5vw] h-64 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -303,17 +261,17 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third h-fit'>{item.message}</q>
+                <q className='text-sm italic text-third h-60 overflow-hidden w-full text-ellipsis break-words'> {item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
                     style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
+                      background: `url("https://avatars.dicebear.com/api/personas/${item.name}.svg?mood[]=happy") no-repeat center center`
                     }}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
-                    {item.author}
+                    {item.name}
                   </h1>
                 </div>
               </div>
@@ -322,7 +280,7 @@ export default function TestimonialSection () {
             return (
               <div
                 key={index}
-                className={`relative w-[100vw] lg:w-[25vw] lg:mr-[5vw] lg:ml-[2.5vw] h-fit shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+                className={`relative w-[100vw] flex flex-col lg:w-[25vw] lg:mr-[5vw] lg:ml-[2.5vw] h-64 shadow-float grayscale blur-[1px] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
               >
                 <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                   <Image
@@ -334,17 +292,17 @@ export default function TestimonialSection () {
                   />
                 </div>
 
-                <q className='text-sm italic text-third h-fit'>{item.message}</q>
+                <q className='text-sm italic text-third h-60 overflow-hidden w-full text-ellipsis break-words'> {item.message}</q>
                 <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
                 <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                   <div
                     className='w-12 h-12 rounded-full shadow relative'
                     style={{
-                      background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
+                      background: `url("https://avatars.dicebear.com/api/personas/${item.name}.svg?mood[]=happy") no-repeat center center`
                     }}
                   ></div>
                   <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
-                    {item.author}
+                    {item.name}
                   </h1>
                 </div>
               </div>
@@ -352,7 +310,7 @@ export default function TestimonialSection () {
           return (
             <div
               key={index}
-              className={`relative w-[90vw] mx-[5vw] lg:w-[25vw] lg:mx-[2.5vw] h-fit shadow-float lg:scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
+              className={`relative w-[90vw] flex flex-col h-64 mx-[5vw] lg:w-[25vw] lg:mx-[2.5vw] shadow-float lg:scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
             >
               <div className='absolute w-10 h-10 -top-5 left-0 right-0 mx-auto bg-white rounded-full shadow-lg'>
                 <Image
@@ -364,23 +322,19 @@ export default function TestimonialSection () {
                 />
               </div>
 
-              <q className='text-sm italic text-third'>
-                Wikipedia is a free online encyclopedia, created and edited by
-                volunteers around the world and hosted by the Wikimedia
-                Foundation. Wikipedia is a free online encyclopedia, created and
-                edited by volunteers around the world and hosted by the
-                Wikimedia Foundation.
+              <q className='text-sm italic text-third h-60 overflow-hidden w-full text-ellipsis break-words'>
+                 {item.message}
               </q>
               <div className='absolute w-full h-2 hidden group-hover:block bg-orange left-0 bottom-0 rounded-b-md'></div>
               <div className='w-fit mx-auto flex flex-nowrap items-center h-fit gap-3 mt-3'>
                 <div
                   className='w-12 h-12 rounded-full shadow relative'
                   style={{
-                    background: `url("https://avatars.dicebear.com/api/personas/${item.author}.svg?mood[]=happy") no-repeat center center`
+                    background: `url("https://avatars.dicebear.com/api/personas/${item.name}.svg?mood[]=happy") no-repeat center center`
                   }}
                 ></div>
                 <h1 className='w-fit mb-2 h-fit mx-auto drop-shadow-2xl font-semibold text-md'>
-                  {item.author}
+                  {item.name}
                 </h1>
               </div>
             </div>

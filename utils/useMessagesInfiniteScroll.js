@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-function useMessagesInfiniteScroll(pageNumber) {
+function useMessagesInfiniteScroll(pageNumber,setAdminLoading) {
 
     const [loading,setLoading] = useState(true)
     const [Error,setError] = useState(false)
@@ -18,6 +18,7 @@ function useMessagesInfiniteScroll(pageNumber) {
                 setValue(prev => {
                     return [...prev, ...data]
                 })
+                setAdminLoading(false)
                 setHasMore(data.length > 0)
                 setLoading(false)
             } catch (error) {
@@ -28,7 +29,7 @@ function useMessagesInfiniteScroll(pageNumber) {
         fetchData()
     },[pageNumber])
 
-    return {loading, Error, value, hasMore}
+    return {loading, Error, value, hasMore, setValue}
 }
 
 export default useMessagesInfiniteScroll;

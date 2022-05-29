@@ -36,26 +36,5 @@ export default async (req, res) => {
         console.log(error);
         return res.status(400).json({ success: false })
       }
-    case 'PUT':
-      if(session){
-
-        if(session.user.isAdmin){
-      try {
-        const data = await Feedback.findOneAndUpdate(
-          { _id: req.body._id },
-          {isReview : req.body.isReview },
-          { new: true }
-        )
-        return res.status(200).json({ success: true, data: data })
-      } catch (error) {
-        return res.status(400).json({ success: false })
-      }
-    }else{
-      return res.status(400).json({ success: false, data: 'must be authorized' })
-    }
-    }else{
-      return res.status(400).json({ success: false, data: 'must be authenticated' })
-
-    }
   }
 }

@@ -64,7 +64,7 @@ export default function CartProduct(props){
                 </div>
            </td>
             <td className='text-center'><input type="number" name="produit" value={productQuantity} min={1} onChange={e => handleChange(e)} className='w-20 text-center border border-zinc-400 rounded-lg'/></td>
-            <td><Image src={'pfe/trash-icon-f9bf87-512_evf5ow'} alt='delete' height={25} width={25} className='hover:cursor-pointer' onClick={e => removeProduct(props.reference)} /></td>
+            <td><Image src={'pfe/trash-can-10417_dtvnpx'} alt='delete' height={25} width={25} className='hover:cursor-pointer' onClick={e => removeProduct(props.reference)} /></td>
         </tr>
     )
 }

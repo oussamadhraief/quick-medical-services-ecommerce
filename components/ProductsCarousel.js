@@ -2,6 +2,7 @@ import { useEffect, useState,useContext } from 'react'
 import { ProductsContext } from '../utils/ProductsContext'
 import ScrollableProduct from './ScrollableProduct'
 import { SizeSelectionContext } from '../utils/SizeSelectionContext'
+import Image from 'next/image'
 
 export default function ProductsCarousel({id}) {
 
@@ -24,7 +25,7 @@ export default function ProductsCarousel({id}) {
         const scrollableDiv = document.getElementById(id)
         const disablelableButtons = document.querySelectorAll('.disablelable')
         disablelableButtons.forEach(item => item.disabled = true)
-        scrollableDiv.scroll(scrollableDiv.scrollLeft + 320,0)
+        scrollableDiv.scroll(scrollableDiv.scrollLeft + window.innerWidth,0)
             setTimeout(() => {
                 disablelableButtons.forEach(item => item.disabled = false)
         }, 300);
@@ -34,21 +35,21 @@ export default function ProductsCarousel({id}) {
         const scrollableDiv = document.getElementById(id)
         const disablelableButtons = document.querySelectorAll('.disablelable')
         disablelableButtons.forEach(item => item.disabled = true)
-        scrollableDiv.scroll(scrollableDiv.scrollLeft - 320,0)
+        scrollableDiv.scroll(scrollableDiv.scrollLeft - window.innerWidth,0)
             setTimeout(() => {
                 disablelableButtons.forEach(item => item.disabled = false)
         }, 300);
     }
 
     return (
-        <div className='scrollable relative w-screen overflow-x-hidden h-fit bg-white'>
-            <div id={id} className='w-screen h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-20 px-5 md:px-20'>
+        <div className='scrollable relative w-screen flex flex-nowrap items-center overflow-x-hidden h-fit bg-white'>
+            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => handleLeftNavigation()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+            <div id={id} className='w-full h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-20 px-5'>
             <SizeSelectionContext.Provider value={{ selectedSize,setSelectedSize}} >
             {renderedArray}
             </SizeSelectionContext.Provider>
             </div>
-            <div className='h-full w-14 bg-white z-50  items-center absolute top-0 left-0 pl-3 hover:cursor-default hidden md:flex'><button className='font-bold text-xl text-main rounded-full w-9 h-9 shadow-stylish hover:scale-110 hover:cursor-pointer disablelable' onClick={(e) => handleLeftNavigation()}>&#x3c;</button></div>
-            <div className='h-full w-16 bg-white z-50  items-center absolute top-0 right-0 pl-2 pr-3 hover:cursor-default hidden md:flex'><button className='font-bold text-xl text-main rounded-full w-9 h-9 text-center shadow-stylish hover:scale-110 hover:cursor-pointer disablelable' onClick={(e) => handleRightNavigation()}>&#x3e;</button></div>
+            <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => handleRightNavigation()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
         </div>
     )
 }

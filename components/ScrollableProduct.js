@@ -42,7 +42,7 @@ export default function ScrollableProduct ({ product }) {
   }
 
   return (
-    <div className='w-60 min-w-min p-3 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[320px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
+    <div className='w-60 min-w-[270px] p-0 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[300px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
       <SizeSelectionContext.Provider value={{ selectedSize, setSelectedSize }}>
       {product.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
                     <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
@@ -87,9 +87,7 @@ export default function ScrollableProduct ({ product }) {
             </a>
           </Link>
         </div>
-        <div className='w-full h-10 overflow-clip flex justify-center'>
-          <SizeSelection sizes={product.sizes} />
-        </div>
+          <SizeSelection sizes={product.sizes} id={product._id} />
 
         <button
           className='bg-na3ne3i rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'

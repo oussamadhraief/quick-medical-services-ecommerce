@@ -270,6 +270,7 @@ export default function Contact () {
               placeholder=' '
               required
               col={50}
+              maxLength='400'
               row={4}
               name='message'
               id='formTextArea'

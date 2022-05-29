@@ -1,59 +1,130 @@
 import { useContext, useEffect, useState } from 'react'
-import AdminProducts from './AdminProducts'
-import PagesNavigator from './PagesNavigator'
-import AddProductView from './AddProductView'
 import LoadingAnimation from './LoadingAnimation'
 import { LoadingContext } from '../utils/LoadingContext'
-import { PageSelectionContext } from '../utils/PageSelectionContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import 'animate.css'
 
 export default function ModifyProductsView(props){
 
     const Router = useRouter()
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
-    const [loading,setLoading] = useState(false)
+    const [loading,setloading] = useState(false)
+    const [open,setOpen] = useState(false)
     const [selectedMessage,setSelectedMessage] = useState(0)
 
     const scrollLeft = () => {
         const galleryScroller = document.querySelector(".galleryScroller")
-        galleryScroller.scroll(galleryScroller.scrollLeft - 431,0)
+        const screenSize = document.querySelector(".screenSize")
+        galleryScroller.scroll(galleryScroller.scrollLeft - screenSize.offsetWidth,0)
     }
 
     const scrollRight = () => {
+        const screenSize = document.querySelector(".screenSize")
         const galleryScroller = document.querySelector(".galleryScroller")
-        galleryScroller.scroll(galleryScroller.scrollLeft + 431,0)
+        galleryScroller.scroll(galleryScroller.scrollLeft + screenSize.offsetWidth,0)
     }
 
+    const handleDisplay = async () => {
+        setOpen(false)
+        setloading(true)
+        try {
+            const res = await fetch('/api/contact/'+props.value[selectedMessage]._id,{
+                method: 'PUT',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    isReview: !props.value[selectedMessage]?.isReview})
+            })
+            const {data} = await res.json()
+            let temp = props.value
+            temp[selectedMessage] = data
+            props.setValue(temp)
+        } catch (error) {
+            console.error(error)
+        }
+        setloading(false)
+    }
+
+    const handleDelete = async () => {
+        setOpen(false)
+        setLoadingContext(true)
+        try {
+            const res = await fetch('/api/contact/'+props.value[selectedMessage]._id,{
+                method: 'DELETE',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    isReview: !props.value[selectedMessage]?.isReview})
+            })
+            const {data} = await res.json()
+            let temp = props.value
+            temp.splice(selectedMessage,1)
+            props.setValue(temp)
+            setSelectedMessage(0)
+        } catch (error) {
+            console.error(error)
+        }
+        setLoadingContext(false)
+    }
+
+
    return (
-        <div className="h-full relative w-full pt-10 grid">
-            {loading || loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
-            <div className='h-full w-full bg-orange flex items-center justify-center'>
-                <div className='w-10/12 h-3/4 bg-white'>
-                    <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Nom et prénom:</span> {props.value[selectedMessage].name}</p>
-                    <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>E-mail:</span> {props.value[selectedMessage].email}</p>
-                    <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Message:</span> {props.value[selectedMessage].message}</p>
+        <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
+            {props.adminLoading || loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+            <div className='mainScreen w-full bg-[#E7EDEE] flex items-center justify-center relative p-10 flex-auto'>
+                <div className='w-6/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
+                    {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+                    <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
+                        <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium text-sm h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
+                        <div className='flex flex-nowrap gap-2 relative w-44 justify-end'>
+                            <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
+                            <div className={open ? 'absolute w-fit h-fit left-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
+                                
+                            <button onClick={e => handleDisplay()} className='font-medium text-sm text-third hover:underline border-b py-1'>{props.value[selectedMessage]?.isReview == true ? 'Retirer de' : 'Afficher sur'}  l&apos;écran d&apos;acceuil</button>
+                            <button onClick={e => handleDelete()} className='text-sm font-medium text-red-400 underline rounded py-1'>Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='grid gap-2 mt-2'>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Nom et prénom:</span>&nbsp; {props.value[selectedMessage]?.name}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>E-mail:</span>&nbsp; {props.value[selectedMessage]?.email}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Num. de téléphone:</span>&nbsp; {props.value[selectedMessage]?.phoneNumber}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Sujet:</span>&nbsp; {props.value[selectedMessage]?.subject}</p>
+                    <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{props.value[selectedMessage]?.message}</p>
+                    </div>
                 </div>
             </div>
-            <div className=' w-full relative max-w-full h-52 bg-white flex flex-nowrap items-center overflow-hidden'>
+
+            <div className=' w-full relative min-w-full h-60 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative h-full bg-white flex flex-nowrap items-center overflow-hidden px-4 gap-10'>
+            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
                         return(
-                    <div ref={props.lastElementRef} className='bg-white shadow-form h-40 px-5 py-3'>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Nom et prénom:</span> {item.name}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Message:</span> {item.message}</p>
+                    <div ref={props.lastElementRef} onClick={e => {
+                        setOpen(false)
+                        setSelectedMessage(index)
+                    }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
                         
                     </div>)
 
-                        return (<div className='bg-white shadow-form h-40 px-5 py-3'>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Nom et prénom:</span> {item.name}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-zinc-700'>Message:</span> {item.message}</p>
+                        return (<div onClick={e => {
+                            setOpen(false)
+                            setSelectedMessage(index)
+                        }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
+                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
                         
                     </div>)
                 })}
