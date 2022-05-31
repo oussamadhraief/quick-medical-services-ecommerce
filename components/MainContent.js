@@ -157,7 +157,7 @@ export default function MainContent(){
                 <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/68] h-full'>
                     <Image src={'pfe/Untitled_design_2_zzbtlv'} alt='contact' layout='fill' />
                     <div className='absolute top-3/4 left-3/4 w-fit h-fit bg-white shadow-float px-8 py-5 grid gap-2 hover:scale-105 transition-all'>
-                        <i className='font-medium w-fit h-fit text-lg'>"Qualité du service et de produits <br></br> excepionnelle  !"</i>
+                        <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité du service et de produits <br></br> excepionnelle  !&quot;</i>
                         <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>
                         <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky text-white rounded py-2 hover:scale-105 transition-all'>Envoyer</p>
                     </div>
