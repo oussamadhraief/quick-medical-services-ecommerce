@@ -47,6 +47,7 @@ export default async function handler (req, res) {
     })
 
     User.ordersHistory.push(commande)
+    User.cart = []
     User.save()
 
     res.status(201).json({ success: true, data: commande, user: User })

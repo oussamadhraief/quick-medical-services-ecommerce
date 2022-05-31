@@ -22,6 +22,7 @@ function AdminNavbar(props) {
             if(router.pathname.includes('orders')) setSearchCategory("Commandes")
             if(router.pathname.includes('products')) setSearchCategory("Produits")
             if(router.pathname.includes('quote')) setSearchCategory("Devis")
+            if(router.pathname.includes('messages')) setSearchCategory("Messages")
         }
     },[])
 
@@ -45,6 +46,10 @@ function AdminNavbar(props) {
                 window.location = '/admin/search/orders/'+searchText
                 break;
             case 'Devis':
+                window.location = '/admin/search/quoterequests/'+searchText
+                break;
+            case 'Messages':
+                window.location = '/admin/search/messages/'+searchText
                 break;
             default: 
                 console.error('Wrong category');
@@ -61,7 +66,8 @@ function AdminNavbar(props) {
                 <div className={categoriesOpen ? "absolute top-[110%] left-0 h-26 w-40 bg-white grid place-content-center place-items-center shadow-form py-1 transition-[height] duration-1000" : "h-0 overflow-hidden transition-[height] duration-1000"}>
                     <button type="button" onClick={e => handleChooseCategory("Produits")}  className="bg-white px-1 text-center font-medium border-b w-36 py-1">Produits</button>
                     <button type="button" onClick={e => handleChooseCategory("Commandes")}  className="bg-white px-1 text-center font-medium w-36 border-b py-1">Commandes</button>
-                    <button type="button" onClick={e => handleChooseCategory("Devis")}  className="bg-white px-1 text-center font-medium w-36 py-1">Devis</button>
+                    <button type="button" onClick={e => handleChooseCategory("Devis")}  className="bg-white px-1 text-center font-medium w-36 border-b py-1">Devis</button>
+                    <button type="button" onClick={e => handleChooseCategory("Messages")}  className="bg-white px-1 text-center font-medium w-36 py-1">Messages</button>
                 </div>
             </div>
             <input type="text" name="search" value={searchContext} onChange={e => setSearchContext(e.target.value)} placeholder="Chercher par catégorie" className="w-72 px-1 outline-none h-7 border-l border-zinc-300"/>

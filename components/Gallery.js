@@ -81,7 +81,7 @@ export default function ModifyProductsView(props){
                 <div className='w-6/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
-                        <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium text-sm h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
+                        <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium  h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
                         <div className='flex flex-nowrap gap-2 relative w-44 justify-end'>
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
                             <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>

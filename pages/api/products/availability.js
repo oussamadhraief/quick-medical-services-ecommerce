@@ -12,7 +12,7 @@ export default async (req, res) => {
     } = req
 
             try {
-                const Instruments = await Instrument.find({availability: req.body.availability}).sort({createdAt: -1}).skip(page*10).limit(10)
+                const Instruments = await Instrument.find({availability: req.body.availability, archived: false}).sort({createdAt: -1}).skip(page*10).limit(10)
                 const NumberOfInstruments = await Instrument.countDocuments({availability: req.body.availability})
                 
                 res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments, availability: req.body.availability});

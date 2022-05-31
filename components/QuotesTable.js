@@ -88,6 +88,9 @@ export default function QuotesTable(props){
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette demande de devis a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
+                    {props.value[selectedMessage]?.status != 'En cours' ? null :
+
+                    
                         <div className='flex flex-nowrap gap-2 relative w-36 justify-end'>
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
                             <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
@@ -98,7 +101,7 @@ export default function QuotesTable(props){
                                 }} className='font-medium text-sm text-third hover:underline border-b py-1'>{show ? 'Annuler' : "Répondre à la demande"}</button>
                             <button onClick={e => handleArchive()} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                     <div className='grid gap-2 mt-2'>
 
@@ -130,9 +133,16 @@ export default function QuotesTable(props){
                     <p className='font-medium'> <span className='text-na3ne3i text-lg'>Nom et prénom:</span>&nbsp; {props.value[selectedMessage]?.name}</p>
                     <p className='font-medium'> <span className='text-na3ne3i text-lg'>E-mail:</span>&nbsp; {props.value[selectedMessage]?.email}</p>
                     <p className='font-medium'> <span className='text-na3ne3i text-lg'>Num. de téléphone:</span>&nbsp; {props.value[selectedMessage]?.phoneNumber}</p>
-                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Nom de clinique:</span>&nbsp; {props.value[selectedMessage]?.clinicName}</p>
-                    <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Matricule fiscale:</span> &nbsp;{props.value[selectedMessage]?.taxRegistrationNumber}</p>
                     <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{props.value[selectedMessage]?.note}</p>
+                    {
+                    props.value[selectedMessage]?.price != null && props.value[selectedMessage]?.message != null ? 
+                    <>
+                    <p className='w-fit font-medium text-pinky underline'>Réponse de l'administrateur:</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Prix:</span>&nbsp; {props.value[selectedMessage]?.price}</p>
+                    <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{props.value[selectedMessage]?.message}</p>
+                    </>
+                    : null
+                    }
                     <table className='w-full mt-10 px-10'>
                 <thead>
                 <tr className='border-b h-10 border-zinc-400'>

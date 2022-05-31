@@ -177,11 +177,11 @@ export default function Cart() {
                 </table>
                 <p className='mt-10  w-10/12 mx-auto bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
                 <div className='w-10/12 h-fit flex flex-nowrap bg-white mx-auto justify-evenly py-10 rounded-md'>
-                    <OrderForm value={value} />
+                    <OrderForm value={value} setCartNumber={setCartNumber} />
                     <div className='min-h-full py-10 bg-[#E7EDEE] shadow-inner w-1 rounded-lg '>
                         
                     </div>
-                    <EstimateForm value={value} />
+                    <EstimateForm value={value} setCartNumber={setCartNumber} />
                 </div>
                 </div>
                 <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-between shadow px-5'>

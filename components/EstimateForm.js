@@ -17,16 +17,19 @@ export default function OrderForm(props){
             ...estimateForm,
             cart: props.value
         }
-        const res = await fetch('/api/user/makeestimaterequest',{
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                },
-            body: JSON.stringify(estimateData)
-        })
-        const { user } = await res.json()
-        console.log(user);
+        try {
+            const res = await fetch('/api/user/makeestimaterequest',{
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(estimateData)
+            })
+            props.setCartNumber(0)
+        } catch (error) {
+            console.error(error)
+        }
     }
     
     return(

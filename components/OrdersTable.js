@@ -75,14 +75,15 @@ export default function OrdersTable(props){
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
-                        <div className='flex flex-nowrap gap-2 relative w-36 justify-end'>
+                    {props.value[selectedMessage]?.status != 'En cours' ? null : 
+                    <div className='flex flex-nowrap gap-2 relative w-36 justify-end'>
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
                             <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
                                 
                             <button onClick={e => handleFulfill()} className='font-medium text-sm text-third hover:underline border-b py-1'>Marquer comme livrée</button>
                             <button onClick={e => handleArchive()} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                     <div className='grid gap-2 mt-2'>
 

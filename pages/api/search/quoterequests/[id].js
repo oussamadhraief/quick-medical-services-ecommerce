@@ -1,5 +1,5 @@
 import dbConnect from '../../../../utils/dbConnect'
-import import Quote from '../../../../Models/Quote'
+import Quote from '../../../../Models/Quote'
 
 dbConnect()
 

@@ -1,6 +1,6 @@
 import AdminMenu from "../../../../components/AdminMenu"
 import OrdersTable from "../../../../components/OrdersTable"
-import { useEffect, useState,useRef,useCallback } from "react"
+import { useState,useRef,useCallback } from "react"
 import Notification from '../../../../components/Notification'
 import AdminNavbar from '../../../../components/AdminNavbar'
 import { NotificationContext } from '../../../../utils/NotificationContext'
@@ -99,7 +99,8 @@ export default function Admin(){
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                     <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <OrdersTable value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading}/>
+                    {value.length <1  ? <p className="w-fit h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
+                    <OrdersTable value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading}/>}
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>
