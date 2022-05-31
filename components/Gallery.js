@@ -84,7 +84,7 @@ export default function ModifyProductsView(props){
                         <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium text-sm h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
                         <div className='flex flex-nowrap gap-2 relative w-44 justify-end'>
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
-                            <div className={open ? 'absolute w-fit h-fit left-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
+                            <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
                                 
                             <button onClick={e => handleDisplay()} className='font-medium text-sm text-third hover:underline border-b py-1'>{props.value[selectedMessage]?.isReview == true ? 'Retirer de' : 'Afficher sur'}  l&apos;écran d&apos;acceuil</button>
                             <button onClick={e => handleDelete()} className='text-sm font-medium text-red-400 underline rounded py-1'>Supprimer</button>

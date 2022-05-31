@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
-const DevisSchema = new mongoose.Schema(
+const QuoteSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +33,8 @@ const DevisSchema = new mongoose.Schema(
       default: null
     },
     note: { type: String, trim: true },
+    message: { type: String, trim: true, default: null },
+    price: { type: Number, trim: true, default: null },
     status: {
       type: String,
       default: 'En cours'
@@ -42,4 +44,4 @@ const DevisSchema = new mongoose.Schema(
 )
 
 module.exports =
-  mongoose.models.Devis || mongoose.model('Devis', DevisSchema)
+  mongoose.models.Quote || mongoose.model('Quote', QuoteSchema)

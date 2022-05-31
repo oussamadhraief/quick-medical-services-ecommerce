@@ -1,4 +1,4 @@
-import Devis from '../../../Models/Estimate'
+import Quote from '../../../Models/Quote'
 import Testeur from '../../../Models/Testeur'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
@@ -33,7 +33,7 @@ export default async function handler (req, res) {
       })
     }
 
-    const devis = await Devis.create({
+    const devis = await Quote.create({
       user: User,
       email: req.body.email,
       cart: estimateData,
@@ -42,7 +42,7 @@ export default async function handler (req, res) {
       note: req.body.note
     })
 
-    User.estimatesHistory.push(Devis)
+    User.estimateHistory.push(devis)
     User.save()
 
     res.status(201).json({ success: true, data: devis, user: User })

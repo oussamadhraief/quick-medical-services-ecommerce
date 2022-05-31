@@ -12,7 +12,7 @@ import { SearchContext } from "../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
-import useMessagesInfiniteScroll from "../../utils/useMessagesInfiniteScroll"
+import useInfiniteScrolling from "../../utils/useInfiniteScrolling"
 import { useRef,useCallback } from "react"
 
 
@@ -31,7 +31,7 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const { loading, Error, value, hasMore, setValue} = useMessagesInfiniteScroll(pageSelection,setAdminLoading)
+    const { loading, Error, value, hasMore, setValue} = useInfiniteScrolling(pageSelection,setAdminLoading,'/api/contact?page=')
     const observer = useRef()
     const lastElementRef = useCallback(node => {
         if(loading) return 

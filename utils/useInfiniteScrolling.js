@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-function useMessagesInfiniteScroll(pageNumber,setAdminLoading) {
+function useInfiniteScrolling(pageNumber,setAdminLoading,url) {
 
     const [loading,setLoading] = useState(true)
     const [Error,setError] = useState(false)
@@ -13,8 +13,9 @@ function useMessagesInfiniteScroll(pageNumber,setAdminLoading) {
         setError(false)
         async function fetchData() {
             try {
-                const res = await fetch('/api/contact?page='+pageNumber)
-                const { data,number,index } = await res.json()
+                const res = await fetch(url+pageNumber)
+                const { data } = await res.json()
+                console.log(data);
                 setValue(prev => {
                     return [...prev, ...data]
                 })
@@ -32,4 +33,4 @@ function useMessagesInfiniteScroll(pageNumber,setAdminLoading) {
     return {loading, Error, value, hasMore, setValue}
 }
 
-export default useMessagesInfiniteScroll;
+export default useInfiniteScrolling;

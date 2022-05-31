@@ -1,4 +1,4 @@
-import Devis from '../../../../Models/Estimate'
+import Quote from '../../../../Models/Quote'
 import Testeur from '../../../../Models/Testeur'
 import dbConnect from '../../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
@@ -15,7 +15,7 @@ export default async function handler (req, res) {
           res.status(404).json({success: false, message: 'User not found'})
         }
     
-        const devis = await Devis.find({user: User}).sort({createdAt: -1})
+        const devis = await Quote.find({user: User}).sort({createdAt: -1})
     
         res.status(200).json({ success: true, data: devis })
 

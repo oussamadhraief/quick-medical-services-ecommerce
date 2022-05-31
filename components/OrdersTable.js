@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
-import SizeSelection from './SizeSelection'
 import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import 'animate.css'
 
-export default function ModifyProductsView(props){
+export default function OrdersTable(props){
 
     const Router = useRouter()
 
@@ -78,7 +77,7 @@ export default function ModifyProductsView(props){
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
                         <div className='flex flex-nowrap gap-2 relative w-36 justify-end'>
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
-                            <div className={open ? 'absolute w-fit h-fit left-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
+                            <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
                                 
                             <button onClick={e => handleFulfill()} className='font-medium text-sm text-third hover:underline border-b py-1'>Marquer comme livrée</button>
                             <button onClick={e => handleArchive()} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>

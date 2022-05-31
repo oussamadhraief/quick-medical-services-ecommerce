@@ -9,9 +9,9 @@ import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { CartContext } from "../../../utils/CartContext"
-import EstimateComponent from '../../../components/EstimateComponent'
+import QuoteComponent from '../../../components/QuoteComponent'
 
-export default function Estimates() {
+export default function Quotes() {
   const { data: session, status } = useSession()
 
   const router = useRouter()
@@ -20,7 +20,7 @@ export default function Estimates() {
     []
   )
   const [search, setSearch] = useState('')
-  const [estimates,setEstimates] = useState([])
+  const [estimates,setQuotes] = useState([])
   const [loading,setLoading] = useState(true)
   const [cartNumber,setCartNumber] = useState(0)
 
@@ -41,17 +41,17 @@ export default function Estimates() {
         console.error(error)
       }
     }
-    async function fetchEstimates() {
+    async function fetchQuotes() {
       try {
         const res = await fetch('/api/user/userestimaterequests',{ signal: abortController.signal })
         const { data } = await res.json()
-        setEstimates(data)
+        setQuotes(data)
         setLoading(false)
       } catch (error) {
         console.error(error)
       }
     }
-    fetchEstimates()
+    fetchQuotes()
     fetchData()
     return () => {
       abortController.abort();
@@ -166,7 +166,7 @@ export default function Estimates() {
                   
               </thead>
               <tbody className='w-full'>
-                {estimates.map(item => <EstimateComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+                {estimates.map(item => <QuoteComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
       </main>
