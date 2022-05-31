@@ -9,7 +9,7 @@ import { useSession, signOut } from "next-auth/react"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { CartContext } from "../../../utils/CartContext"
-import QuoteComponent from '../../../components/QuoteComponent'
+import EstimateComponent from '../../../components/EstimateComponent'
 
 export default function Quotes() {
   const { data: session, status } = useSession()
@@ -166,7 +166,7 @@ export default function Quotes() {
                   
               </thead>
               <tbody className='w-full'>
-                {estimates.map(item => <QuoteComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+                {estimates.map(item => <EstimateComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
       </main>
