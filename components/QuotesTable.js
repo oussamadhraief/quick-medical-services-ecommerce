@@ -137,7 +137,7 @@ export default function QuotesTable(props){
                     {
                     props.value[selectedMessage]?.price != null && props.value[selectedMessage]?.message != null ? 
                     <>
-                    <p className='w-fit font-medium text-pinky underline'>Réponse de l'administrateur:</p>
+                    <p className='w-fit font-medium text-pinky underline'>Réponse de l&apos;administrateur:</p>
                     <p className='font-medium'> <span className='text-na3ne3i text-lg'>Prix:</span>&nbsp; {props.value[selectedMessage]?.price}</p>
                     <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{props.value[selectedMessage]?.message}</p>
                     </>
