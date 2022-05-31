@@ -108,7 +108,7 @@ export default function ModifyProductsView(props){
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
                         return(
-                    <div ref={props.lastElementRef} onClick={e => {
+                    <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
                     }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
@@ -118,7 +118,7 @@ export default function ModifyProductsView(props){
                         
                     </div>)
 
-                        return (<div onClick={e => {
+                        return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
                         }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
