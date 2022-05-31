@@ -77,7 +77,7 @@ export default function AdminMenu(props){
         </div>
             </Link>
 
-            <Link href='/admin/orders/manage?page=0'>
+            <Link href='/admin/orders/manage'>
             <div
             className={props.selected === 4 ? 'mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md' : 'mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md'}
             >
@@ -96,28 +96,28 @@ export default function AdminMenu(props){
             </div>
             </Link>
 
-            <Link href='/admin/orders/archived?page=0'>
+            <Link href='/admin/orders/archived'>
                 <div className={props.selected == 5 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 5 ? <Image src={archivedselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={archived} alt="plus" width={17} height={17} layout="fixed" />}
                 <p className={props.selected === 5 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Commandes archivées</p>
                 </div>
             </Link>
 
-            <Link href='/admin/quoterequests/manage?page=0'>
+            <Link href='/admin/quoterequests/manage'>
                 <div className={props.selected == 6 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 6 ? <Image src={quoteselected} alt="plus" width={17} height={17} layout="fixed" /> : <Image src={quote} alt="plus" width={17} height={17} layout="fixed" />}
                 <p className={props.selected == 6 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Voir les demandes de devis</p>
                 </div>
             </Link>
 
-            <Link href='/admin/quoterequests/archived?page=0'>
+            <Link href='/admin/quoterequests/archived'>
                 <div className={props.selected == 7 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 7 ? <Image src={oldselected} alt="plus" width={13} height={15} layout="fixed" /> : <Image src={old} alt="plus" width={13} height={15} layout="fixed" />}
                 <p className={props.selected == 7 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Demandes de devis archivées</p>
                 </div>
             </Link>
 
-            <Link href='/admin/messages?page=0'>
+            <Link href='/admin/messages'>
                 <div className={props.selected == 8 ? "mt-9 w-full bg-white px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer rounded-md" : "mt-9 w-full bg-transparent px-1 py-2 flex flex-nowrap items-center justify-center md:justify-start space-x-1 hover:cursor-pointer hover:bg-pinky rounded-md"}>
                 {props.selected == 8 ? <Image src={messagesselected} alt="plus" width={15} height={15} layout="fixed" /> : <Image src={messages} alt="plus" width={15} height={15} layout="fixed" />}
                 <p className={props.selected == 8 ? ' font-medium text-[15px] text-na3ne3i whitespace-nowrap' : ' font-medium text-[15px] text-white whitespace-nowrap'}>Messages reçus</p>

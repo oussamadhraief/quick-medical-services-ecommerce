@@ -42,7 +42,7 @@ function AdminNavbar(props) {
                 window.location = '/admin/search/products/'+searchText+'?page=0'
                 break;
             case 'Commandes':
-                window.location = '/admin/search/orders/'+searchText+'?page=0'
+                window.location = '/admin/search/orders/'+searchText
                 break;
             case 'Devis':
                 break;

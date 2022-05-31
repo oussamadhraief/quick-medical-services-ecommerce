@@ -44,7 +44,7 @@ export default function Admin(){
         if(node) observer.current.observe(node)
     },[loading,hasMore])
     
-    if(status == 'loading') return  (
+    if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
           <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
             <div className="reverse-spinner "></div>
@@ -97,7 +97,7 @@ export default function Admin(){
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                     <AdminMenu selected={8} open={open} setOpen={setOpen} />
-                    <Gallery value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading} adminLoading={adminLoading} />
+                    <Gallery value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading} />
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>

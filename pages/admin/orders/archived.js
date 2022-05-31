@@ -1,6 +1,6 @@
 import AdminMenu from "../../../components/AdminMenu"
 import OrdersTable from "../../../components/OrdersTable"
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef,useCallback } from "react"
 import Notification from '../../../components/Notification'
 import AdminNavbar from '../../../components/AdminNavbar'
 import { NotificationContext } from '../../../utils/NotificationContext'
@@ -11,6 +11,7 @@ import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
+import useArchivedOrdersInfiniteScrolling from "../../../utils/useArchivedOrdersInfiniteScrolling"
 
 
 
@@ -20,57 +21,27 @@ export default function Admin(){
 
     const router = useRouter()
     
-    const [value,setValue] = useState([])
     const [adminLoading,setAdminLoading] = useState(true)
     const [appear,setAppear] = useState({display: false, action: ''})
-    const [loadingContext,setLoadingContext] = useState(true)
+    const [loadingContext,setLoadingContext] = useState(false)
     const [pages,setPages] = useState(0)
+    const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const [open,setOpen] = useState(true)
+    const { loading, Error, value, hasMore, setValue} = useArchivedOrdersInfiniteScrolling(pageSelection,setAdminLoading)
+    
+    const observer = useRef()
 
-
-    useEffect(() => {
-        console.log(router.query.id);
-        async function fetchData() {
-            setLoadingContext(true)
-            let querypage 
-            if(typeof(router.query.page) == 'undefined') {
-                router.push({
-                    pathname: router.pathname,
-                    query: { page: 0 }
-                    }, 
-                    undefined, { shallow: true }
-                    )
-                    querypage = 0
-                }else{
-                    querypage = router.query.page
-                }
-            const res = await fetch('/api/orders/archived?page='+querypage)
-            const { data,number,index } = await res.json()
-            let numberOfPages
-            if(number> 0){
-             numberOfPages = Math.ceil(number /20)
-            }else{
-                numberOfPages= 1
+    const lastElementRef = useCallback(node => {
+        if(loading) return 
+        if(observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && hasMore){
+                setPageSelection(prev => prev + 1)
             }
-            
-            if(querypage != index) {
-                router.push({
-                    pathname: router.pathname,
-                    query: { page: index }
-                    }, 
-                    undefined, { shallow: true }
-                    )
-            }
-            setValue(data)
-            setPageSelection(index)
-            setAdminLoading(false)
-            setLoadingContext(false)
-            setPages(numberOfPages)
-    }
-    fetchData()
-    },[router.query.page])
+        })
+        if(node) observer.current.observe(node)
+    },[loading,hasMore])
     
     if(status == 'loading' || adminLoading) return  (
         <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -127,7 +98,7 @@ export default function Admin(){
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                 <AdminMenu selected={5} open={open} setOpen={setOpen} />
-                <OrdersTable orders={value} />
+                <OrdersTable value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading}/>
                 <Notification />
             </PageSelectionContext.Provider>
             </PagesContext.Provider>

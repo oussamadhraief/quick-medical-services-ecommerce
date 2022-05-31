@@ -10,26 +10,11 @@ export default async (req, res) => {
             try {
                 if(session){
                     if(session.user.isAdmin){
-                        const NumberOfOrders = await Amazon.countDocuments({status: "En cours"})
-
-                        let Orders
-                        
-                        if(req.query.page > Math.ceil(NumberOfOrders / 20) -1){
-                            
-                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).limit(20).populate('user')
-                            
-                            res.status(200).json({ success: true, data: Orders, number: NumberOfOrders, index: 0 })
-                            
-                            return
-                            
-                        }else{
-                            
-                            Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).skip(req.query.page* 20).limit( 20).populate('user')
-
-                            res.status(200).json({ success: true, data: Orders, number: NumberOfOrders, index: req.query.page });
+                
+                            const Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).skip(req.query.page* 5).limit( 5).populate('user cart.product')
+                            res.status(200).json({ success: true, data: Orders });
 
                             return
-                        }
                     }else{
                         res.status(401).json({success: false , message: 'Must be authorized'})
                         
