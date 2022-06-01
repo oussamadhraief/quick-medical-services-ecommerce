@@ -183,7 +183,7 @@ export default function Cart() {
                         <th className='text-center text-base font-medium text-third px-5'></th>
                         </tr>
                     </thead>
-                    <tbody className='w-full h-full mt-32'>
+                    <tbody className='w-full h-full mt-32  '>
                         {cartProducts.length > 0 ? 
                         cartProducts.map((item,index) => {
                             return (
@@ -191,7 +191,7 @@ export default function Cart() {
                                 )
                             })
                             : <tr>
-                                <td className='font-medium text-center h-20' colSpan={6}>Votre panier est vide, <Link href={{pathname: '/products',query: {page: 0}}}><a className='text-orange hover:underline'>explorez nos produits !</a></Link></td>
+                                <td className='font-medium text-center h-52' colSpan={6}>Votre panier est vide, <Link href={{pathname: '/products',query: {page: 0}}}><a className='text-pinky hover:underline'>explorez nos produits !</a></Link></td>
                             </tr> 
                             } 
                     </tbody>
