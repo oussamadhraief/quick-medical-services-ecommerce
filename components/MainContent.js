@@ -20,9 +20,17 @@ export default function MainContent(){
     
     const [availableSearch,setAvailableSearch] = useState('')
     const [unavailableSearch,setUnavailableSearch] = useState('')
+    const [testimonials,setTestimonials] = useState([])
     const [isMobile,setIsMobile] = useState(false)
 
     useEffect(() => {
+        async function getData(){
+
+            const res = await fetch('/api/testimonials')
+            const { data } = await res.json()
+            setTestimonials(data)
+          }
+          getData()
         const mq1 = window.matchMedia('(max-width: 767px)')
          if(mq1.matches){
              setIsMobile(true)
@@ -153,7 +161,7 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
 
-            <div id='encourageSection' className='bg-complementary gap-20 relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-start items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-[5vw]'>
+            <div id='encourageSection' className='bg-complementary gap-20 relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit my-32 flex flex-col md:flex-row md:flex-nowrap justify-start items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-[5vw]'>
                 <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/68] h-full'>
                     <Image src={'pfe/Untitled_design_2_zzbtlv'} alt='contact' layout='fill' />
                     <div className='absolute top-3/4 left-3/4 w-fit h-fit bg-white shadow-float px-8 py-5 grid gap-2 hover:scale-105 transition-all'>
@@ -170,7 +178,11 @@ export default function MainContent(){
                     </Link>
                 </div>
             </div>
-            <TestimonialSection />
+            {testimonials.length > 4 
+            ?
+            <TestimonialSection data={testimonials} />
+            : null
+            }
         </main>
     )
 }

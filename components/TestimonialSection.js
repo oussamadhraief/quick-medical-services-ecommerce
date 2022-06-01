@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-export default function TestimonialSection () {
+export default function TestimonialSection ({ data }) {
 
   const quotes = 'pfe/right-quotes-13252_m2dsct_ijvj9k.png'
 
@@ -13,10 +13,6 @@ export default function TestimonialSection () {
   const timeouts = []
 
   useEffect(() => {
-    async function getData(){
-
-      const res = await fetch('/api/testimonials')
-      const { data } = await res.json()
       setTestimonials(data)
       setActiveReviews([
         data[0],
@@ -25,9 +21,6 @@ export default function TestimonialSection () {
         data[3],
         data[4]
       ])
-      
-    }
-    getData()
       
       const mq1 = window.matchMedia("(max-width: 1023px)")
        if(mq1.matches){
