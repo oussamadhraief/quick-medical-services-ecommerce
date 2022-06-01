@@ -3,6 +3,7 @@ import Footer from "../../components/Footer"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../utils/ProductsContext"
 import SrollableProduct from "../../components/ScrollableProduct"
+import LoadingAnimation from "../../components/LoadingAnimation"
 import PagesNavigator from "../../components/PagesNavigator"
 import { PageSelectionContext } from "../../utils/PageSelectionContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
@@ -30,6 +31,7 @@ export default function Products(){
     const [search,setSearch] = useState('')
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
+    const [loadingContext,setLoadingContext] = useState(true)
 
     useEffect(() => {
         async function fetchCategories() {
@@ -39,18 +41,46 @@ export default function Products(){
         }
             fetchCategories()
     },[])
-
+    
     useEffect(() => {
-        async function fetchData() {
-            const res = await fetch('/api/products?page='+pageSelection)
-            const { data,number } = await res.json()
-            setValue(data)
-            console.log(number);
-            const numberOfPages = Math.ceil(number /10)
-            setPages(numberOfPages)
-    }
-    fetchData()
-    },[pageSelection])
+        fetchData()
+    },[router.query.page])
+    
+    async function fetchData() {
+        setLoadingContext(true)
+        let querypage 
+        if(typeof(router.query.page) == 'undefined') {
+            router.push({
+                pathname: router.pathname,
+                query: { page: 0 }
+                }, 
+                undefined, { shallow: true }
+                )
+                querypage = 0
+            }else{
+                querypage = router.query.page
+            }
+        const res = await fetch('/api/products?page='+querypage)
+        const { data,number,index } = await res.json()
+        let numberOfPages
+            if(number> 0){
+             numberOfPages = Math.ceil(number /10)
+            }else{
+                numberOfPages= 1
+            }
+        if(querypage != index) {
+            router.push({
+                pathname: router.pathname,
+                query: { page: index }
+                }, 
+                undefined, { shallow: true }
+                )
+        }
+        setValue(data)
+        setPageSelection(index)
+        setLoadingContext(false)
+        setPages(numberOfPages)
+}
 
     
     useEffect(() => {
@@ -76,6 +106,16 @@ export default function Products(){
             FlipArrow.style.transform = 'rotate(-90deg)'
         }
     }
+
+    if (status === 'loading') {
+        return (
+          <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+            <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+              <div className="reverse-spinner "></div>
+            </div>
+          </div>
+         )
+        }
 
     return(
         <div>
@@ -124,7 +164,7 @@ export default function Products(){
 
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-[#E7EDEE] border-zinc-200 border min-h-fit shadow">
+                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-harvey border-zinc-200 border min-h-fit shadow">
                     <div>
                         <div>
                             <p className="bg-light text-white w-full h-fit py-3 text-center font-medium shadow-stylish">Paramètres d&apos;affichage</p>
@@ -159,7 +199,9 @@ export default function Products(){
                     </div>
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
-                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
+                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3 relative">
+                    {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+
                     {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>

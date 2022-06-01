@@ -236,10 +236,10 @@ export default function Information () {
       <main className='w-full h-fit flex flex-nowrap justify-start items-start px-10 mt-20'>
           <div className='w-2/12 h-fit grid'>
                 <Link href='/account/information'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE] whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' /><p>Informations personnelles</p></a>
+                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' /><p>Informations personnelles</p></a>
                 </Link>
                 
-                <Link href='/account/estimates'>
+                <Link href='/account/quoterequests'>
                     <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historique des devis</p></a>
                 </Link>
                 
@@ -256,21 +256,21 @@ export default function Information () {
           </div>
           <div className='w-10/12 h-fit px-10'>
           <form onSubmit={e => handleSubmit(e)} className='w-[836px] h-fit grid gap-16 mb-10 px-10'>
-              <p className='font-medium text-3xl mx-auto'>Vos <span className='border-b border-orange'>informations personnelles</span> </p>
+              <p className='font-medium text-3xl mx-auto'>Vos <span className='border-b border-pinky'>informations personnelles</span> </p>
               <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Nom et prénom:
                   <input type="text" required minLength={4} onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-8/12'/>
               </label>
               <label className='font-medium w-11/12 flex flex-nowrap justify-between'>Num de téléphone:
                   <input type="number" required minLength={8} onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-8/12' />
               </label>
-              <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-orange px-5 py-2.5 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
+              <button type="submit" disabled={true} className='saveAccountDataButton w-fit h-fit bg-pinky px-5 py-2.5 rounded-md shadow-form font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
           </form>
 
           <div className='grid w-fit gap-5'>
             
-                <p className='text-xl font-medium w-fit mx-auto'>Modifer <span className='border-b-2 border-orange'> vos adresses</span>: </p>
+                <p className='text-xl font-medium w-fit mx-auto'>Modifer <span className='border-b-2 border-pinky'> vos adresses</span>: </p>
                 <div className='flex flex-nowrap w-fit h-fit gap-16'>
-              <form onSubmit={e => handleFirstAddressSubmit(e)}  className='w-96 h-fit grid  relative  rounded-sm px-5 pt-4 pb-10 border border-na3ne3i'>
+              <form onSubmit={e => handleFirstAddressSubmit(e)}  className='w-96 h-fit grid  relative  rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
                 <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de facturation</p>
                 {
                   editingFirstAddress ? <>
@@ -284,10 +284,10 @@ export default function Information () {
                   
                    : 
                    <>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.address}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.city}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.country}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{firstAddress.zipCode}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Adresse:</span> {firstAddress.address}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Ville:</span> {firstAddress.city}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Pays:</span> {firstAddress.country}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Code postal:</span> {firstAddress.zipCode}</p>
                    </>
                 }
                 
@@ -313,11 +313,11 @@ export default function Information () {
                       }
 
                   }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button>
-                  <button type='submit' className='bg-orange px-1 font-medium rounded-sm '>Enregistrer</button> 
+                  <button type='submit' className='bg-pinky px-1 font-medium rounded '>Enregistrer</button> 
                   </> :                  
                   <button type='button' onClick={e => {
                       setEditingFirstAddress(true)
-                    }} className='bg-orange px-1 font-medium rounded-sm '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
+                    }} className='bg-pinky px-1 font-medium rounded-md '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
                 }
             
                 </div> 
@@ -328,7 +328,7 @@ export default function Information () {
 
 
 
-              <form onSubmit={e => handleSecondAddressSubmit(e)} className='grid w-96 h-fit relative rounded-sm px-5 pt-4 pb-10 border border-na3ne3i'>
+              <form onSubmit={e => handleSecondAddressSubmit(e)} className='grid w-96 h-fit relative rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
               <p className="w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:w-[346px] relative ">Adresse de livraison</p>
               {
                   editingSecondAddress ? 
@@ -342,10 +342,10 @@ export default function Information () {
                 NullAddresses ? <p className='my-10'>Auncune adresse insérée</p>
                 :
                    <>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.address}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.city}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.country}</p>
-                   <p className='w-full mt-5 text-ellipsis overflow-hidden'>{secondAddress.zipCode}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Adresse:</span> {secondAddress.address}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Ville:</span> {secondAddress.city}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Pays:</span> {secondAddress.country}</p>
+                   <p className='w-full mt-5 text-ellipsis overflow-hidden'> <span className='text-na3ne3i font-medium'>Code Postal:</span> {secondAddress.zipCode}</p>
                   </>
                 }
                 
@@ -377,11 +377,11 @@ export default function Information () {
                   })
                 }
               }} className='mr-1 text-na3ne3i underline text-sm font-medium'>annuler</button>
-              <button type="submit" className='bg-orange px-1 font-medium rounded-sm '>Enregistrer</button> 
+              <button type="submit" className='bg-pinky px-1 font-medium rounded '>Enregistrer</button> 
               </> : 
               <button type='button' onClick={e => {
                 setEditingSecondAddress(true)
-                }} className='bg-orange px-1 font-medium rounded-sm '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
+                }} className='bg-pinky px-1 font-medium rounded-md '>{NullAddresses ? 'Ajouter' : 'Modifier'}</button> 
                 }
                 </div>
               </form>

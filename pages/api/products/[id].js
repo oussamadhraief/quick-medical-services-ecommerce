@@ -12,11 +12,11 @@ const handleSingleProduct =  async (req, res) => {
     switch (method) {
         case "GET":
             try {
-                const Instrument = await db.collection('instruments').findOne({ reference: id });
-                if (!Instrument) {
+                const Instruments = await Instrument.findOne({ reference: id });
+                if (!Instruments) {
                     return res.status(400).json({ success: false });
                 }
-                return res.status(200).json({ success: true, data: Instrument });
+                return res.status(200).json({ success: true, data: Instruments });
             } catch (error) {
                 res.status(400).json({ success: false });
             }

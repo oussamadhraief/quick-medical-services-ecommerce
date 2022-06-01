@@ -104,7 +104,7 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-[#E7EDEE] items-center mb-10 py-5 sm:10 md:16 lg:py-20 xl:py-24'>
+            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-complementary items-center mb-10 py-5 sm:10 md:16 lg:py-20 xl:py-24'>
                 <div className='mx-3 mt-3'>
                     <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
                         <Image src={delivery} alt='delivery truck icon' layout="fill" />
@@ -153,7 +153,7 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
 
-            <div id='encourageSection' className='bg-[#E7EDEE] gap-20 relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-start items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-[5vw]'>
+            <div id='encourageSection' className='bg-complementary gap-20 relative w-full h-fit md:h-[40vh] lg:h-[50vh] min-h-fit mt-32 flex flex-col md:flex-row md:flex-nowrap justify-start items-center py-5 pr-5 md:pr-0 lg:py-10 pl-5 lg:pl-10 xl:pl-[5vw]'>
                 <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/68] h-full'>
                     <Image src={'pfe/Untitled_design_2_zzbtlv'} alt='contact' layout='fill' />
                     <div className='absolute top-3/4 left-3/4 w-fit h-fit bg-white shadow-float px-8 py-5 grid gap-2 hover:scale-105 transition-all'>

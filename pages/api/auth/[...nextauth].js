@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import FacebookProvider from "next-auth/providers/facebook"
-import Testeur from "../../../Models/Testeur.js"
+import Bambi from "../../../Models/Bambi.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../utils/MongoDBProvider"
@@ -16,18 +15,14 @@ export default NextAuth({
     strategy: 'jwt',
   },
   providers: [
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
-    }),
     CredentialsProvider({
       id: 'credentials',
       name: 'credentials',
       
       async authorize(credentials) {
-        const user = await Testeur.findOne({email : credentials.email,})
+        const user = await Bambi.findOne({email : credentials.email,})
         if (!user){
-          throw new Error ('No Testeur found with this email')
+          throw new Error ('No Bambi found with this email')
         }
         const validPassword = await verifyPassword(credentials.password, user.password)
         if (!validPassword) {
@@ -46,20 +41,20 @@ export default NextAuth({
   secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks:{
     async session({session, user}){
-      const thisTesteur = await Testeur.findOne({email : session.user.email})
+      const thisBambi = await Bambi.findOne({email : session.user.email})
       
-      // if (typeof(thisTesteur.isAdmin) == 'undefined') {
-      //   const newTesteur = await Testeur.findOneAndUpdate({email : session.user.email},{
-      //   ...thisTesteur,
+      // if (typeof(thisBambi.isAdmin) == 'undefined') {
+      //   const newBambi = await Bambi.findOneAndUpdate({email : session.user.email},{
+      //   ...thisBambi,
       //   isAdmin: false,
       // })}
-      session.user.address = thisTesteur.address
-      session.user.city = thisTesteur.city
-      session.user.country = thisTesteur.country
-      session.user.zipCode = thisTesteur.zipCode
-      session.user.name = thisTesteur.name
-      session.user.phone = thisTesteur.phone
-      session.user.isAdmin = thisTesteur.isAdmin
+      session.user.address = thisBambi.address
+      session.user.city = thisBambi.city
+      session.user.country = thisBambi.country
+      session.user.zipCode = thisBambi.zipCode
+      session.user.name = thisBambi.name
+      session.user.phone = thisBambi.phone
+      session.user.isAdmin = thisBambi.isAdmin
 
       
       return Promise.resolve(session)

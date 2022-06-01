@@ -1,5 +1,4 @@
-import Amazon from '../../../../Models/Amazon'
-import Instrument from '../../../../Models/Instrument'
+import Quote from '../../../../Models/Quote'
 import Bambi,{db} from '../../../../Models/Bambi'
 import dbConnect from '../../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
@@ -17,7 +16,7 @@ export default async function handler (req, res) {
           return
         }
     
-        let commande = await Amazon.findOne({user: User, _id: req.query.id}).populate('cart.product')
+        let commande = await Quote.findOne({user: User, _id: req.query.id}).populate('cart.product')
     
         if(!commande){
             res.status(404).json({success: false, data: 'Order not found'})

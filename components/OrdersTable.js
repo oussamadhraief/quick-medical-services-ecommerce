@@ -70,7 +70,7 @@ export default function OrdersTable(props){
    return (
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
-            <div className='mainScreen w-full bg-[#E7EDEE] flex items-center justify-center relative p-10 flex-auto'>
+            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-10 flex-auto'>
                 <div className='w-7/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>

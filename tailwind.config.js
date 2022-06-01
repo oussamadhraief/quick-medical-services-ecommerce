@@ -31,7 +31,9 @@ module.exports = {
         cleangray: '#F5F5F5',
         orange:'#F9BF87',
         pinky: '#F7B1A2',
-        bandena: '#8A3D47'
+        bandena: '#8A3D47',
+        complementary: '#ACD9D1',
+        harvey: '#ddece9'
       }
     }
   },

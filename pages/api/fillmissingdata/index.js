@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Testeur from "../../../Models/Testeur";
+import Bambi from "../../../Models/Bambi";
 import { getSession } from "next-auth/react"
 
 dbConnect();
@@ -8,7 +8,7 @@ export default  async (req, res) => {
   if (req.method !== 'POST') return res.status(400).json({success : false , message :'Only POST request accepted'})
   if(session){
     try {
-      const userData = await Testeur.findOneAndUpdate({email : req.body.email},
+      const userData = await Bambi.findOneAndUpdate({email : req.body.email},
           {phone: req.body.phone, address: req.body.address},
           { new: true, runValidators: true })
     

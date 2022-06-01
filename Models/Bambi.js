@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
 
-const TesteurSchema = new mongoose.Schema(
+const BambiSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -47,11 +47,19 @@ const TesteurSchema = new mongoose.Schema(
       type: Boolean,
       default: 0
     },
-    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' }],
+    cart: {
+      type: [
+        {
+          _id: false,
+          product: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' },
+          size: Number,
+        },
+      ]
+    },
     ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Amazon' }],
     estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
   },
   { timestamps: true }
 )
 module.exports =
-  mongoose.models.Testeur || mongoose.model('Testeur', TesteurSchema)
+  mongoose.models.Bambi || mongoose.model('Bambi', BambiSchema)

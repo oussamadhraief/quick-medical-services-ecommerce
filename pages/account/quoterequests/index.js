@@ -43,7 +43,7 @@ export default function Quotes() {
     }
     async function fetchQuotes() {
       try {
-        const res = await fetch('/api/user/userestimaterequests',{ signal: abortController.signal })
+        const res = await fetch('/api/user/userquoterequests',{ signal: abortController.signal })
         const { data } = await res.json()
         setQuotes(data)
         setLoading(false)
@@ -139,8 +139,8 @@ export default function Quotes() {
                     <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
                 </Link>
                 
-                <Link href='/account/estimates'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE]'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed'  /><p>Historique des devis</p></a>
+                <Link href='/account/quoterequests'>
+                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed'  /><p>Historique des devis</p></a>
                 </Link>
                 
                 <Link href='/account/orders'>
@@ -154,21 +154,25 @@ export default function Quotes() {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <table className='w-9/12 mx-auto h-full'>
-              <thead className='w-full'>
-                <tr>
-                  <th className='bg-[#E7EDEE] border-r border-white'>Référence</th>
-                  <th className='bg-[#E7EDEE] border-r border-white'>Date</th>
-                  <th className='bg-[#E7EDEE] border-r border-white'>Email</th>
-                  <th className='bg-[#E7EDEE] border-r border-white'>Status</th>
-                  <th></th>
-                </tr>
-                  
-              </thead>
+          <div className='w-10/12 mx-auto h-fit pl-10'>
+
+          <table className=' w-full h-fit'>
+                <thead className='w-full h-12 border-b border-zinc-400'>
+                    <tr>
+                    <th className='bg-white text-sm'>Référence</th>
+                    <th className='bg-white text-sm'>Num. de téléphone</th>
+                    <th className='bg-white text-sm'>Date</th>
+                    <th className='bg-white text-sm'>Email</th>
+                    <th className='bg-white text-sm'>Status</th>
+                    <th></th>
+                    </tr>
+                    
+                </thead>
               <tbody className='w-full'>
-                {estimates.map(item => <EstimateComponent key={item._id} id={item._id} createdAt={item.createdAt} status={item.status} email={item.email} />)}
+                {estimates.map(item => <EstimateComponent key={item._id} id={item._id} phoneNumber={item.phoneNumber} createdAt={item.createdAt} status={item.status} email={item.email} />)}
               </tbody>
             </table>
+      </div>
       </main>
       <Footer />
     </div>

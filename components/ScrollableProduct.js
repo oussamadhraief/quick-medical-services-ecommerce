@@ -2,6 +2,7 @@ import Image from 'next/image'
 import SizeSelection from './SizeSelection'
 import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
+import LoadingAnimation from './LoadingAnimation'
 import 'animate.css'
 import { SizeSelectionContext } from '../utils/SizeSelectionContext'
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
@@ -12,6 +13,7 @@ export default function ScrollableProduct ({ product }) {
   const eye = 'pfe/eye-12109_hoarin.png'
 
   const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [selectedSize, setSelectedSize] = useState(0)
   const [productContent, setProductContent] = useState({})
   const { activatedModal, setActivatedModal } = useContext(
@@ -34,7 +36,7 @@ export default function ScrollableProduct ({ product }) {
             'accept' : 'application/json',
             'Content-Type' : 'application/json'
         },
-        body : JSON.stringify({reference : product.reference})
+        body : JSON.stringify({reference : product.reference,size: selectedSize})
     })
     const { cart } = await res.json()
     setCartNumber(cart)
@@ -44,9 +46,11 @@ export default function ScrollableProduct ({ product }) {
   return (
     <div className='w-60 min-w-[270px] p-0 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[300px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
       <SizeSelectionContext.Provider value={{ selectedSize, setSelectedSize }}>
+      {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
       {product.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
                     <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
         </div> : null }
+
         <div className='mx-auto w-[95%] h-fit flex justify-center items-center relative  hover:cursor-pointer'>
           <div className='bg-white h-fit w-fit rounded-full shadow-3xl px-2 justify-center items-center absolute z-[9999] bottom-1/2 top-1/2 hidden group-hover:flex animate__animated animate__fadeInUp'>
             <Image
@@ -57,6 +61,7 @@ export default function ScrollableProduct ({ product }) {
               layout='fixed'
               onClick={() => {
                 if (!activatedModal) {
+                  setLoading(true)
                   setActivatedModal(true)
                   document.body.style.height = '100vh'
                   document.body.style.overflow = 'hidden'
@@ -82,7 +87,7 @@ export default function ScrollableProduct ({ product }) {
 
         <div className='h-fit w-fit max-w-full overflow-hidden mx-auto px-1'>
           <Link href={`/products/${product.reference}`}>
-            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-clip hover:text-orange hover:underline'>
+            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-clip w-full hover:text-orange hover:underline'>
               {product.name}
             </a>
           </Link>

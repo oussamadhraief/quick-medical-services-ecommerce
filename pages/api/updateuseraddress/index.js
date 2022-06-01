@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect'
-import Testeur from '../../../Models/Testeur'
+import Bambi from '../../../Models/Bambi'
 import { getSession } from 'next-auth/react'
 // user must be logged in
 dbConnect()
@@ -9,7 +9,7 @@ export default async (req, res) => {
   if (req.method !== 'PATCH') return res.status(400).json({ success: false, message: 'Only PATCH request accepted' })
 
   if (session) {
-    const user = await Testeur.findOne({ email: session.user.email })
+    const user = await Bambi.findOne({ email: session.user.email })
     try {
       if(!user){
         res.status(404).json({success: false, message: 'User not found'})

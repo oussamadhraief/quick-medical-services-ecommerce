@@ -1,4 +1,4 @@
-import Testeur from '../../../Models/Testeur'
+import Bambi from '../../../Models/Bambi'
 import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
@@ -11,7 +11,7 @@ export default async function handler (req, res) {
   }
   
   if (session) {
-    const user = await Testeur.findOne({ email: session.user.email })
+    const user = await Bambi.findOne({ email: session.user.email })
     if (!user) {
       res.status(405).json({ success: false, message: 'User not found' })
     }
@@ -25,7 +25,7 @@ export default async function handler (req, res) {
     }
     
     const productExists = user.cart.some(item => {
-      return item.toString() == product._id.toString()
+      return item.product.toString() == product._id.toString()
     })
 
     if (productExists) {
@@ -33,7 +33,7 @@ export default async function handler (req, res) {
         .status(200)
         .json({ success: true, message: 'products exists already', cart: user.cart.length })
     } else {
-      user.cart.push(product)
+      user.cart.push({product: product, size: req.body.size})
       res
         .status(201)
         .json({ success: true, message: 'product added successfully', cart: user.cart.length })

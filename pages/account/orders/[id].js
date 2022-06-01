@@ -138,12 +138,12 @@ export default function Orders() {
                     <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
                 </Link>
                 
-                <Link href='/account/estimates'>
+                <Link href='/account/quoterequests'>
                     <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
                 </Link>
                 
                 <Link href='/account/orders'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-[#E7EDEE]'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-complementary'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
                 </Link>
                 
                 <Link href='/account/password'>
@@ -153,27 +153,42 @@ export default function Orders() {
                 <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-            <div className='w-10/12 mx-auto h-full relative px-10'>
-              <Link href='/account/orders'>
+          <div className='w-10/12 p-10 relative'>
+            
+          <Link href='/account/orders'>
                 <a className='absolute left-2 -top-2 w-fit h-fit text-5xl font-bold text-zinc-400 hover:text-orange'>&#x2190;</a>
               </Link>
-              <p className='text-3xl w-fit mx-auto mt-10'>
-                <span className='font-medium border-b-2 border-orange'>Référence de la commande</span>:  {order._id}
-              </p>
-              <p className='mt-2 text-sm font-medium text-zinc-600'>Cette commande a été passée le <span className='underline'>{`${order.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(order.createdAt.substr(6,2)))} ${order.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{order.status}</span>. </p>
-              <p className='text-2xl font-medium mt-5'>Détails de la commande</p>
-              <p className='mt-5'><span className='font-medium'>Nom et prénom:</span> {order.name}</p>
-              <p className='mt-5'> <span className='font-medium'>Num. de téléphone:</span> {order.phone}</p>
-              <div className='mt-5 flex flex-nowrap justify-around gap-5'>
-                <div className='w-72 h-fit border border-na3ne3i px-10 pb-10 pt-1 grid gap-8'><span>Adresse de livraison:</span> <p>{order.address[0]}</p></div>
-                <div className='w-72 h-fit border border-na3ne3i px-10 pb-10 pt-1 grid gap-8'><span>Adresse de facturation:</span><p>{order.address[0]}</p> </div>
-              </div>
-              <p className='mt-5'><span className='font-medium'>Nom de clinique:</span> {order.clinicName}</p>
-              <p className='mt-5'><span className='font-medium'>Matricule fiscale:</span> {order.taxRegistrationNumber}</p>
-              <p className='mt-5'><span className='font-medium'>Email:</span> {order.email}</p>
-              <p className='mt-5'><span className='font-medium'>Message:</span> {order.note}</p>
-              
-              <table className='w-full mt-10 px-10'>
+
+          <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
+                    <p className='font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${order.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(order.createdAt.substr(6,2)))} ${order.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{order.status}</span>. </p>
+          </div>
+                    <div className='grid gap-4 mt-2'>
+
+                    <p className='font-medium text-lg w-full text-center'> <span className='text-na3ne3i underline text-xl'>Référence de la commande:</span>&nbsp; {order._id}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Nom et prénom:</span>&nbsp; {order.name}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>E-mail:</span>&nbsp; {order.email}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Num. de téléphone:</span>&nbsp; {order.phoneNumber}</p>
+                    <p className='text-na3ne3i text-lg font-medium'>Adresses:</p>
+                    <div className='w-full flex flex-nowrap justify-around gap-5'>
+                        <div className='w-1/3 h-fit border border-na3ne3i px-3 pb-10 pt-1 grid gap-3 font-medium'>
+                            <span className='w-full border-b border-pinky'>Adresse de livraison:</span>
+                            <p><span className='text-na3ne3i'>Adresse: </span>{order.address[0]}</p>
+                            <p><span className='text-na3ne3i'>Ville: </span>{order.city[0]}</p>
+                            <p><span className='text-na3ne3i'>Pays: </span>{order.country[0]}</p>
+                            <p><span className='text-na3ne3i'>Code postal: </span>{order.zipCode[0]}</p>
+                         </div>
+                         <div className='w-1/3 h-fit border border-na3ne3i px-3 pb-10 pt-1 grid gap-3 font-medium'>
+                            <span className='w-full border-b border-pinky'>Adresse de facturation:</span>
+                            <p><span className='text-na3ne3i'>Adresse: </span>{order.address.length > 1 ? order.address[1] : order.address[0]}</p>
+                            <p><span className='text-na3ne3i'>Ville: </span>{order.address.length > 1 ? order.city[1] : order.city[0]}</p>
+                            <p><span className='text-na3ne3i'>Pays: </span>{order.address.length > 1 ? order.country[1] : order.country[0]}</p>
+                            <p><span className='text-na3ne3i'>Code postal: </span>{order.address.length > 1 ? order.zipCode[1] : order.zipCode[0]}</p>
+                         </div>
+                    </div>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Nom de clinique:</span>&nbsp; {order.clinicName}</p>
+                    <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Matricule fiscale:</span> &nbsp;{order.taxRegistrationNumber}</p>
+                    <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{order.note}</p>
+                    <table className='w-11/12 mx-auto mt-10 px-10'>
                 <thead>
                 <tr className='border-b h-10 border-zinc-400'>
                   <th className='font-bold'>RÉFÉRENCE</th>
@@ -181,6 +196,7 @@ export default function Orders() {
                   <th className='font-bold'>NOM</th>
                   <th className='font-bold'>TAILLE</th>
                   <th className='font-bold'>QUANTITÉ</th>
+                  <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -188,14 +204,28 @@ export default function Orders() {
                     <tr key={index} className='border-b'>
                       <td className='text-center font-medium'>{item.product.reference}</td>
                       <td className='w-40 h-48'><Image src={item.product.image} alt='image' width={150} height={170}  objectFit="contain" objectPosition="center"  /></td>
-                      <td className='text-center font-medium'>{item.product.name}</td>
-                      <td className='text-center font-medium'>{order.cart[index].size}</td>
+                      <td className='text-center font-medium'>
+                        <Link href={'/products/' + item.product.reference} >
+                          <a className='hover:underline' target='_blank'>{item.product.name}</a>
+                        
+                        </Link>
+                        </td>
+                      <td className='text-center font-medium'>{order.cart[index].size} cm</td>
                       <td className='text-center font-medium'>{order.cart[index].quantity}</td>
+                      <td className='w-52 h-fit'>
+                        {item.product.archived ? 
+                        <div disabled className='font-medium w-fit h-fit bg-zinc-200 px-3 py-1 rounded hover:cursor-not-allowed transition-all relative group'>
+                          Ajouter au panier
+                          <p className='absolute -left-10 w-32 h-fit mx-auto bottom-[120%] hidden group-hover:block whitespace-nowrap text-red-500 font-normal'>Ce produit n'est plus disponible.</p>
+                        </div> : 
+                        <button className='font-medium mx-auto w-fit h-fit bg-na3ne3i px-3 py-1 rounded text-white hover:bg-pinky hover:scale-110 transition-all'>Ajouter au panier</button>}
+                      </td>
                     </tr>
                   )})}
                 </tbody>
               </table>
-            </div>
+                    </div>
+        </div>
       </main>
       <Footer />
     </div>

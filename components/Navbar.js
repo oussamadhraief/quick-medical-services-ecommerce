@@ -81,7 +81,7 @@ export default function Navbar({ scrolled }){
                     <a>Contact</a>
                     </Link></li>
                 {isAuthenticated? <li>
-                    <UserNavigation />
+                    <UserNavigation panel={false} />
                 </li> : 
                 <>  
                     <li><Link href='/login'><a className="whitespace-nowrap text-white text-center font-medium lg:font-[400] ml-3 underlineAnimatedLink relative">Se connecter</a></Link></li>

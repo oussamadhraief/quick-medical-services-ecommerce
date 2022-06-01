@@ -74,9 +74,6 @@ useEffect(() => {
 },[status])
 
   
-  useEffect(() => {
-    if(status == 'authenticated' && (session.user.phone == null || session.user.address == null)) router.push('/login')
-  })
 
   if (status === 'loading' || loading) {
     return (

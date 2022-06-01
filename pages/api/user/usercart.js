@@ -1,4 +1,4 @@
-import Testeur from '../../../Models/Testeur'
+import Bambi from '../../../Models/Bambi'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
@@ -10,8 +10,8 @@ export default async function handler (req, res) {
 
   if (session) {
     try {
-        const User = await Testeur.findOne({ email: session.user.email }).populate('cart')
-        const newCart = User.cart.filter(item => item.archived == false)
+        const User = await Bambi.findOne({ email: session.user.email }).populate('cart.product')
+        const newCart = User.cart.filter(item => item.product.archived == false)
         if(newCart.length != User.cart.length){
           User.cart = newCart
           User.save()

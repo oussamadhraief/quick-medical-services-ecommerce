@@ -67,7 +67,7 @@ function CategoriesModal({show, onClose}) {
                   </div>
                   {item.subcategories.map(element => {
                     return (
-                      <li key={`liol${element}`} className="h-10 w-full bg-[#E7EDEE] pl-10 font-medium py-2 text-gray-700 border-b-[0.5px] border-na3ne3i">&#62; 
+                      <li key={`liol${element}`} className="h-10 w-full bg-complementary pl-10 font-medium py-2 text-gray-700 border-b-[0.5px] border-na3ne3i">&#62; 
                       <Link href={`/categories/${item.category}/${element}`}>
                       <a className="font-medium text-gray-700 w-fit h-fit hover:underline">{element}</a>
                       </Link></li>

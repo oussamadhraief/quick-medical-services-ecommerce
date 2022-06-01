@@ -56,7 +56,7 @@ export default function OrderForm(props){
 
     return(
         <form onSubmit={e => handleSubmit(e)} className='w-5/12 px-5 py-10 bg-white grid min-w-[340px]'>
-                    <p className='w-fit h-fit text-3xl font-medium whitespace-nowrap mx-auto mb-5'>Passer <span className="border-b-2 border-orange">une commande</span>  </p>
+                    <p className='w-fit h-fit text-3xl font-medium whitespace-nowrap mx-auto mb-5'>Passer <span className="border-b-2 border-pinky">une commande</span>  </p>
                     <p></p>
                     <input required type="text" name="name" onChange={e => handleChange(e)} value={orderForm.name} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Nom et prénom'/>
 
@@ -68,13 +68,13 @@ export default function OrderForm(props){
                     }} value="seperated" className='hover:cursor-pointer' /> &nbsp;Séparer l&apos;adresse de livraison et l&apos;adresse de facturation
                     </label>
 
-                    {seperateAdresses ? <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-orange'>livraison</span> :</p> : <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-orange'>livraison et de facturation</span> :</p>}
+                    {seperateAdresses ? <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-pinky'>livraison</span> :</p> : <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-pinky'>livraison et de facturation</span> :</p>}
                     <input required type="text" name="address" onChange={e => handleChange(e)} value={orderForm.address} className='mainAdress mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Adresse'/>
                     <input required type="text" name="city" onChange={e => handleChange(e)} value={orderForm.city} className='mainAdress mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Ville'/>
                     <input required type="text" name="country" onChange={e => handleChange(e)} value={orderForm.country} className='mainAdress mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Pays'/>
                     <input required type="number" name="zipCode" onChange={e => handleChange(e)} value={orderForm.zipCode} className='mainAdress mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Code postal'/>
 
-                    {seperateAdresses ? <p className='w-11/12 mx-auto mt-5 font-medium text-sm'>Adresse de <span className='border-b border-orange'>facturation</span>:</p> : null}
+                    {seperateAdresses ? <p className='w-11/12 mx-auto mt-5 font-medium text-sm'>Adresse de <span className='border-b border-pinky'>facturation</span>:</p> : null}
                     {seperateAdresses ? <input required type="text" name="address2" onChange={e => handleChange(e)} value={orderForm.address2} className='mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Adresse'/> : null}
                     {seperateAdresses ? <input required type="text" name="city2" onChange={e => handleChange(e)} value={orderForm.city2} className='mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Ville'/> : null}
                     {seperateAdresses ? <input required type="text" name="country2" onChange={e => handleChange(e)} value={orderForm.country2} className='mb-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Pays'/> : null}
@@ -89,7 +89,7 @@ export default function OrderForm(props){
 
                     <textarea className='my-5 h-fit min-h-[100px] w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' onChange={e => handleChange(e)} value={orderForm.note} placeholder='Message (facultatif)' col={50} row={4} name='note' />
                         
-                    {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-orange hover:text-black hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
+                    {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-pinky hover:text-black hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
 
                 </form>
     )

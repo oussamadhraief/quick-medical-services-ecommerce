@@ -28,92 +28,13 @@ export default function LoginForm() {
   }
 
   if(session) {
-    if(session.user.phone != null && session.user.address != null){
+    
       if(document.referrer.includes('localhost')) {
         router.back()
       }else{
         router.push('/')
       }
       return 
-    }else{
-      return (
-        <div className='h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[13vh] rounded-md z-10 animate__animated animate__fadeInLeft'>
-        <form onSubmit={
-         async e=> {
-            e.preventDefault()
-            if(addData.phone == '')
-            { 
-              const res = await fetch('/api/updateuseraddress',{
-                method: 'POST',
-                  headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  address: addData.address,
-                  email: session.user.email
-                })
-              }).then(async res => {
-                if(res.status == 200) router.push('/')
-                const { data } = await res.json()
-              })
-              
-          }else if (addData.address == ''){
-            const res = await fetch('/api/updateuserphone',{
-              method: 'POST',
-                headers: {
-                  "Accept": "application/json",
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                phone: addData.phone,
-                email: session.user.email
-              })
-            }).then(res => {
-              if(res.status == 200) router.push('/')
-            })
-          }else{
-            const res = await fetch('/api/fillmissingdata',{
-              method: 'POST',
-                headers: {
-                  "Accept": "application/json",
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                ...addData,
-                email: session.user.email
-              })
-            }).then(res => {
-              if(res.status == 200) router.push('/')
-            })
-          }
-          }
-        } className='h-fit min-h-full w-full flex flex-col items-center mb-10'>
-          <p className="text-3xl font-medium text-white border-b-2 border-orange mb-10 whitespace-nowrap">Remplir les informations manquantes</p>
-              {session.user.address == null ? <input
-                type='text'
-                placeholder='Adresse'
-                className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-                required={true}
-                name="address"
-                value={addData.address}
-                onChange={e => handleAddChange(e)}
-              /> : null }
-              {session.user.phone == null ? <input
-                type='number'
-                placeholder='Numéro de tél.'
-                className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
-                required={true}
-                name="phone"
-                value={addData.phone}
-                onChange={e => handleAddChange(e)}
-              /> : null}
-          
-              <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">Sauvegarder</button>
-          </form>
-      </div>
-      )
-    }
    }
 
 
@@ -134,21 +55,18 @@ export default function LoginForm() {
           e.preventDefault()
           signIn("credentials", {redirect: false, email: login.email, password: login.password })
         }} className="h-fit min-h-full w-full flex flex-col items-center mb-10">
-            <p className="text-[44px] font-medium text-white border-b-2 border-orange mb-10">Se connecter</p>
+            <p className="text-[44px] font-medium text-white border-b-2 border-pinky mb-10">Se connecter</p>
             <input name="email" type="email" value={login.email} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full" placeholder="Nom d'utilisateur"/>
             
             <input name="password" type="password" value={login.password} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full my-7" placeholder="Mot de passe" />
-            <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">Se connecter</button>
+            <button type="submit" className="bg-pinky h-fit px-4 py-2 rounded-md text-white text-lg my-7">Se connecter</button>
             <div className="text-white">
             Vous n&apos;êtes pas déjà inscrit ?&nbsp;
                 <Link href='/register'>
-                    <a className="font-semibold underline hover:no-underline text-orange">Créez un compte</a>
+                    <a className="font-semibold underline hover:no-underline text-pinky">Créez un compte</a>
                 </Link>
             </div>
         </form>
-        <button className="w-fit h-fit flex flex-nowrap bg-[#546AA3] px-3 py-2 justify-center gap-1 text-white font-medium items-center rounded-md shadow" onClick={e => {
-          signIn('facebook')
-        }}><Image src={'pfe/facebook_dryelz.png'} alt='facebook icon' width={30} height={30} layout='fixed' /> Se connecter avec Facebook</button>
     </div>
   )
   

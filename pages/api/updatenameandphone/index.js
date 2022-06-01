@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect'
-import Testeur from '../../../Models/Testeur'
+import Bambi from '../../../Models/Bambi'
 import { getSession } from 'next-auth/react'
 // user must be logged in
 dbConnect()
@@ -10,7 +10,7 @@ export default async (req, res) => {
 
   if (session) {
     try {
-      const user = await Testeur.findOneAndUpdate({ email: session.user.email },{
+      const user = await Bambi.findOneAndUpdate({ email: session.user.email },{
         phone: req.body.phone,
         name: req.body.name
       },{ new: true, runValidators: true })

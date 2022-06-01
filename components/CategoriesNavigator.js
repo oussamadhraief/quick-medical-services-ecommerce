@@ -4,7 +4,7 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
     return(
         <div className="w-full h-fit" id="categoriesOrderer">
         {categoriesAndSubcategories.map(item => 
-                        <ul id={'lu'+item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-zinc-200 last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-[#E7EDEE] relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-black flex flex-nowrap items-center"><p id={`lu${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
+                        <ul id={'lu'+item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-zinc-200 last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-harvey relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-black flex flex-nowrap items-center"><p id={`lu${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
                             const element = document.querySelectorAll(`#lu${item.category} .expandable`)
                             const ulElem = document.getElementById('lu'+item.category)
                             const divchange = document.querySelector(`#lu${item.category} > div`)
@@ -16,7 +16,7 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
                                     elem.style.paddingTop='18px'
                                     elem.style.paddingBottom='18px'
                                     elem.style.height = '28px'
-                                    divchange.style.background = '#d5dbdc'
+                                    divchange.style.background = '#E7EDEE'
                                     if(index != element.length - 1) elem.style.borderBottom = '1px solid #fff'
                                 })
                                 rotateArrow.style.transform = 'rotate(90deg)'
@@ -27,7 +27,7 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
                                     elem.style.paddingTop='0px'
                                     elem.style.paddingBottom='0px'
                                     elem.style.height = '0px'
-                                    divchange.style.background = '#E7EDEE'
+                                    divchange.style.background = '#ddece9'
                                     elem.style.borderBottom = '0px solid #fff'
                                 })
                                 rotateArrow.style.transform = 'rotate(0deg)'

@@ -19,9 +19,9 @@ export default function SizeSelection(props){
     }
 
     return (
-        <div className="flex flex-nowrap overflow-x-auto w-full max-w-full justify-center overflow-hidden">
+        <div className="flex flex-nowrap overflow-x-auto w-full max-w-full justify-center items-center overflow-hidden">
 
-            <button className='relative bg-white w-5 h-full z-[90] font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
+            <button className='relative bg-white w-5 h-full z-[90] grid place-content-center place-items-center font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
 
             <div id={"sizeScroller" + props.id} className="sizeScroller w-full max-w-full flex flex-nowrap justify-start overflow-hidden">
                 
@@ -35,7 +35,7 @@ export default function SizeSelection(props){
             })}
             </div>
 
-            <button className='relative  bg-white w-5 h-full z-[90] font-bold text-2xl' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
+            <button className='relative  bg-white w-5 h-full z-[90] grid place-content-center place-items-center font-bold text-2xl' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
 
         </div>
     )

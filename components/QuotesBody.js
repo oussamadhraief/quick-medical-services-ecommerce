@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function QuotesBody(props){
     return (
         
-        <tr className='w-full h-20 even:bg-zinc-100 hover:cursor-pointer hover:bg-[#E7EDEE] relative'>
+        <tr className='w-full h-20 even:bg-zinc-100 hover:cursor-pointer hover:bg-complementary relative'>
                     <td className='font-bold text-center whitespace-nowrap px-2'>{props.id}</td>
                     <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.name}</td>
                     <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.phoneNumber}</td>

@@ -74,7 +74,7 @@ function AdminNavbar(props) {
             <button type="submit" className="w-7 h-5 "><Image src={'pfe/searchIcon_ooxkbe_tg1uir'} alt='search' width={22} height={22} layout='fixed' /> </button>
         </form>
        
-        <UserNavigation />
+        <UserNavigation panel={true} />
     </nav> );
 }
 

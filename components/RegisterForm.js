@@ -67,7 +67,7 @@ export default function RegisterForm() {
   return (
       <div className='h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[13vh] rounded-md z-10 animate__animated animate__fadeInLeft'>
     <form onSubmit={handleSubmit} className='h-fit min-h-full w-full flex flex-col items-center mb-10'>
-    <p className="text-[44px] font-medium text-white border-b-2 border-orange mb-10">S&apos;inscrire</p>
+    <p className="text-[44px] font-medium text-white border-b-2 border-pinky mb-10">S&apos;inscrire</p>
     <div className='flex flex-nowrap justify-between w-full h-fit mb-7'>
         <input
           type='text'
@@ -126,11 +126,11 @@ export default function RegisterForm() {
           value={signUpData.passwordConfirm}
           onChange={ e => handleChange(e)}
         />
-        <button type="submit" className="bg-orange h-fit px-4 py-2 rounded-md text-black text-lg font-medium my-7">S&apos;inscrire</button>
+        <button type="submit" className="bg-pinky h-fit px-4 py-2 rounded-md text-white text-lg my-7">S&apos;inscrire</button>
         <div className="text-white">
             Vous êtes déjà inscrit ?&nbsp;
                 <Link href='/login'>
-                    <a className="font-semibold underline hover:no-underline text-orange">S&apos;identifier</a>
+                    <a className="font-semibold underline hover:no-underline text-pinky">S&apos;identifier</a>
                 </Link>
             </div>
     </form>

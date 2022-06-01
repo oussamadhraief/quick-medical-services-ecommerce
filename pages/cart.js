@@ -2,6 +2,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import OrderForm from '../components/OrderForm'
 import EstimateForm from '../components/EstimateForm'
+import LoadingAnimation from '../components/LoadingAnimation'
 import CartProduct from '../components/CartProduct'
 import { useEffect, useState } from "react"
 import { CategoriesContext } from "../utils/CategoriesContext"
@@ -23,6 +24,7 @@ export default function Cart() {
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [search,setSearch] = useState('')
     const [value,setValue] = useState([])
+    const [loading,setLoading] = useState(true)
     const [cartProducts,setCartProducts] = useState([])
     const [cartNumber,setCartNumber] = useState(0)
 
@@ -33,10 +35,7 @@ export default function Cart() {
             try {
                 const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
                 const { data } = await res.json()
-                let categories = data.map(item => item.category)
-                categories = [...new Set(categories)]
-                const orderedStuff = categories.map(item => orderedTable(item,data))
-                setCategoriesAndSubcategories(orderedStuff)
+                setCategoriesAndSubcategories(data)
             } catch (error) {
                 console.error(error)
             }
@@ -55,16 +54,41 @@ export default function Cart() {
             try {
                 const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
                 const { data } = await res.json()
-                setCartProducts(data)
-                const newValue = data.map(item => { return ({
-                    reference: item.reference,
+                const temp = data.map(item => item.product)
+                setCartProducts(temp)
+                const newValue = data.map(item => { 
+                    return ({
+                    reference: item.product.reference,
                     quantity: 1,
-                    size: item.sizes[0]
+                    size: item.product.sizes[item.size]
                 })})
                 setValue(newValue)
+                setLoading(false)
             } catch (error) {
                 console.error(error)
             }
+        }
+        fetchProducts()
+        
+        return () => {
+            abortController.abort();
+          }
+    },[])
+
+    useEffect(() => {
+        setLoading(true)
+        const AbortController = window.AbortController;
+        const abortController = new AbortController()
+       async function fetchProducts() {
+            try {
+                const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
+                const { data } = await res.json()
+                const temp = data.map(item => item.product)
+                setCartProducts(temp)
+            } catch (error) {
+                console.error(error)
+            }
+            setLoading(false)
         }
         fetchProducts()
         
@@ -88,13 +112,6 @@ export default function Cart() {
             abortController.abort();
           }
       },[status])
-
-    function orderedTable(item,data){
-        return {
-            category: item,
-            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
-        }
-    }
 
     
 
@@ -144,18 +161,22 @@ export default function Cart() {
                 <Header landingPage={false}  />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
-            <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-[#E7EDEE]'>
+            <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-harvey'>
                 <Link href='/'>
                     <a className='absolute left-3 top-3.5 text-center w-fit h-fit font-medium text-zinc-600 hover:underline'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
                 </Link>
                 <p className='w-fit h-fit text-2xl font-medium text-third'>Votre panier</p>
             </div>
-            <div  className='w-full h-fit bg-[#E7EDEE] grid pb-10 pt-10'>
-                <table className='w-[99%] h-fit mx-auto bg-white table-auto rounded-md'>
+            <div  className='w-full h-fit bg-harvey grid pb-10 pt-10 '>
+                <div className='w-[99%] bg-transparent h-fit min-h-[300px] relative mx-auto'>
+            {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : 
+                    
+                
+                <table className='w-full h-fit  bg-white table-auto rounded-md'>
                     <thead className="w-full h-14 after:content-[''] after:absolute after:w-[99%] after:h-[1px] after:bg-zinc-300 relative after:-bottom-[1px] after:mx-auto after:right-0 after:left-0">
                         <tr>
                         <th className='text-center text-base font-medium text-third pl-3'>RÉFÉRENCE</th>
-                        <th className='text-center text-base font-medium text-third'>IMAGE</th>
+                        <th className='text-center text-base font-medium text-third w-40'>IMAGE</th>
                         <th className='text-center text-base font-medium text-third'>NOM</th>
                         <th className='text-center text-base font-medium text-third'>TAILLE</th>
                         <th className='text-center text-base font-medium text-third'>QUANTITÉ</th>
@@ -166,7 +187,7 @@ export default function Cart() {
                         {cartProducts.length > 0 ? 
                         cartProducts.map((item,index) => {
                             return (
-                                <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
+                                <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} currentSize={value[index]?.size} setValue={setValue} />
                                 )
                             })
                             : <tr>
@@ -175,10 +196,12 @@ export default function Cart() {
                             } 
                     </tbody>
                 </table>
+                    }
+                </div>
                 <p className='mt-10  w-10/12 mx-auto bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
                 <div className='w-10/12 h-fit flex flex-nowrap bg-white mx-auto justify-evenly py-10 rounded-md'>
                     <OrderForm value={value} setCartNumber={setCartNumber} />
-                    <div className='min-h-full py-10 bg-[#E7EDEE] shadow-inner w-1 rounded-lg '>
+                    <div className='min-h-full py-10 bg-complementary shadow-inner w-1 rounded-lg '>
                         
                     </div>
                     <EstimateForm value={value} setCartNumber={setCartNumber} />
@@ -190,7 +213,7 @@ export default function Cart() {
                 </Link>
                 <div className=' flex flex-nowrap gap-5 justify-between h-fit w-fit'>
                     
-                <Link href='/account/estimates'>
+                <Link href='/account/quoterequests'>
                     <a className='text-center w-fit h-fit font-medium  px-1 py-0.5 rounded-sm  hover:underline'>Voir mon historique de devis</a>
                 </Link>
                 |
