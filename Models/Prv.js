@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
 
-const ContactSchema = new mongoose.Schema({
+const PrvSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please enter your name'],
@@ -38,6 +38,7 @@ const ContactSchema = new mongoose.Schema({
         required : true , 
         default: false
     },
-})
+},
+{ timestamps: true })
 
-module.exports = mongoose.models.Feedback || mongoose.model('Feedback' , ContactSchema)
+module.exports = mongoose.models.Prv || mongoose.model('Prv' , PrvSchema)

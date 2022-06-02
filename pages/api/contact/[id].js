@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect'
-import Feedback from '../../../Models/Contact'
+import Prv from '../../../Models/Prv'
 import { getSession } from "next-auth/react"
 
 dbConnect()
@@ -12,7 +12,7 @@ export default async (req, res) => {
 
         if(session.user.isAdmin){
       try {
-        const data = await Feedback.findOneAndUpdate(
+        const data = await Prv.findOneAndUpdate(
           { _id: req.query.id },
           {isReview : req.body.isReview },
           { new: true }
@@ -33,7 +33,7 @@ export default async (req, res) => {
 
         if(session.user.isAdmin){
       try {
-        await Feedback.deleteOne(
+        await Prv.deleteOne(
           { _id: req.query.id }
         )
         return res.status(200).json({ success: true })

@@ -178,7 +178,7 @@ export default function MainContent(){
                     </Link>
                 </div>
             </div>
-            {testimonials.length > 4 
+            {testimonials.length > 2 
             ?
             <TestimonialSection data={testimonials} />
             : null

@@ -14,13 +14,38 @@ export default function TestimonialSection ({ data }) {
 
   useEffect(() => {
       setTestimonials(data)
-      setActiveReviews([
-        data[0],
-        data[1],
-        data[2],
-        data[3],
-        data[4]
-      ])
+      if(data.length == 3){
+        setInd(1)
+        setActiveReviews([
+          data[1],
+          data[2],
+          data[0],
+          data[1],
+          data[2]
+        ])
+      }
+
+      if(data.length == 4){
+        setInd(2)
+        setActiveReviews([
+          data[2],
+          data[3],
+          data[0],
+          data[1],
+          data[2]
+        ])
+      }
+
+      if(data.length > 4 ){
+        setInd(data.length - 2)
+        setActiveReviews([
+          data[data.length - 2],
+          data[data.length - 1],
+          data[0],
+          data[1],
+          data[2]
+        ])
+      }
       
       const mq1 = window.matchMedia("(max-width: 1023px)")
        if(mq1.matches){
