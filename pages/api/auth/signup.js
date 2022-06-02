@@ -1,6 +1,6 @@
 import { hashPassword } from "../../../utils/Encryption";
 import dbConnect from "../../../utils/dbConnect";
-import Bambi from "../../../Models/Bambi"
+import Brimstone from "../../../Models/Brimstone"
 
 dbConnect()
 
@@ -13,7 +13,7 @@ async function handler(req, res) {
     res.status(422).json({message:  'Invalid input - password should also be at least 7 characters long.'})
     return;
   }
-  const existingUser = await Bambi.findOne({email: req.body.email})
+  const existingUser = await Brimstone.findOne({email: req.body.email})
 
   if (existingUser) {
     res.status(422).json({message: 'User exists already'})
@@ -24,7 +24,7 @@ async function handler(req, res) {
 
   const name = `${req.body.firstName} ${req.body.lastName}`
 
-  const result = await Bambi.create({
+  const result = await Brimstone.create({
     name: name,
     email: req.body.email,
     password: hashedPassword,

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import Bambi from "../../../Models/Bambi.js"
+import Brimstone from "../../../Models/Brimstone.js"
 import dbConnect from "../../../utils/dbConnect";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../utils/MongoDBProvider"
@@ -20,9 +20,9 @@ export default NextAuth({
       name: 'credentials',
       
       async authorize(credentials) {
-        const user = await Bambi.findOne({email : credentials.email,})
+        const user = await Brimstone.findOne({email : credentials.email,})
         if (!user){
-          throw new Error ('No Bambi found with this email')
+          throw new Error ('No Brimstone found with this email')
         }
         const validPassword = await verifyPassword(credentials.password, user.password)
         if (!validPassword) {
@@ -41,20 +41,20 @@ export default NextAuth({
   secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks:{
     async session({session, user}){
-      const thisBambi = await Bambi.findOne({email : session.user.email})
+      const thisBrimstone = await Brimstone.findOne({email : session.user.email})
       
-      // if (typeof(thisBambi.isAdmin) == 'undefined') {
-      //   const newBambi = await Bambi.findOneAndUpdate({email : session.user.email},{
-      //   ...thisBambi,
+      // if (typeof(thisBrimstone.isAdmin) == 'undefined') {
+      //   const newBrimstone = await Brimstone.findOneAndUpdate({email : session.user.email},{
+      //   ...thisBrimstone,
       //   isAdmin: false,
       // })}
-      session.user.address = thisBambi.address
-      session.user.city = thisBambi.city
-      session.user.country = thisBambi.country
-      session.user.zipCode = thisBambi.zipCode
-      session.user.name = thisBambi.name
-      session.user.phone = thisBambi.phone
-      session.user.isAdmin = thisBambi.isAdmin
+      session.user.address = thisBrimstone.address
+      session.user.city = thisBrimstone.city
+      session.user.country = thisBrimstone.country
+      session.user.zipCode = thisBrimstone.zipCode
+      session.user.name = thisBrimstone.name
+      session.user.phone = thisBrimstone.phone
+      session.user.isAdmin = thisBrimstone.isAdmin
 
       
       return Promise.resolve(session)

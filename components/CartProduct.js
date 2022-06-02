@@ -8,18 +8,18 @@ import { CartContext } from "../utils/CartContext"
 export default function CartProduct(props){
 
     const [productQuantity,setProductQuantity] = useState(1)
-    const [productSize,setProductSize] = useState(props.currentSize)
+    const [productSize,setProductSize] = useState(0)
     const {cartNumber,setCartNumber} = useContext(CartContext)
 
     const handleChange = (e) => {
         if(e.target.value > 1){
             setProductQuantity(parseInt(e.target.value))
-            const temp = props.value
+            let temp = props.value
             temp[props.index].quantity = parseInt(e.target.value)
             props.setValue(temp)
         }else{
             setProductQuantity(1)
-            const temp = props.value
+            let temp = props.value
             temp[props.index].quantity = 1
             props.setValue(temp)
         }
@@ -64,8 +64,8 @@ export default function CartProduct(props){
             <button className='relative bg-white w-5 h-full z-[90] grid place-content-center place-items-center font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
             <div id={"sizeScroller" + props.id} className="sizeScroller w-full max-w-full flex flex-nowrap justify-start overflow-hidden">
                 {props.sizes.map((item,index) => {
-                if(productSize != item){ return <p className="border-[1px] border-orange ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer whitespace-nowrap" onClick={e => 
-                        {setProductSize(item)
+                if(productSize != index){ return <p className="border-[1px] border-orange ml-2 mb-2 h-fit w-fit py-2 px-1 font-medium text-sm hover:cursor-pointer whitespace-nowrap" onClick={e => 
+                        {setProductSize(index)
                             let temp = props.value
                             temp[props.index].size = props.sizes[index]
                             props.setValue(temp)

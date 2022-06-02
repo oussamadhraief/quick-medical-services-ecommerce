@@ -54,13 +54,12 @@ export default function Cart() {
             try {
                 const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
                 const { data } = await res.json()
-                const temp = data.map(item => item.product)
-                setCartProducts(temp)
+                setCartProducts(data)
                 const newValue = data.map(item => { 
                     return ({
                     reference: item.product.reference,
                     quantity: 1,
-                    size: item.product.sizes[item.size]
+                    size: item.product.sizes[0]
                 })})
                 setValue(newValue)
                 setLoading(false)
@@ -187,7 +186,7 @@ export default function Cart() {
                         {cartProducts.length > 0 ? 
                         cartProducts.map((item,index) => {
                             return (
-                                <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} currentSize={value[index]?.size} setValue={setValue} />
+                                <CartProduct key={index} reference={item.reference} name={item.name} sizes={item.sizes} image={item.image} index={index} value={value} setValue={setValue} />
                                 )
                             })
                             : <tr>

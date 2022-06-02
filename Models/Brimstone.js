@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 import { isEmail } from 'validator';
 
-const BambiSchema = new mongoose.Schema(
+const BrimstoneSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -47,19 +47,11 @@ const BambiSchema = new mongoose.Schema(
       type: Boolean,
       default: 0
     },
-    cart: {
-      type: [
-        {
-          _id: false,
-          product: { type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' },
-          size: Number,
-        },
-      ]
-    },
+    cart:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instrument' }],
     ordersHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Amazon' }],
     estimateHistory : [{type: mongoose.Schema.Types.ObjectId, ref: 'Devis'}] 
   },
   { timestamps: true }
 )
 module.exports =
-  mongoose.models.Bambi || mongoose.model('Bambi', BambiSchema)
+  mongoose.models.Brimstone || mongoose.model('Brimstone', BrimstoneSchema)

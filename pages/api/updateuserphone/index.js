@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect'
-import Bambi from '../../../Models/Bambi'
+import Brimstone from '../../../Models/Brimstone'
 import { getSession } from 'next-auth/react'
 // user must be logged in + check the user to change is the same as the one logged in
 dbConnect()
@@ -11,7 +11,7 @@ export default async (req, res) => {
       .json({ success: false, message: 'Only PATCH request accepted' })
   if (session) {
     try {
-      const userData = await Bambi.findOneAndUpdate(
+      const userData = await Brimstone.findOneAndUpdate(
         { email: req.user.email },
         { phone: req.body.phone },
         { new: true, runValidators: true }

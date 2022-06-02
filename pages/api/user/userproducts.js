@@ -1,4 +1,4 @@
-import Bambi from '../../../Models/Bambi'
+import Brimstone from '../../../Models/Brimstone'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
@@ -10,7 +10,7 @@ export default async function handler (req, res) {
 
   if (session) {
     try {
-        const products = await Bambi.findOne({ email: session.user.email }).populate('cart.product')
+        const products = await Brimstone.findOne({ email: session.user.email }).populate('cart')
     
         res.status(200).json({ success: true, data: products.cart })
 

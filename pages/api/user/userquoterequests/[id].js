@@ -1,5 +1,5 @@
 import Quote from '../../../../Models/Quote'
-import Bambi,{db} from '../../../../Models/Bambi'
+import Brimstone,{db} from '../../../../Models/Brimstone'
 import dbConnect from '../../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
@@ -10,7 +10,7 @@ export default async function handler (req, res) {
   if (req.method !== 'GET') return
   if (session) {
     try {
-        const User = await Bambi.findOne({ email: session.user.email })
+        const User = await Brimstone.findOne({ email: session.user.email })
         if(!User){
           res.status(404).json({success: false, data: 'User not found'})
           return

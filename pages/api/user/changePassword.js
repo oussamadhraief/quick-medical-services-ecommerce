@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/react"
 import dbConnect from "../../../utils/dbConnect";
 import { hashPassword, verifyPassword } from '../../../utils/Encryption';
-import Bambi from "../../../Models/Bambi";
+import Brimstone from "../../../Models/Brimstone";
 
 dbConnect()
 
@@ -18,7 +18,7 @@ async function handler(req, res) {
     
   }
 
-  const user = await Bambi.findOne({ email: session.user.email })
+  const user = await Brimstone.findOne({ email: session.user.email })
 
   if (!user) {
     return res.status(404).json({ message: 'User not found.' })
@@ -45,7 +45,7 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(req.body.newPassword)
 
-  const result = await Bambi.updateOne(
+  const result = await Brimstone.updateOne(
     { email: session.user.email },
     { password: hashedPassword },
     { new: true, runValidators: true }

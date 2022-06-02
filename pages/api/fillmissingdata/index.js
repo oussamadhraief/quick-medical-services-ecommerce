@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Bambi from "../../../Models/Bambi";
+import Brimstone from "../../../Models/Brimstone";
 import { getSession } from "next-auth/react"
 
 dbConnect();
@@ -8,7 +8,7 @@ export default  async (req, res) => {
   if (req.method !== 'POST') return res.status(400).json({success : false , message :'Only POST request accepted'})
   if(session){
     try {
-      const userData = await Bambi.findOneAndUpdate({email : req.body.email},
+      const userData = await Brimstone.findOneAndUpdate({email : req.body.email},
           {phone: req.body.phone, address: req.body.address},
           { new: true, runValidators: true })
     
