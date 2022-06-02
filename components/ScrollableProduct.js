@@ -36,7 +36,7 @@ export default function ScrollableProduct ({ product }) {
             'accept' : 'application/json',
             'Content-Type' : 'application/json'
         },
-        body : JSON.stringify({reference : product.reference,size: selectedSize})
+        body : JSON.stringify({reference : product.reference , size: selectedSize})
     })
     const { cart } = await res.json()
     setCartNumber(cart)
