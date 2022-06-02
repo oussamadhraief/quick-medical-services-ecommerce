@@ -54,6 +54,8 @@ export default function QuotesTable(props){
             temp.splice(selectedMessage,1)
             props.setValue(temp)
             setSelectedMessage(0)
+            setShow(false)
+            setResponse({price: 0,message: ''})
         } catch (error) {
             console.error(error)
         }
@@ -183,6 +185,8 @@ export default function QuotesTable(props){
                     <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
+                        setShow(false)
+                        setResponse({price: 0,message: ''})
                     }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
                         <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
@@ -194,6 +198,8 @@ export default function QuotesTable(props){
                         return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
+                            setShow(false)
+                            setResponse({price: 0,message: ''})
                         }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
                         <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>

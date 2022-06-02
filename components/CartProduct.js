@@ -37,18 +37,23 @@ export default function CartProduct(props){
     }
 
     const removeProduct = async (id) => {
-        const res = await fetch('/api/user/removecartproduct',{
-            method: 'PATCH',
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({reference: id})
-        })
-        const { cart } = await res.json()
-        const temp = props.value.filter(item => item.reference != id);
-        props.setValue(temp)
-        setCartNumber(cart)
+        try {
+            
+            const res = await fetch('/api/user/removecartproduct',{
+                method: 'PATCH',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({reference: id})
+            })
+            const { cart } = await res.json()
+            const temp = props.value.filter(item => item.reference != id);
+            props.setValue(temp)
+            setCartNumber(cart)
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (

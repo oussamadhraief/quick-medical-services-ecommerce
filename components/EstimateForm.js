@@ -26,6 +26,7 @@ export default function OrderForm(props){
                     },
                 body: JSON.stringify(estimateData)
             })
+            setEstimateForm({name: '',phone: '',email: '',note : ''})
             props.setCartNumber(0)
         } catch (error) {
             console.error(error)

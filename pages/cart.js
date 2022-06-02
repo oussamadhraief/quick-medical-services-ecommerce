@@ -48,6 +48,7 @@ export default function Cart() {
     },[])
 
     useEffect(() => {
+        setLoading(true)
         const AbortController = window.AbortController;
         const abortController = new AbortController()
        async function fetchProducts() {
@@ -57,33 +58,11 @@ export default function Cart() {
                 setCartProducts(data)
                 const newValue = data.map(item => { 
                     return ({
-                    reference: item.product.reference,
+                    reference: item.reference,
                     quantity: 1,
-                    size: item.product.sizes[0]
+                    size: item.sizes[0]
                 })})
                 setValue(newValue)
-                setLoading(false)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchProducts()
-        
-        return () => {
-            abortController.abort();
-          }
-    },[])
-
-    useEffect(() => {
-        setLoading(true)
-        const AbortController = window.AbortController;
-        const abortController = new AbortController()
-       async function fetchProducts() {
-            try {
-                const res = await fetch('/api/user/userproducts',{ signal: abortController.signal })
-                const { data } = await res.json()
-                const temp = data.map(item => item.product)
-                setCartProducts(temp)
             } catch (error) {
                 console.error(error)
             }

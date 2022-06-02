@@ -48,6 +48,8 @@ export default function OrderForm(props){
                 body: JSON.stringify(orderData)
             })
             props.setCartNumber(0)
+            setOrderForm({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
+            setSeperateAdresses(false)
         } catch (error) {
             
             console.error(error);

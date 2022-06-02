@@ -129,7 +129,8 @@ export default function Admin(){
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                     <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    <ModifyProductsView editing={editing} setEditing={setEditing} />
+                    {value.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
+                    <ModifyProductsView editing={editing} setEditing={setEditing} />}
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>
