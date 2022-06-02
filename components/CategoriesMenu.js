@@ -56,7 +56,7 @@ export default function CategoriesMenu(){
             <div className='w-fit h-fit absolute top-[102%] left-0 hidden group-hover:flex rounded-lg shadow-form z-[9999]'>
                     <div id='categoriesContainer' className='min-w-[250px] grid w-fit pr-5 pl-1 bg-cleangray rounded-lg shadow-form hover:rounded-r-none hover:rounded-l-lg'>
                         {categoriesAndSubcategories.map(item => 
-                        <Link key={item.category} href={`/categories/${item.category}`}>
+                        <Link key={item.category} href={`/categories/${item.category}?page=0`}>
                             <a id={'menu'+item.category}  className="categorieItem w-fit h-fit py-3">
                                     &#62;&nbsp;<span id={'menu'+item.category} className='hover:underline'>{item.category}</span>
 

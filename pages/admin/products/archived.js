@@ -36,7 +36,7 @@ export default function Admin(){
         async function fetchData() {
             setLoadingContext(true)
             let querypage 
-            if(typeof(router.query.page) == 'undefined') {
+            if(typeof(router.query.page) == 'undefined' ) {
                 router.push({
                     pathname: router.pathname,
                     query: { page: 0 }

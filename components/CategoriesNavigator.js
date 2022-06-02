@@ -32,7 +32,7 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
                                 })
                                 rotateArrow.style.transform = 'rotate(0deg)'
                             }
-                            }}>&#62; </p>&nbsp;<Link href={`/categories/${item.category}`}><a className="hover:underline">{item.category}</a></Link></div> 
+                            }}>&#62; </p>&nbsp;<Link href={`/categories/${item.category}?page=0`}><a className="hover:underline">{item.category}</a></Link></div> 
                             {item.subcategories.map(element => <li key={element} className="bg-[#fff]  text-sm pl-5 relative transition-[height] duration-300 expandable h-0 w-full  invisible min-w-fit  font-medium flex justify-start items-center px-1">
                                 <Link href={`/categories/${item.category}/${element}`}>
                                     <a >&#62; <span className="hover:underline">{element}</span> </a>

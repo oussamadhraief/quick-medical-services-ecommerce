@@ -42,7 +42,7 @@ export default function Admin(){
         let querypage = 0
         const id = router.query.id
         setSearchContext(id)
-        if(typeof(router.query.page) == 'undefined') {
+        if(typeof(router.query.page) == 'undefined' ) {
             router.push({
                 pathname: router.pathname,  
                 query: { id: id,page: 0 }

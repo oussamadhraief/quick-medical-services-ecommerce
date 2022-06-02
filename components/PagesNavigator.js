@@ -18,12 +18,23 @@ export default function PagesNavigator(props){
         for (let index = 0; index < pages; index++) {
             arr.push(<button key={index} className={index == pageSelection ? "px-3 py-1 border-[1px] w-fit h-8 border-light bg-light text-white font-semibold mx-1" : "px-3 py-1 w-fit h-8 border-[1px] border-zinc-400 text-light font-semibold mx-1 hover:bg-orange hover:border-orange hover:text-white"} onClick={e => {
                 if(typeof(Router.query.id) != 'undefined'){
+                if(typeof(Router.query.subcategoryId) != 'undefined'){
+
                     Router.push({
                         pathname: Router.pathname,  
-                        query: { id: Router.query.id,page: index }
+                        query: { id: Router.query.id, subcategoryId:Router.query.subcategoryId,page: index }
                         }, 
                         undefined, { shallow: true }
                         )
+                    }else{
+                        Router.push({
+                            pathname: Router.pathname,  
+                            query: { id: Router.query.id,page: index }
+                            }, 
+                            undefined, { shallow: true }
+                            )
+
+                    }
                 }else{
 
                     Router.push(Router.pathname+'?page='+index)
@@ -40,12 +51,23 @@ export default function PagesNavigator(props){
                 
                 if(pageSelection > 0) {
                     if(typeof(Router.query.id) != 'undefined'){
+                    if(typeof(Router.query.subcategoryId) != 'undefined'){
+
                         Router.push({
                             pathname: Router.pathname,  
-                            query: { id: Router.query.id,page: pageSelection-1 }
+                            query: { id: Router.query.id, subcategoryId:Router.query.subcategoryId,page: pageSelection-1 }
                             }, 
                             undefined, { shallow: true }
                             )
+                        }else{
+                            Router.push({
+                                pathname: Router.pathname,  
+                                query: { id: Router.query.id,page: pageSelection-1 }
+                                }, 
+                                undefined, { shallow: true }
+                                )
+
+                        }
                     }else{
 
                         Router.push(`${Router.pathname}?page=${pageSelection-1}`)
@@ -55,12 +77,23 @@ export default function PagesNavigator(props){
             <button className="px-2 pb-0.5 border-[1px] border-zinc-400 text-light font-bold text-lg ml-1 hover:bg-orange hover:border-orange hover:text-white" onClick={e => {
                 if(pageSelection < pages -1) {
                     if(typeof(Router.query.id) != 'undefined'){
+                    if(typeof(Router.query.subcategoryId) != 'undefined'){
+
                         Router.push({
                             pathname: Router.pathname,  
-                            query: { id: Router.query.id,page: parseInt(pageSelection)+1 }
+                            query: { id: Router.query.id, subcategoryId:Router.query.subcategoryId,page: parseInt(pageSelection)+1 }
                             }, 
                             undefined, { shallow: true }
                             )
+                        }else{
+                            Router.push({
+                                pathname: Router.pathname,  
+                                query: { id: Router.query.id,page: parseInt(pageSelection)+1 }
+                                }, 
+                                undefined, { shallow: true }
+                                )
+
+                        }
                     }else{
                     Router.push(`${Router.pathname}?page=${parseInt(pageSelection)+1}`)
                     }

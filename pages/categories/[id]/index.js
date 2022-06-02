@@ -1,69 +1,95 @@
-import { useRouter } from "next/dist/client/router"
-import { useEffect, useState } from "react"
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
+import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
 import SrollableProduct from "../../../components/ScrollableProduct"
+import LoadingAnimation from "../../../components/LoadingAnimation"
 import PagesNavigator from "../../../components/PagesNavigator"
 import { PageSelectionContext } from "../../../utils/PageSelectionContext"
 import CategoriesNavigator from "../../../components/CategoriesNavigator"
 import { PagesContext } from "../../../utils/PagesContext"
 import { ActivatedModalContext } from "../../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../../utils/CategoriesContext"
-import Head from "next/head"
 import { SearchContext } from "../../../utils/SearchContext"
 import { CartContext } from "../../../utils/CartContext"
+import { ParametersContext } from "../../../utils/ParametersContext"
+import Head from "next/head"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
 
-export default function Details(){
+
+
+
+export default function Products(){
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
+    const [cartNumber , setCartNumber] = useState(0)
     const [pages , setPages] = useState(1)
-    const [renderedArray , setRenderedArray]=useState([])
-    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [search,setSearch] = useState('')
+    const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
-    const router = useRouter()
-    const [cartNumber,setCartNumber] = useState(0)
-
+    const [loadingContext,setLoadingContext] = useState(true)
+    const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
+    const [fetchUrl,setFetchUrl] = useState('/api/category/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
     useEffect(() => {
-        async function fetchData() {
-        const id = router.query.id
-        if(typeof(id) == 'string'){
-            const res = await fetch('/api/category/'+id)
-            const {data} = await res.json()
-            setValue(data)
+        async function fetchCategories() {
+           const res = await fetch('/api/categoriesandsubcategories')
+           const { data } = await res.json()
+           setCategoriesAndSubcategories(data)
         }
-        }
-        fetchData()
-    },[router])
-
-    useEffect(() => {
-        const numberOfPages = Math.ceil(value.length /9)
-        if(numberOfPages >= 1) {setPages(numberOfPages)} else {setPages(1)}
-        setPageSelection(0)
-    },[value])
-
-    useEffect(() => {
-        let count = pageSelection * 9
-        let arr = value.filter((item,index) => index >= count && index < count + 9)
-        setRenderedArray(arr)
-    },[pageSelection,value])
-
-    useEffect(() => {
-        async function fetchData() {
-        try {
-            const res = await fetch('/api/categoriesandsubcategories')
-            const { data } = await res.json()
-            setCategoriesAndSubcategories(data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    fetchData()
+            fetchCategories()
     },[])
 
+    useEffect(() => {
+        setFetchUrl('/api/category/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
+    },[parameters,router.query.id])
+    
+    useEffect(() => {
+        fetchData()
+    },[router.query.page,fetchUrl])
+    
+    async function fetchData() {
+        setLoadingContext(true)
+        let querypage = 0
+        if(typeof(router.query.page) == 'undefined' ) {
+            router.push({
+                pathname: router.pathname,
+                query: {id: router.query.id,page: 0 }
+            }, 
+            undefined, { shallow: true }
+                )
+            }else{
+                
+                querypage = router.query.page
+            }
+            const res = await fetch(fetchUrl+querypage)
+            const { data,number,index } = await res.json()
+            let numberOfPages
+            if(number> 0){
+                numberOfPages = Math.ceil(number /10)
+            }else{
+                numberOfPages= 1
+            }
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: {id: router.query.id,page: index }
+                }, 
+                undefined, { shallow: true }
+                )
+            }
+            setValue(data)
+            setPageSelection(index)
+            setLoadingContext(false)
+            setPages(numberOfPages)
+}
+
+    
     useEffect(() => {
         if(session){
           async function fetchCart(){
@@ -74,31 +100,34 @@ export default function Details(){
           fetchCart()
         }
       },[status])
-
+    
 
     function handleHideCategories() {
         const CategoriesNavigator = document.getElementById('categoriesOrderer')
-        const ProductsHolder = document.getElementById('categoriesOrderer1')
         const FlipArrow = document.getElementById('flipArrow')
         if(CategoriesNavigator.offsetHeight > 10) {
             CategoriesNavigator.style.height = '0px'
-            CategoriesNavigator.style.width = '0px'
-            ProductsHolder.style.width = '100%'
-            CategoriesNavigator.style.border = '0px'
             FlipArrow.style.transform = 'rotate(90deg)'
         }else{
             CategoriesNavigator.style.height = 'fit-content'
-            CategoriesNavigator.style.width = '25%'
-            ProductsHolder.style.width = '75%'
-            CategoriesNavigator.style.border = '1px solid #e5e7eb'
             FlipArrow.style.transform = 'rotate(-90deg)'
         }
     }
-    
+
+    if (status === 'loading') {
+        return (
+          <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+            <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+              <div className="reverse-spinner "></div>
+            </div>
+          </div>
+         )
+        }
+
     return(
         <div>
             <Head>
-        <title>{router.query.id} - QUICK Medical Services</title>
+        <title>Produits - QUICK Medical Services</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Medical Supply Store"/>
         <meta name="robots" content="index, follow" />
@@ -121,49 +150,71 @@ export default function Details(){
         <meta name="twitter:description" value="Medical Supply Store"/>
         <meta name="twitter:image" value=""/>
       </Head>
-            <CategoriesContext.Provider value={{categoriesAndSubcategories,setCategoriesAndSubcategories}} >
+            <CategoriesContext.Provider value={{ categoriesAndSubcategories,setCategoriesAndSubcategories }} >
             <SearchContext.Provider value={{search,setSearch}} >
             <CartContext.Provider value={{cartNumber,setCartNumber}} >
                 <Header landingPage={false}  />
             </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
+            <ParametersContext.Provider value={{parameters,setParameters}} >
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
             <CartContext.Provider value={{cartNumber,setCartNumber}} >
-                <div className="w-full h-fit flex justify-between items-center mt-32 px-10">
-                    <div className="w-3/12 h-full relative flex flex-nowrap items-center justify-center py-0.5 bg-light hover:cursor-pointer hover:bg-cool" onClick={e => {
-                        handleHideCategories()
-                    }}>
-                        <p className="h-fit w-fit font-medium text-lg text-white">Catégories et sous-catégories&nbsp;</p>
-                        <p id="flipArrow" className="h-fit w-fit -rotate-90 text-white transition-all font-bold text-lg">&#11164;</p>
-                    </div>
-                    <div className="w-9/12 h-10 ml-3 grid sm:flex justify-between items-center flex-nowrap">
-                        <select className="w-fit h-fit px-2 py-1 border-[1px] outline-none hover:cursor-pointer">
-                            <option value="newest">du plus récent au plus ancien</option>
-                            <option value="newest">du plus ancien au plus récent</option>
-                            <option value="newest">du plus cher au moins cher</option>
-                            <option value="newest">du moins cher au plus cher</option>
-                        </select>
+
+                <div className="w-full h-fit flex justify-end items-center mt-32 px-10">
+                    
                         <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
                         <PagesContext.Provider value={{pages,setPages}}>
                             <PagesNavigator relative={true} />
                         </PagesContext.Provider>
                         </PageSelectionContext.Provider>
-                        
-                    </div>
+
                 </div>
             <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div id="categoriesOrderer" className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-white border min-h-fit shadow">
+                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-harvey border-zinc-200 border min-h-fit shadow">
+                    <div>
+                        <div>
+                            <p className="bg-light text-white w-full h-fit py-3 text-center font-medium shadow-stylish">Paramètres d&apos;affichage</p>
+                        </div>
+                        <div className="w-full h-fit grid space-y-1 mt-2 mb-5 px-1">
+                            <p className="mb-3 font-[400]">Trier par:</p>
+                        <select value={parameters.sort} onChange={e => setParameters({...parameters,sort: e.target.value})} className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer rounded-sm">
+                            <option value="recent">du plus récent au plus ancien</option>
+                            <option value="oldest">du plus ancien au plus récent</option>
+                        </select>
+                        </div>
+                        <div className="w-full h-fit border-t-2 pb-3 border-zinc-200 grid px-1">
+                            <p className="mt-3 mb-1 font-[400]">Afficher les produit:</p>
+                            <label htmlFor="all" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="all" name="availability" value="all" checked={parameters.filter === 'all'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Tous
+                            </label>
+                            <label htmlFor="available" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="available" name="availability" value="available" checked={parameters.filter === 'available'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Disponibles à tout moment
+                            </label>
+                            <label htmlFor="unavailable" className="ml-3 mt-1 font-[400]">
+                            <input type="radio" id="unavailable" name="availability" value="unavailable" checked={parameters.filter === 'unavailable'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Disponibles sur commande
+                            </label>
+                        </div>
+                    </div>
+                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky hover:text-black" onClick={e => {
+                        handleHideCategories()
+                    }}>
+                        <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
+                        <p id="flipArrow" className="h-fit w-fit -rotate-90 transition-all">&#11164;</p>
+                    </div>
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
-                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3">
-                    {renderedArray.map(item => <SrollableProduct key={item.name} product={item} />)}
+                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3 relative">
+                    {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+
+                    {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
             </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
+            </ParametersContext.Provider>
             <Footer />
         </div>
     )

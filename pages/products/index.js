@@ -56,10 +56,11 @@ export default function Products(){
     async function fetchData() {
         setLoadingContext(true)
         let querypage = 0
-        if(typeof(router.query.page) == 'undefined') {
+        if(typeof(router.query.page) == 'undefined' ) {
+            console.log(1);
             router.push({
                 pathname: router.pathname,
-                query: { ...parameters, page: 0 }
+                query: { page: 0 }
             }, 
             undefined, { shallow: true }
                 )
@@ -78,7 +79,7 @@ export default function Products(){
             if(querypage != index) {
                 router.push({
                     pathname: router.pathname,
-                    query: { ...parameters,page: index }
+                    query: {page: index }
                 }, 
                 undefined, { shallow: true }
                 )

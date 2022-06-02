@@ -1,10 +1,8 @@
 import Image from 'next/image'
-import SizeSelection from './SizeSelection'
 import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
 import LoadingAnimation from './LoadingAnimation'
 import 'animate.css'
-import { SizeSelectionContext } from '../utils/SizeSelectionContext'
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CartContext } from '../utils/CartContext'
 import Link from 'next/link'
@@ -14,7 +12,6 @@ export default function ScrollableProduct ({ product }) {
 
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [selectedSize, setSelectedSize] = useState(0)
   const [productContent, setProductContent] = useState({})
   const { activatedModal, setActivatedModal } = useContext(
     ActivatedModalContext
@@ -49,8 +46,7 @@ export default function ScrollableProduct ({ product }) {
   }
 
   return (
-    <div className='w-60 min-w-[270px] p-0 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[300px] h-[390px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
-      <SizeSelectionContext.Provider value={{ selectedSize, setSelectedSize }}>
+    <div className='w-60 min-w-[270px] p-0 relative animate__animated animate__fadeIn md:p-0 group md:min-w-[300px] h-[370px] border-[1px] border-zinc-300 rounded-lg grid place-items-center mb-5 overflow-hidden'>
       {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
       {product.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
                     <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
@@ -90,17 +86,18 @@ export default function ScrollableProduct ({ product }) {
           />
         </div>
 
-        <div className='h-fit w-fit max-w-full overflow-hidden mx-auto px-1'>
           <Link href={`/products/${product.reference}`}>
-            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-clip w-full hover:text-orange hover:underline'>
+            <a className='font-medium text-xl whitespace-nowrap text-ellipsis overflow-hidden w-full text-center px-1 max-w-full hover:text-orange hover:underline'>
               {product.name}
             </a>
           </Link>
-        </div>
-          <SizeSelection sizes={product.sizes} id={product._id} />
+
+            <p className='font-medium text-lg whitespace-nowrap italic text-ellipsis overflow-hidden w-full text-center px-1 max-w-full '>
+              Réf - <span className='text-zinc-600'>{product.reference}</span>
+            </p>
 
         <button
-          className='bg-na3ne3i rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'
+          className='bg-pinky hover:bg-na3ne3i hover:scale-105 transition-all rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'
           onClick={e=> handleAddToCart(e)}
         >
           Ajouter au panier
@@ -115,7 +112,6 @@ export default function ScrollableProduct ({ product }) {
             setShow(false)
           }}
         />
-      </SizeSelectionContext.Provider>
     </div>
   )
 }

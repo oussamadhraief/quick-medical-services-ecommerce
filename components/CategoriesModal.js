@@ -61,7 +61,7 @@ function CategoriesModal({show, onClose}) {
                         ulelem.style.height = 40 + lisubs.length * 40 + 'px'
                     }}}>+</p>
                     &nbsp;
-                    <Link href={`/categories/${item.category}`}>
+                    <Link href={`/categories/${item.category}?page=0`}>
                     <a className="font-medium text-white w-fit h-fit hover:underline">{item.category}</a>
                     </Link>
                   </div>
