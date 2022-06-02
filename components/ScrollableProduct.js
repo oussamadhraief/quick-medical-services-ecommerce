@@ -30,16 +30,21 @@ export default function ScrollableProduct ({ product }) {
   }
 
   async function handleAddToCart() {
-    const res = await fetch('/api/user/addtocart', {
-        method : 'PATCH',
-        headers:{
-            'accept' : 'application/json',
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify({reference : product.reference , size: selectedSize})
-    })
-    const { cart } = await res.json()
-    setCartNumber(cart)
+    try {
+        const res = await fetch('/api/user/addtocart', {
+          method : 'PATCH',
+          headers:{
+              'accept' : 'application/json',
+              'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify({reference : product.reference , size: selectedSize})
+      })
+      const { cart } = await res.json()
+      setCartNumber(cart)
+    } catch (error) {
+      console.error(error)
+    }
+    
     
   }
 
