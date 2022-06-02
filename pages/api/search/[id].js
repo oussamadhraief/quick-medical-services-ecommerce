@@ -19,12 +19,12 @@ const getResults = async (req,res) => {
 
                 if(req.query.page > Math.ceil(NumberOfInstruments /10) -1){
 
-                    const Instruments = await Instrument.find({$or:[ {'name': {$regex: regex}}, {'reference': {$regex: regex}}, {'category': {$regex: regex}}, {'subcategory': {$regex: regex}}, {'description': {$regex: regex}} ]}).sort({createdAt: -1}).sort({createdAt: -1}).limit(10)
+                    Instruments = await Instrument.find({$or:[ {'name': {$regex: regex}}, {'reference': {$regex: regex}}, {'category': {$regex: regex}}, {'subcategory': {$regex: regex}}, {'description': {$regex: regex}} ]}).sort({createdAt: -1}).sort({createdAt: -1}).limit(10)
 
                     res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments, index: 0 })
 
                 }else{
-                    const Instruments = await Instrument.find({$or:[ {'name': {$regex: regex}}, {'reference': {$regex: regex}}, {'category': {$regex: regex}}, {'subcategory': {$regex: regex}}, {'description': {$regex: regex}} ]}).sort({createdAt: -1}).sort({createdAt: -1}).skip(req.query.page*10).limit(10)
+                    Instruments = await Instrument.find({$or:[ {'name': {$regex: regex}}, {'reference': {$regex: regex}}, {'category': {$regex: regex}}, {'subcategory': {$regex: regex}}, {'description': {$regex: regex}} ]}).sort({createdAt: -1}).sort({createdAt: -1}).skip(req.query.page*10).limit(10)
                     res.status(200).json({ success: true, data: Instruments, number: NumberOfInstruments, index: req.query.page });
                 }
             } catch (error) {

@@ -34,9 +34,10 @@ export default function Products(){
     const [activatedModal,setActivatedModal] = useState(false)
     const [loadingContext,setLoadingContext] = useState(true)
     const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
-    const [fetchUrl,setFetchUrl] = useState('/api/search/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
+    const [fetchUrl,setFetchUrl] = useState('/api/searchproducts/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
     useEffect(() => {
+        setSearch(router.query.id)
         async function fetchCategories() {
            const res = await fetch('/api/categoriesandsubcategories')
            const { data } = await res.json()
@@ -46,7 +47,7 @@ export default function Products(){
     },[])
 
     useEffect(() => {
-        setFetchUrl('/api/search/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
+        setFetchUrl('/api/searchproducts/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
     },[parameters,router.query.id])
     
     useEffect(() => {
@@ -206,7 +207,12 @@ export default function Products(){
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3 relative">
-                    {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+                    {loadingContext ? 
+                    <div className='bg-white h-full w-full rounded-lg overflow-hidden flex items-center absolute z-[99] left-0 top-0'>
+                        <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9] mx-auto ">
+                        <div className="reverse-spinner "></div>
+                        </div>
+                    </div> : null}
 
                     {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>

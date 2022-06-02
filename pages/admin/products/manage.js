@@ -27,7 +27,6 @@ export default function Admin(){
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
     const [open,setOpen] = useState(true)
-    const [editing,setEditing] = useState(false)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
 
@@ -129,7 +128,7 @@ export default function Admin(){
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                     <AdminMenu selected={2} open={open} setOpen={setOpen} />
                 {value.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
-                    <ModifyProductsView archvied={false} editing={editing} setEditing={setEditing} />}
+                    <ModifyProductsView archvied={false} />}
                     <Notification />
                 </PageSelectionContext.Provider>
                 </PagesContext.Provider>

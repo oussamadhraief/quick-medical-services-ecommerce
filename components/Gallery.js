@@ -77,8 +77,8 @@ export default function ModifyProductsView(props){
    return (
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
-            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-10 flex-auto'>
-                <div className='w-6/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
+            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-1 md:p-10 flex-auto'>
+                <div className='w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                         <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium  h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
@@ -102,8 +102,8 @@ export default function ModifyProductsView(props){
             </div>
 
             <div className=' w-full relative min-w-full h-60 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
-            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden px-4 gap-10'>
+            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
@@ -136,7 +136,7 @@ export default function ModifyProductsView(props){
                 </div>
              </div> : null}
         </div>
-               <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+               <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             </div>
         </div>
     )

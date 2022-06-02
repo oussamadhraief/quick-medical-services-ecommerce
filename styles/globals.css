@@ -92,6 +92,10 @@ a {
   display: none;
 }
 
+.galleryScroller::-webkit-scrollbar {
+  display: none;
+}
+
 #banner {
   animation: getbigger 0.5s ease-in-out;
 }
@@ -113,7 +117,7 @@ a {
   margin-top: 80px;
 }
 
-@media screen and (max-width: 539px ) {
+@media screen and (max-width: 550px ) {
   #steps > div:nth-child(even) {
     margin-top: 80px;
   }
@@ -229,10 +233,6 @@ input[type=number] {
         -webkit-transform: rotate(-720deg);
         transform: rotate(-720deg);
   }
-}
-
-#categoriesContainer:hover  #categoriesBoard {
-  visibility: visible;
 }
 
 #cart {

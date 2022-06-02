@@ -50,7 +50,7 @@ export default function AdminMenu(props){
 
 
     return (
-        <aside id='nav' className={props.open ? "bg-na3ne3i h-screen md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-1" : "bg-na3ne3i border-t border-pinky h-12 md:h-full absolute md:relative duration-150 space-y-4 pl-1 md:pl-0 z-40 w-full md:w-0 pt-2 pr-2 md:pr-0 md:pt-1"}>
+        <aside id='nav' className={props.open ? "bg-na3ne3i h-full md:h-full absolute md:relative duration-150 space-y-4 pl-1 z-40 w-full pr-2 md:pr-1 md:w-72 pt-1" : "bg-na3ne3i border-t border-pinky h-0 md:h-full absolute md:relative duration-150 space-y-4 pl-1 md:pl-0 z-40 w-full md:w-0 pt-0 pr-2 md:pr-0 md:pt-1"}>
             
             {props.open ? 
             <>

@@ -83,10 +83,10 @@ export default function QuotesTable(props){
     }
 
    return (
-        <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
+        <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-auto md:overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
-            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-10 flex-auto'>
-                <div className='w-7/12 min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
+            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
+                <div className='w-full lg:w-9/12  min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette demande de devis a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
@@ -145,24 +145,24 @@ export default function QuotesTable(props){
                     </>
                     : null
                     }
-                    <table className='w-full mt-10 px-10'>
+                    <table className='w-fit min-w-full md:w-full mt-10 px-10'>
                 <thead>
                 <tr className='border-b h-10 border-zinc-400'>
                   <th className='font-bold'>RÉFÉRENCE</th>
                   <th className='font-bold'>IMAGE</th>
                   <th className='font-bold'>NOM</th>
                   <th className='font-bold'>TAILLE</th>
-                  <th className='font-bold'>QUANTITÉ</th>
+                  <th className='font-bold px-2'>QUANTITÉ</th>
                 </tr>
                 </thead>
                 <tbody>
                   {props.value[selectedMessage]?.cart.map((item,index) => {return(
                     <tr key={index} className='border-b'>
-                      <td className='text-center font-medium'>{item.product.reference}</td>
-                      <td className='w-40 h-48'><Image src={item.product.image} alt='image' width={150} height={170}  objectFit="contain" objectPosition="center"  /></td>
-                      <td className='text-center font-medium'>{item.product.name}</td>
-                      <td className='text-center font-medium'>{props.value[selectedMessage]?.cart[index].size} cm</td>
-                      <td className='text-center font-medium'>{props.value[selectedMessage]?.cart[index].quantity}</td>
+                      <td className='text-center font-medium px-2'>{item.product.reference}</td>
+                      <td className='w-40 h-48 px-2'><Image src={item.product.image} alt='image' width={150} height={170} layout='fixed'  objectFit="contain" objectPosition="center"  /></td>
+                      <td className='text-center font-medium px-2'>{item.product.name}</td>
+                      <td className='text-center font-medium px-2'>{props.value[selectedMessage]?.cart[index].size} cm</td>
+                      <td className='text-center font-medium px-2'>{props.value[selectedMessage]?.cart[index].quantity}</td>
                     </tr>
                   )})}
                 </tbody>
@@ -176,8 +176,8 @@ export default function QuotesTable(props){
             </div>
 
             <div className=' w-full relative min-w-full h-60 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
-            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden px-4 gap-10'>
+            <button className='relative bg-white w-10 h-full z-[90] font-bold hidden md:block text-2xl' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
@@ -216,7 +216,7 @@ export default function QuotesTable(props){
                 </div>
              </div> : null}
         </div>
-               <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+               <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             </div>
         </div>
     )

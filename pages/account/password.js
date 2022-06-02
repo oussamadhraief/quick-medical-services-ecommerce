@@ -36,7 +36,7 @@ export default function Password() {
       try {
         const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
         const { data } = await res.json()
-        setCategoriesAndSubcategories(orderedStuff)
+        setCategoriesAndSubcategories(data)
       } catch (error) {
         console.error(error)
       }

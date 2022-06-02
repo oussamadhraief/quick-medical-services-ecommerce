@@ -178,7 +178,7 @@ export default function Quote() {
                   {quote.cart.map((item,index) => {return(
                     <tr key={index} className='border-b'>
                       <td className='text-center font-medium'>{item.product.reference}</td>
-                      <td className='w-40 h-48'><Image src={item.product.image} alt='image' width={150} height={170}  objectFit="contain" objectPosition="center"  /></td>
+                      <td className='w-40 h-48'><Image src={item.product.image} alt='image' width={150} height={170} layout='fixed' objectFit="contain" objectPosition="center"  /></td>
                       <td className='text-center font-medium'>
                         <Link href={'/products/' + item.product.reference} >
                           <a className='hover:underline' target='_blank'>{item.product.name}</a>

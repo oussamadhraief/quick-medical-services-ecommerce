@@ -2,9 +2,10 @@ import Link from "next/link"
 
 export default function CategoriesNavigator({categoriesAndSubcategories}){
     return(
-        <div className="w-full h-fit" id="categoriesOrderer">
+        <div className="w-full h-fit z-[9999]" id="categoriesOrderer">
         {categoriesAndSubcategories.map(item => 
-                        <ul id={'lu'+item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-zinc-200 last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-harvey relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-black flex flex-nowrap items-center"><p id={`lu${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
+                        {
+                        return <ul id={'lu'+item.category} key={item.category} className="transition-[height] duration-300 w-full overflow-hidden border-b border-zinc-200 last:border-0" ><div key={item.subcategory} className="hover:cursor-pointer transition-[height] duration-300 bg-harvey relative w-full font-medium h-10 ulSpan text-sm pl-2 py-2.5  text-black flex flex-nowrap items-center"><p id={`lu${item.category}arrow`} className="text-lg font-mono font-extrabold transition-all" onClick={e => {
                             const element = document.querySelectorAll(`#lu${item.category} .expandable`)
                             const ulElem = document.getElementById('lu'+item.category)
                             const divchange = document.querySelector(`#lu${item.category} > div`)
@@ -33,13 +34,14 @@ export default function CategoriesNavigator({categoriesAndSubcategories}){
                                 rotateArrow.style.transform = 'rotate(0deg)'
                             }
                             }}>&#62; </p>&nbsp;<Link href={`/categories/${item.category}?page=0`}><a className="hover:underline">{item.category}</a></Link></div> 
-                            {item.subcategories.map(element => <li key={element} className="bg-[#fff]  text-sm pl-5 relative transition-[height] duration-300 expandable h-0 w-full  invisible min-w-fit  font-medium flex justify-start items-center px-1">
-                                <Link href={`/categories/${item.category}/${element}`}>
-                                    <a >&#62; <span className="hover:underline">{element}</span> </a>
+                            {item.subcategories.map(element => {
+                            <li key={element} className="bg-[#fff]  text-sm pl-5 relative transition-[height] duration-300 expandable h-0 w-full  invisible min-w-fit  font-medium flex justify-start items-center px-1">
+                                <Link href={`/categories/${item.category}/${element}?page=0`}>
+                                    <a>&#62; <span className="hover:underline">{element}</span> </a>
                                 </Link>
-                                </li>
+                                </li>}
                                 )}
-                        </ul>
+                        </ul>}
                     )}
         </div>
     )
