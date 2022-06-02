@@ -15,7 +15,6 @@ function useInfiniteScrolling(pageNumber,setAdminLoading,url) {
             try {
                 const res = await fetch(url+pageNumber)
                 const { data } = await res.json()
-                console.log(data);
                 setValue(prev => {
                     return [...prev, ...data]
                 })

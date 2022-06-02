@@ -81,8 +81,6 @@ export default function Password() {
         },
           body: JSON.stringify(passwordData)
         })
-        const { result } = await res.json()
-        console.log(result);
       } catch (error) {
         console.error(error)
       }

@@ -28,7 +28,6 @@ export default async (req, res) => {
                             Quotes.message = req.body.message
                             
                             await Quotes.save()
-                            console.log(Quotes);
 
                             res.status(200).json({ success: true, data: Quotes });
                             

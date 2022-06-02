@@ -12,6 +12,7 @@ import { ActivatedModalContext } from "../../utils/ActivatedModalContext"
 import { CategoriesContext } from "../../utils/CategoriesContext"
 import { SearchContext } from "../../utils/SearchContext"
 import { CartContext } from "../../utils/CartContext"
+import { ParametersContext } from "../../utils/ParametersContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
@@ -32,6 +33,8 @@ export default function Products(){
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
     const [loadingContext,setLoadingContext] = useState(true)
+    const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
+    const [fetchUrl,setFetchUrl] = useState('/api/products/parametered?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
     useEffect(() => {
         async function fetchCategories() {
@@ -41,45 +44,49 @@ export default function Products(){
         }
             fetchCategories()
     },[])
+
+    useEffect(() => {
+        setFetchUrl('/api/products/parametered?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
+    },[parameters])
     
     useEffect(() => {
         fetchData()
-    },[router.query.page])
+    },[router.query.page,fetchUrl])
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage 
+        let querypage = 0
         if(typeof(router.query.page) == 'undefined') {
             router.push({
                 pathname: router.pathname,
-                query: { page: 0 }
-                }, 
-                undefined, { shallow: true }
+                query: { ...parameters, page: 0 }
+            }, 
+            undefined, { shallow: true }
                 )
-                querypage = 0
             }else{
+                
                 querypage = router.query.page
             }
-        const res = await fetch('/api/products?page='+querypage)
-        const { data,number,index } = await res.json()
-        let numberOfPages
+            const res = await fetch(fetchUrl+querypage)
+            const { data,number,index } = await res.json()
+            let numberOfPages
             if(number> 0){
-             numberOfPages = Math.ceil(number /10)
+                numberOfPages = Math.ceil(number /10)
             }else{
                 numberOfPages= 1
             }
-        if(querypage != index) {
-            router.push({
-                pathname: router.pathname,
-                query: { page: index }
+            if(querypage != index) {
+                router.push({
+                    pathname: router.pathname,
+                    query: { ...parameters,page: index }
                 }, 
                 undefined, { shallow: true }
                 )
-        }
-        setValue(data)
-        setPageSelection(index)
-        setLoadingContext(false)
-        setPages(numberOfPages)
+            }
+            setValue(data)
+            setPageSelection(index)
+            setLoadingContext(false)
+            setPages(numberOfPages)
 }
 
     
@@ -120,7 +127,7 @@ export default function Products(){
     return(
         <div>
             <Head>
-        <title>Nos Produits - QUICK Medical Services</title>
+        <title>Produits - QUICK Medical Services</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Medical Supply Store"/>
         <meta name="robots" content="index, follow" />
@@ -150,6 +157,7 @@ export default function Products(){
             </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
+            <ParametersContext.Provider value={{parameters,setParameters}} >
             <ProductsContext.Provider value={{value,setValue}} >
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
             <CartContext.Provider value={{cartNumber,setCartNumber}} >
@@ -171,23 +179,21 @@ export default function Products(){
                         </div>
                         <div className="w-full h-fit grid space-y-1 mt-2 mb-5 px-1">
                             <p className="mb-3 font-[400]">Trier par:</p>
-                        <select className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer rounded-sm">
-                            <option value="newest">du plus récent au plus ancien</option>
-                            <option value="newest">du plus ancien au plus récent</option>
-                            <option value="newest">du plus cher au moins cher</option>
-                            <option value="newest">du moins cher au plus cher</option>
+                        <select value={parameters.sort} onChange={e => setParameters({...parameters,sort: e.target.value})} className="w-fit h-fit px-2 py-1 mx-auto border outline-none hover:cursor-pointer rounded-sm">
+                            <option value="recent">du plus récent au plus ancien</option>
+                            <option value="oldest">du plus ancien au plus récent</option>
                         </select>
                         </div>
                         <div className="w-full h-fit border-t-2 pb-3 border-zinc-200 grid px-1">
                             <p className="mt-3 mb-1 font-[400]">Afficher les produit:</p>
                             <label htmlFor="all" className="ml-3 mt-1 font-[400]">
-                            <input type="radio" id="all" name="availability" value="all" className="mr-1 "/>Tous
+                            <input type="radio" id="all" name="availability" value="all" checked={parameters.filter === 'all'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Tous
                             </label>
                             <label htmlFor="available" className="ml-3 mt-1 font-[400]">
-                            <input type="radio" id="available" name="availability" value="available" className="mr-1 "/>Disponibles à tout moment
+                            <input type="radio" id="available" name="availability" value="available" checked={parameters.filter === 'available'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Disponibles à tout moment
                             </label>
                             <label htmlFor="unavailable" className="ml-3 mt-1 font-[400]">
-                            <input type="radio" id="unavailable" name="availability" value="unavailable" className="mr-1 "/>Disponibles sur commande
+                            <input type="radio" id="unavailable" name="availability" value="unavailable" checked={parameters.filter === 'unavailable'} onChange={e => setParameters({...parameters,filter: e.target.value})} className="mr-1 "/>Disponibles sur commande
                             </label>
                         </div>
                     </div>
@@ -208,6 +214,7 @@ export default function Products(){
             </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>
+            </ParametersContext.Provider>
             <Footer />
         </div>
     )
