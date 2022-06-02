@@ -23,7 +23,13 @@ export default function Header(props){
         const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
-                document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+                if(props.landingPage){
+
+                    document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+                }else{
+                document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+                    
+                }
             }else {
                 document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
             }
@@ -61,7 +67,13 @@ export default function Header(props){
         const mq1 = window.matchMedia("(max-width: 1023px)")
         if(mq1.matches){
             setIsMobile(true)
-            document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+            if(props.landingPage){
+
+                document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+            }else{
+            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+                
+            }
         }else {
             setIsMobile(false)
             document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'

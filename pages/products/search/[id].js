@@ -65,24 +65,13 @@ export default function Results(){
         try {
             const res = await fetch('/api/categoriesandsubcategories')
             const { data } = await res.json()
-            let categories = data.map(item => item.category)
-            categories = [...new Set(categories)]
-            const orderedStuff = categories.map(item => orderedTable(item,data))
-            setCategoriesAndSubcategories(orderedStuff)
+            setCategoriesAndSubcategories(data)
         } catch (error) {
             console.error(error)
         }
     }
     fetchData()
     },[])
-
-    function orderedTable(item,data){
-        return {
-            category: item,
-            subcategories: [...new Set(data.filter(element => element.category == item).map(elem => elem.subcategory))]
-        }
-    }
-
 
     function handleHideCategories() {
         const CategoriesNavigator = document.getElementById('categoriesOrderer')

@@ -57,10 +57,7 @@ export default function Contact () {
       try {
         const res = await fetch('/api/categoriesandsubcategories')
         const { data } = await res.json()
-        let categories = data.map(item => item.category)
-        categories = [...new Set(categories)]
-        const orderedStuff = categories.map(item => orderedTable(item, data))
-        setCategoriesAndSubcategories(orderedStuff)
+        setCategoriesAndSubcategories(data)
       } catch (error) {
         console.error(error)
       }
@@ -78,19 +75,6 @@ export default function Contact () {
       fetchCart()
     }
   },[status])
-
-  function orderedTable (item, data) {
-    return {
-      category: item,
-      subcategories: [
-        ...new Set(
-          data
-            .filter(element => element.category == item)
-            .map(elem => elem.subcategory)
-        )
-      ]
-    }
-  }
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -114,6 +98,8 @@ export default function Contact () {
             subject: '',
             message: ''
           })
+        }else{
+          console.log(res);
         }
       })
     } catch (error) {
@@ -156,10 +142,10 @@ export default function Contact () {
             </CartContext.Provider>
             </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-10/12  mx-auto  shadow-form mt-20 rounded-br-[50px] h-fit rounded-tl-[50px] overflow-hidden'>
+      <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-9/12  mx-auto  shadow-form mt-20 rounded-br-[50px] h-fit rounded-tl-[50px] overflow-hidden'>
         <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto contactside bg-complementary'>
           <div className='w-9/12 mx-auto mt-12 mb-8'>
-            <h1 className='text-white text-4xl font-bold'><span className='border-b-2 border-pinky'>Contactez</span>  nous</h1>
+            <h1 className='text-white text-4xl font-bold'><span className='border-b-2 border-red-500'>Contactez</span>  nous</h1>
             <p className='text-white mt-2 font-medium'>
               Vos suggestions sont bienvenues
             </p>
@@ -193,26 +179,27 @@ export default function Contact () {
         </div>
 
         <form
-          className='lg:w-6/12 h-fit relative bg-complementary space-y-10 pb-14 pt-8 lg:space-y-10'
+          className='lg:w-6/12 h-fit relative bg-harvey space-y-10 pb-16 pt-10 lg:space-y-10'
           onSubmit={handleSubmit}
         >
           {loading ? <div
             id='contact-loading'
-            className=' absolute w-full h-full bg-[#e7edeea5] z-[9] '
+            className=' absolute w-full h-full bg-harvey/70 z-[9] '
           >
             <div className='reverse-spinner '></div>
           </div> :null }
 
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
+              className='bg-transparent form-input border-na3ne3i invalid:border-red-500 peer invalid:text-red-500'
               placeholder=' '
               required
               type='text'
               name='name'
+              maxLength='50'
+              minLength='4'
               id='formName'
               value={formData.name}
-              minLength={4}
               onChange={handleChange}
             />
             <label className='form-label text-na3ne3i' htmlFor='formName'>
@@ -221,10 +208,12 @@ export default function Contact () {
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
+              className='bg-transparent form-input border-na3ne3i invalid:border-red-500 peer invalid:text-red-500'
               placeholder=' '
               type='email'
               required
+              maxLength='40'
+              minLength='8'
               name='email'
               id='formEmail'
               value={formData.email}
@@ -236,10 +225,12 @@ export default function Contact () {
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky appearance'
+              className='bg-transparent form-input border-na3ne3i invalid:border-red-500 peer invalid:text-red-500 appearance'
               placeholder=' '
               type='number'
               required
+              max='10000000000000'
+              min='10000000'
               name='phoneNumber'
               id='formPhoneNumber'
               value={formData.phoneNumber}
@@ -251,9 +242,11 @@ export default function Contact () {
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <input
-              className='bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
+              className='bg-transparent form-input border-na3ne3i invalid:border-red-500 peer invalid:text-red-500'
               placeholder=' '
               type='text'
+              maxLength='100'
+              minLength='4'
               required
               name='subject'
               id='formSubject'
@@ -266,11 +259,12 @@ export default function Contact () {
           </div>
           <div className='relative mx-auto w-11/12 h-fit'>
             <textarea
-              className='h-32 bg-transparent form-input border-na3ne3i invalid:border-pinky peer invalid:text-pinky'
+              className='h-32 bg-transparent form-input border-na3ne3i invalid:border-red-500 peer invalid:text-red-500'
               placeholder=' '
               required
               col={50}
               maxLength='400'
+              minLength='4'
               row={4}
               name='message'
               id='formTextArea'
@@ -282,7 +276,7 @@ export default function Contact () {
             </label>
           </div>
           <button
-            className='flex text-white px-5 font-medium rounded-lg py-2 mx-auto bg-orange shadow-form hover:scale-110 transition-all'
+            className='flex text-white px-7 font-medium rounded-lg py-2 mx-auto bg-pinky shadow-form hover:scale-110 transition-all'
             type='submit'
           >
             Envoyer

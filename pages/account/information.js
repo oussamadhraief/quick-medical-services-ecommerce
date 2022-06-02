@@ -45,10 +45,7 @@ export default function Information () {
       try {
         const res = await fetch('/api/categoriesandsubcategories',{ signal: abortController.signal })
         const { data } = await res.json()
-        let categories = data.map(item => item.category)
-        categories = [...new Set(categories)]
-        const orderedStuff = categories.map(item => orderedTable(item, data))
-        setCategoriesAndSubcategories(orderedStuff)
+        setCategoriesAndSubcategories(data)
       } catch (error) {
         console.error(error)
       }
@@ -108,20 +105,6 @@ export default function Information () {
     }
   }
   },[status])
-
-
-  function orderedTable (item, data) {
-    return {
-      category: item,
-      subcategories: [
-        ...new Set(
-          data
-            .filter(element => element.category == item)
-            .map(elem => elem.subcategory)
-        )
-      ]
-    }
-  }
 
   const handleSubmit = async (e) => {
     document.querySelector('.saveAccountDataButton').disabled = true

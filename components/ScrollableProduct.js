@@ -31,7 +31,7 @@ export default function ScrollableProduct ({ product }) {
 
   async function handleAddToCart() {
     try {
-        const res = await fetch('/api/user/addtocart', {
+        const res = await fetch('/api/user/addproducttocart', {
           method : 'PATCH',
           headers:{
               'accept' : 'application/json',
