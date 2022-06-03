@@ -55,8 +55,8 @@ export default function CategoriesMenu(){
             <div className='w-fit h-fit absolute top-[102%] left-0 hidden group-hover:flex rounded-lg shadow-form z-[9999]'>
                     <div id='categoriesContainer' className={open ? 'min-w-[250px] grid w-fit  bg-harvey rounded-lg shadow-form rounded-r-none hover:rounded-l-lg overflow-hidden' : 'min-w-[250px] grid w-fit  bg-harvey rounded-lg shadow-form hover:rounded-l-lg overflow-hidden'}>
                         {categoriesAndSubcategories.map(item => 
-                        <button onClick={e => handleDisplaySubcategories(e,item.category)} className={boardContent.category == item.category ? 'w-full py-4 h-fit text-left font-medium bg-complementary pr-5 pl-1 relative overflow-hidden text-ellipsis max-w-[300px] break-words' :  'w-full py-4 h-fit text-left font-medium hover:bg-complementary pr-5 pl-1 relative overflow-hidden text-ellipsis max-w-[300px] break-words'}>
-                        <Link key={item.category} href={`/categories/${item.category}?page=0`}>
+                        <button key={item.category} onClick={e => handleDisplaySubcategories(e,item.category)} className={boardContent.category == item.category ? 'w-full py-4 h-fit text-left font-medium bg-complementary pr-5 pl-1 relative overflow-hidden text-ellipsis max-w-[300px] break-words' :  'w-full py-4 h-fit text-left font-medium hover:bg-complementary pr-5 pl-1 relative overflow-hidden text-ellipsis max-w-[300px] break-words'}>
+                        <Link href={`/categories/${item.category}?page=0`}>
                             <a id={'menu'+item.category}  className=" w-fit h-fit">
                                     &#62;&nbsp;<span id={'menu'+item.category} className='hover:underline whitespace-normal'>{item.category}</span>
 

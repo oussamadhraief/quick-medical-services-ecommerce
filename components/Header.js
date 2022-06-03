@@ -139,7 +139,7 @@ export default function Header(props){
                 <Link href='/cart'>
                 <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
+                <p className={scrolled ? "absolute bg-pinky rounded-full min-w-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 
@@ -160,7 +160,7 @@ export default function Header(props){
                 <Link href='/cart'>
                 <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
                 </Link>
-                <p className={scrolled ? "absolute bg-pinky rounded-full w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
+                <p className={scrolled ? "absolute bg-pinky rounded-full min-w-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
             </div>
             <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
                 

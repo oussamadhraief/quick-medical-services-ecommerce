@@ -155,7 +155,7 @@ export default function Contact () {
             <Link href='https://www.facebook.com/QMSJRIBI'>
               <a
                 target='_blank'
-                className='flex text-white w-fit items-center flex-nowrap whitespace-nowrap font-medium'
+                className='flex text-white w-fit items-center flex-wrap sm:flex-nowrap sm:whitespace-nowrap font-medium'
               >
                 <Image
                   src={facebook}
@@ -164,11 +164,11 @@ export default function Contact () {
                   height={18}
                   layout='fixed'
                 />
-                &nbsp;&nbsp;&nbsp;Facebook: QUICK Medical services
+               <p>&nbsp;&nbsp;&nbsp;Facebook: QUICK Medical services</p> 
               </a>
             </Link>
 
-            <p className='whitespace-nowrap text-white font-medium '>
+            <p className='sm:whitespace-nowrap text-white font-medium '>
               &#x2709;&nbsp;&nbsp; Email: qms.jribi@gmail.com
             </p>
 

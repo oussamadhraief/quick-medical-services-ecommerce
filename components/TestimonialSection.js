@@ -1,7 +1,10 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 
 export default function TestimonialSection ({ data }) {
+
+  const mainTestimonial = useRef()
+  const timeouts = useRef([])
 
   const quotes = 'pfe/right-quotes-13252_m2dsct_ijvj9k.png'
 
@@ -9,8 +12,6 @@ export default function TestimonialSection ({ data }) {
   const [testimonials,setTestimonials] = useState([])
   const [isMobile, setIsMobile] = useState(32.5)
   const [ind, setInd] = useState(0)
-
-  const timeouts = []
 
   useEffect(() => {
       setTestimonials(data)
@@ -56,7 +57,7 @@ export default function TestimonialSection ({ data }) {
       right.addEventListener('click', () => {
         right.disabled = true
         left.disabled = true
-        timeouts.push(setTimeout(() => {
+        timeouts.current.push(setTimeout(() => {
           left.disabled = false
           right.disabled = false
         }, 1000))
@@ -64,7 +65,7 @@ export default function TestimonialSection ({ data }) {
       left.addEventListener('click', () => {
         left.disabled = true
         right.disabled = true
-        timeouts.push(setTimeout(() => {
+        timeouts.current.push(setTimeout(() => {
           right.disabled = false
           left.disabled = false
         }, 1000))
@@ -74,13 +75,13 @@ export default function TestimonialSection ({ data }) {
       }, 10000)
     return () => {
       clearInterval(interval)
-      for( const item of timeouts){
+      for( const item of timeouts.current){
         clearTimeout(item)
       }
       right.removeEventListener('click', () => {
         right.disabled = true
         left.disabled = true
-        timeouts.push(setTimeout(() => {
+        timeouts.current.push(setTimeout(() => {
           left.disabled = false
           right.disabled = false
         }, 1000))
@@ -88,7 +89,7 @@ export default function TestimonialSection ({ data }) {
       left.removeEventListener('click', () => {
         left.disabled = true
         right.disabled = true
-        timeouts.push(setTimeout(() => {
+        timeouts.current.push(setTimeout(() => {
           right.disabled = false
           left.disabled = false
         }, 1000))
@@ -102,7 +103,7 @@ export default function TestimonialSection ({ data }) {
       item.style.transitionDuration = '0.3s'
       item.style.transform = `translateX(-${isMobile}vw)`
     })
-    timeouts.push(setTimeout(() => {
+    timeouts.current.push(setTimeout(() => {
       section.forEach((item, index) => {
         item.style.transitionDuration = '0s'
         item.style.transform = 'translateX(0px)'
@@ -146,13 +147,9 @@ export default function TestimonialSection ({ data }) {
         testimonials[ind3],
         testimonials[ind4]
       ])
-      timeouts.push(setTimeout(() => {
-        document.querySelector(
-          '#scrollableTestimonial > div:nth-child(3)'
-        ).style.transitionDuration = '0.3s'
-        if(isMobile == 32.5)document.querySelector(
-          '#scrollableTestimonial > div:nth-child(3)'
-        ).style.transform = 'scale(1.3)'
+      timeouts.current.push(setTimeout(() => {
+        mainTestimonial.current.style.transitionDuration = '0.3s'
+        if(isMobile == 32.5)mainTestimonial.current.style.transform = 'scale(1.3)'
       }, 50))
     }, 300))
   }
@@ -163,7 +160,7 @@ export default function TestimonialSection ({ data }) {
       item.style.transitionDuration = '0.3s'
       item.style.transform = `translateX(${isMobile}vw)`
     })
-    timeouts.push(setTimeout(() => {
+    timeouts.current.push(setTimeout(() => {
       section.forEach((item, index) => {
         item.style.transitionDuration = '0s'
         item.style.transform = 'translateX(0px)'
@@ -208,13 +205,9 @@ export default function TestimonialSection ({ data }) {
         testimonials[ind4]
       ])
 
-      timeouts.push(setTimeout(() => {
-        document.querySelector(
-          '#scrollableTestimonial > div:nth-child(3)'
-        ).style.transitionDuration = '0.3s'
-        if(isMobile == 32.5)document.querySelector(
-          '#scrollableTestimonial > div:nth-child(3)'
-        ).style.transform = 'scale(1.3)'
+      timeouts.current.push(setTimeout(() => {
+        mainTestimonial.current.style.transitionDuration = '0.3s'
+        if(isMobile == 32.5)mainTestimonial.current.style.transform = 'scale(1.3)'
       }, 50))
     }, 300))
   }
@@ -327,6 +320,7 @@ export default function TestimonialSection ({ data }) {
             )
           return (
             <div
+            ref={mainTestimonial}
               key={index}
               className={`relative w-[90vw] flex flex-col h-64 mx-[5vw] lg:w-[25vw] lg:mx-[2.5vw] shadow-float lg:scale-[1.3] px-10 py-7 group hover:cursor-pointer rounded-md transition-all duration-300`}
             >
