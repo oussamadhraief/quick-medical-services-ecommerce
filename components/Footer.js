@@ -13,8 +13,9 @@ export default function Footer () {
 
   return (
     <footer className='w-full min-w-full h-fit grid mt-32 shadow-3xl'>
-      <div className='w-[98%] md:w-[94%] min-h-[350px] min-w-full gap-10 grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third'>
-        <address className='text-white grid place-items-start space-y-2 not-italic w-fit h-fit'>
+      <div className='w-full h-fit bg-light shadow-stylish flex items-center'>
+      <address className='text-white flex justify-center py-5 gap-10 not-italic w-full h-fit'>
+        <div className='gap-5 grid'>
           <Link href='https://www.facebook.com/QMSJRIBI'>
             <a
               target='_blank'
@@ -33,6 +34,10 @@ export default function Footer () {
           <p className='whitespace-nowrap'>
             &#x2709; Email: qms.jribi@gmail.com
           </p>
+        </div>
+
+        <div className='gap-5 grid'>
+          
           <p className='whitespace-nowrap'>&#x260E; Tel: +216 44 219 218</p>
 
           <div className='flex items-center flex-nowrap'>
@@ -42,10 +47,16 @@ export default function Footer () {
               width={20}
               height={20}
               layout='fixed'
-            />
+              />
             <p className='whitespace-nowrap'>Sfax, Tunisie</p>
           </div>
+        </div>
         </address>
+      </div>
+      <div className='w-full min-h-[350px] min-w-full gap-10 shadow-stylish grid place-items-center md:px-5 lg:flex lg:justify-around items-center h-fit py-10 lg:py-20 bg-third'>
+       
+          <p className='text-white w-fit'>Les images utiliées <br></br> sont importées de <Link href='https://www.icons8.com'>
+          <a className='underline' target='_blank'>icons8</a></Link>.</p>
 
         <div className='text-white italic flex flex-wrap sm:flex-nowrap justify-center h-fit w-fit items-center whitespace-nowrap'>
           Créé par&nbsp;

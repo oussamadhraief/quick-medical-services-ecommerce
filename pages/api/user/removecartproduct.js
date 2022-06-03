@@ -21,13 +21,13 @@ export default async function handler (req, res) {
     }
 
       const productExists = user.cart.some(item => item.toString() == product._id.toString())
-        if(productExists){
+        if(!productExists){
           res
           .status(200)
           .json({ success: true, message: 'product removed successfully', cart: user.cart.length })
         }else{
           user.cart.pull(product)
-          user.save()
+          await user.save()
           res
             .status(201)
             .json({ success: true, message: 'product removed successfully', cart: user.cart.length })

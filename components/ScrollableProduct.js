@@ -34,7 +34,7 @@ export default function ScrollableProduct ({ product }) {
               'accept' : 'application/json',
               'Content-Type' : 'application/json'
           },
-          body : JSON.stringify({reference : product.reference , size: selectedSize})
+          body : JSON.stringify({reference : product.reference})
       })
       const { cart } = await res.json()
       setCartNumber(cart)
@@ -66,7 +66,6 @@ export default function ScrollableProduct ({ product }) {
                   setActivatedModal(true)
                   document.body.style.height = '100vh'
                   document.body.style.overflow = 'hidden'
-                  setSelectedSize(0)
                   fetchProduct().then(() => {
                     setLoading(false)
                     setShow(true)

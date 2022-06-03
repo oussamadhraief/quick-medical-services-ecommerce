@@ -38,7 +38,6 @@ export default function CartProduct(props){
 
     const removeProduct = async (id) => {
         try {
-            
             const res = await fetch('/api/user/removecartproduct',{
                 method: 'PATCH',
                 headers: {

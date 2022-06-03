@@ -33,6 +33,7 @@ function ContentfulModal({show, onClose, content}) {
            
        </div>
       <div className="h-5/6 w-11/12 grid lg:flex md:w-8/12 py-3 sm:py-5 px-5 overflow-y-auto sm:px-8 bg-white shadow-[0px_3px_26px_5px_rgba(0,0,0,0.6)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed z-[9999] rounded-xl lg:justify-center gap-10">
+          <SizeSelectionContext.Provider value={{selectedSize,setSelectedSize}}>
             <button onClick={(e) => handleCloseClick(e)} className='absolute top-1 right-2 font-medium text-third hover:text-zinc-300'>X</button>
             <div>
                     <div className="border-[1px] border-zinc-200 w-[95%] md:w-96 mx-auto md:mx-0 flex justify-center h-fit">
@@ -74,6 +75,7 @@ function ContentfulModal({show, onClose, content}) {
                 </div>
                 
             </div>
+            </SizeSelectionContext.Provider>
       </div>
       </>
       : null

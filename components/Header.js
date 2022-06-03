@@ -40,8 +40,8 @@ export default function Header(props){
         root.style.setProperty('--calculatedLeft', left+'px')
     },[])   
     
-
-    useLayoutEffect(() => {
+//useLayoutEffect
+    useEffect(() => {
 
         const handleAnimation = () => {
             const bottomRightInvisibleDiv = document.getElementById('positioning')
