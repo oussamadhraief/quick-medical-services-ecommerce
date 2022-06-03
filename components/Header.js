@@ -132,7 +132,7 @@ export default function Header(props){
                     
                 </div>
             </div>
-            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9999] group'>
+            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
@@ -153,7 +153,7 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
-            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9999] group'>
+            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>

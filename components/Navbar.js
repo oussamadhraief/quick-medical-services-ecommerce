@@ -67,7 +67,7 @@ export default function Navbar({ scrolled }){
     
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[99] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[99]  rounded-3xl fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9999]  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="relative ml-4 w-44 lg:m-0 md:w-56 aspect-[4/1] hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>
