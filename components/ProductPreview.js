@@ -12,7 +12,7 @@ export default function ProductPreview(props){
         <div className="border-[1px] border-na3ne3i w-60 mx-auto md:mx-0 flex justify-center h-fit">
             <Image src={props.productImage} alt="product image" height={220} width={240} layout='fixed'  objectFit="contain"  />
         </div>
-            <div className="w-4/6 h-fit pl-1 grid">
+            <div className="w-full md:w-4/6 h-fit pl-1 grid">
             <p className="font-medium text-zinc-600 text-md">Nom:&nbsp;</p>
                 <p className="font-bold text-2xl text-na3ne3i">{props.name}</p>
                 <p className="font-medium text-zinc-600 text-md">Référence:&nbsp;</p>
