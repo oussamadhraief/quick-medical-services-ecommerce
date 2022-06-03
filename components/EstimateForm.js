@@ -34,7 +34,7 @@ export default function OrderForm(props){
     }
     
     return(
-        <form onSubmit={e => handleSubmit(e)} className='w-5/12 h-fit px-5 py-10 bg-white grid min-w-[340px]'>
+        <form onSubmit={e => handleSubmit(e)} className='w-full md:w-6/12 xl:w-5/12 h-fit px-5 py-10 bg-white grid place-content-center min-w-[340px]'>
                     <p className='w-fit h-fit text-3xl font-medium whitespace-nowrap mx-auto mb-5'>Demander <span className="border-b-2 border-pinky">un devis</span>  </p>
                     <p></p>
                     <input required type="text" name="name" onChange={e => handleChange(e)} value={estimateForm.name} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Nom et prénom'/>

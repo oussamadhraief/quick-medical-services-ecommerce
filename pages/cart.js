@@ -139,18 +139,20 @@ export default function Cart() {
                 <Header landingPage={false}  />
             </SearchContext.Provider>
             </CategoriesContext.Provider>
-            <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-harvey'>
-                <Link href='/'>
-                    <a className='absolute left-3 top-3.5 text-center w-fit h-fit font-medium text-zinc-600 hover:underline'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
-                </Link>
-                <p className='w-fit h-fit text-2xl font-medium text-third'>Votre panier</p>
-            </div>
-            <div  className='w-full h-fit bg-harvey grid pb-10 pt-10 '>
+
+            <h1 className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-harvey text-xl sm:text-2xl font-medium text-third'>Votre panier</h1>
+        
+            <div  className='w-full h-fit bg-harvey grid pb-10 pt-10 overflow-x-auto md:overflow-x-hidden'>
                 <div className='w-[99%] bg-transparent h-fit min-h-[300px] relative mx-auto'>
-            {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : 
+                    {loading ?
+                    <div className='bg-white h-full w-full rounded-lg overflow-hidden flex items-center absolute z-[1] left-0 top-0'>
+                            <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[1] mx-auto ">
+                            <div className="reverse-spinner "></div>
+                            </div>
+                        </div> : 
                     
                 
-                <table className='w-full h-fit  bg-white table-auto rounded-md'>
+                <table className='w-fit md:w-full min-w-full h-fit  bg-white table-auto rounded-md'>
                     <thead className="w-full h-14 after:content-[''] after:absolute after:w-[99%] after:h-[1px] after:bg-zinc-300 relative after:-bottom-[1px] after:mx-auto after:right-0 after:left-0">
                         <tr>
                         <th className='text-center text-base font-medium text-third pl-3'>RÉFÉRENCE</th>
@@ -176,27 +178,31 @@ export default function Cart() {
                 </table>
                     }
                 </div>
-                <p className='mt-10  w-10/12 mx-auto bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
-                <div className='w-10/12 h-fit flex flex-nowrap bg-white mx-auto justify-evenly py-10 rounded-md'>
+
+                <div className='grid w-11/12 lg:w-10/12 mx-auto mt-10 bg-white'>
+                    
+                <p className=' w-full bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
+                <div className='w-full h-fit grid md:flex md:flex-nowrap bg-white mx-auto justify-center px-5 md:justify-evenly py-10 rounded-md relative '>
                     <OrderForm value={value} setCartNumber={setCartNumber} />
-                    <div className='min-h-full py-10 bg-complementary shadow-inner w-1 rounded-lg '>
+                    <div className='relative md:absolute md:top-[10%] left-0 right-0 h-0.5 md:h-[80%] md:min-h-[80%] mx-auto md:py-10 bg-complementary shadow-inner w-11/12 md:w-0.5 rounded-lg '>
                         
                     </div>
                     <EstimateForm value={value} setCartNumber={setCartNumber} />
                 </div>
                 </div>
-                <div className='w-full h-fit py-2 items-center flex flex-nowrap justify-between shadow px-5'>
+                </div>
+                <div className='w-full h-fit py-2 items-center place-content-center flex flex-col lg:flex-row gap-5 flex-wrap justify-between shadow px-5'>
                 <Link href='/'>
                     <a className='text-center w-fit h-fit font-medium text-zinc-600 hover:underline'>&#x2190;&nbsp;Retour à la page d&apos;acceuil</a>
                 </Link>
-                <div className=' flex flex-nowrap gap-5 justify-between h-fit w-fit'>
+                <div className=' flex flex-nowrap gap-5 justify-between h-fit w-fit text-center'>
                     
                 <Link href='/account/quoterequests'>
-                    <a className='text-center w-fit h-fit font-medium  px-1 py-0.5 rounded-sm  hover:underline'>Voir mon historique de devis</a>
+                    <a className='text-center w-fit h-fit font-medium  px-1 py-0.5 rounded-sm  hover:underline '>Voir mon historique de devis</a>
                 </Link>
                 |
                 <Link href='/account/orders'>
-                    <a className='text-center w-fit h-fit font-medium px-1 py-0.5 rounded-sm hover:underline'>Voir mon historique de commandes</a>
+                    <a className='text-center w-fit h-fit font-medium px-1 py-0.5 rounded-sm hover:underline '>Voir mon historique de commandes</a>
                 </Link>
                 </div>
             </div>
@@ -211,5 +217,3 @@ export default function Cart() {
 export async function getServerSideProps () {
     return { props: { hi: 'hi' } }
 }
-
-  Cart.auth = true

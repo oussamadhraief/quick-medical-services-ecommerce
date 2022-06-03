@@ -57,17 +57,17 @@ export default function OrderForm(props){
     }
 
     return(
-        <form onSubmit={e => handleSubmit(e)} className='w-5/12 px-5 py-10 bg-white grid min-w-[340px]'>
+        <form onSubmit={e => handleSubmit(e)} className='w-full md:w-6/12 xl:w-5/12 px-0 md:px-5 py-10 bg-white grid min-w-[340px]'>
                     <p className='w-fit h-fit text-3xl font-medium whitespace-nowrap mx-auto mb-5'>Passer <span className="border-b-2 border-pinky">une commande</span>  </p>
                     <p></p>
                     <input required type="text" name="name" onChange={e => handleChange(e)} value={orderForm.name} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Nom et prénom'/>
 
-                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={orderForm.phone} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de téléphone'/>
+                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={orderForm.phone} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de  téléphone'/>
                     
-                    <label className='w-11/12 mx-auto font-medium text-sm mt-5 hover:cursor-pointer flex flex-nowrap items-center mb-1'>
+                    <label className='w-11/12 mx-auto font-medium text-sm mt-5 hover:cursor-pointer flex flex-nowrap gap-1 items-center mb-1'>
                     <input type="checkbox" checked={seperateAdresses} name="seperate" onChange={e => {
                         setSeperateAdresses(prevSeperateAdresses => !prevSeperateAdresses)
-                    }} value="seperated" className='hover:cursor-pointer' /> &nbsp;Séparer l&apos;adresse de livraison et l&apos;adresse de facturation
+                    }} value="seperated" className='hover:cursor-pointer' /> <p>Séparer l&apos;adresse de livraison et l&apos;adresse de facturation</p> 
                     </label>
 
                     {seperateAdresses ? <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-pinky'>livraison</span> :</p> : <p className='w-11/12 mx-auto font-medium text-sm mt-1'>Adresse de <span className='border-b border-pinky'>livraison et de facturation</span> :</p>}
