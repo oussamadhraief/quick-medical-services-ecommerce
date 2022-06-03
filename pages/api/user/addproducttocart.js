@@ -18,7 +18,7 @@ export default async function handler (req, res) {
       res.status(405).json({ success: false, message: 'User not found' })
     }
     const product = await Instrument.findOne({ reference: req.body.reference })
-    if (!product) {
+    if (!product || product.archived == true) {
       res.status(404).json({ success: false, message: 'Product not found' })
     }
     

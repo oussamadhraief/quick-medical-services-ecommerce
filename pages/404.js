@@ -109,7 +109,3 @@ useEffect(() => {
     </div>
   )
 }
-
-export async function getServerSideProps () {
-  return { props: { hi: 'hi' } }
-}
