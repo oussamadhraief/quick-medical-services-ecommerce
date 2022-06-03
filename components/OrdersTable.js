@@ -71,7 +71,7 @@ export default function OrdersTable(props){
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
-                <div className='w-full lg:w-9/12  min-w-[300px] min-h-[400px] max-h-[600px] h-fit bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
+                <div className='w-full lg:w-9/12  min-w-[300px] h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
@@ -141,9 +141,9 @@ export default function OrdersTable(props){
                 </div>
             </div>
 
-            <div className=' w-full relative min-w-full h-60 min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
+            <div className=' w-full relative min-w-full h-40 min-h-40 md:h-60 md:min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-2 md:py-10 shadow-form'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative h-60 py-5 min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
+            <div className='galleryScroller w-full relative py-1 md:py-5 h-40 min-h-40 md:h-60 md:min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
@@ -151,22 +151,20 @@ export default function OrdersTable(props){
                     <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
-                    }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Référence:</span> {item._id}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nombre de produits:</span> {item.cart.length}</p>
+                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>E-mail:</span> {item.email}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Référence:</span> {item._id}</p>
                         
                     </div>)
 
                         return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
-                        }} className='hover:cursor-pointer bg-white shadow-form h-40 px-5 py-3'>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Référence:</span> {item._id}</p>
-                        <p className='w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nombre de produits:</span> {item.cart.length}</p>
+                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>E-mail:</span> {item.email}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Référence:</span> {item._id}</p>
                         
                     </div>)
                 })}
