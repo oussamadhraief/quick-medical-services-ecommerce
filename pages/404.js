@@ -18,7 +18,6 @@ export default function Home (props) {
 
 
   const [activatedModal,setActivatedModal] = useState(false)
-  const [value,setValue] = useState([])
   const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
   const [search,setSearch] = useState('')
   const [cartNumber,setCartNumber] = useState(0)
