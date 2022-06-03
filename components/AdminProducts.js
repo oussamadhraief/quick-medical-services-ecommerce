@@ -106,7 +106,7 @@ export default function AdminProducts(props){
                         Router.push('/admin/products/edit/'+props.reference)}}>Modifier</button> }
                      <button className={props.archived ? "h-fit w-fit p-1 border border-emerald-700 hover:border-red-400 hover:bg-red-400 bg-emerald-700 text-white rounded-lg font-normal text-sm" : "h-fit w-fit p-1 border border-bandena hover:border-red-400 hover:bg-red-400 bg-bandena text-white rounded-lg font-normal text-sm"} onClick={e => setShow(true)}>{props.archived ? 'Désarchiver' : 'Archiver'}</button>
                 </div>
-                {props.archived ? <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver ce produit ?'} /> :
+                {!props.archived ? <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver ce produit ?'} /> :
                 <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'add'} content={'Êtes-vous sûr de vouloir désarchiver ce produit ?'} />  }
         </div>
     )

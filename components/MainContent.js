@@ -101,7 +101,7 @@ export default function MainContent(){
         </div>
         </div>
             <div className='flex flex-col md:flex-row justify-center items-center md:justify-between w-screen h-fit px-5 md:px-0 py-2'>
-            <p className=' w-fit font-medium text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-2 border-pinky'>à tout moment</span> </p>
+            <p className=' w-fit font-bold text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-[3px] border-pinky'>à tout moment</span> </p>
             <div className='mt-3 md:mt-0 flex flex-nowrap justify-between items-center w-60 border-b border-na3ne3i md:mr-10 h-fit px-2 py-1'>
             <input type='text' name='availableSearch' value={availableSearch} onChange={(e) => {
                     setAvailableSearch(e.target.value)
@@ -147,7 +147,7 @@ export default function MainContent(){
                 </div>
             </div>
             <div className='flex flex-col md:flex-row justify-center items-center md:justify-between w-screen h-fit px-5 md:px-0 py-2'>
-            <p className=' w-fit font-medium text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-2 border-pinky'>sur commande</span> </p>
+            <p className=' w-fit font-bold text-2xl text-center md:ml-10 text-third mainPageTitle'>Produits disponibles <span className='border-b-[3px] border-pinky'>sur commande</span> </p>
 
 
             <div className='mt-3 md:mt-0 flex flex-nowrap justify-between items-center w-60 border-b border-na3ne3i md:mr-10 h-fit px-2 py-1'>
