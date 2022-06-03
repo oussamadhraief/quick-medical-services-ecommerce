@@ -14,7 +14,7 @@ export default function Footer () {
   return (
     <footer className='w-full min-w-full h-fit grid mt-32 shadow-3xl'>
       <div className='w-full h-fit bg-light shadow-stylish flex items-center'>
-      <address className='text-white flex justify-center py-5 gap-10 not-italic w-full h-fit'>
+      <address className='text-white grid sm:flex justify-center py-5 gap-10 not-italic w-full h-fit'>
         <div className='gap-5 grid'>
           <Link href='https://www.facebook.com/QMSJRIBI'>
             <a

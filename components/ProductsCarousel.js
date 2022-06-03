@@ -43,13 +43,13 @@ export default function ProductsCarousel({id}) {
 
     return (
         <div className='scrollable relative w-screen flex flex-nowrap items-center overflow-x-hidden h-fit bg-white'>
-            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => handleLeftNavigation()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div id={id} className='w-full h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-20 px-5'>
+            <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => handleLeftNavigation()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+            <div id={id} className='w-full h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-10 md:gap-20 px-5'>
             <SizeSelectionContext.Provider value={{ selectedSize,setSelectedSize}} >
             {renderedArray}
             </SizeSelectionContext.Provider>
             </div>
-            <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl' onClick={e => handleRightNavigation()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+            <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => handleRightNavigation()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
         </div>
     )
 }
