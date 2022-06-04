@@ -66,6 +66,25 @@ export default function Quote() {
     }
   },[status])
 
+  async function handleAddToCart(id) {
+    try {
+        const res = await fetch('/api/user/addproducttocart', {
+          method : 'PATCH',
+          headers:{
+              'accept' : 'application/json',
+              'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify({reference : id})
+      })
+      const { cart } = await res.json()
+      setCartNumber(cart)
+    } catch (error) {
+      console.error(error)
+    }
+    
+    
+  }
+
 
   if(status == 'loading' || loading) return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -189,11 +208,11 @@ export default function Quote() {
                       <td className='text-center font-medium'>{quote.cart[index].quantity}</td>
                       <td className='w-52 h-fit'>
                         {item.product.archived ? 
-                        <div disabled className='font-medium w-fit h-fit bg-zinc-200 px-3 py-1 rounded hover:cursor-not-allowed transition-all relative group'>
+                        <p className='font-medium w-fit h-fit bg-zinc-200 px-3 py-1 rounded hover:cursor-not-allowed transition-all relative group'>
                           Ajouter au panier
                           <p className='absolute -left-10 w-32 h-fit mx-auto bottom-[120%] hidden group-hover:block whitespace-nowrap text-red-500 font-normal'>Ce produit n&apos;est plus disponible.</p>
-                        </div> : 
-                        <button className='font-medium mx-auto w-fit h-fit bg-na3ne3i px-3 py-1 rounded text-white hover:bg-pinky hover:scale-110 transition-all'>Ajouter au panier</button>}
+                        </p> : 
+                        <button onClick={e=> handleAddToCart(item.product.reference)} className='font-medium mx-auto w-fit h-fit bg-na3ne3i px-3 py-1 rounded text-white hover:bg-pinky hover:scale-110 transition-all'>Ajouter au panier</button>}
                       </td>
                     </tr>
                   )})}

@@ -14,10 +14,10 @@ import Head from 'next/head'
 
 export default function Details(){
 
-    const delivery = 'pfe/delivery_nexa3b.png'
-    const payment = 'pfe/payment_zy8xmo.png'
-    const rapidity = 'pfe/rapidity_xclfrf.png'
-    const satisfaction = 'pfe/satisfait_yak5un.png'
+    const delivery = 'pfe/1_tybhhw.png'
+    const payment = 'pfe/2_tqhmcd.png'
+    const rapidity = 'pfe/3_av1ccn.png'
+    const satisfaction = 'pfe/4_gutx7r.png'
     
     const [product,setProduct] = useState()
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
@@ -53,6 +53,25 @@ export default function Details(){
     }
     fetchData()
     },[])
+
+    async function handleAddToCart() {
+        try {
+            const res = await fetch('/api/user/addproducttocart', {
+              method : 'PATCH',
+              headers:{
+                  'accept' : 'application/json',
+                  'Content-Type' : 'application/json'
+              },
+              body : JSON.stringify({reference : product.reference})
+          })
+          const { cart } = await res.json()
+          setCartNumber(cart)
+        } catch (error) {
+          console.error(error)
+        }
+        
+        
+      }
 
     return(
         <div>
@@ -90,7 +109,8 @@ export default function Details(){
             <div className="w-full flex flex-nowrap justify-start items-start mt-32">
                 
             
-                <div className="w-3/12 border-2 h-full mx-2 ">
+                <div className="w-3/12 h-full mx-2 ">
+                        <p className="w-full h-fit py-4 text-center bg-na3ne3i font-medium text-white shadow-form">Explorez nos catégories</p>
                         <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
                 {product == null ? <LoadingAnimation bgOpacity={true} /> :
@@ -98,25 +118,28 @@ export default function Details(){
                     <div className="border-[1px] border-zinc-200 w-[95%] md:w-96 mx-auto md:mx-0 flex justify-center h-fit">
                         <Image src={product.image} alt="product image" height={350} width={384} layout='fixed'  objectFit="contain"  />
                     </div>
-                    <div className="w-4/6 h-fit pl-5 grid">
-                        <p className="font-bold text-2xl text-orange my-5">{product.name}</p>
+                    <div className="w-4/6 h-fit pl-5 grid gap-2">
+                        <p className="font-bold text-2xl text-na3ne3i my-5">{product.name}</p>
                         <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;<span className="font-medium ml-2">{product.reference}.{product.sizes[selectedSize]}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{product.category}</span></p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{product.subcategory}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5 ">Tailles:&nbsp;</p>
                         <SizeSelectionContext.Provider value={{selectedSize, setSelectedSize}} >
+                            <div className="h-fit w-full max-w-sm">
+                                
                         <SizeSelection sizes={product.sizes} id={product._id} />
+                            </div>
                         </SizeSelectionContext.Provider>
                         <p className="font-medium text-zinc-600 text-md mt-5">Description:&nbsp;</p>
                         <p>{product.description != '' ? product.description: 'pas de description'}</p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>
                         {product.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
-                        <input type="number" name="quantity" value="1" min={1} className='border-2 border-orange ml-14 rounded-lg h-fit w-20 text-center mt-5' />
-                        <button className="mt-5 bg-orange w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
+                        <input type="number" name="quantity" value="1" min={1} className='border-2 border-pinky ml-14 rounded-lg h-fit w-20 text-center mt-5' />
+                        <button onClick={e => handleAddToCart()} className="mt-5 bg-pinky w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
                     </div>
                     <div className="h-fit py-5 px-14 w-fit grid gap-9">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
-                    <Image src={delivery} alt='' width={80} height={55} layout='fixed' />
+                    <Image src={delivery} alt='' width={80} height={80} layout='fixed' />
                     <p className="text-center font-medium text-sm text-third">Livraison à<br></br>domicile</p>
                 </div>
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
@@ -128,7 +151,7 @@ export default function Details(){
                     <p className="text-center font-medium text-sm text-third">Rapidité et<br></br>efficacité</p>
                 </div>
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
-                    <Image src={satisfaction} alt='' width={80} height={80} layout='fixed' />
+                    <Image src={satisfaction} alt='' width={100} height={80} layout='fixed' />
                     <p className="text-start font-medium text-sm text-third">Garantie de<br></br>satisfaction totale</p>
                 </div>
             </div>
