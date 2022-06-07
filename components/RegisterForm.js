@@ -65,7 +65,7 @@ export default function RegisterForm() {
   }
   
   return (
-      <div className='h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[13vh] rounded-md z-10 animate__animated animate__fadeInLeft'>
+      <div className='h-fit w-full md:w-[600px] min-w-[320px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-10 md:mt-[13vh] rounded-md z-10 animate__animated animate__fadeInLeft'>
     <form onSubmit={handleSubmit} className='h-fit min-h-full w-full flex flex-col items-center mb-10'>
     <p className="text-[44px] font-medium text-white border-b-2 border-pinky mb-10">S&apos;inscrire</p>
     <div className='flex flex-nowrap justify-between w-full h-fit mb-7'>

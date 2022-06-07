@@ -56,7 +56,7 @@ function ContentfulModal({show, onClose, content}) {
                     </div>
                     <p className="font-medium mt-5 text-sm text-zinc-400">Nombre de produits dans votre panier: {cartNumber}</p>
             </div>
-            <div className="w-4/6 h-fit pl-1 grid">
+            <div className="w-full md:w-4/6 h-fit pl-1 grid">
                 <p className="font-bold text-2xl text-main my-5 w-full overflow-hidden break-words">{content.name}</p>
                 <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;</p>
                 <p className="font-bold ml-2 mb-5 text-2xl text-main">{content.reference}.{content.sizes[selectedSize]}</p>

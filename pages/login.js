@@ -8,7 +8,7 @@ export default function Login (props) {
   const router = useRouter()
 
   return (
-    <div id='body' className='relative'>
+    <div id='body' className='relative h-screen min-h-screen overflow-hidden w-screen'>
       <Head>
         <title>Authentification - QUICK Medical Services</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -33,13 +33,13 @@ export default function Login (props) {
         <meta name='twitter:description' value='Medical Supply Store' />
         <meta name='twitter:image' value='' />
       </Head>
-      <div className='px-32 flex w-screen h-screen overflow-hidden justify-start bg-na3ne3i'>
+      <div className='px-2 sm:px-10 md:px-20 lg:px-32 flex w-screen h-screen min-h-screen overflow-hidden justify-start bg-na3ne3i'>
           <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4'>&#x2190;</button>
         <LoginForm />
-        <div className='absolute h-full aspect-square right-0 bottom-0'>
+        <div className='absolute h-1/2 sm:h-3/4 aspect-square right-0 bottom-0'>
           <Image src={'pfe/Untitled_design_texm1t.png'} alt="design" layout='fill' />
         </div>
-        <div className='absolute h-20 w-24 right-1 bottom-3'>
+        <div className='absolute w-20 h-16 sm:h-20 sm:w-28 right-1 bottom-3'>
           <Image src={'pfe/Quick_medical_services_4_xhplx6.png'} alt="design" layout='fill' />
         </div>
       </div>

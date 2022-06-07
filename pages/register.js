@@ -9,7 +9,8 @@ export default function Register (props) {
   const router = useRouter()
 
   return (
-    <div id='body' className='relative'>
+    <div id='body' className='relative h-screen min-h-screen overflow-hidden w-screen'>
+
       <Head>
         <title>Authentification - QUICK Medical Services</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -34,14 +35,14 @@ export default function Register (props) {
         <meta name='twitter:description' value='Medical Supply Store' />
         <meta name='twitter:image' value='' />
       </Head>
-      <div className='px-32 flex w-screen h-screen overflow-hidden justify-end bg-na3ne3i'>
+      <div className='px-2 sm:px-10 md:px-20 lg:px-32 flex w-screen h-screen min-h-screen overflow-hidden justify-end bg-na3ne3i'>
        
-          <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-0 left-14 z-10'>&#x2190;</button>
+        <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4 z-10'>&#x2190;</button>
         <RegisterForm />
-        <div className='absolute h-full aspect-square left-0 bottom-0'>
+        <div className='absolute h-1/2 sm:h-3/4 aspect-square left-0 bottom-0'>
           <Image src={'pfe/Untitled_design_g74cig.png'} alt="design" layout='fill' />
         </div>
-        <div className='absolute h-20 w-24 left-1 bottom-3'>
+        <div className='absolute w-20 h-16 sm:h-20 sm:w-28 left-1 bottom-3'>
           <Image src={'pfe/Quick_medical_services_4_xhplx6.png'} alt="design" layout='fill' />
         </div>
       </div>

@@ -11,7 +11,6 @@ export default function LoginForm() {
   const router = useRouter()
 
   const [login,setLogin] = useState({email: '',password: ''})
-  const [addData,setAddData] = useState({phone: '',address: ''})
 
   function handleChange(e) {
     setLogin({
@@ -20,12 +19,6 @@ export default function LoginForm() {
     })
   }
 
-  function handleAddChange(e) {
-    setAddData({
-      ...addData,
-      [e.target.name]: e.target.value
-    })
-  }
 
   if(session) {
     
@@ -50,7 +43,7 @@ export default function LoginForm() {
   }
   
   return (
-      <div className="h-fit w-[500px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[12vh] rounded-md z-10 animate__animated animate__fadeInRight">
+      <div className="h-fit w-full md:w-[500px] min-w-[320px] min-h-[500px] flex flex-col px-5 place-content-center place-items-center mt-[12vh] rounded-md z-10 animate__animated animate__fadeInRight">
         <form onSubmit={e => {
           e.preventDefault()
           signIn("credentials", {redirect: false, email: login.email, password: login.password })
