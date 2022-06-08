@@ -143,10 +143,10 @@ export default function Orders() {
             </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden md:flex flex-nowrap justify-center items-start px-10 mt-20'>
-          <div className='w-screen md:w-2/12 h-fit flex justify-start items-center'>
-            <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
-            <div ref={dashboardScroller} className='noScrollBar w-full h-fit md:grid overflow-x-auto flex'>
+      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden lg:flex flex-nowrap justify-center items-start px-10 mt-20'>
+          <div className='w-screen lg:w-2/12 h-fit flex justify-start items-center'>
+            <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
+            <div ref={dashboardScroller} className='noScrollBar w-full h-fit lg:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
                       <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
                   </Link>
@@ -165,11 +165,11 @@ export default function Orders() {
                 
                   <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
             </div>
-              <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
+              <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
                 
   
           </div>
-          <div className='w-full md:w-10/12 mx-auto h-fit px-2 py-10 overflow-x-auto relative md:p-10'>
+          <div className='w-full lg:w-10/12 mx-auto h-fit px-2 py-10 overflow-x-auto relative lg:p-10'>
             
           <Link href='/account/orders'>
                 <a className='absolute left-2 -top-2 w-fit h-fit text-5xl font-bold text-zinc-400 hover:text-orange'>&#x2190;</a>
