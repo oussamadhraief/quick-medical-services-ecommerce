@@ -4,6 +4,7 @@ import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import 'animate.css'
+import emailjs from '@emailjs/browser';
 
 export default function QuotesTable(props){
 
@@ -29,6 +30,7 @@ export default function QuotesTable(props){
     }
 
     const handleChange = (e) => {
+        
         setResponse({
             ...response,
             [e.target.name]: e.target.value
@@ -39,7 +41,7 @@ export default function QuotesTable(props){
         e.preventDefault()
         setloading(true)
         try {
-            await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
+            const res =await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
                 method: 'PUT',
                 headers:{
                     "Accept": "application/json",
@@ -50,12 +52,23 @@ export default function QuotesTable(props){
                     price: parseInt(response.price)
                 })
         })
+            const {data}  = await res.json()
             let temp = props.value
             temp.splice(selectedMessage,1)
             props.setValue(temp)
             setSelectedMessage(0)
             setShow(false)
             setResponse({price: 0,message: ''})
+            emailjs.send("service_1hznxbq","template_6aej1rg",{
+                to_name: data.user.name,
+                reference: data._id,
+                variable: "https://pfeeeeeee.vercel.app",
+                to_email: data.email,
+                },"Ripm8PZ2lXtT3znlf").then(() => {
+                    console.log('done');
+                }).catch(() => {
+                    console.error('not done');
+                })
         } catch (error) {
             console.error(error)
         }
@@ -81,6 +94,10 @@ export default function QuotesTable(props){
         }
         setloading(false)
     }
+
+    if(props.value.length <1 )  return (
+
+     <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>)
 
    return (
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-auto md:overflow-hidden">

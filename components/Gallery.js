@@ -71,7 +71,10 @@ export default function ModifyProductsView(props){
         setLoadingContext(false)
     }
 
+    if(props.value.length <1 )  return (
 
+        <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>)
+        
    return (
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}

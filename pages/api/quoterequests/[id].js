@@ -15,7 +15,7 @@ export default async (req, res) => {
                 if(session.user.isAdmin){
                     
                         
-                        let Quotes = await Quote.findOne({_id: id})
+                        let Quotes = await Quote.findOne({_id: id}).populate('user')
                         
                             if(!Quotes)        
                             {
