@@ -1,4 +1,5 @@
 import { useState } from "react"
+import emailjs from '@emailjs/browser';
 
 
 export default function OrderForm(props){
@@ -47,9 +48,15 @@ export default function OrderForm(props){
                     },
                 body: JSON.stringify(orderData)
             })
+            const {data,user} = await res.json()
             props.setCartNumber(0)
             setOrderForm({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
             setSeperateAdresses(false)
+            emailjs.send("service_gwl2rmp","template_7zya51h",{
+                to_name: user.name,
+                reference: data._id,
+                to_email: data.email,
+                },"lKkzd1QChFF2krYAd")
         } catch (error) {
             
             console.error(error);

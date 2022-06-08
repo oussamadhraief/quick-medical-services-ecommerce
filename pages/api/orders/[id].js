@@ -20,8 +20,10 @@ export default async (req, res) => {
                     {
                         res.status(400).json({ success: false });
                                 return
-                            }         
+                            }      
                             
+                            await Orders.populate('user')
+                           
                             res.status(200).json({ success: true, data: Orders });
                             
                             return
@@ -53,7 +55,10 @@ export default async (req, res) => {
                             {
                                 res.status(400).json({ success: false });
                                     return
-                                }         
+                                }      
+                                
+                            await Orders.populate('user')
+                                
                             
                             res.status(200).json({ success: true, data: Orders });
     

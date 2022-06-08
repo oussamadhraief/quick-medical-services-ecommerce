@@ -59,16 +59,12 @@ export default function QuotesTable(props){
             setSelectedMessage(0)
             setShow(false)
             setResponse({price: 0,message: ''})
-            emailjs.send("service_1hznxbq","template_6aej1rg",{
+            emailjs.send("service_1hznxbq","template_0hjf7ac",{
                 to_name: data.user.name,
                 reference: data._id,
                 variable: "https://pfeeeeeee.vercel.app",
                 to_email: data.email,
-                },"Ripm8PZ2lXtT3znlf").then(() => {
-                    console.log('done');
-                }).catch(() => {
-                    console.error('not done');
-                })
+                },"Ripm8PZ2lXtT3znlf")
         } catch (error) {
             console.error(error)
         }
@@ -79,16 +75,24 @@ export default function QuotesTable(props){
         setOpen(false)
         setloading(true)
         try {
-            await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
+            const res= await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
                 method: 'DELETE',
                 headers:{
                     "Accept": "application/json",
                     "Content-type": "application/json"
                 }})
+         const {data}  = await res.json()
+
             let temp = props.value
             temp.splice(selectedMessage,1)
             props.setValue(temp)
             setSelectedMessage(0)
+            emailjs.send("service_rtugv3n","template_jxj8z6m",{
+                to_name: data.user.name,
+                reference: data._id,
+                variable: "https://pfeeeeeee.vercel.app",
+                to_email: data.email,
+                },"KHMkvXV1QAlRiuEGH")
         } catch (error) {
             console.error(error)
         }

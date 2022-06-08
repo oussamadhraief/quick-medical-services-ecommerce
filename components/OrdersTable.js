@@ -4,6 +4,8 @@ import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import 'animate.css'
+import emailjs from '@emailjs/browser';
+
 
 export default function OrdersTable(props){
 
@@ -31,16 +33,22 @@ export default function OrdersTable(props){
         setloading(true)
         try {
             
-            await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
+            const res =await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
                 method: 'PUT',
                 headers:{
                     "Accept": "application/json",
                     "Content-type": "application/json"
                 }})
+            const { data } = await res.json()
             let temp = props.value
             temp.splice(selectedMessage,1)
             props.setValue(temp)
             setSelectedMessage(0)
+            emailjs.send("service_1hznxbq","template_6aej1rg",{
+                to_name: data.user.name,
+                reference: data._id,
+                to_email: data.email,
+                },"Ripm8PZ2lXtT3znlf")
         } catch (error) {
             console.error(error)
         }
@@ -51,16 +59,23 @@ export default function OrdersTable(props){
         setOpen(false)
         setloading(true)
         try {
-            await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
+            const res = await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
                 method: 'DELETE',
                 headers:{
                     "Accept": "application/json",
                     "Content-type": "application/json"
                 }})
+            const { data } = await res.json()
+
             let temp = props.value
             temp.splice(selectedMessage,1)
             props.setValue(temp)
             setSelectedMessage(0)
+            emailjs.send("service_rtugv3n","template_ynj5ghn",{
+                to_name: data.user.name,
+                reference: data._id,
+                to_email: data.email,
+                },"KHMkvXV1QAlRiuEGH")
         } catch (error) {
             console.error(error)
         }
