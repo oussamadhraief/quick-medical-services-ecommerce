@@ -52,7 +52,7 @@ export default function LoginForm() {
             <input name="email" type="email" value={login.email} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full" placeholder="Nom d'utilisateur"/>
             
             <input name="password" type="password" value={login.password} onChange={ e => handleChange(e)} className="h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full my-7" placeholder="Mot de passe" />
-            <button type="submit" className="bg-pinky h-fit px-4 py-2 rounded-md text-white text-lg my-7">Se connecter</button>
+            <button type="submit" className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.2)] h-fit px-4 py-2 rounded-md text-white text-lg my-7">Se connecter</button>
             <div className="text-white">
             Vous n&apos;êtes pas déjà inscrit ?&nbsp;
                 <Link href='/register'>

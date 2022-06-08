@@ -22,7 +22,7 @@ function Modal({show, onClose, content,action, onConfirm}) {
           <h1 className=" w-fit h-fit text-right font-bold top-2 right-4 text-xs absolute text-zinc-400 font-sans hover:cursor-pointer hover:text-third hidden sm:block" onClick={(e) => handleCloseClick(e)}>X</h1>
           <p className="font-medium  mt-5">{content}</p>
           <div className="flex flex-nowrap justify-end w-full h-fit mt-10">
-            <button className={action == 'delete' ? "bg-red-500 px-6 py-2 rounded-lg text-white font-medium  mr-5 hover:scale-105" : "bg-na3ne3i px-6 py-2 rounded-lg text-white font-medium  hover:bg-orange mr-5 hover:scale-105"} onClick={(e) => 
+            <button className={action == 'delete' ? "bg-red-500 px-6 py-2 rounded-lg text-white font-medium  mr-5 hover:scale-105" : "bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)]  px-6 py-2 rounded-lg text-white font-medium  hover:bg-orange mr-5 hover:scale-105"} onClick={(e) => 
               {
                 onConfirm()
                 e.preventDefault();

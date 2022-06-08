@@ -198,7 +198,7 @@ export default function Products(){
                             </label>
                         </div>
                     </div>
-                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky hover:text-black" onClick={e => {
+                    <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky " onClick={e => {
                         handleHideCategories()
                     }}>
                         <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
@@ -216,6 +216,15 @@ export default function Products(){
                     {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
+            <div className="w-full h-fit flex justify-end items-center mb-32 px-10">
+                    
+                        <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
+                        <PagesContext.Provider value={{pages,setPages}}>
+                            <PagesNavigator relative={true} />
+                        </PagesContext.Provider>
+                        </PageSelectionContext.Provider>
+
+                </div>
             </CartContext.Provider>
             </ActivatedModalContext.Provider>
             </ProductsContext.Provider>

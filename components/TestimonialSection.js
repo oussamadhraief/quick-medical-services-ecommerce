@@ -353,17 +353,17 @@ export default function TestimonialSection ({ data }) {
           )
         })}
       </div>
-      <div className='w-fit h-fit flex flex-nowrap mx-auto mt-10 md:mt-20 gap-3'>
+      <div className='w-fit h-fit flex flex-nowrap mx-auto mt-10 md:mt-20'>
         <button
           id='navigateLeftReview'
-          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-orange'
+          className='w-fit h-fit text-5xl px-5 py-4 font-bold text-zinc-400 scale-x-[1.4] hover:scale-x-[1.8] transition-all hover:text-orange'
           onClick={e => handleScrollLeft()}
         >
           &#x2190;
         </button>
         <button
           id='navigateRightReview'
-          className='w-fit h-fit text-5xl font-bold text-zinc-400 hover:scale-x-[1.8] transition-all hover:text-orange'
+          className='w-fit h-fit text-5xl px-5 py-4 font-bold text-zinc-400 scale-x-[1.4] hover:scale-x-[1.8] transition-all hover:text-orange'
           onClick={e => handleScrollRight()}
         >
           &#x2192;

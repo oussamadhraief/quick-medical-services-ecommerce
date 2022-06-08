@@ -126,7 +126,7 @@ export default function RegisterForm() {
           value={signUpData.passwordConfirm}
           onChange={ e => handleChange(e)}
         />
-        <button type="submit" className="bg-pinky h-fit px-4 py-2 rounded-md text-white text-lg my-7">S&apos;inscrire</button>
+        <button type="submit" className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] h-fit px-4 py-2 rounded-md text-white text-lg my-7">S&apos;inscrire</button>
         <div className="text-white">
             Vous êtes déjà inscrit ?&nbsp;
                 <Link href='/login'>

@@ -2,7 +2,7 @@ import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import { CartContext } from "../../../utils/CartContext"
 import { CategoriesContext } from '../../../utils/CategoriesContext'
-import { useEffect, useState } from 'react'
+import { useEffect,useRef, useState } from 'react'
 import Image from 'next/image'
 import { SearchContext } from '../../../utils/SearchContext'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ export default function Orders() {
 
   const router = useRouter()
 
-  
+  const dashboardScroller = useRef()  
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
@@ -65,6 +65,14 @@ export default function Orders() {
       fetchCart()
     }
   },[status])
+
+  const scrollLeft = () => {
+    dashboardScroller.current.scroll(dashboardScroller.current.scrollLeft - 150,0)
+  }
+
+  const scrollRight = () => {
+    dashboardScroller.current.scroll(dashboardScroller.current.scrollLeft + 150,0)
+  }
 
   async function handleAddToCart(id) {
     try {
@@ -135,35 +143,40 @@ export default function Orders() {
             </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>
-          <div className='w-2/12 h-fit grid'>
+      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden md:flex flex-nowrap justify-center items-start px-10 mt-20'>
+          <div className='w-screen md:w-2/12 h-fit flex justify-start items-center'>
+            <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
+            <div ref={dashboardScroller} className='noScrollBar w-full h-fit md:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
-                </Link>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
+                  </Link>
+                  
+                  <Link href='/account/quoterequests'>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
+                  </Link>
+                  
+                  <Link href='/account/orders'>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                  </Link>
+                  
+                  <Link href='/account/password'>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[12px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                  </Link>
                 
-                <Link href='/account/quoterequests'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
-                </Link>
+                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
+            </div>
+              <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
                 
-                <Link href='/account/orders'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-complementary'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
-                </Link>
-                
-                <Link href='/account/password'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[12px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
-                </Link>
-              
-                <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-          <div className='w-10/12 p-10 relative'>
+          <div className='w-full md:w-10/12 mx-auto h-fit px-2 py-10 overflow-x-auto relative md:p-10'>
             
           <Link href='/account/orders'>
                 <a className='absolute left-2 -top-2 w-fit h-fit text-5xl font-bold text-zinc-400 hover:text-orange'>&#x2190;</a>
               </Link>
 
-          <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
-                    <p className='font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${order.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(order.createdAt.substr(6,2)))} ${order.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{order.status}</span>. </p>
+          <div className='flex justify-between items-center w-fit border-b border-zinc-400 pb-1'>
+                    <p className='font-medium text-zinc-600 h-fit w-fit whitespace-nowrap'>Cette commande a été passée le <span className='underline'>{`${order.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(order.createdAt.substr(6,2)))} ${order.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{order.status}</span>. </p>
           </div>
                     <div className='grid gap-4 mt-2'>
 
@@ -198,7 +211,7 @@ export default function Orders() {
                   <th className='font-bold'>IMAGE</th>
                   <th className='font-bold'>NOM</th>
                   <th className='font-bold'>TAILLE</th>
-                  <th className='font-bold'>QUANTITÉ</th>
+                  <th className='font-bold px-1'>QUANTITÉ</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -209,19 +222,19 @@ export default function Orders() {
                       <td className='w-40 h-48'><Image src={item.product.image} alt='image' width={150} height={170} layout='fixed' objectFit="contain" objectPosition="center"  /></td>
                       <td className='text-center font-medium'>
                         <Link href={'/products/' + item.product.reference} >
-                          <a className='hover:underline' target='_blank'>{item.product.name}</a>
+                          <a className='hover:underline px-1' target='_blank'>{item.product.name}</a>
                         
                         </Link>
                         </td>
-                      <td className='text-center font-medium'>{order.cart[index].size} cm</td>
-                      <td className='text-center font-medium'>{order.cart[index].quantity}</td>
-                      <td className='w-52 h-fit'>
+                      <td className='text-center font-medium px-1'>{order.cart[index].size} cm</td>
+                      <td className='text-center font-medium px-1'>{order.cart[index].quantity}</td>
+                      <td className='w-52 h-fit px-1'>
                         {item.product.archived ? 
-                        <p className='font-medium w-fit h-fit bg-zinc-200 px-3 py-1 rounded hover:cursor-not-allowed transition-all relative group'>
+                        <p className='font-medium w-fit h-fit bg-zinc-200 px-3 py-1 rounded hover:cursor-not-allowed transition-all relative group whitespace-nowrap'>
                           Ajouter au panier
                           <p className='absolute -left-10 w-32 h-fit mx-auto bottom-[120%] hidden group-hover:block whitespace-nowrap text-red-500 font-normal'>Ce produit n&apos;est plus disponible.</p>
                         </p> : 
-                        <button onClick={e => handleAddToCart(item.product.reference)} className='font-medium mx-auto w-fit h-fit bg-na3ne3i px-3 py-1 rounded text-white hover:bg-pinky hover:scale-110 transition-all'>Ajouter au panier</button>}
+                        <button onClick={e => handleAddToCart(item.product.reference)} className='font-medium mx-auto w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)] px-3 py-1 rounded whitespace-nowrap text-white hover:bg-pinky hover:shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:scale-110 transition-all'>Ajouter au panier</button>}
                       </td>
                     </tr>
                   )})}

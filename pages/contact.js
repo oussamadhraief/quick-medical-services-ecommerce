@@ -276,7 +276,7 @@ export default function Contact () {
             </label>
           </div>
           <button
-            className='flex text-white px-7 font-medium rounded-lg py-2 mx-auto bg-pinky shadow-form hover:scale-110 transition-all'
+            className='flex text-white px-7 font-medium rounded-lg py-2 mx-auto bg-pinky shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-110 transition-all'
             type='submit'
           >
             Envoyer

@@ -96,6 +96,14 @@ a {
   display: none;
 }
 
+.noScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+.noScrollBar{
+  scroll-behavior: smooth;
+}
+
 #banner {
   animation: getbigger 0.5s ease-in-out;
 }

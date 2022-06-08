@@ -18,13 +18,13 @@ export default function OrderComponent(props){
       <td className='font-medium text-zinc-600 text-left px-3 space-y-1 py-3'>
           <p className=' font-thin'><span className='text-base font-medium'>Adresse:</span> {props.address}</p>
           <p className=' font-thin'><span className='text-base font-medium'>Ville:</span> {props.city}</p>
-          <p className=' font-thin'><span className='text-base font-medium'>Pays</span> {props.country}</p>
+          <p className=' font-thin'><span className='text-base font-medium'>Pays:</span> {props.country}</p>
           <p className=' font-thin'><span className='text-base font-medium'>Code postal:</span> {props.zipCode}</p>
           </td>
           <td className='font-medium text-zinc-600 text-left px-3 space-y-1 py-3'>
           <p className=' font-thin'><span className='text-base font-medium'>Adresse:</span> {props.address2}</p>
           <p className=' font-thin'><span className='text-base font-medium'>Ville:</span> {props.city2}</p>
-          <p className=' font-thin'><span className='text-base font-medium'>Pays</span> {props.country2}</p>
+          <p className=' font-thin'><span className='text-base font-medium'>Pays:</span> {props.country2}</p>
           <p className=' font-thin'><span className='text-base font-medium'>Code postal:</span> {props.zipCode2}</p>
           </td>
       <td className='font-medium text-zinc-600 text-center whitespace-nowrap px-3'>{props.phoneNumber}</td>

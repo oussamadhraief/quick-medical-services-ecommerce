@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import { LoadingContext } from '../utils/LoadingContext'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import 'animate.css'
 
 export default function ModifyProductsView(props){
 
-    const Router = useRouter()
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [loading,setloading] = useState(false)

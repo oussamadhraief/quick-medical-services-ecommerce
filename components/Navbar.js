@@ -67,7 +67,7 @@ export default function Navbar({ scrolled }){
     
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-3xl fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9999]  rounded-3xl fixed"}>
+        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-[0px_8px_25px_rgba(14,80,82,0.8)] fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9999]  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="relative ml-4 w-44 lg:m-0 md:w-56 aspect-[4/1] hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>
@@ -85,7 +85,7 @@ export default function Navbar({ scrolled }){
                 </li> : 
                 <>  
                     <li><Link href='/login'><a className="whitespace-nowrap text-white text-center font-medium lg:font-[400] ml-3 underlineAnimatedLink relative">Se connecter</a></Link></li>
-                    <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky w-fit h-fit ml-3 px-4 py-2 rounded-lg text-white font-medium">S&apos;inscrire</a></Link></li>
+                    <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] w-fit h-fit ml-3 px-4 py-2 rounded-lg text-white">S&apos;inscrire</a></Link></li>
                 </>}
                 {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
             </ul>

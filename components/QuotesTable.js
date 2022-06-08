@@ -86,7 +86,7 @@ export default function QuotesTable(props){
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-auto md:overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
-                <div className='w-full lg:w-9/12  min-w-[300px] h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
+                <div className='w-full lg:w-9/12  min-w-[300px] h-full  max-h-[400px] md:max-h-[600px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette demande de devis a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
@@ -128,7 +128,7 @@ export default function QuotesTable(props){
                         </label>
                         <div className='w-fit h-fit flex flex-nowrap items-center gap-3'>
                             
-                        <button type="submit" className='px-5 py-1 rounded w-fit h-fit bg-pinky text-white mt-5 hover:scale-110 transition-all'>Envoyer</button>
+                        <button type="submit" className='px-5 py-1 rounded w-fit h-fit bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] text-white mt-5 hover:scale-110 transition-all'>Envoyer</button>
                         <button onClick={e => setShow(false)} type="button" className='rounded w-fit h-fit  text-third hover:underline mt-5'>annuler</button>
                         </div>
                     </form> : null}

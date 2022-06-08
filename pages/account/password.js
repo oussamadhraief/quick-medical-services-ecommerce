@@ -1,7 +1,7 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { CategoriesContext } from '../../utils/CategoriesContext'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { SearchContext } from '../../utils/SearchContext'
 import Link from 'next/link'
@@ -16,6 +16,8 @@ export default function Password() {
   const { data: session,status } = useSession()
 
   const router = useRouter()
+  const dashboardScroller = useRef()
+
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
@@ -87,6 +89,13 @@ export default function Password() {
     
   }
 
+  const scrollLeft = () => {
+    dashboardScroller.current.scroll(dashboardScroller.current.scrollLeft - 150,0)
+  }
+
+  const scrollRight = () => {
+    dashboardScroller.current.scroll(dashboardScroller.current.scrollLeft + 150,0)
+  }
 
   if(status == 'loading') {return  (
     <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
@@ -136,28 +145,33 @@ export default function Password() {
             </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit flex flex-nowrap justify-center items-start px-10 mt-20'>
-          <div className='w-2/12 h-fit grid'>
+      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden md:flex flex-nowrap justify-center items-start px-10 mt-20'>
+          <div className='w-screen md:w-2/12 h-fit flex justify-start items-center'>
+            <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
+            <div ref={dashboardScroller} className='noScrollBar w-full h-fit md:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
-                </Link>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
+                  </Link>
+                  
+                  <Link href='/account/quoterequests'>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
+                  </Link>
+                  
+                  <Link href='/account/orders'>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                  </Link>
+                  
+                  <Link href='/account/password'>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[12px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                  </Link>
                 
-                <Link href='/account/quoterequests'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='general informations' width={25} height={25} layout='fixed'  /><p>Historique des devis</p></a>
-                </Link>
+                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
+            </div>
+              <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block md:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
                 
-                <Link href='/account/orders'>
-                    <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[8px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historiques des commandes</p></a>
-                </Link>
-                
-                <Link href='/account/password'>
-                    <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='general informations' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
-                </Link>
-              
-                <div className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='general informations' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> <p>Déconnexion</p></div>
   
           </div>
-      <form onSubmit={handleSubmit} className='w-10/12 h-full px-10 py-5 grid gap-14'>
+      <form onSubmit={handleSubmit} className='w-full md:w-10/12 mx-auto h-fit px-2 py-10 overflow-auto relative grid place-items-center md:place-items-start gap-14 md:p-10'>
           
             <input
               type='password'
@@ -189,7 +203,7 @@ export default function Password() {
             />
           
 
-        <button type="submit" className='w-fit h-fit bg-orange px-4 py-2 rounded-md shadow-form font-medium hover:scale-105 transition-all'>Enregistrer</button>
+        <button type="submit" className='w-fit h-fit bg-pinky text-white px-4 py-2 rounded-md shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-105 transition-all'>Enregistrer</button>
       </form>
       </main>
       <Footer />

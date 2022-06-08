@@ -2,15 +2,23 @@ import Image from 'next/image'
 import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
 import LoadingAnimation from './LoadingAnimation'
+import Modal from './Modal'
 import 'animate.css'
 import { ActivatedModalContext } from '../utils/ActivatedModalContext'
 import { CartContext } from '../utils/CartContext'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useSession } from "next-auth/react"
 
 export default function ScrollableProduct ({ product }) {
+
+  const Router = useRouter()
+  const {data: session} = useSession()
+
   const eye = 'pfe/eye-12109_hoarin.png'
 
   const [show, setShow] = useState(false)
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [productContent, setProductContent] = useState({})
   const { activatedModal, setActivatedModal } = useContext(
@@ -96,8 +104,12 @@ export default function ScrollableProduct ({ product }) {
             </p>
 
         <button
-          className='bg-pinky hover:bg-na3ne3i hover:scale-105 transition-all rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'
-          onClick={e=> handleAddToCart(e)}
+          className='bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:bg-na3ne3i hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'
+          onClick={e=> 
+           { if(session) {
+              setOpen(true)}else{
+                Router.push('/login')
+              }}}
         >
           Ajouter au panier
         </button>
@@ -111,6 +123,7 @@ export default function ScrollableProduct ({ product }) {
             setShow(false)
           }}
         />
+         <Modal show={open} onClose={() => setOpen(false)} onConfirm={() => handleAddToCart()} action={'add'} content={'Êtes-vous sûr de vouloir ajouter ce produit au panier?'} />
     </div>
   )
 }

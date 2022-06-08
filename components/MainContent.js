@@ -167,14 +167,14 @@ export default function MainContent(){
                     <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2 hover:scale-105 transition-all'>
                         <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité du service et de produits <br></br> excepionnelle  !&quot;</i>
                         <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>
-                        <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky text-white rounded py-1 lg:py-2 hover:scale-105 transition-all'>Envoyer</p>
+                        <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky shadow-[0px_3px_15px_rgba(247,177,162,0.8)] text-white rounded py-1 lg:py-2 hover:scale-105 transition-all'>Envoyer</p>
                     </div>
                 </div>
                 <div className='w-fit h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0'>
                     <h1 className='w-full h-fit  text-[17px] sm:text-xl md:text-lg lg:text-xl xl:text-2xl font-medium sm:whitespace-nowrap text-third mainPageTitle'>Vous avez une <span className='border-b-2 border-pinky'>question</span> ?</h1>
                     <h1 className='w-fit h-fit text-third text-[17px] sm:text-xl lg:text-xl md:text-lg  xl:text-2xl font-medium sm:whitespace-nowrap mb-5  mainPageTitle'>Ou vous voulez nous laisser un <span className='border-b-2 border-pinky'>commentaire</span> ?</h1>
                     <Link href='/contact'>
-                        <a className='text-white bg-na3ne3i text-[17px] sm:text-xl md:text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit rounded shadow-form'>Contactez-nous !</a>
+                        <a className='text-white bg-na3ne3i text-[17px] shadow-[0px_3px_15px_rgba(25,98,102,0.8)]  sm:text-xl md:text-lg mx-auto lg:mx-0 xl:text-2xl font-medium px-3 py-1 hover:underline w-fit h-fit rounded '>Contactez-nous !</a>
                     </Link>
                 </div>
             </div>

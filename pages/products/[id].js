@@ -135,7 +135,7 @@ export default function Details(){
                         <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>
                         {product.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
                         <input type="number" name="quantity" value="1" min={1} className='border-2 border-pinky ml-14 rounded-lg h-fit w-20 text-center mt-5' />
-                        <button onClick={e => handleAddToCart()} className="mt-5 bg-pinky w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
+                        <button onClick={e => handleAddToCart()} className="mt-5 bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
                     </div>
                     <div className="h-fit py-5 px-14 w-fit grid gap-9">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">

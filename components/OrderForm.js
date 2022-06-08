@@ -91,7 +91,7 @@ export default function OrderForm(props){
 
                     <textarea className='my-5 h-fit min-h-[100px] w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' onChange={e => handleChange(e)} value={orderForm.note} placeholder='Message (facultatif)' col={50} row={4} name='note' />
                         
-                    {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:bg-pinky hover:text-black hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
+                    {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.8)] text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
 
                 </form>
     )

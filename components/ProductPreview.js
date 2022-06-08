@@ -26,7 +26,7 @@ export default function ProductPreview(props){
                 <p className="font-medium text-zinc-600 mt-2 text-md">Disponibilité:&nbsp;</p>
                 {props.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
                 <input type="number" name="quantity" value="1" min={1} className='border-2 border-main rounded-lg mx-auto h-fit w-20 text-center mt-5' />
-                <button className="mt-5 bg-na3ne3i w-fit h-fit px-3 py-3 rounded-lg mx-auto text-white text-sm md: xl:text-lg font-medium hover:bg-orange"> Ajouter au panier</button>
+                <button className="mx-auto h-fit w-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)]  text-white p-3 rounded-lg font-medium text-sm md: xl:text-lg hover:bg-orange transition-all hover:shadow-[0px_3px_10px_rgba(249,191,135,0.5)] hover:scale-105 whitespace-nowrap mt-8"> Ajouter au panier</button>
             </div>
         </div>
     )
