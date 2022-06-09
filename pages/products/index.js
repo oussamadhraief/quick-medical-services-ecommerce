@@ -1,9 +1,8 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef } from "react"
 import { ProductsContext } from "../../utils/ProductsContext"
 import SrollableProduct from "../../components/ScrollableProduct"
-import LoadingAnimation from "../../components/LoadingAnimation"
 import PagesNavigator from "../../components/PagesNavigator"
 import { PageSelectionContext } from "../../utils/PageSelectionContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
@@ -23,6 +22,7 @@ import { useRouter } from "next/router"
 export default function Products(){
   const { data: session, status } = useSession()
   const router = useRouter()
+
 
 
     const [value,setValue] = useState([])
@@ -55,7 +55,6 @@ export default function Products(){
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage = 0
         if(typeof(router.query.page) == 'undefined' ) {
             router.push({
                 pathname: router.pathname,
@@ -65,10 +64,7 @@ export default function Products(){
                 )
             }else{
                 
-                querypage = router.query.page
-            }
-            
-            const res = await fetch(fetchUrl+querypage)
+            const res = await fetch(fetchUrl + router.query.page)
             const { data,number,index } = await res.json()
             let numberOfPages
             if(number> 0){
@@ -76,7 +72,7 @@ export default function Products(){
             }else{
                 numberOfPages= 1
             }
-            if(querypage != index) {
+            if(router.query.page != index) {
                 router.push({
                     pathname: router.pathname,
                     query: {page: index }
@@ -88,6 +84,9 @@ export default function Products(){
             setPageSelection(index)
             setLoadingContext(false)
             setPages(numberOfPages)
+                
+            }
+            
 }
 
     

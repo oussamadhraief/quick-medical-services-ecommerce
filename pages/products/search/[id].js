@@ -1,6 +1,6 @@
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
 import SrollableProduct from "../../../components/ScrollableProduct"
 import LoadingAnimation from "../../../components/LoadingAnimation"
@@ -22,8 +22,8 @@ import { useRouter } from "next/router"
 
 export default function Products(){
   const { data: session, status } = useSession()
-  const router = useRouter()
 
+    const router = useRouter()
 
     const [value,setValue] = useState([])
     const [pageSelection , setPageSelection] = useState(0)
@@ -56,8 +56,7 @@ export default function Products(){
     
     async function fetchData() {
         setLoadingContext(true)
-        let querypage = 0
-        if(typeof(router.query.page) == 'undefined' ) {
+        if(typeof(router.query.page) == 'undefined') {
             router.push({
                 pathname: router.pathname,
                 query: {id: router.query.id,page: 0 }
@@ -65,28 +64,29 @@ export default function Products(){
             undefined, { shallow: true }
                 )
             }else{
-                querypage = router.query.page
+
+                const res = await fetch(fetchUrl + router.query.page)
+                const { data,number,index } = await res.json()
+                let numberOfPages
+                if(number> 0){
+                    numberOfPages = Math.ceil(number /10)
+                }else{
+                    numberOfPages= 1
+                }
+                if(router.query.page != index) {
+                    router.push({
+                        pathname: router.pathname,
+                        query: {id: router.query.id,page: index }
+                    }, 
+                    undefined, { shallow: true }
+                    )
+                }else{
+                    setValue(data)
+                    setPageSelection(router.query.page)
+                    setLoadingContext(false)
+                    setPages(numberOfPages)
+                }
             }
-            const res = await fetch(fetchUrl+querypage)
-            const { data,number,index } = await res.json()
-            let numberOfPages
-            if(number> 0){
-                numberOfPages = Math.ceil(number /10)
-            }else{
-                numberOfPages= 1
-            }
-            if(querypage != index) {
-                router.push({
-                    pathname: router.pathname,
-                    query: {id: router.query.id,page: index }
-                }, 
-                undefined, { shallow: true }
-                )
-            }
-            setValue(data)
-            setPageSelection(index)
-            setLoadingContext(false)
-            setPages(numberOfPages)
 }
 
     
