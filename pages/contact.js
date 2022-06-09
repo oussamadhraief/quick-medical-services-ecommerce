@@ -104,8 +104,6 @@ export default function Contact () {
             subject: '',
             message: ''
           })
-        }else{
-          console.log(res);
         }
       })
     } catch (error) {
