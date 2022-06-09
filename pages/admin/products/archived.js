@@ -81,12 +81,12 @@ export default function Admin(){
     
     if(status == 'unauthenticated'){
     router.push('/login')
-        return
+        return null
     }
 
     if(status == 'authenticated' && !session.user?.isAdmin){
         router.push('/')
-        return
+        return null
     }
 
     if(status == 'authenticated' &&  session.user?.isAdmin)
