@@ -135,18 +135,7 @@ export default function Header(props){
                     
                 </div>
             </div>
-            <Link href='/cart'>
-            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
-                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
-                    panier
-                </div>
-                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
-                <p className={scrolled ? "absolute min-h-fit bg-pinky rounded-full min-w-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky min-h-fit rounded-full min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
-            </div>
-            </Link>
-            <div ref={positioningRef} className="fixed bottom-0.5 right-3 w-14 h-14">
-                
-            </div>
+            
             </> 
             : 
             <>
@@ -156,19 +145,19 @@ export default function Header(props){
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
+            </> }
             <Link href='/cart'>
             <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
-                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
+                <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
-                <Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' />
-                <p className={scrolled ? "absolute bg-pinky rounded-full min-w-fit min-h-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full min-h-fit min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
+                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
+                <p className={scrolled ? "absolute min-h-fit bg-pinky rounded-full min-w-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky min-h-fit rounded-full min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
             </div>
             </Link>
             <div ref={positioningRef} className="fixed bottom-0.5 right-3 w-14 h-14">
                 
             </div>
-            </> }
         </header>
     )
 }
