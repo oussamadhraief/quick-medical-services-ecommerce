@@ -48,8 +48,8 @@ export default function Home (props) {
         }).then(res =>  res.json())]).then((res) => {
           const newValue = res[0].data.concat(res[1].data)
           setValue(newValue)
+          setLoading(false)
         })
-        setLoading(false)
         }
     }
     async function fetchCategories() {
