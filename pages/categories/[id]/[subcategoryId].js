@@ -162,17 +162,19 @@ export default function Products(){
             <ActivatedModalContext.Provider value={{activatedModal,setActivatedModal}} >
             <CartContext.Provider value={{cartNumber,setCartNumber}} >
 
-                <div className="w-full h-fit flex justify-end items-center mt-32 px-10">
+                <div className="hidden lg:flex w-full h-fit justify-end items-center mt-32 px-10">
+
                     
-                        <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
-                        <PagesContext.Provider value={{pages,setPages}}>
-                            <PagesNavigator relative={true} />
-                        </PagesContext.Provider>
-                        </PageSelectionContext.Provider>
+                <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
+                <PagesContext.Provider value={{pages,setPages}}>
+                    <PagesNavigator relative={true} />
+                </PagesContext.Provider>
+                </PageSelectionContext.Provider>
 
                 </div>
-            <div className="w-full relative h-fit flex flex-nowrap justify-center items-start px-10 my-0">
-                <div  className="w-3/12 overflow-hidden transition-[height] duration-300 grid h-fit bg-harvey border-zinc-200 border min-h-fit shadow">
+                <div className="w-full relative h-fit grid place-items-center gap-3 lg:gap-0 lg:flex flex-nowrap justify-center items-start mt-32 lg:mt-0 px-10 my-0">
+
+                <div  className="w-11/12 sm:w-9/12 md:w-5/12 lg:w-3/12 lg:min-w-[300px] overflow-hidden transition-[height] duration-300 grid h-fit bg-harvey border-zinc-200 border min-h-fit shadow">
                     <div>
                         <div>
                             <p className="bg-light text-white w-full h-fit py-3 text-center font-medium shadow-stylish">Paramètres d&apos;affichage</p>
@@ -205,7 +207,16 @@ export default function Products(){
                     </div>
                     <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
                 </div>
-                <div id="categoriesOrderer1" className="w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 p-7 justify-evenly ml-3 relative">
+                <div className="flex lg:hidden w-full h-fit justify-center items-center my-3 px-10">
+                    
+                    <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
+                    <PagesContext.Provider value={{pages,setPages}}>
+                        <PagesNavigator relative={true} />
+                    </PagesContext.Provider>
+                    </PageSelectionContext.Provider>
+
+                </div>
+                <div id="categoriesOrderer1" className="w-[99%] lg:w-9/12 border-[1px] h-fit min-h-[1000px] flex flex-wrap gap-5 px-3 py-7 lg:p-7 justify-evenly ml-0 md:ml-3 relative">
                     {loadingContext ? <div className='bg-white h-full w-full rounded-lg overflow-hidden flex items-center absolute z-[99] left-0 top-0'>
                         <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9] mx-auto ">
                         <div className="reverse-spinner "></div>
@@ -215,7 +226,8 @@ export default function Products(){
                     {value.map(item => <SrollableProduct key={item.name} product={item} />)}
                 </div>
             </div>
-            <div className="w-full h-fit flex justify-end items-center mb-32 px-10">
+            <div className="w-full h-fit flex justify-center mt-3 lg:mt-0 lg:justify-end items-center mb-32 px-10">
+
                     
                     <PageSelectionContext.Provider value={{pageSelection,setPageSelection}}>
                     <PagesContext.Provider value={{pages,setPages}}>
