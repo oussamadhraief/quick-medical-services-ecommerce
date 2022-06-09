@@ -10,7 +10,7 @@ function ContentfulModal({show, onClose, content}) {
 
     const [isBrowser, setIsBrowser] = useState(false);
     const {cartNumber,setCartNumber} = useContext(CartContext)
-    const {selectedSize,setSelectedSize} = useContext(SizeSelectionContext)
+    const [selectedSize,setSelectedSize] = useState(0)
   
     useEffect(() => {
       setIsBrowser(true);
@@ -18,7 +18,6 @@ function ContentfulModal({show, onClose, content}) {
 
     const handleCloseClick = (e) => {
         e.preventDefault();
-        setSelectedSize(0)
         onClose()
       };
 
@@ -71,7 +70,6 @@ function ContentfulModal({show, onClose, content}) {
                 {content.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
                 <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{content.category}</span></p>
                 <p className="font-medium text-zinc-600 mt-5 text-md">Sous-Catégorie:&nbsp;<span className="font-medium ml-2">{content.subcategory}</span></p>
-                <input type="number" name="quantity" value="1" min={1} className='border-2 border-main ml-14 rounded-lg h-fit w-20 text-center mt-10' />
                 <button onClick={e => handleAddToCart()} className="h-fit w-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)]  text-white p-3 rounded-lg font-medium text-sm md: xl:text-lg hover:bg-orange transition-all hover:shadow-[0px_3px_10px_rgba(249,191,135,0.5)] hover:scale-105 whitespace-nowrap mt-8"> Ajouter au panier</button>
             </div>
             </SizeSelectionContext.Provider>
