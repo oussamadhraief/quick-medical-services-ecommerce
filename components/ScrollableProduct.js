@@ -61,7 +61,7 @@ export default function ScrollableProduct ({ product }) {
         </div> : null }
 
         <div className='mx-auto w-[95%] h-fit flex justify-center items-center relative  hover:cursor-pointer'>
-          <div className='bg-white h-fit w-fit rounded-full shadow-3xl px-2 justify-center items-center absolute z-[9999] bottom-1/2 top-1/2 hidden group-hover:flex animate__animated animate__fadeInUp'>
+          <div className={loading ? 'hidden' : 'bg-white h-fit w-fit rounded-full shadow-3xl px-2 justify-center items-center absolute z-[9999] bottom-1/2 top-1/2 hidden group-hover:flex animate__animated animate__fadeInUp'}>
             <Image
               src={eye}
               alt='view product'

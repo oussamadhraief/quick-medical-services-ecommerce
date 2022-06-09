@@ -4,8 +4,8 @@ import 'animate.css'
 export default function NavigationSection(props){
 
     return(
-        <nav  className={`w-full relative flex flex-nowrap justify-start z-10 items-center ${props.landingPage ? 'py-3' : 'py-0'}`}>
+        <div  className={`w-full relative flex flex-nowrap justify-start z-10 items-center ${props.landingPage ? 'py-3' : 'py-0'}`}>
             <SearchAndNavigation />
-        </nav>
+        </div>
     )
 }

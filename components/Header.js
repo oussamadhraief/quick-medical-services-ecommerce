@@ -1,6 +1,6 @@
 import Navbar from "./Navbar"
 import NavigationSection from "./NavigationSection"
-import { useState, useEffect, useLayoutEffect, useContext } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import Image from "next/image"
 import Link from 'next/link'
 import { useSession } from "next-auth/react"
@@ -9,6 +9,11 @@ import { CartContext } from "../utils/CartContext"
 export default function Header(props){
 
     const { data: session,status} = useSession()
+
+    const headerRef = useRef()
+    const anotherPositioning = useRef()
+    const navbarRef = useRef()
+    const positioningRef = useRef()
 
     const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
     const [scrolled,setscrolled] = useState(false)
@@ -19,44 +24,42 @@ export default function Header(props){
 
     useEffect(() => {
         const root = document.querySelector(':root')
-        const navInvisibleDiv = document.getElementById('anotherPositioning')
         const mq1 = window.matchMedia("(max-width: 1023px)")
             if(mq1.matches){
                 setIsMobile(true)
                 if(props.landingPage){
 
-                    document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+                    headerRef.current.style.marginTop = window.innerWidth + 20 + 'px'
                 }else{
-                document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+                headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
                     
                 }
             }else {
-                document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+                headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
             }
-        const top = navInvisibleDiv.getBoundingClientRect().top
-        const left = navInvisibleDiv.getBoundingClientRect().left
+        const top = anotherPositioning.current.getBoundingClientRect().top
+        const left = anotherPositioning.current.getBoundingClientRect().left
 
         root.style.setProperty('--calculatedTop', top+'px')        
         root.style.setProperty('--calculatedLeft', left+'px')
     },[])   
     
-//useLayoutEffect
+
     useEffect(() => {
 
         const handleAnimation = () => {
-            const bottomRightInvisibleDiv = document.getElementById('positioning')
-            const navInvisibleDiv = document.getElementById('anotherPositioning')
+
             const root = document.querySelector(':root')
             if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
                 setscrolled(true)
-                const top = bottomRightInvisibleDiv.getBoundingClientRect().top
-                const left = bottomRightInvisibleDiv.getBoundingClientRect().left
+                const top = positioningRef.current.getBoundingClientRect().top
+                const left = positioningRef.current.getBoundingClientRect().left
                 root.style.setProperty('--calculatedTop', top+'px')        
                 root.style.setProperty('--calculatedLeft', left+'px') 
             } else {
                 setscrolled(false)
-                const top = navInvisibleDiv.getBoundingClientRect().top
-                const left = navInvisibleDiv.getBoundingClientRect().left -50
+                const top = anotherPositioning.current.getBoundingClientRect().top
+                const left = anotherPositioning.current.getBoundingClientRect().left -50
                 root.style.setProperty('--calculatedTop', top+'px')        
                 root.style.setProperty('--calculatedLeft', left+'px') 
             }
@@ -69,14 +72,14 @@ export default function Header(props){
             setIsMobile(true)
             if(props.landingPage){
 
-                document.getElementById('header').style.marginTop = window.innerWidth + 20 + 'px'
+                headerRef.current.style.marginTop = window.innerWidth + 20 + 'px'
             }else{
-            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+            headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
                 
             }
         }else {
             setIsMobile(false)
-            document.getElementById('header').style.marginTop = document.getElementById('nav').offsetHeight + 20 + 'px'
+            headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
         }
         handleAnimation()
     }
@@ -98,11 +101,11 @@ export default function Header(props){
    
 
     return (
-        <header id="headerr" className={`${scrolled ? 'pt-0' : 'pt-5'} pb-5 h-fit flex flex-col w-full items-center relative bg-na3ne3i`}>
-            <Navbar scrolled={scrolled} />
+        <header className={`${scrolled ? 'pt-0' : 'pt-5'} pb-5 h-fit flex flex-col w-full items-center relative bg-na3ne3i`}>
+            <Navbar scrolled={scrolled} anotherPositioning={anotherPositioning} navbarRef={navbarRef} />
             {props.landingPage ? 
             <>
-            <div id="header" className="w-full h-fit gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
+            <div ref={headerRef} className="w-full h-fit gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
                 {isMobile ? 
                 <div className="headerbanner w-full aspect-square bg-light pt-8 sm:pt-0 mx-auto z-0 absolute top-0 right-0">
                      <Image src={'pfe/Untitled_design_6_gcpmn0.png'} alt='surgeon' width={1000} height={1000} quality={100} layout='responsive' /> 
@@ -132,37 +135,37 @@ export default function Header(props){
                     
                 </div>
             </div>
+            <Link href='/cart'>
             <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
-                <Link href='/cart'>
                 <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
-                </Link>
                 <p className={scrolled ? "absolute min-h-fit bg-pinky rounded-full min-w-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky min-h-fit rounded-full min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
             </div>
-            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
+            </Link>
+            <div ref={positioningRef} className="fixed bottom-0.5 right-3 w-14 h-14">
                 
             </div>
             </> 
             : 
             <>
-            <div id="header" className="w-11/12 md:w-full h-fit px-0 md:px-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
+            <div ref={headerRef} className="w-11/12 md:w-full h-fit px-0 md:px-10 grid md:flex md:flex-nowrap md:items-center md:justify-evenly mb-5">
                 <div className="w-11/12 sm:w-10/12 md:w-4/6 lg:w-3/6 h-fit mx-auto">
                     
                 <NavigationSection landingPage={props.landingPage} />
                 </div>
             </div>
+            <Link href='/cart'>
             <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block  right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>
-                <Link href='/cart'>
-                <a><Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' /></a>
-                </Link>
+                <Image src={scrolled ? `pfe/icons8-cart-128_6_adkuqt.png` : `pfe/icons8-cart-128_5_njo2lu.png`} alt='cart icon' width={42} height={37} layout='fixed' objectFit="contain" objectPosition='center' />
                 <p className={scrolled ? "absolute bg-pinky rounded-full min-w-fit min-h-fit w-fit h-fit top-0.5 right-2.5 text-black font-medium text-xs px-1 text-center" : 'absolute bg-pinky rounded-full min-h-fit min-w-fit w-fit h-fit top-0 right-2.5 text-black font-medium text-[10px] px-1 text-center'}>{cartNumber}</p>
             </div>
-            <div id="positioning" className="fixed bottom-0.5 right-3 w-14 h-14">
+            </Link>
+            <div ref={positioningRef} className="fixed bottom-0.5 right-3 w-14 h-14">
                 
             </div>
             </> }

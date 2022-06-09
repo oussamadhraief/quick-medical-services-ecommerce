@@ -1,13 +1,15 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useContext } from "react"
 import { CartContext } from "../utils/CartContext"
+import Modal from "./Modal"
 
 
 export default function CartProduct(props){
 
     const [productQuantity,setProductQuantity] = useState(1)
+    const [show,setShow] = useState(false)
     const [productSize,setProductSize] = useState(0)
     const {cartNumber,setCartNumber} = useContext(CartContext)
 
@@ -57,7 +59,7 @@ export default function CartProduct(props){
 
     return (
         <tr className='border-b'>
-            <td className='text-center font-medium'>{props.reference}</td>
+            <td className='text-center font-medium'>{props.reference}.{props.sizes[productSize]}</td>
             <td className='text-center flex flex-nowrap justify-center items-center w-40 h-44 relative'><Image src={props.image} alt='product image' width={150} height={170} layout='fixed' objectFit="contain" objectPosition="center" /> </td>
             <td className='text-center max-w-xs w-fit overflow-hidden text-ellipsis max-h-44'>
                 <Link href={'/products/' + props.reference} >
@@ -82,7 +84,8 @@ export default function CartProduct(props){
                 </div>
            </td>
             <td className='text-center'><input type="number" name="produit" value={productQuantity} min={1} onChange={e => handleChange(e)} className='w-20 text-center border border-zinc-400 rounded-lg'/></td>
-            <td><Image src={'pfe/trash-can-10417_dtvnpx'} alt='delete' height={25} width={25} className='hover:cursor-pointer' onClick={e => removeProduct(props.reference)} /></td>
+            <td><Image src={'pfe/trash-can-10417_dtvnpx'} alt='delete' height={25} width={25} className='hover:cursor-pointer' onClick={e => setShow(true)} /></td>
+            <Modal show={show} onClose={() => setShow(false)} onConfirm={() => removeProduct(props.reference)} action={'delete'} content={'Êtes-vous sûr de vouloir retirer ce produit de votre panier?'} />
         </tr>
     )
 }

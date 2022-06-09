@@ -1,11 +1,13 @@
 import { useState } from "react"
 import emailjs from '@emailjs/browser';
+import Modal from "./Modal";
 
 
 export default function OrderForm(props){
 
     const [orderForm, setOrderForm] = useState({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
     const [seperateAdresses,setSeperateAdresses] = useState(false)
+    const [show,setShow] = useState(false)
 
 
     const handleChange = (e) => {
@@ -15,8 +17,12 @@ export default function OrderForm(props){
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
+        setShow(true)
+    }
+
+    const handleMakeOrder = async () => {
         let orderData = {}
         if(seperateAdresses){
             orderData = {
@@ -99,6 +105,7 @@ export default function OrderForm(props){
                     <textarea className='my-5 h-fit min-h-[100px] w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' onChange={e => handleChange(e)} value={orderForm.note} placeholder='Message (facultatif)' col={50} row={4} name='note' />
                         
                     {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.8)] text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
+                    <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleMakeOrder()} action={'add'} content={'Êtes-vous sûr de vouloir passer cette commande?'} />
 
                 </form>
     )

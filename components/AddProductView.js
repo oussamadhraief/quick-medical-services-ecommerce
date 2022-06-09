@@ -22,11 +22,11 @@ export default function AddProductView(props){
     const [productImage,setProductImage] = useState('')
     const [preview,setPreview] = useState({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
     const [sizeRemoval,setSizeRemoval] = useState(true)
-    const {value,setValue} = useContext(ProductsContext)
     const [loading,setLoading] = useState(false)
     const [nameError,setNameError] = useState(false)
     const {appear,setAppear} = useContext(NotificationContext)
     const [show,setShow] = useState(false)
+    const [open,setOpen] = useState(false)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
 
@@ -223,7 +223,7 @@ export default function AddProductView(props){
     return (
         <div id="scrolltop" className={loading ? "relative h-full overflow-hidden w-full flex flex-wrap justify-around pt-14" : "relative h-full overflow-y-auto w-full  flex flex-wrap justify-around pt-14"}>
             {loading || loadingContext ? <LoadingAnimation key='productaaa' bgOpacity={false} /> : null}
-            {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => router.push('/admin/products/manage?page=0')}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
+            {!props.addForm ? <button className="absolute left-3 top-2 font-extrabold w-fit h-fit text-zinc-400 animate__animated animate__slideInLeft" onClick={e => setOpen(true)}><Image src={arrowIcon} alt='go back icon' width={30} height={30} /></button> : null}
             <form className="relative grid w-11/12 max-w-[700px] h-fit bg-white shadow-form lg:w-4/6 xl:w-5/12 2xl:w-5/12 pr-10 pl-7 py-10 rounded-xl mb-10 animate__animated animate__slideInLeft" action="submit" onSubmit={e => {
                 e.preventDefault()
                 setShow(true)
@@ -267,7 +267,7 @@ export default function AddProductView(props){
                 <button type="button" className="absolute top-2 right-2 border px-1 border-zinc-400 text-zinc-500 font-medium text-sm rounded-lg hover:bg-zinc-500 hover:text-white hover:border-zinc-500" onClick={e => handlePreview()}>Aper&ccedil;u</button>
                 <button type="submit" className="mx-auto h-fit w-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)]  text-white p-3 rounded-lg font-medium text-sm md: xl:text-lg hover:bg-orange transition-all hover:shadow-[0px_3px_10px_rgba(249,191,135,0.5)] hover:scale-105 whitespace-nowrap mt-8">{props.addForm ? 'Ajouter le produit' : 'Enregistrer les modifications'}</button>
             </form>
-            <Modal show={show} onClose={() => setShow(false)} onConfirm={() => 
+            <Modal key={'confirmation'} show={show} onClose={() => setShow(false)} onConfirm={() => 
                { if(props.addForm){
 
                     handleSubmit()
@@ -275,6 +275,9 @@ export default function AddProductView(props){
                     handleModifications()
                 }}
                 } action={'add'} content={props.addForm ? 'Êtes-vous sûr de vouloir ajouter ce produit ?' : 'Êtes-vous sûr de vouloir modifier ce produit ?'} />
+
+            <Modal show={open} onClose={() => setOpen(false)} onConfirm={() => router.push('/admin/products/manage?page=0')} action={'delete'} content={'Êtes-vous sûr de vouloir quitter sans enregistrer les modifications?'} />
+
             <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />
         </div>
     )

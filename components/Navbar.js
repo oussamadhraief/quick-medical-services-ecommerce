@@ -6,7 +6,7 @@ import { useSession, signOut } from "next-auth/react"
 import UserNavigation from "./UserNavigation"
 
 
-export default function Navbar({ scrolled }){
+export default function Navbar({ scrolled, anotherPositioning, navbarRef }){
     const { data: session, status } = useSession()
     const [isMobile,setIsMobile]= useState(false)
     const [dropDown , setDropDown] = useState(false)
@@ -67,7 +67,7 @@ export default function Navbar({ scrolled }){
     
     
     return(
-        <div id="nav" className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-[0px_8px_25px_rgba(14,80,82,0.8)] fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9999]  rounded-3xl fixed"}>
+        <nav ref={navbarRef} className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-[0px_8px_25px_rgba(14,80,82,0.8)] fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-around w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9997]  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="relative ml-4 w-44 lg:m-0 md:w-56 aspect-[4/1] hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>
@@ -87,10 +87,10 @@ export default function Navbar({ scrolled }){
                     <li><Link href='/login'><a className="whitespace-nowrap text-white text-center font-medium lg:font-[400] ml-3 underlineAnimatedLink relative">Se connecter</a></Link></li>
                     <li className=" hover:scale-105 transition-all"><Link href='/register'><a className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] w-fit h-fit ml-3 px-4 py-2 rounded-lg text-white">S&apos;inscrire</a></Link></li>
                 </>}
-                {isMobile? null: <li id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></li>}
+                {isMobile? null: <li ref={anotherPositioning} className="relative w-10 h-10"></li>}
             </ul>
             {isMobile?<div className="w-fit h-fit flex flex-nowrap items-center justify-center gap-3 mr-4">
-                <div id="anotherPositioning" className="relative w-10 h-10 hover:cursor-pointer"></div>
+                <div ref={anotherPositioning} className="relative w-10 h-10"></div>
                 <div id="clickableMenu" className="relative w-6 h-6 grid gap-1 hover:cursor-pointer" onClick={()=>handleDropDownClick()}>
                     <div id="first" className="absolute h-[4px] w-5 bg-white rounded-sm transition-all top-0 left-0"></div>
                     <div id="second" className="absolute h-[4px] w-5 bg-white rounded-sm   top-2 left-0"></div>
@@ -101,7 +101,7 @@ export default function Navbar({ scrolled }){
                 null}
             
             
-        </div>
+        </nav>
     )
 }
 

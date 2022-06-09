@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
+import Modal from './Modal'
 import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -14,6 +15,8 @@ export default function OrdersTable(props){
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [loading,setloading] = useState(false)
     const [open,setOpen] = useState(false)
+    const [show,setShow] = useState(false)
+    const [show2,setShow2] = useState(false)
     const [selectedMessage,setSelectedMessage] = useState(0)
 
     const scrollLeft = () => {
@@ -89,6 +92,15 @@ export default function OrdersTable(props){
    return (
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+            <Modal show={show} onClose={() => {
+                setShow(false)
+                setOpen(false)
+                }} onConfirm={() => handleFulfill()} action={'add'} content={'Êtes-vous sûr de vouloir marquer cette commande comme livrée?'} />
+            <Modal show={show2} onClose={() => {
+                setShow2(false)
+                setOpen(false)
+            }} onConfirm={() => handleArchive()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver cette commande?'} />
+
             <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
                 <div className='w-full lg:w-9/12  min-w-[300px] h-full max-h-[400px] md:max-h-[600px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
@@ -99,8 +111,8 @@ export default function OrdersTable(props){
                             <button onClick={e => setOpen(prev => !prev)}><Image src={'pfe/icons8-dots-loading-48_lonv7i'} alt='modifier' height={18} width={16} /></button>
                             <div className={open ? 'absolute w-fit h-fit right-0 top-full whitespace-nowrap bg-white rounded py-0.5 shadow-form grid px-1' : 'hidden'}>
                                 
-                            <button onClick={e => handleFulfill()} className='font-medium text-sm text-third hover:underline border-b py-1'>Marquer comme livrée</button>
-                            <button onClick={e => handleArchive()} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
+                            <button onClick={e => setShow(true)} className='font-medium text-sm text-third hover:underline border-b py-1'>Marquer comme livrée</button>
+                            <button onClick={e => setShow2(true)} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
                             </div>
                         </div>}
                     </div>

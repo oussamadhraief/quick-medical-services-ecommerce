@@ -1,10 +1,12 @@
 import { useState } from "react"
 import emailjs from '@emailjs/browser';
+import Modal from './Modal'
 
 
 export default function OrderForm(props){
 
     const [estimateForm, setEstimateForm] = useState({name: '',phone: '',email: '',note : ''})
+    const [show,setShow] = useState(false)
 
     const handleChange = (e) => {
         setEstimateForm({
@@ -13,8 +15,12 @@ export default function OrderForm(props){
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
+        setShow(true)
+    }
+
+    const handleMakeQuoteRequest = async () => {
         const estimateData= {
             ...estimateForm,
             cart: props.value
@@ -54,6 +60,7 @@ export default function OrderForm(props){
                     <textarea className='my-5 h-fit min-h-[100px] w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' onChange={e => handleChange(e)} value={estimateForm.note} placeholder='Message (facultatif)' col={50} row={4} name='note' />
                     {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-pinky text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-105 transition-all'>Confirmer ma demande</button> : <button disabled type="submit" className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed '>Confirmer ma demande</button>}
                     <p className="text-xs mt-10 text-zinc-400 w-11/12 mx-auto">Veuillez visiter votre historique des devis dans les prochaines 48 heures, vous-y trouverez une réponse.</p>
+                    <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleMakeQuoteRequest()} action={'add'} content={'Êtes-vous sûr de vouloir envoyer cette demande de devis?'} />
 
                 </form>
     )
