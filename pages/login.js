@@ -34,7 +34,7 @@ export default function Login (props) {
         <meta name='twitter:image' value='' />
       </Head>
       <div className='px-2 sm:px-10 md:px-20 lg:px-32 flex w-screen h-screen min-h-screen overflow-hidden justify-start bg-na3ne3i'>
-          <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4'>&#x2190;</button>
+          <button onClick={e => router.push('/')} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4'>&#x2190;</button>
         <LoginForm />
         <div className='absolute h-1/2 sm:h-3/4 aspect-square right-0 bottom-0'>
           <Image src={'pfe/Untitled_design_texm1t.png'} alt="design" layout='fill' />

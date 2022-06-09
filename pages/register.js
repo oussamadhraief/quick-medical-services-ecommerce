@@ -37,7 +37,7 @@ export default function Register (props) {
       </Head>
       <div className='px-2 sm:px-10 md:px-20 lg:px-32 flex w-screen h-screen min-h-screen overflow-hidden justify-end bg-na3ne3i'>
        
-        <button onClick={e => router.back()} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4 z-10'>&#x2190;</button>
+        <button onClick={e => router.push('/')} className='absolute text-white text-5xl scale-x-125 font-medium top-1 left-4 z-10'>&#x2190;</button>
         <RegisterForm />
         <div className='absolute h-1/2 sm:h-3/4 aspect-square left-0 bottom-0'>
           <Image src={'pfe/Untitled_design_g74cig.png'} alt="design" layout='fill' />

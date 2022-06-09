@@ -70,7 +70,7 @@ export default function RegisterForm() {
 
 
   if(session) {
-    router.back()
+    router.push('/')
     return 
    }
 

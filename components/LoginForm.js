@@ -24,11 +24,8 @@ export default function LoginForm() {
 
   if(session) {
     
-      if(document.referrer.includes('localhost')) {
-        router.back()
-      }else{
+      
         router.push('/')
-      }
       return 
    }
 
