@@ -22,7 +22,7 @@ export default NextAuth({
       async authorize(credentials) {
         const user = await Brimstone.findOne({email : credentials.email,})
         if (!user){
-          throw new Error ('No Brimstone found with this email')
+          throw new Error ('No USER found with this email')
         }
         const validPassword = await verifyPassword(credentials.password, user.password)
         if (!validPassword) {

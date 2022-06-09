@@ -260,7 +260,8 @@ export default function Information () {
                   <input type="text" required minLength={4} onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-full md:w-8/12'/>
               </label>
               <label className='font-medium lg:w-11/12 flex flex-wrap lg:flex-nowrap justify-between'>Num de téléphone:
-                  <input type="number" required minLength={8} onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-full md:w-8/12' />
+                  <input type="number" required max='10000000000000'
+              min='10000000' onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-full md:w-8/12' />
               </label>
               <button type="submit" disabled className='saveAccountDataButton w-fit h-fit bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] text-white px-5 py-1.5 lg:py-2.5 rounded-md font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
           </form>

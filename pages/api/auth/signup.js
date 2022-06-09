@@ -10,13 +10,14 @@ async function handler(req, res) {
   }
 
   if (!req.body.email || !req.body.email.includes('@') || !req.body.password || req.body.password.trim().length < 7 || req.body.passwordConfirm !== req.body.password){
-    res.status(422).json({message:  'Invalid input - password should also be at least 7 characters long.'})
+    res.status(422).json({ success: false,message:  'Invalid input - password should also be at least 7 characters long.'})
     return;
   }
-  const existingUser = await Brimstone.findOne({email: req.body.email})
+  try {
+    const existingUser = await Brimstone.findOne({email: req.body.email})
 
   if (existingUser) {
-    res.status(422).json({message: 'User exists already'})
+    res.status(422).json({ success: false, message: 'User exists already'})
     return;
   }
 
@@ -32,6 +33,10 @@ async function handler(req, res) {
     phone: parseInt(req.body.phone),
     cart : []
   })
-  res.status(201).json({message : 'Created user!' , user: result})
+  res.status(201).json({ success: true, message : 'Created user!' , user: result})
+  } catch (error) {
+    res.status(400).json({success: false})
+  }
+  
 }
 export default handler
