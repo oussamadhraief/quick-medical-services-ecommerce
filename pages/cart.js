@@ -25,6 +25,7 @@ export default function Cart() {
     const [search,setSearch] = useState('')
     const [value,setValue] = useState([])
     const [loading,setLoading] = useState(true)
+    const [biggerLoading,setBiggerLoading] = useState(false)
     const [cartProducts,setCartProducts] = useState([])
     const [cartNumber,setCartNumber] = useState(0)
 
@@ -142,7 +143,14 @@ export default function Cart() {
 
             <h1 className='w-full h-fit py-2 items-center flex flex-nowrap justify-center relative mt-32 bo shadow border-t border-harvey text-xl sm:text-2xl font-medium text-third'>Votre panier</h1>
         
-            <div  className='w-full h-fit bg-harvey grid pb-10 pt-10 overflow-x-auto md:overflow-x-hidden'>
+            <div  className='w-full h-fit bg-harvey grid pb-10 pt-10 overflow-x-auto md:overflow-x-hidden relative'>
+                {biggerLoading ?
+                <div className='bg-white/70 h-full w-full overflow-hidden flex items-center absolute z-[999] left-0 top-0'>
+                    <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[999] mx-auto ">
+                    <div className="reverse-spinner "></div>
+                    </div>
+                </div>
+                : null}
                 <div className='w-[99%] bg-transparent h-fit min-h-[300px] relative mx-auto'>
                     {loading ?
                     <div className='bg-white h-full w-full rounded-lg overflow-hidden flex items-center absolute z-[1] left-0 top-0'>
@@ -183,11 +191,11 @@ export default function Cart() {
                     
                 <p className=' w-full bg-white text-center font-medium pt-5'>Veuillez remplir l&apos;un de ces formulaires selon vos besoins</p>
                 <div className='w-full h-fit grid md:flex md:flex-nowrap bg-white mx-auto justify-center px-5 md:justify-evenly py-10 rounded-md relative '>
-                    <OrderForm value={value} setCartNumber={setCartNumber} />
+                    <OrderForm value={value} setCartNumber={setCartNumber} biggerLoading={biggerLoading} setBiggerLoading={setBiggerLoading} />
                     <div className='relative md:absolute md:top-[10%] left-0 right-0 h-0.5 md:h-[80%] md:min-h-[80%] mx-auto md:py-10 bg-complementary shadow-inner w-11/12 md:w-0.5 rounded-lg '>
                         
                     </div>
-                    <EstimateForm value={value} setCartNumber={setCartNumber} />
+                    <EstimateForm value={value} setCartNumber={setCartNumber} biggerLoading={biggerLoading} setBiggerLoading={setBiggerLoading} />
                 </div>
                 </div>
                 </div>

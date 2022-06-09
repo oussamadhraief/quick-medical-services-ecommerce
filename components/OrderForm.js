@@ -1,6 +1,7 @@
 import { useState } from "react"
 import emailjs from '@emailjs/browser';
 import Modal from "./Modal";
+import Notification from "./Notification";
 
 
 export default function OrderForm(props){
@@ -8,7 +9,8 @@ export default function OrderForm(props){
     const [orderForm, setOrderForm] = useState({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
     const [seperateAdresses,setSeperateAdresses] = useState(false)
     const [show,setShow] = useState(false)
-
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
 
     const handleChange = (e) => {
         setOrderForm({
@@ -23,6 +25,7 @@ export default function OrderForm(props){
     }
 
     const handleMakeOrder = async () => {
+        props.setBiggerLoading(true)
         let orderData = {}
         if(seperateAdresses){
             orderData = {
@@ -45,7 +48,6 @@ export default function OrderForm(props){
         }
         delete orderData.address2
         try {
-            
             const res = await fetch('/api/user/makeorder',{
                 method: 'POST',
                 headers: {
@@ -63,8 +65,12 @@ export default function OrderForm(props){
                 reference: data._id,
                 to_email: data.email,
                 },"lKkzd1QChFF2krYAd")
+            props.setBiggerLoading(false)
+            setShowNotification(false)
+            setMessage('Votre commande a été bien reçue')
+            setShowNotification(true)
         } catch (error) {
-            
+            props.setBiggerLoading(false)
             console.error(error);
         }
     }
@@ -106,7 +112,7 @@ export default function OrderForm(props){
                         
                     {props.value.length > 0 ? <button type="submit" className='mx-auto mt-10 w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.8)] text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:scale-105 transition-all'>Confirmer ma commande</button> : <button type="submit" disabled className='mx-auto mt-10 w-fit h-fit bg-zinc-400 text-white whitespace-nowrap font-medium px-3 py-2 rounded-xl hover:cursor-not-allowed transition-all'>Confirmer ma commande</button>}
                     <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleMakeOrder()} action={'add'} content={'Êtes-vous sûr de vouloir passer cette commande?'} />
-
+                    <Notification show={showNotification} setShow={setShowNotification} message={message} />
                 </form>
     )
 }

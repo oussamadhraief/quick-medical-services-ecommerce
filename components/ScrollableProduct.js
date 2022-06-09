@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
+import Notification from './Notification'
 import LoadingAnimation from './LoadingAnimation'
 import Modal from './Modal'
 import 'animate.css'
@@ -27,6 +28,8 @@ export default function ScrollableProduct ({ product }) {
   const { cartNumber, setCartNumber } = useContext(
     CartContext
   )
+  const [showNotification,setShowNotification] = useState(false)
+  const [message,setMessage] = useState('')
 
   const fetchProduct = async () => {
     const res = await fetch('/api/products/' + product.reference)
@@ -45,7 +48,18 @@ export default function ScrollableProduct ({ product }) {
           body : JSON.stringify({reference : product.reference})
       })
       const { cart } = await res.json()
-      setCartNumber(cart)
+      if(cartNumber < cart) {
+
+        setCartNumber(cart)
+        setShowNotification(false)
+        setMessage('Le produit a été ajouté au panier')
+        setShowNotification(true)
+      }else{
+        setCartNumber(cart)
+        setShowNotification(false)
+        setMessage('Le produit déjà existe dans votre panier')
+        setShowNotification(true)
+      }
     } catch (error) {
       console.error(error)
     }
@@ -104,7 +118,7 @@ export default function ScrollableProduct ({ product }) {
             </p>
 
         <button
-          className='bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:bg-na3ne3i hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all rounded-lg text-white text-sm font-medium px-3 py-2 z-10 my-1 h-fit w-fit whitespace-nowrap'
+          className='bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:bg-na3ne3i hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all rounded-lg text-white text-sm font-medium px-3 py-2 my-1 h-fit w-fit whitespace-nowrap'
           onClick={e=> 
            { if(session) {
               setOpen(true)}else{
@@ -124,6 +138,7 @@ export default function ScrollableProduct ({ product }) {
           }}
         />
          <Modal show={open} onClose={() => setOpen(false)} onConfirm={() => handleAddToCart()} action={'add'} content={'Êtes-vous sûr de vouloir ajouter ce produit au panier?'} />
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
     </div>
   )
 }
