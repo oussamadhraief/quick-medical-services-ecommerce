@@ -57,7 +57,6 @@ export default function Products(){
         setLoadingContext(true)
         let querypage = 0
         if(typeof(router.query.page) == 'undefined' ) {
-            console.log(1);
             router.push({
                 pathname: router.pathname,
                 query: { page: 0 }
@@ -68,6 +67,7 @@ export default function Products(){
                 
                 querypage = router.query.page
             }
+            
             const res = await fetch(fetchUrl+querypage)
             const { data,number,index } = await res.json()
             let numberOfPages

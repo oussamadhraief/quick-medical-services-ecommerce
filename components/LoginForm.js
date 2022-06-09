@@ -59,7 +59,7 @@ export default function LoginForm() {
             <input name="email" required minLength={8} type="email" value={login.email} onChange={ e => handleChange(e)} className={loginError ? "h-9 px-1 outline-none border-b-2 bg-transparent text-red-500 placeholder:text-red-500 border-red-500 w-full" : "h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full"} placeholder="Adresse E-mail"/>
             
             <input name="password" required minLength={6} type="password" value={login.password} onChange={ e => handleChange(e)} className={loginError ? "h-9 px-1 outline-none border-b-2 bg-transparent text-red-500 placeholder:text-red-500 border-red-500 w-full mt-7" : "h-9 px-1 outline-none border-b-2 bg-transparent text-white placeholder:text-white border-white w-full mt-7"} placeholder="Mot de passe" />
-            {loginError ? <p className="text-red-500 w-full text-left">L&apos;adresse e-mail ou le mot de passe n'est pas valide</p> : null}
+            {loginError ? <p className="text-red-500 w-full text-left">L&apos;adresse e-mail ou le mot de passe n&apos;est pas valide</p> : null}
             <button type="submit" className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.2)] h-fit px-4 py-2 rounded-md text-white text-lg my-7 hover:scale-110 transition-all">Se connecter</button>
             <div className="text-white">
             Vous n&apos;êtes pas déjà inscrit ?&nbsp;

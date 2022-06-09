@@ -65,7 +65,6 @@ export default function Products(){
             undefined, { shallow: true }
                 )
             }else{
-                
                 querypage = router.query.page
             }
             const res = await fetch(fetchUrl+querypage)
@@ -225,8 +224,7 @@ export default function Products(){
                         <div className="reverse-spinner "></div>
                         </div>
                     </div> : null}
-
-                    {value.map(item => <SrollableProduct key={item.name} product={item} />)}
+                    {value.length > 0 ? value.map(item => <SrollableProduct key={item.name} product={item} />) : <p>Résultats non trouvés</p>}
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center mt-3 lg:mt-0 lg:justify-end items-center mb-32 px-10">
