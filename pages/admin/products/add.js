@@ -1,8 +1,7 @@
 import AdminMenu from "../../../components/AdminMenu"
 import AddProductView from "../../../components/AddProductView"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
-import Notification from '../../../components/Notification'
 import AdminNavbar from '../../../components/AdminNavbar'
 import { NotificationContext } from '../../../utils/NotificationContext'
 import { LoadingContext } from "../../../utils/LoadingContext"
@@ -21,7 +20,6 @@ export default function Admin(){
     const router = useRouter()
     
     const [value,setValue] = useState([])
-    const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(false)
     const [pages,setPages] = useState(0)
     const [pageSelection,setPageSelection] = useState(null)
@@ -81,19 +79,17 @@ export default function Admin(){
                 <AdminNavbar open={open} setOpen={setOpen} />
              <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
             <ProductsContext.Provider value={{ value,setValue }}>
-            <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
             <RenderedArrayContext.Provider value={{ renderedArray,setRenderedArray }}>
                 <AdminMenu selected={1} open={open} setOpen={setOpen} />
                 <AddProductView addForm={true} />
-                <Notification />
+                
             </RenderedArrayContext.Provider>
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
-            </NotificationContext.Provider>
             </ProductsContext.Provider>
         </div>
             </SearchContext.Provider>

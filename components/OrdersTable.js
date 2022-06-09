@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import Modal from './Modal'
+import Notification from './Notification'
 import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -18,6 +19,8 @@ export default function OrdersTable(props){
     const [show,setShow] = useState(false)
     const [show2,setShow2] = useState(false)
     const [selectedMessage,setSelectedMessage] = useState(0)
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
 
     const scrollLeft = () => {
         const galleryScroller = document.querySelector(".galleryScroller")
@@ -36,7 +39,7 @@ export default function OrdersTable(props){
         setloading(true)
         try {
             
-            const res =await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
+            const res = await fetch('/api/orders/'+props.value[selectedMessage]?._id,{
                 method: 'PUT',
                 headers:{
                     "Accept": "application/json",
@@ -52,10 +55,14 @@ export default function OrdersTable(props){
                 reference: data._id,
                 to_email: data.email,
                 },"Ripm8PZ2lXtT3znlf")
+                setloading(false)
+            setShowNotification(false)
+            setMessage('La commande a été marquée comme livrée')
+            setShowNotification(true)
         } catch (error) {
             console.error(error)
+            setloading(false)
         }
-        setloading(false)
     }
 
     const handleArchive = async () => {
@@ -79,18 +86,23 @@ export default function OrdersTable(props){
                 reference: data._id,
                 to_email: data.email,
                 },"KHMkvXV1QAlRiuEGH")
-        } catch (error) {
-            console.error(error)
-        }
         setloading(false)
+        setShowNotification(false)
+        setMessage('La commande a été archivée')
+        setShowNotification(true)
+    } catch (error) {
+        console.error(error)
+        setloading(false)
+        }
     }
 
-    if(props.value.length <1 )  return (
-
-        <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>)
 
    return (
-        <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
+       <>
+        {props.value.length <1  ? 
+        <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>
+        :
+         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             <Modal show={show} onClose={() => {
                 setShow(false)
@@ -209,6 +221,8 @@ export default function OrdersTable(props){
         </div>
                <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             </div>
-        </div>
+        </div>}
+            <Notification show={showNotification} setShow={setShowNotification} message={message} />
+        </>
     )
 }

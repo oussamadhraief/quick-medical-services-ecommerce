@@ -34,10 +34,10 @@ async function handler(req, res) {
     
     if (req.body.newPassword !== req.body.newPassword2){
 
-      res.status(401).json({success: false, message: 'new password dosent match'})
+      res.status(401).json({success: false, message: 'new password doesnt match'})
     }
 
-  const oldAndNewEqual = await verifyPassword(req.body.newPassword, currentPassword)
+  const oldAndNewEqual = await verifyPassword(req.body.newPassword, user.password)
 
   if (oldAndNewEqual) {
     return res.status(401).json({success: false, message : "New password can't be equal to old password"})

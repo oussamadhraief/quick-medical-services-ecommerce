@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import Modal from '../../components/Modal'
 import { CategoriesContext } from '../../utils/CategoriesContext'
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
@@ -16,6 +17,7 @@ export default function Information () {
 
   const router = useRouter()
   const dashboardScroller = useRef()
+  const saveAccountDataButton = useRef()
 
 
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
@@ -28,11 +30,14 @@ export default function Information () {
   const [secondAddress,setSecondAddress] = useState({address: '',city: '', country: '', zipCode: null})
   const [editingSecondAddress,setEditingSecondAddress] = useState(false)
   const [NullAddresses,setNullAddresses] = useState(false)
+  const [show,setShow] = useState(false)
+  const [open,setOpen] = useState(false)
+  const [open2,setOpen2] = useState(false)
   const [cartNumber,setCartNumber] = useState(0)
 
 
   const handleChange = e => {
-    document.querySelector('.saveAccountDataButton').disabled = false
+    saveAccountDataButton.current.disabled = false
     setInformation({
         ...information,
         [e.target.name]: e.target.value
@@ -108,16 +113,21 @@ export default function Information () {
   }
   },[status])
 
-  const handleSubmit = async (e) => {
-    document.querySelector('.saveAccountDataButton').disabled = true
-    const res = await fetch('/api/updatenameandphone',{
-      method: 'PATCH',
-      headers: {
-        "Accept" : "application/json",
-        "Content-type" : "application/json"
-      },
-      body: JSON.stringify(information)
-    })
+  const handleSubmit = async () => {
+    try {
+      await fetch('/api/updatenameandphone',{
+        method: 'PATCH',
+        headers: {
+          "Accept" : "application/json",
+          "Content-type" : "application/json"
+        },
+        body: JSON.stringify(information)
+      })
+      location.reload()
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 
   const handleFirstAddressChange = e => {
@@ -128,20 +138,24 @@ export default function Information () {
   )
   }
 
-  const handleFirstAddressSubmit = async e => {
-    // e.preventDefault()
-    setEditingFirstAddress(false)
-    await fetch('/api/updateuseraddress',{
-      method: 'PATCH',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        address: firstAddress,
-        addressType: 'first'
+  const handleFirstAddressSubmit = async () => {
+    try {
+      await fetch('/api/updateuseraddress',{
+        method: 'PATCH',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          address: firstAddress,
+          addressType: 'first'
+        })
       })
-    })
+      location.reload()
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 
   const handleSecondAddressChange = e => {
@@ -152,20 +166,24 @@ export default function Information () {
   )
   }
 
-  const handleSecondAddressSubmit = async e => {
-    // e.preventDefault()
-    setEditingSecondAddress(false)
-    await fetch('/api/updateuseraddress',{
-      method: 'PATCH',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        address: secondAddress,
-        addressType: 'second'
+  const handleSecondAddressSubmit = async () => {
+    try {
+      await fetch('/api/updateuseraddress',{
+        method: 'PATCH',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          address: secondAddress,
+          addressType: 'second'
+        })
       })
-    })
+      location.reload()
+    } catch (error) {
+      console.error(error);
+    }
+   
   }
 
   const scrollLeft = () => {
@@ -226,35 +244,38 @@ export default function Information () {
             </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden lg:flex flex-nowrap justify-center items-start px-10 mt-20'>
-          <div className='w-screen lg:w-2/12 h-fit flex justify-start items-center'>
+      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden lg:flex flex-nowrap justify-center items-start px-2 mt-20'>
+          <div className='w-screen lg:w-80 h-fit flex justify-start items-center'>
             <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
             <div ref={dashboardScroller} className='noScrollBar w-full h-fit lg:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
-                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
                   </Link>
                   
                   <Link href='/account/quoterequests'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
                   </Link>
                   
                   <Link href='/account/orders'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
                   </Link>
                   
                   <Link href='/account/password'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[12px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[12px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
                   </Link>
                 
-                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
+                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-4 border-y pl-[11px] py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
             </div>
               <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
                 
   
           </div>
-          <div className='w-full lg:w-10/12 mx-auto h-fit px-2 py-10 overflow-auto relative lg:p-10'>
+          <div className='w-full lg:w-full mx-auto h-fit px-2 py-10 overflow-auto relative lg:py-10 lg:px-2'>
 
-          <form onSubmit={e => handleSubmit(e)} className='max-w-full lg:max-w-[836px] w-full h-fit grid gap-16 mb-10 px-2 lg:px-10'>
+          <form onSubmit={e => {
+            e.preventDefault()
+            setShow(true)
+          }} className='max-w-full lg:max-w-[836px] w-full h-fit grid gap-16 mb-10 px-2 lg:px-10'>
               <p className='font-medium text-xl lg:text-3xl mx-auto'>Vos <span className='border-b border-pinky'>informations personnelles</span> </p>
               <label className='font-medium lg:w-11/12 flex flex-wrap lg:flex-nowrap justify-between'>Nom et prénom:
                   <input type="text" required minLength={4} onChange={e => handleChange(e)} name="name" value={information.name} placeholder='Nom et prénom' className='outline-none border-b min-w-[300px] w-full md:w-8/12'/>
@@ -263,14 +284,17 @@ export default function Information () {
                   <input type="number" required max='10000000000000'
               min='10000000' onChange={e => handleChange(e)} name="phone" value={information.phone} placeholder='Num. de téléphone' className='outline-none border-b min-w-[300px] w-full md:w-8/12' />
               </label>
-              <button type="submit" disabled className='saveAccountDataButton w-fit h-fit bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] text-white px-5 py-1.5 lg:py-2.5 rounded-md font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
+              <button ref={saveAccountDataButton} type="submit" disabled className='saveAccountDataButton w-fit h-fit bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] text-white px-5 py-1.5 lg:py-2.5 rounded-md font-medium hover:scale-105 transition-all mx-auto disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none disabled:hover:scale-100'>Enregistrer</button>
           </form>
 
-          <div className='mx-auto lg:mx-0 grid w-fit gap-5'>
+          <div className='mx-auto xl:mx-0 grid w-fit gap-5'>
             
                 <p className='text-xl font-medium w-fit mx-auto'>Modifer <span className='border-b-2 border-pinky'> vos adresses</span>: </p>
-                <div className='grid lg:flex flex-nowrap w-fit h-fit gap-16'>
-              <form onSubmit={e => handleFirstAddressSubmit(e)}  className='w-80 sm:w-96 h-fit grid  relative  rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
+                <div className='grid xl:flex flex-nowrap w-fit h-fit gap-16'>
+              <form onSubmit={e => {
+                e.preventDefault()
+                setOpen(true)
+              }}  className='w-80 sm:w-96 h-fit grid  relative  rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
                 <p className={editingFirstAddress ?  "w-fit h-fit font-medium after:content-[''] after:absolute after:top-[200%] after:left-0 after:bg-na3ne3i after:h-[1px] after:sm:w-[346px] after:w-[280px] relative " : "w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:sm:w-[346px] after:w-[280px] relative "}>Adresse de facturation</p>
                 {
                   editingFirstAddress ? <>
@@ -328,7 +352,10 @@ export default function Information () {
 
 
 
-              <form onSubmit={e => handleSecondAddressSubmit(e)} className='grid w-80 sm:w-96 h-fit relative rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
+              <form onSubmit={e => {
+                e.preventDefault()
+                setOpen2(true)
+                }} className='grid w-80 sm:w-96 h-fit relative rounded-md px-5 pt-4 pb-10 border border-na3ne3i'>
               <p className={editingSecondAddress ?  "w-fit h-fit font-medium after:content-[''] after:absolute after:top-[200%] after:left-0 after:bg-na3ne3i after:h-[1px] after:sm:w-[346px] after:w-[280px] relative " : "w-fit h-fit font-medium after:content-[''] after:absolute after:top-[111%] after:left-0 after:bg-na3ne3i after:h-[1px] after:sm:w-[346px] after:w-[280px] relative "}>Adresse de livraison</p>
               {
                   editingSecondAddress ? 
@@ -392,7 +419,9 @@ export default function Information () {
             </div>
           </div>
         </div> 
-          
+        <Modal key='informations' show={show} onClose={() => setShow(false)} onConfirm={() => handleSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier vos informations?'} />
+        <Modal key='adresse1' show={open} onClose={() => setOpen(false)} onConfirm={() => handleFirstAddressSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier votre adresse de facturation?'} />
+        <Modal key='adresse2' show={open2} onClose={() => setOpen2(false)} onConfirm={() => handleSecondAddressSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier votre adresse de livraison?'} />
       </main>
       <Footer />
     </div>

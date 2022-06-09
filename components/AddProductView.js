@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import Image from "next/image"
 import ProductPreview from './ProductPreview'
-import { ProductsContext } from "../utils/ProductsContext"
+import Notification from './Notification'
 import LoadingAnimation from './LoadingAnimation'
-import { NotificationContext } from "../utils/NotificationContext"
 import { LoadingContext } from "../utils/LoadingContext"
 import 'animate.css'
 import Modal from "./Modal"
@@ -24,9 +23,10 @@ export default function AddProductView(props){
     const [sizeRemoval,setSizeRemoval] = useState(true)
     const [loading,setLoading] = useState(false)
     const [nameError,setNameError] = useState(false)
-    const {appear,setAppear} = useContext(NotificationContext)
     const [show,setShow] = useState(false)
     const [open,setOpen] = useState(false)
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
 
@@ -139,8 +139,9 @@ export default function AddProductView(props){
                     if(res.status == 201){
                         setLoading(false)
                         setLoadingContext(false)
-                        setAppear({display: false, action: ''})
-                        setAppear({display: true, action: 'ajouté'})
+                        setShowNotification(false)
+                        setShowNotification(true)
+                        setMessage('Le produit a été bien ajouté')
                         setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
                         setProductImage('')
                         setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
@@ -205,8 +206,9 @@ export default function AddProductView(props){
                 body: JSON.stringify(produit)
             }).then(async (res) => {
                 if(res.status == 200){
-                    setAppear({display: false, action: ''})
-                    setAppear({display: true, action: 'modifié'})
+                    setShowNotification(false)
+                    setShowNotification(true)
+                    setMessage('Le produit a été bien modifié')
                 }else{
                     setNameError(true)
                     setLoading(false)
@@ -277,7 +279,7 @@ export default function AddProductView(props){
                 } action={'add'} content={props.addForm ? 'Êtes-vous sûr de vouloir ajouter ce produit ?' : 'Êtes-vous sûr de vouloir modifier ce produit ?'} />
 
             <Modal show={open} onClose={() => setOpen(false)} onConfirm={() => router.push('/admin/products/manage?page=0')} action={'delete'} content={'Êtes-vous sûr de vouloir quitter sans enregistrer les modifications?'} />
-
+            <Notification show={showNotification} setShow={setShowNotification} message={message} />
             <ProductPreview productImage={preview.productImage} name={preview.name} sizes={preview.sizes} description={preview.description} availability={preview.availability} />
         </div>
     )

@@ -39,10 +39,17 @@ export default async (req, res) => {
             user.zipCode[1] = zipCode
           }
         }else{
-          user.address[0] = address
+          if(session.user.address.length == 1){
+            user.address.push(user.address[0])
+            user.city.push(user.city[0])
+            user.country.push(user.country[0])
+            user.zipCode.push(user.zipCode[0])
+          }
+            user.address[0] = address
             user.city[0] = city
             user.country[0] = country
             user.zipCode[0] = zipCode
+          
         }
 
       }

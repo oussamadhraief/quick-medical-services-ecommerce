@@ -23,7 +23,6 @@ export default function Admin(){
     
     const [value,setValue] = useState([])
     const [adminLoading,setAdminLoading] = useState(true)
-    const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [pages,setPages] = useState(0)
     const [open,setOpen] = useState(true)
@@ -121,18 +120,16 @@ export default function Admin(){
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
             <ProductsContext.Provider value={{ value,setValue }}>
-            <NotificationContext.Provider value={{ appear,setAppear }}>
             <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
             <PagesContext.Provider value={{ pages,setPages }}>
             <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                 <AdminMenu selected={3} open={open} setOpen={setOpen} />
                 {value.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
                 <ModifyProductsView archived={true} />}
-                <Notification />
+                
             </PageSelectionContext.Provider>
             </PagesContext.Provider>
             </LoadingContext.Provider>
-            </NotificationContext.Provider>
             </ProductsContext.Provider>
 
         </div>

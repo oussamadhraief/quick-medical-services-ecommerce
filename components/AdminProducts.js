@@ -3,7 +3,6 @@ import { useContext, useState } from "react"
 import { ProductsContext } from "../utils/ProductsContext"
 import 'animate.css'
 import { LoadingContext } from "../utils/LoadingContext"
-import { NotificationContext } from "../utils/NotificationContext"
 import Modal from "../components/Modal"
 import { PagesContext } from "../utils/PagesContext"
 import { useRouter } from "next/router"
@@ -17,9 +16,8 @@ export default function AdminProducts(props){
     const {value,setValue} = useContext(ProductsContext)
     const {pages,setPages} = useContext(PagesContext)
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
-    const {appear,setAppear} = useContext(NotificationContext)
     const [show,setShow] = useState(false)
-
+    
 
     const handleArchived = async () => {
         props.handleLoading(true)
@@ -39,15 +37,8 @@ export default function AdminProducts(props){
                     "Content-Type": "application/json"
                 }
             }).then(async (res) => {
-                await res.json()
                 if(res.status == 200){
-                    setAppear({display: false, action: ''})
-                    if(props.archived){
-                        setAppear({display: true, action: 'désarchivé'})
-                    }else{
-                        setAppear({display: true, action: 'archivé'})
-                    }
-
+                    
                     if(Router.query.page != 0){
                         Router.push({
                             pathname: Router.pathname,
@@ -67,6 +58,8 @@ export default function AdminProducts(props){
                         }
                         
                         const { data,number } = await res.json()
+                        setLoadingContext(false)
+                        props.handleLoading(false)
                         let numberOfPages
                         if(number> 0){
 
@@ -75,20 +68,35 @@ export default function AdminProducts(props){
                             numberOfPages = 1
                         }
                         
+                        props.setShowNotification(false)
+                        if(props.archived){
+                            props.setMessage('Le produit a été bien désarchivé')
+                            props.setShowNotification(true)
+                        }else{
+                            props.setMessage('Le produit a été bien archivé')
+                            props.setShowNotification(true)
+                        }
                         setValue(data)
                         setPages(numberOfPages)
                     }
                     
+                    
+                }else{
+                    setLoadingContext(false)
+                    props.handleLoading(false)
                 }
+                
             })
         } catch (error) {
             console.error(error)
+            setLoadingContext(false)
+            props.handleLoading(false)
         }
-        setLoadingContext(false)
-        props.handleLoading(false)
+        
     }
 
     return (
+        <>
         <div id="scrolltopdiv" className={loadingContext ? "hidden" : "w-64 h-fit grid place-items-center border-[1px] sm:mx-3 mb-10 border-zinc-400 pb-1 rounded-md overflow-hidden relative"}>
                 {props.availability == 'unavailable' ? <div className="absolute top-0 right-1 z-10 w-14 h-12">
                     <Image src={'pfe/feelin_3_or1zjy'} alt='sur commande' layout="fill" />
@@ -109,5 +117,6 @@ export default function AdminProducts(props){
                 {!props.archived ? <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver ce produit ?'} /> :
                 <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleArchived()} action={'add'} content={'Êtes-vous sûr de vouloir désarchiver ce produit ?'} />  }
         </div>
+        </>
     )
 }

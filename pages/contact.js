@@ -1,5 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Modal from '../components/Modal'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -28,6 +29,7 @@ export default function Contact () {
   })
   const [cartNumber,setCartNumber] = useState(0)
   const [loading,setLoading] = useState(false)
+  const [show,setShow] = useState(false)
 
 
   const handleChange = e => {
@@ -76,8 +78,12 @@ export default function Contact () {
     }
   },[status])
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
+    setShow(true)
+  }
+
+  const handleMakeContact = async () => {
     setLoading(true)
     try {
       const formInputs = { ...formData, isRead: false, isReview: false }
@@ -281,6 +287,7 @@ export default function Contact () {
           >
             Envoyer
           </button>
+          <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleMakeContact()} action={'add'} content={'Êtes-vous sûr de vouloir envoyer ce message?'} />
         </form>
       </div>
       <Footer />

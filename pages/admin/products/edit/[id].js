@@ -21,7 +21,6 @@ export default function Admin(){
     
     const [value,setValue] = useState({reference: '',name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available',productImage: ''})
     const [adminLoading,setAdminLoading] = useState(true)
-    const [appear,setAppear] = useState({display: false, action: ''})
     const [loadingContext,setLoadingContext] = useState(true)
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
@@ -93,13 +92,11 @@ export default function Admin(){
             <AdminNavbar open={open} setOpen={setOpen} />
             <div className="bg-white relative h-full w-full grid md:flex md:flex-nowrap overflow-hidden">
                 <ProductsContext.Provider value={{ value,setValue }}>
-                <NotificationContext.Provider value={{ appear,setAppear }}>
                 <LoadingContext.Provider value={{ loadingContext,setLoadingContext }}>
                     <AdminMenu selected={2} open={open} setOpen={setOpen} />
                     <AddProductView key='edit' addForm={false} modifiedProduct={value} /> 
-                    <Notification />
+                    
                 </LoadingContext.Provider>
-                </NotificationContext.Provider>
                 </ProductsContext.Provider>
             </div>
             </SearchContext.Provider>

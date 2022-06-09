@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import Modal from '../../components/Modal'
 import { CategoriesContext } from '../../utils/CategoriesContext'
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
@@ -29,6 +30,9 @@ export default function Password() {
     newPassword2 : ''
   })
   const [cartNumber,setCartNumber] = useState(0)
+  const [passwordError,setPasswordError] = useState(false)
+  const [show,setShow] = useState(false)
+  const [loading,setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -62,7 +66,7 @@ export default function Password() {
 
 
   const handleChange = (e) => {
-    
+    setPasswordError(false)
     setPasswordData({
       ...passwordData,
       [e.target.name]: e.target.value
@@ -72,8 +76,16 @@ export default function Password() {
   }
 
 
-  const handleSubmit = async e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
+    setShow(true)  
+  }
+
+  const handleChangePasswordSubmit = async () => {
+    if(passwordData.newPassword != passwordData.newPassword2) {
+      setPasswordError(true)
+    }else{
+      setLoading(true)
       try {
         const res = await fetch('/api/user/changepassword', {
           method: 'PATCH',
@@ -83,10 +95,16 @@ export default function Password() {
         },
           body: JSON.stringify(passwordData)
         })
+        setPasswordData({
+          oldPassword : '' ,
+          newPassword : '',
+          newPassword2 : ''
+        })
       } catch (error) {
         console.error(error)
       }
-    
+      setLoading(false)
+    }
   }
 
   const scrollLeft = () => {
@@ -145,40 +163,49 @@ export default function Password() {
             </CartContext.Provider>
         </SearchContext.Provider>
       </CategoriesContext.Provider>
-      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden lg:flex flex-nowrap justify-center items-start px-10 mt-20'>
-          <div className='w-screen lg:w-2/12 h-fit flex justify-start items-center'>
+      <main className='w-full h-fit grid place-content-center place-items-center overflow-hidden lg:flex flex-nowrap justify-center items-start px-2 mt-20'>
+          <div className='w-screen lg:w-80  h-fit flex justify-start items-center'>
             <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
             <div ref={dashboardScroller} className='noScrollBar w-full h-fit lg:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
                   </Link>
                   
                   <Link href='/account/quoterequests'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-price-64_jp7edw.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'  /><p>Historique des devis</p></a>
                   </Link>
                   
                   <Link href='/account/orders'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t pl-[13px] pr-2 py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
                   </Link>
                   
                   <Link href='/account/password'>
-                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
                   </Link>
                 
-                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center gap-4 border-y pl-[11px] pr-2 py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
+                  <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-4 border-y pl-[11px] py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
             </div>
               <button className='relative  bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
                 
   
           </div>
-      <form onSubmit={handleSubmit} className='w-full lg:w-10/12 mx-auto h-fit px-2 py-10 overflow-auto relative grid place-items-center lg:place-items-start gap-14 lg:p-10'>
+      <form onSubmit={handleSubmit} className='w-full lg:w-full mx-auto h-fit px-2 py-10 overflow-auto relative grid place-items-center lg:place-items-start lg:p-10'>
           
+          {loading ? <div
+                id='contact-loading'
+                className=' absolute inset-0 w-full h-full bg-white/70 z-[9] '
+              >
+                <div className='reverse-spinner '></div>
+              </div> :null }
+
             <input
               type='password'
               value= {passwordData.oldPassword}
               onChange={e=>handleChange(e)}
               name='oldPassword'
-              className='outline-none border-b min-w-[300px] w-1/3'
+              required
+              minLength={6}
+              className='outline-none border-b min-w-[300px] w-1/3 mb-10'
               placeholder='Mot de passe actuel'
             />
             
@@ -188,7 +215,9 @@ export default function Password() {
               value= {passwordData.newPassword}
               onChange={e=> handleChange(e)}
               name='newPassword'
-              className='outline-none border-b min-w-[300px] w-1/3 '
+              required
+              minLength={6}
+              className={passwordError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 mb-10' : 'outline-none border-b min-w-[300px] w-1/3 mb-10'}
               placeholder='Nouveau mot de passe'
             />
 
@@ -198,12 +227,18 @@ export default function Password() {
               value= {passwordData.newPassword2}
               onChange={e=> handleChange(e)}
               name='newPassword2'
-              className='outline-none border-b min-w-[300px] w-1/3 '
+              required
+              minLength={6}
+              className={passwordError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 ' : 'outline-none border-b min-w-[300px] w-1/3 '}
               placeholder='Confirmer le nouveau mot de passe'
             />
+
+        {passwordError ? <p className='text-red-500 w-full text-left'>Les mots de passe ne sont pas identiques</p> : null}
+
           
 
-        <button type="submit" className='w-fit h-fit bg-pinky text-white px-4 py-2 rounded-md shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-105 transition-all'>Enregistrer</button>
+        <button type="submit" className='w-fit h-fit bg-pinky text-white px-4 py-2 rounded-md shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-105 transition-all mt-10'>Enregistrer</button>
+        <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleChangePasswordSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier vos informations?'} />
       </form>
       </main>
       <Footer />

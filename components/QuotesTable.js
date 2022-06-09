@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react'
 import LoadingAnimation from './LoadingAnimation'
+import Modal from './Modal'
+import Notification from './Notification'
 import { LoadingContext } from '../utils/LoadingContext'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -14,8 +16,12 @@ export default function QuotesTable(props){
     const [loading,setloading] = useState(false)
     const [open,setOpen] = useState(false)
     const [show,setShow] = useState(false)
+    const [show2,setShow2] = useState(false)
+    const [show3,setShow3] = useState(false)
     const [selectedMessage,setSelectedMessage] = useState(0)
     const [response,setResponse] = useState({price: 0,message: ''})
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
 
     const scrollLeft = () => {
         const galleryScroller = document.querySelector(".galleryScroller")
@@ -37,8 +43,12 @@ export default function QuotesTable(props){
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
+        setShow3(true)
+    }
+
+    const handleRespond = async () => {
         setloading(true)
         try {
             const res =await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
@@ -65,14 +75,17 @@ export default function QuotesTable(props){
                 variable: "https://pfeeeeeee.vercel.app",
                 to_email: data.email,
                 },"Ripm8PZ2lXtT3znlf")
+            setloading(false)
+            setShowNotification(false)
+            setMessage('La réponse a été envoyée')
+            setShowNotification(true)
         } catch (error) {
             console.error(error)
+            setloading(false)
         }
-        setloading(false)
-    }
+    } 
 
     const handleArchive = async () => {
-        setOpen(false)
         setloading(true)
         try {
             const res= await fetch('/api/quoterequests/'+props.value[selectedMessage]?._id,{
@@ -93,19 +106,32 @@ export default function QuotesTable(props){
                 variable: "https://pfeeeeeee.vercel.app",
                 to_email: data.email,
                 },"KHMkvXV1QAlRiuEGH")
+            setloading(false)
+            setShowNotification(false)
+            setMessage('La demande de devis a été archivée')
+            setShowNotification(true)
         } catch (error) {
             console.error(error)
+            setloading(false)
         }
-        setloading(false)
     }
 
-    if(props.value.length <1 )  return (
-
-     <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>)
 
    return (
+    <>
+    {props.value.length <1 ?
+    <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>
+       :
         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-auto md:overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
+            <Modal show={show3} onClose={() => {
+                setShow3(false)
+                setOpen(false)
+                }} onConfirm={() => handleRespond()} action={'add'} content={'Êtes-vous sûr de vouloir envoyer cette réponse?'} />
+            <Modal show={show2} onClose={() => {
+                setShow2(false)
+                setOpen(false)
+            }} onConfirm={() => handleArchive()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver cette demande de devis?'} />
             <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
                 <div className='w-full lg:w-9/12  min-w-[300px] h-full  max-h-[400px] md:max-h-[600px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
@@ -122,7 +148,10 @@ export default function QuotesTable(props){
                                 setShow(prev => !prev)
                                 setOpen(false)
                                 }} className='font-medium text-sm text-third hover:underline border-b py-1'>{show ? 'Annuler' : "Répondre à la demande"}</button>
-                            <button onClick={e => handleArchive()} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
+                            <button onClick={() => {
+                                setShow2(true)
+                                setOpen(false)
+                                }} className='text-sm font-medium text-red-400 underline rounded py-1'>Archiver</button>
                             </div>
                         </div>}
                     </div>
@@ -238,5 +267,8 @@ export default function QuotesTable(props){
                <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             </div>
         </div>
+    }
+            <Notification show={showNotification} setShow={setShowNotification} message={message} />
+    </>
     )
 }
