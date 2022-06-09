@@ -128,7 +128,7 @@ export default function Header(props){
                 </Link>
                 </div>
                 
-                <NavigationSection />
+                <NavigationSection landingPage={props.landingPage} />
 
                 </div>
                 <div id="banner" className="relative w-1/2 order-1 md:order-2  md:w-5/12 sm:ml-[9%]">

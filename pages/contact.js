@@ -145,7 +145,7 @@ export default function Contact () {
       <div className='flex-col lg:flex-row lg:flex w-11/12 lg:w-9/12  mx-auto  shadow-form mt-20 rounded-br-[50px] h-fit rounded-tl-[50px] overflow-hidden'>
         <div className='lg:w-1/2 pt-2 pb-10 lg:p-0 mx-auto contactside bg-complementary'>
           <div className='w-9/12 mx-auto mt-12 mb-8'>
-            <h1 className='text-white text-4xl font-bold'><span className='border-b-2 border-red-500'>Contactez</span>  nous</h1>
+            <h1 className='text-white text-4xl font-bold'><span className='border-b-2 border-pinky'>Contactez</span>  nous</h1>
             <p className='text-white mt-2 font-medium'>
               Vos suggestions sont bienvenues
             </p>
