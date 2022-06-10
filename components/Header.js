@@ -18,6 +18,7 @@ export default function Header(props){
     const slogan = 'pfe/LES_MEILLEURS_1_typedq.png'
     const [scrolled,setscrolled] = useState(false)
     const [isMobile,setIsMobile] = useState(false)
+    const [dropDown , setDropDown] = useState(false)
     const {cartNumber,setCartNumber} = useContext(CartContext)
 
     
@@ -102,7 +103,7 @@ export default function Header(props){
 
     return (
         <header className={`${scrolled ? 'pt-0' : 'pt-5'} pb-5 h-fit flex flex-col w-full items-center relative bg-na3ne3i`}>
-            <Navbar scrolled={scrolled} anotherPositioning={anotherPositioning} navbarRef={navbarRef} />
+            <Navbar scrolled={scrolled} anotherPositioning={anotherPositioning} navbarRef={navbarRef}  dropDown={dropDown} setDropDown={setDropDown} />
             {props.landingPage ? 
             <>
             <div ref={headerRef} className="w-full h-fit gap-0 grid lg:flex lg:flex-nowrap lg:items-center lg:justify-start pl-0 lg:pl-10 mb-5 lg:py-6 xl:py-20 2xl:py-36 3xl:py-52">
@@ -147,7 +148,7 @@ export default function Header(props){
             </div>
             </> }
             <Link href='/cart'>
-            <div id="cart" className='transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'>
+            <div id="cart" className={dropDown ? 'transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-0 w-0 overflow-hidden  z-[9998] group' : 'transition-all duration-1000  font-medium bg-transparent text-third fixed hover:cursor-pointer h-fit w-fit  z-[9998] group'}>
                 <div className={scrolled ? "absolute w-fit h-fit hidden group-hover:block  right-[100%] top-1.5 bg-na3ne3i text-white font-[400] rounded-md px-2 py-0.5" :  "absolute w-fit h-fit hidden group-hover:block right-[105%] top-1.5 bg-white rounded-md px-2 py-0.5"}>
                     panier
                 </div>

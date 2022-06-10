@@ -86,7 +86,6 @@ export default function ScrollableProduct ({ product }) {
                 if (!activatedModal) {
                   setLoading(true)
                   setActivatedModal(true)
-                  document.body.style.height = '100vh'
                   document.body.style.overflow = 'hidden'
                   fetchProduct().then(() => {
                     setLoading(false)
@@ -131,7 +130,6 @@ export default function ScrollableProduct ({ product }) {
           show={show}
           content={productContent}
           onClose={() => {
-            document.body.style.height = 'fit'
             document.body.style.overflow = 'auto'
             setActivatedModal(false)
             setShow(false)
