@@ -162,8 +162,8 @@ export default function MainContent(){
             <ProductsCarousel id='navigatablefeatured1' />
 
             <div id='encourageSection' className='bg-complementary gap-5 lg:gap-10 xl:gap-20 relative w-full h-fit min-h-fit my-32 flex flex-col md:flex-row md:flex-nowrap justify-center lg:justify-start items-center py-10 pr-5 md:pr-0 lg:py-10 pl-5 md:pl-2 lg:pl-7 xl:pl-[4.5vw]'>
-                <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/68] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
-                    <Image src={'pfe/Untitled_design_2_zzbtlv'} alt='contact' layout='fill' />
+                <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/69] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
+                    <Image src={'pfe/Untitled_design_4_ad5c55'} alt='contact' layout='fill' />
                     <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2 hover:scale-105 transition-all'>
                         <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité du service et de produits <br></br> excepionnelle  !&quot;</i>
                         <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>

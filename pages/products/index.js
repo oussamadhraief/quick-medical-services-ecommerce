@@ -32,7 +32,9 @@ export default function Products(){
     const [search,setSearch] = useState('')
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
+    const [loading,setLoading] = useState(true)
     const [loadingContext,setLoadingContext] = useState(true)
+    const [hiddenCategories,setHiddenCategories] = useState(false)
     const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
     const [fetchUrl,setFetchUrl] = useState('/api/products/parametered?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
@@ -82,6 +84,7 @@ export default function Products(){
             }
             setValue(data)
             setPageSelection(index)
+            setLoading(false)
             setLoadingContext(false)
             setPages(numberOfPages)
                 
@@ -100,21 +103,9 @@ export default function Products(){
           fetchCart()
         }
       },[status])
-    
 
-    function handleHideCategories() {
-        const CategoriesNavigator = document.getElementById('categoriesOrderer')
-        const FlipArrow = document.getElementById('flipArrow')
-        if(CategoriesNavigator.offsetHeight > 10) {
-            CategoriesNavigator.style.height = '0px'
-            FlipArrow.style.transform = 'rotate(90deg)'
-        }else{
-            CategoriesNavigator.style.height = 'fit-content'
-            FlipArrow.style.transform = 'rotate(-90deg)'
-        }
-    }
 
-    if (status === 'loading') {
+    if (status === 'loading' || loading) {
         return (
           <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
             <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
@@ -198,12 +189,14 @@ export default function Products(){
                         </div>
                     </div>
                     <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky " onClick={e => {
-                        handleHideCategories()
+                        setHiddenCategories(prev => !prev)
                     }}>
                         <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
-                        <p id="flipArrow" className="h-fit w-fit -rotate-90 transition-all">&#11164;</p>
+                        <p id="flipArrow" className={hiddenCategories ? "h-fit w-fit -rotate-90 transition-all" : "h-fit w-fit rotate-90 transition-all"}>&#11164;</p>
                     </div>
-                    <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
+                    <div className={hiddenCategories ? "h-0 overflow-hidden" : "w-full h-fit"}>    
+                        <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
+                    </div>
                 </div>
                 <div className="flex lg:hidden w-full h-fit justify-center items-center my-3 px-10">
                     

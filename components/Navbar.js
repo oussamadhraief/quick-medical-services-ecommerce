@@ -25,7 +25,7 @@ export default function Navbar({ scrolled, anotherPositioning, navbarRef, dropDo
     
     
     return(
-        <nav ref={navbarRef} className={scrolled ? "flex flex-nowrap justify-between lg:justify-around bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-[0px_8px_25px_rgba(14,80,82,0.8)] fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-between w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9997]  rounded-3xl fixed"}>
+        <nav ref={navbarRef} className={scrolled ? "flex flex-nowrap justify-between px-1 sm:px-10 bg-na3ne3i  w-full transition-all duration-500 h-fit py-3 items-center z-[9999] shadow-[0px_8px_25px_rgba(14,80,82,0.8)] fixed" : "flex transition-all duration-500 flex-nowrap justify-between lg:justify-between w-full sm:px-10 lg:px-0 lg:w-11/12 h-fit py-3 items-center z-[9997]  rounded-3xl fixed"}>
             <Link href='/'>
                 <a className="relative ml-4 w-44 lg:m-0 md:w-56 aspect-[4/1] hover:cursor-pointer"><Image src={logo} alt='Quick medical services logo' quality={100} layout='fill' objectFit="center" /></a>
             </Link>

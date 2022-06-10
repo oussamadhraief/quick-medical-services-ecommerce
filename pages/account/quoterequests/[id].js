@@ -1,5 +1,7 @@
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import Modal from '../../../components/Modal'
+import Notification from '../../../components/Notification'
 import { CartContext } from "../../../utils/CartContext"
 import { CategoriesContext } from '../../../utils/CategoriesContext'
 import { useEffect, useState, useRef } from 'react'
@@ -24,6 +26,11 @@ export default function Quote() {
   const [quote,setQuote] = useState([])
   const [cartNumber,setCartNumber] = useState(0)
   const [loading,setLoading] = useState(true)
+  const [showNotification,setShowNotification] = useState(false)
+  const [message,setMessage] = useState('')
+  const [show, setShow] = useState(false)
+  const [addToCartReference,setAddToCartReference] = useState('')
+
 
 
   useEffect(() => {
@@ -74,7 +81,7 @@ export default function Quote() {
     dashboardScroller.current.scroll(dashboardScroller.current.scrollLeft + 150,0)
   }
 
-  async function handleAddToCart(id) {
+  async function handleAddToCart() {
     try {
         const res = await fetch('/api/user/addproducttocart', {
           method : 'PATCH',
@@ -82,10 +89,21 @@ export default function Quote() {
               'accept' : 'application/json',
               'Content-Type' : 'application/json'
           },
-          body : JSON.stringify({reference : id})
+          body : JSON.stringify({reference : addToCartReference})
       })
       const { cart } = await res.json()
-      setCartNumber(cart)
+      if(cartNumber < cart) {
+
+        setCartNumber(cart)
+        setShowNotification(false)
+        setMessage('Le produit a été ajouté au panier')
+        setShowNotification(true)
+      }else{
+        setCartNumber(cart)
+        setShowNotification(false)
+        setMessage('Le produit déjà existe dans votre panier')
+        setShowNotification(true)
+      }
     } catch (error) {
       console.error(error)
     }
@@ -226,7 +244,10 @@ export default function Quote() {
                           Ajouter au panier
                           <p className='absolute -left-10 w-32 h-fit mx-auto bottom-[120%] hidden group-hover:block whitespace-nowrap text-red-500 font-normal'>Ce produit n&apos;est plus disponible.</p>
                         </p> : 
-                        <button onClick={e=> handleAddToCart(item.product.reference)} className='font-medium mx-auto w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)] px-3 py-1 rounded text-white hover:bg-pinky hover:shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:scale-110 transition-all whitespace-nowrap'>Ajouter au panier</button>}
+                        <button onClick={e=> {
+                          setShow(true)
+                          setAddToCartReference(item.product.reference)
+                        }} className='font-medium mx-auto w-fit h-fit bg-na3ne3i shadow-[0px_3px_10px_rgba(25,98,102,0.5)] px-3 py-1 rounded text-white hover:bg-pinky hover:shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:scale-110 transition-all whitespace-nowrap'>Ajouter au panier</button>}
                       </td>
                     </tr>
                   )})}
@@ -234,6 +255,8 @@ export default function Quote() {
               </table>
                 </div>
         </div>
+        <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleAddToCart()} action={'add'} content={'Êtes-vous sûr de vouloir ajouter ce produit au panier?'} />
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
       </main>
       <Footer />
     </div>

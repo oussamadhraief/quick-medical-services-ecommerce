@@ -1,8 +1,7 @@
-import { NextRouter, useRouter } from "next/router"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import SizeSelection from "../../components/SizeSelection"
-import LoadingAnimation from '../../components/LoadingAnimation'
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { SizeSelectionContext } from "../../utils/SizeSelectionContext"
@@ -11,8 +10,14 @@ import { SearchContext } from "../../utils/SearchContext"
 import { CartContext } from "../../utils/CartContext"
 import CategoriesNavigator from "../../components/CategoriesNavigator"
 import Head from 'next/head'
+import { useSession } from "next-auth/react"
+import Notification from '../../components/Notification'
+import Modal from '../../components/Modal'
+
 
 export default function Details(){
+
+  const { data: session, status } = useSession()
 
     const delivery = 'pfe/1_tybhhw.png'
     const payment = 'pfe/2_tqhmcd.png'
@@ -20,11 +25,16 @@ export default function Details(){
     const satisfaction = 'pfe/4_gutx7r.png'
     
     const [product,setProduct] = useState()
+    const [show, setShow] = useState(false)
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [search,setSearch] = useState('')
+    const [hiddenCategories,setHiddenCategories] = useState(false)
+    const [loading,setLoading] = useState(true)
     const [selectedSize , setSelectedSize]= useState(0)
     const [cartNumber , setCartNumber]= useState(0)
     const router = useRouter()
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
 
     useEffect(() => {
         async function fetchData() {
@@ -33,6 +43,7 @@ export default function Details(){
             const res = await fetch(`/api/products/${id}`)
             const { data } = await res.json()
             setProduct(data)
+            setLoading(false)
         } catch (error) {
             console.error(error);
         }
@@ -65,13 +76,34 @@ export default function Details(){
               body : JSON.stringify({reference : product.reference})
           })
           const { cart } = await res.json()
-          setCartNumber(cart)
+          if(cartNumber < cart) {
+
+            setCartNumber(cart)
+            setShowNotification(false)
+            setMessage('Le produit a été ajouté au panier')
+            setShowNotification(true)
+          }else{
+            setCartNumber(cart)
+            setShowNotification(false)
+            setMessage('Le produit déjà existe dans votre panier')
+            setShowNotification(true)
+          }
         } catch (error) {
           console.error(error)
         }
         
         
       }
+
+      if (status === 'loading' || loading) {
+        return (
+          <div className='bg-white h-screen w-screen overflow-hidden flex items-center absolute z-[9999] left-0 top-0'>
+            <div id="contact-loading" className="w-fit h-fit bg-white/70 z-[9999] mx-auto ">
+              <div className="reverse-spinner "></div>
+            </div>
+          </div>
+         )
+        }
 
     return(
         <div>
@@ -106,19 +138,25 @@ export default function Details(){
             </CartContext.Provider>
             </SearchContext.Provider>
             </CategoriesContext.Provider>
-            <div className="w-full flex flex-nowrap justify-start items-start mt-32">
-                
+            <div className="w-full relative h-fit gap-3 lg:gap-0 flex flex-col lg:flex-row flex-nowrap justify-center lg:justify-start items-center lg:items-start mt-32 px-2 md:px-10 my-0">
             
-                <div className="w-3/12 h-full mx-2 ">
-                        <p className="w-full h-fit py-4 text-center bg-na3ne3i font-medium text-white shadow-form">Explorez nos catégories</p>
-                        <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
-                </div>
-                {product == null ? <LoadingAnimation bgOpacity={true} /> :
-                <div className="w-8/12 flex h-full flex-nowrap justify-start">
-                    <div className="border-[1px] border-zinc-200 w-[95%] md:w-96 mx-auto md:mx-0 flex justify-center h-fit">
-                        <Image src={product.image} alt="product image" height={350} width={384} layout='fixed'  objectFit="contain"  />
+                <div  className="w-11/12 sm:w-8/12 md:w-6/12 lg:w-3/12 lg:min-w-[300px] overflow-hidden transition-[height] duration-300 grid h-fit bg-harvey border-zinc-200 border min-h-fit shadow">
+                <div className="w-full h-fit relative flex flex-nowrap items-center justify-center py-3 shadow-2xl text-white bg-light hover:cursor-pointer hover:bg-pinky " onClick={e => {
+                        setHiddenCategories(prev => !prev)
+                    }}>
+                        <p className="h-fit w-fit font-medium whitespace-nowrap">Catégories et sous-catégories&nbsp;</p>
+                        <p id="flipArrow" className={hiddenCategories ? "h-fit w-fit -rotate-90 transition-all" : "h-fit w-fit rotate-90 transition-all"}>&#11164;</p>
                     </div>
-                    <div className="w-4/6 h-fit pl-5 grid gap-2">
+                    <div className={hiddenCategories ? "h-0 overflow-hidden" : "w-full h-fit"}>    
+                        <CategoriesNavigator categoriesAndSubcategories={categoriesAndSubcategories} />
+                    </div>
+                </div>
+                
+                <div className="w-full grid place-content-start md:flex h-full flex-nowrap justify-start ml-3">
+                    <div className="border-[1px] border-zinc-200 mx-auto h-[300px] sm:h-[400px] aspect-square relative">
+                        <Image src={product.image} alt="product image" layout='fill' objectFit='contain' objectPosition='center'  />
+                    </div>
+                    <div className="w-full h-fit pl-5 grid gap-2">
                         <p className="font-bold text-2xl text-na3ne3i my-5">{product.name}</p>
                         <p className="font-medium text-zinc-600 mt-2 text-md">Référence:&nbsp;<span className="font-medium ml-2">{product.reference}.{product.sizes[selectedSize]}</span></p>
                         <p className="font-medium text-zinc-600 text-md mt-5">Catégorie:&nbsp;<span className="font-medium ml-2">{product.category}</span></p>
@@ -134,9 +172,12 @@ export default function Details(){
                         <p>{product.description != '' ? product.description: 'pas de description'}</p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>
                         {product.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
-                        <button onClick={e => handleAddToCart()} className="mt-5 bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
+                        <button onClick={e => setShow(true)} className="mt-5 bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
                     </div>
-                    <div className="h-fit py-5 px-14 w-fit grid gap-9">
+                </div>
+                
+            </div>
+            <div className="h-fit px-2 w-fit mx-auto justify-center items-center mt-32 flex flex-wrap gap-9">
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
                     <Image src={delivery} alt='' width={80} height={80} layout='fixed' />
                     <p className="text-center font-medium text-sm text-third">Livraison à<br></br>domicile</p>
@@ -150,12 +191,11 @@ export default function Details(){
                     <p className="text-center font-medium text-sm text-third">Rapidité et<br></br>efficacité</p>
                 </div>
                 <div className="flex flex-nowrap justify-between gap-4 items-center w-fit h-fit">
-                    <Image src={satisfaction} alt='' width={100} height={80} layout='fixed' />
+                    <Image src={satisfaction} alt='' width={80} height={80} layout='fixed' />
                     <p className="text-start font-medium text-sm text-third">Garantie de<br></br>satisfaction totale</p>
                 </div>
-            </div>
-                </div>
-                }
+                <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleAddToCart()} action={'add'} content={'Êtes-vous sûr de vouloir ajouter ce produit au panier?'} />
+                <Notification show={showNotification} setShow={setShowNotification} message={message} />
             </div>
             <Footer />
         </div>

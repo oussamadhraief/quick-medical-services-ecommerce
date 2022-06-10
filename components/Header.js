@@ -1,6 +1,6 @@
 import Navbar from "./Navbar"
 import NavigationSection from "./NavigationSection"
-import { useState, useEffect, useRef, useContext } from "react"
+import { useState, useEffect, useRef, useContext, useCallback } from "react"
 import Image from "next/image"
 import Link from 'next/link'
 import { useSession } from "next-auth/react"
@@ -48,42 +48,7 @@ export default function Header(props){
 
     useEffect(() => {
 
-        const handleAnimation = () => {
-
-            const root = document.querySelector(':root')
-            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
-                setscrolled(true)
-                const top = positioningRef.current.getBoundingClientRect().top
-                const left = positioningRef.current.getBoundingClientRect().left
-                root.style.setProperty('--calculatedTop', top+'px')        
-                root.style.setProperty('--calculatedLeft', left+'px') 
-            } else {
-                setscrolled(false)
-                const top = anotherPositioning.current.getBoundingClientRect().top
-                const left = anotherPositioning.current.getBoundingClientRect().left -50
-                root.style.setProperty('--calculatedTop', top+'px')        
-                root.style.setProperty('--calculatedLeft', left+'px') 
-            }
         
-    }
-
-    const handleResize = () => {
-        const mq1 = window.matchMedia("(max-width: 1023px)")
-        if(mq1.matches){
-            setIsMobile(true)
-            if(props.landingPage){
-
-                headerRef.current.style.marginTop = window.innerWidth + 20 + 'px'
-            }else{
-            headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
-                
-            }
-        }else {
-            setIsMobile(false)
-            headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
-        }
-        handleAnimation()
-    }
 
         window.addEventListener('scroll', handleAnimation)
         
@@ -92,10 +57,48 @@ export default function Header(props){
         return () => {
             window.removeEventListener('scroll', handleAnimation)
         
-             window.removeEventListener('resize', handleResize)
+            window.removeEventListener('resize', handleResize)
         }
 
     })
+
+
+    const handleAnimation = useCallback(() => {
+
+        const root = document.querySelector(':root')
+        if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+            setscrolled(true)
+            const top = positioningRef.current.getBoundingClientRect().top
+            const left = positioningRef.current.getBoundingClientRect().left
+            root.style.setProperty('--calculatedTop', top+'px')        
+            root.style.setProperty('--calculatedLeft', left+'px') 
+        } else {
+            setscrolled(false)
+            const top = anotherPositioning.current.getBoundingClientRect().top
+            const left = anotherPositioning.current.getBoundingClientRect().left -50
+            root.style.setProperty('--calculatedTop', top+'px')        
+            root.style.setProperty('--calculatedLeft', left+'px') 
+        }
+    
+    })
+
+const handleResize = useCallback(() => {
+    const mq1 = window.matchMedia("(max-width: 1023px)")
+    if(mq1.matches){
+        setIsMobile(true)
+        if(props.landingPage){
+
+            headerRef.current.style.marginTop = window.innerWidth + 20 + 'px'
+        }else{
+        headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
+            
+        }
+    }else {
+        setIsMobile(false)
+        headerRef.current.style.marginTop = navbarRef.current.offsetHeight + 20 + 'px'
+    }
+    handleAnimation()
+})
 
    
 
