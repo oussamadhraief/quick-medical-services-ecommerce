@@ -172,7 +172,10 @@ export default function Details(){
                         <p>{product.description != '' ? product.description: 'pas de description'}</p>
                         <p className="font-medium text-zinc-600 mt-5 text-md">Disponibilité:&nbsp;</p>
                         {product.availability == 'available' ? <p className="font-bold text-md text-green-600">Disponible</p> : <p className="font-bold text-md text-red-500">Sur commande</p>}
-                        <button onClick={e => setShow(true)} className="mt-5 bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>
+                        {product.archived ? <div className='font-medium w-fit h-fit bg-zinc-200 px-3 py-3 ml-4 mt-7 rounded hover:cursor-not-allowed transition-all relative group whitespace-nowrap'>
+                          Ajouter au panier
+                          <p className='absolute -left-10 w-32 h-fit mx-auto top-[120%] hidden group-hover:block whitespace-nowrap text-red-500 font-normal'>Ce produit n&apos;est plus disponible.</p>
+                        </div> : <button onClick={e => setShow(true)} className="mt-5 bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.5)] hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:scale-105 transition-all w-fit h-fit px-3 py-3 rounded-lg text-white ml-4 text-sm md: xl:text-lg font-medium hover:bg-na3ne3i"> Ajouter au panier</button>}
                     </div>
                 </div>
                 

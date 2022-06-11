@@ -26,6 +26,8 @@ export default function AddProductView(props){
     const [show,setShow] = useState(false)
     const [open,setOpen] = useState(false)
     const [showNotification,setShowNotification] = useState(false)
+    const [ImageError,setImageError] = useState(false)
+    const [imageChanged,setImageChanged] = useState(false)
     const [message,setMessage] = useState('')
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
 
@@ -119,41 +121,47 @@ export default function AddProductView(props){
                 body: formData
             }).then(async r => {
                 const image = await r.json()
-                let produit = {
-                    image: image.public_id,
-                    category: capCategory,
-                    subcategory: capSubcategory,
-                    name: form.name,
-                    description: form.description,
-                    sizes: form.sizes,
-                    availability: form.availability
-                }
-                await fetch('/api/products', {
-                    method: 'POST',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(produit)
-                }).then(async (res) => {
-                    if(res.status == 201){
-                        setLoading(false)
-                        setLoadingContext(false)
-                        setShowNotification(false)
-                        setShowNotification(true)
-                        setMessage('Le produit a été bien ajouté')
-                        setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
-                        setProductImage('')
-                        setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
-                    }else {
-                        const { error } = await res.json()
-                        console.error(error)
-                        setNameError(true)
+                if(r.ok){
+                    let produit = {
+                        image: image.public_id,
+                        category: capCategory,
+                        subcategory: capSubcategory,
+                        name: form.name,
+                        description: form.description,
+                        sizes: form.sizes,
+                        availability: form.availability
                     }
+                    await fetch('/api/products', {
+                        method: 'POST',
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(produit)
+                    }).then(async (res) => {
+                        if(res.status == 201){
+                            setLoading(false)
+                            setLoadingContext(false)
+                            setShowNotification(false)
+                            setShowNotification(true)
+                            setMessage('Le produit a été bien ajouté')
+                            setForm({name:'',sizes:[0],description:'',category:'',subcategory:'',availability:'available'})
+                            setSizeRemoval(true)
+                            setProductImage('')
+                            setPreview({name:'Instrument médical',sizes:[1,2,3,4],description:'Vous allez voir les informations du produit ici en cliquant sur "Aperçu".',availability:'unavailable',productImage: product})
+                        }else {
+                            const { error } = await res.json()
+                            setNameError(true)
+                            setLoading(false)
+                            setLoadingContext(false)
+                        }
+                    })
+                }else{
                     setLoading(false)
                     setLoadingContext(false)
-                })
-
+                    setImageError(true)
+                }
+               
             })
             
         } catch (error) {
@@ -169,7 +177,8 @@ export default function AddProductView(props){
     }
 
    async  function handleImageInput(e){
-
+        setImageChanged(true)
+        setImageError(false)
         const reader = new FileReader();
         reader.onload = async function () {
             setProductImage(reader.result)
@@ -192,34 +201,90 @@ export default function AddProductView(props){
         setLoading(true)
         setLoadingContext(true)
         document.getElementById('scrolltop').scroll(0,0)
-        try {
-            const produit = {
-                ...form,
-                image: productImage,
-            }
-            const res = await fetch('/api/products/'+props.modifiedProduct.reference,{
+        if(imageChanged){
+            const formData = new FormData()
+            formData.append('file',productImage)
+            formData.append('upload_preset','test123')
+            await fetch('https://api.cloudinary.com/v1_1/dwvwjxizk/image/upload',{
                 method: 'PUT',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(produit)
-            }).then(async (res) => {
-                if(res.status == 200){
-                    setShowNotification(false)
-                    setShowNotification(true)
-                    setMessage('Le produit a été bien modifié')
-                }else{
-                    setNameError(true)
-                    setLoading(false)
-                }
-                setLoadingContext(false)
-                setLoading(false)
+                body: formData
+            }).then(async r => {
+                const image = await r.json()
+                if(r.ok){
+                    let produit = {
+                        ...form,
+                        image: image.public_id
+                    }
+                    const res = await fetch('/api/products/'+props.modifiedProduct.reference,{
+                        method: 'PUT',
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(produit)
+                    }).then(async (res) => {
+                        if(res.status == 200){
+                            setPreview({
+                                name: form.name,
+                                sizes: form.sizes,
+                                description: form.description,
+                                availability: form.availability,
+                                productImage: productImage,
+                            })
+                            setShowNotification(false)
+                            setShowNotification(true)
+                            setMessage('Le produit a été bien modifié')
+                        }else{
+                            setNameError(true)
+                            setLoading(false)
+                        }
+                        setLoadingContext(false)
+                        setLoading(false)
+                        })
+                    }else{
+                        setLoading(false)
+                        setLoadingContext(false)
+                        setImageError(true)
+                    }
             })
-            
-        } catch (error) {
-            console.error(error)
+        }else{
+            try {
+                const produit = {
+                    ...form,
+                    image: productImage,
+                }
+                await fetch('/api/products/'+props.modifiedProduct.reference,{
+                    method: 'PUT',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(produit)
+                }).then(async (res) => {
+                    if(res.status == 200){
+                        setPreview({
+                            name: form.name,
+                            sizes: form.sizes,
+                            description: form.description,
+                            availability: form.availability,
+                            productImage: productImage,
+                        })
+                        setShowNotification(false)
+                        setShowNotification(true)
+                        setMessage('Le produit a été bien modifié')
+                    }else{
+                        setNameError(true)
+                        setLoading(false)
+                    }
+                    setLoadingContext(false)
+                    setLoading(false)
+                })
+                
+            } catch (error) {
+                console.error(error)
+            }
         }
+        
     }
 
     return (
@@ -256,10 +321,12 @@ export default function AddProductView(props){
                 <label className="bg-pinky shadow-[0px_3px_10px_rgba(247,177,162,0.4)] text-white mt-5 mx-auto rounded-lg px-3 py-2 text-xs font-bold hover:cursor-pointer hover:bg-na3ne3i transition-all hover:shadow-[0px_3px_10px_rgba(25,98,102,0.5)] hover:text-white hover:scale-105">{props.addForm ? 'Ajouter une image' : "Modifier l'image"}
                 <input type="file" accept="image/*" name="productImageInput" value="" className="hidden" onChange={e => handleImageInput(e)} />
                 </label>
+                {ImageError ? <p className="text-red-500 w-full text-center">Insérez une image</p> : null}
+
                 <p className="text-na3ne3i font-medium mt-5">Catégorie:</p>
-                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} pattern="^[A-Za-z][A-Za-z0-9]*" onChange={(e) => handleChange(e)}  className="focus:border-orange rounded-lg h-10 outline-none border w-full border-na3ne3i" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border w-full border-na3ne3i bg-zinc-300" />}
+                {props.addForm ? <input type="text" name="category" value={form.category} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-orange rounded-lg h-10 outline-none border w-full border-na3ne3i" /> : <input type="text" name="category" value={form.category} required minLength={4} disabled readOnly className="rounded-lg h-10 outline-none border w-full border-na3ne3i bg-zinc-300" />}
                 <p className="text-na3ne3i font-medium mt-5">Sous-catégorie:</p>
-                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} pattern="^[A-Za-z][A-Za-z0-9]*" onChange={(e) => handleChange(e)}  className="focus:border-orange rounded-lg h-10 outline-none w-full border border-na3ne3i" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  readOnly className="rounded-lg h-10 outline-none w-full border bg-zinc-300 border-na3ne3i" />}
+                {props.addForm ? <input type="text" name="subcategory" value={form.subcategory} required minLength={4} onChange={(e) => handleChange(e)}  className="focus:border-orange rounded-lg h-10 outline-none w-full border border-na3ne3i" /> : <input type="text" name="subcategory" value={form.subcategory} required minLength={4} disabled  readOnly className="rounded-lg h-10 outline-none w-full border bg-zinc-300 border-na3ne3i" />}
                 <p className="text-na3ne3i font-medium mt-5">Disponibilité:</p>
                 <label className="text-third">
                 <input type="radio" name="availability" value='available' className="mr-1 ml-3" checked={form.availability === 'available'} onChange={e => handleRadioChange(e)} />Disponible
