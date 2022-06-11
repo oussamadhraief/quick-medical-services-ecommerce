@@ -71,7 +71,7 @@ export default function MainContent(){
                     <Image src={card3} alt='explorer' layout='fill' />
                 </div>
                 <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#8C52FF] text-4xl hover:scale-110'>03</p>
-                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third text-center'>Demandez un devis</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third text-center'>Demandez un devis et attendez la réponse</p>
 
                 <div className='w-24 h-3 absolute -bottom-[7px] bg-[#8C52FF] rounded-3xl left-0 hover:scale-110 right-0 mx-auto '>
                 </div>
@@ -112,7 +112,7 @@ export default function MainContent(){
             </div>
             </div>
             <ProductsCarousel id='navigatablefeatured' />
-            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-complementary items-center mb-10 py-5 sm:10 md:16 lg:py-20 xl:py-24'>
+            <div className='w-full h-fit flex flex-wrap justify-evenly px-10 sm:px-[20%] bg-complementary items-center mb-10 py-10 md:16 lg:py-20 xl:py-24'>
                 <div className='mx-3 mt-3'>
                     <div className='relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36'>
                         <Image src={delivery} alt='delivery truck icon' layout="fill" />
@@ -161,7 +161,7 @@ export default function MainContent(){
             </div>
             <ProductsCarousel id='navigatablefeatured1' />
 
-            <div id='encourageSection' className='bg-complementary gap-5 lg:gap-10 xl:gap-20 relative w-full h-fit min-h-fit my-32 flex flex-col md:flex-row md:flex-nowrap justify-center lg:justify-start items-center py-10 pr-5 md:pr-0 lg:py-10 pl-5 md:pl-2 lg:pl-7 xl:pl-[4.5vw]'>
+            <div id='encourageSection' className='bg-complementary gap-5 lg:gap-10 xl:gap-20 relative w-full h-fit min-h-fit mt-52 mb-32 sm:my-32 flex flex-col md:flex-row md:flex-nowrap justify-center lg:justify-start items-center py-10 pr-5 md:pr-0 lg:py-10 pl-5 md:pl-2 lg:pl-7 xl:pl-[4.5vw]'>
                 <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/69] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
                     <Image src={'pfe/Untitled_design_4_ad5c55'} alt='contact' layout='fill' />
                     <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2 hover:scale-105 transition-all'>

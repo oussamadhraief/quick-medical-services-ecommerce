@@ -2,11 +2,14 @@ import { useEffect, useState,useContext } from 'react'
 import { ProductsContext } from '../utils/ProductsContext'
 import ScrollableProduct from './ScrollableProduct'
 import Image from 'next/image'
+import Notification from './Notification'
 
 export default function ProductsCarousel({id}) {
 
     const {value,setValue} = useContext(ProductsContext)
     const [renderedArray,setRenderedArray] = useState([])
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
 
     useEffect(() => {
         let newValue
@@ -15,7 +18,7 @@ export default function ProductsCarousel({id}) {
         }else{
             newValue = value.filter(item => item.availability == 'unavailable')
         }
-        newValue = newValue.map(item => <ScrollableProduct key={item.name} product={item} />)
+        newValue = newValue.map(item => <ScrollableProduct key={item.name} product={item} setShowNotification={setShowNotification} setMessage={setMessage} />)
         setRenderedArray(newValue)
     },[value])
 
@@ -40,12 +43,13 @@ export default function ProductsCarousel({id}) {
     }
 
     return (
-        <div className='scrollable relative w-screen flex flex-nowrap items-center overflow-x-hidden h-fit bg-white z-[3]'>
+        <div className='scrollable relative w-screen flex flex-nowrap items-center overflow-x-hidden h-fit bg-white'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => handleLeftNavigation()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             <div id={id} className='w-full h-fit overflow-x-auto md:overflow-x-hidden py-5 mb-10 mt-2 flex flex-nowrap justify-start gap-10 md:gap-20 px-5'>
-            {renderedArray}
+            {renderedArray.length > 0 ? renderedArray : <p className='w-full text-center font-medium'>Aucun resultat trouvé...</p>}
             </div>
             <button className='relative  bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => handleRightNavigation()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { useState, useContext } from 'react'
 import ContentfulModal from './ContentfulModal'
-import Notification from './Notification'
 import LoadingAnimation from './LoadingAnimation'
 import Modal from './Modal'
 import 'animate.css'
@@ -11,7 +10,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react"
 
-export default function ScrollableProduct ({ product }) {
+export default function ScrollableProduct ({ product,setMessage,setShowNotification }) {
 
   const Router = useRouter()
   const {data: session} = useSession()
@@ -28,8 +27,7 @@ export default function ScrollableProduct ({ product }) {
   const { cartNumber, setCartNumber } = useContext(
     CartContext
   )
-  const [showNotification,setShowNotification] = useState(false)
-  const [message,setMessage] = useState('')
+  
 
   const fetchProduct = async () => {
     const res = await fetch('/api/products/' + product.reference)
@@ -136,7 +134,6 @@ export default function ScrollableProduct ({ product }) {
           }}
         />
          <Modal show={open} onClose={() => setOpen(false)} onConfirm={() => handleAddToCart()} action={'add'} content={'Êtes-vous sûr de vouloir ajouter ce produit au panier?'} />
-          <Notification show={showNotification} setShow={setShowNotification} message={message} />
     </div>
   )
 }

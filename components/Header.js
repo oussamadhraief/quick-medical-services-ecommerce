@@ -71,14 +71,14 @@ export default function Header(props){
         const root = document.querySelector(':root')
         if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
             setscrolled(true)
-            const top = positioningRef.current.getBoundingClientRect().top
-            const left = positioningRef.current.getBoundingClientRect().left
+            const top = positioningRef?.current?.getBoundingClientRect().top
+            const left = positioningRef?.current?.getBoundingClientRect().left
             root.style.setProperty('--calculatedTop', top+'px')        
             root.style.setProperty('--calculatedLeft', left+'px') 
         } else {
             setscrolled(false)
-            const top = anotherPositioning.current.getBoundingClientRect().top
-            const left = anotherPositioning.current.getBoundingClientRect().left -50
+            const top = anotherPositioning?.current?.getBoundingClientRect().top
+            const left = anotherPositioning?.current?.getBoundingClientRect().left -50
             root.style.setProperty('--calculatedTop', top+'px')        
             root.style.setProperty('--calculatedLeft', left+'px') 
         }

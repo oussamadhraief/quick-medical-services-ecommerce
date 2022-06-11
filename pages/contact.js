@@ -1,5 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Notification from '../components/Notification'
 import Modal from '../components/Modal'
 import { CategoriesContext } from '../utils/CategoriesContext'
 import { useEffect, useState } from 'react'
@@ -16,6 +17,8 @@ export default function Contact () {
   const { data: session,status } = useSession()
   const facebook = 'pfe/facebook_dryelz.png'
 
+  const [showNotification,setShowNotification] = useState(false)
+  const [message,setMessage] = useState('')
   const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState(
     []
   )
@@ -104,6 +107,9 @@ export default function Contact () {
             subject: '',
             message: ''
           })
+          setShowNotification(false)
+          setMessage('Votre message a été envoyé')
+          setShowNotification(true)
         }
       })
     } catch (error) {
@@ -286,6 +292,7 @@ export default function Contact () {
             Envoyer
           </button>
           <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleMakeContact()} action={'add'} content={'Êtes-vous sûr de vouloir envoyer ce message?'} />
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
         </form>
       </div>
       <Footer />
