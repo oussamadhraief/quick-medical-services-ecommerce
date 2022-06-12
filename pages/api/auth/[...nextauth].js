@@ -43,11 +43,6 @@ export default NextAuth({
     async session({session, user}){
       const thisBrimstone = await Brimstone.findOne({email : session.user.email})
       
-      // if (typeof(thisBrimstone.isAdmin) == 'undefined') {
-      //   const newBrimstone = await Brimstone.findOneAndUpdate({email : session.user.email},{
-      //   ...thisBrimstone,
-      //   isAdmin: false,
-      // })}
       session.user.address = thisBrimstone.address
       session.user.city = thisBrimstone.city
       session.user.country = thisBrimstone.country

@@ -26,7 +26,7 @@ export default function LoginForm() {
     
       
         router.push('/')
-      return 
+      return null
    }
 
 

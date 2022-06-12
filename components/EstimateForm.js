@@ -1,16 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import emailjs from '@emailjs/browser';
 import Modal from './Modal'
 import Notification from "./Notification";
+import { useSession } from "next-auth/react"
 
 
 
 export default function OrderForm(props){
+    const { data: session, status } = useSession()
+    
 
     const [estimateForm, setEstimateForm] = useState({name: '',phone: '',email: '',note : ''})
     const [show,setShow] = useState(false)
     const [showNotification,setShowNotification] = useState(false)
     const [message,setMessage] = useState('')
+
+    useEffect(() => {
+        if(session){
+        setEstimateForm({
+            ...estimateForm,
+            name: session.user.name,
+            phone: session.user.phone,
+            email: session.user.email
+        })
+    }
+    },[])
 
     const handleChange = (e) => {
         setEstimateForm({

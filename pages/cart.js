@@ -2,7 +2,6 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import OrderForm from '../components/OrderForm'
 import EstimateForm from '../components/EstimateForm'
-import LoadingAnimation from '../components/LoadingAnimation'
 import CartProduct from '../components/CartProduct'
 import { useEffect, useState } from "react"
 import { CategoriesContext } from "../utils/CategoriesContext"

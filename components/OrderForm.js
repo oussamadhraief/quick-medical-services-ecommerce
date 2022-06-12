@@ -1,16 +1,63 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import emailjs from '@emailjs/browser';
 import Modal from "./Modal";
 import Notification from "./Notification";
+import { useSession } from "next-auth/react"
 
 
 export default function OrderForm(props){
+    const { data: session, status } = useSession()
+
 
     const [orderForm, setOrderForm] = useState({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
     const [seperateAdresses,setSeperateAdresses] = useState(false)
     const [show,setShow] = useState(false)
     const [showNotification,setShowNotification] = useState(false)
     const [message,setMessage] = useState('')
+
+    useEffect(() => {
+        if(session){
+        if (session.user.address.length == 0) {
+
+                setOrderForm({
+                    ...orderForm,
+                    name: session.user.name,
+                    phone: session.user.phone,
+                    email: session.user.email
+                })
+            }
+    
+          if (session.user.address.length == 1) {
+            setOrderForm({
+              ...OrderForm,
+              address: session.user.address[0],
+              city: session.user.city[0],
+              country: session.user.country[0],
+              zipCode: session.user.zipCode[0],
+              name: session.user.name,
+              phone: session.user.phone,
+              email: session.user.email
+            })
+          }
+    
+          if (session.user.address.length == 2) {
+            setSeperateAdresses(true)
+            setOrderForm({
+              ...orderForm,
+              address: session.user.address[0],
+              city: session.user.city[0],
+              country: session.user.country[0],
+              zipCode: session.user.zipCode[0],
+              address2: session.user.address[1],
+              city2: session.user.city[1],
+              country2: session.user.country[1],
+              zipCode2: session.user.zipCode[1],
+              name: session.user.name,
+              phone: session.user.phone,
+              email: session.user.email
+            })
+        }}
+    },[])
 
     const handleChange = (e) => {
         setOrderForm({

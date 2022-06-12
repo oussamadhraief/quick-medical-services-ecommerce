@@ -67,7 +67,7 @@ export default function Header(props){
 
 
     const handleAnimation = useCallback(() => {
-
+        
         const root = document.querySelector(':root')
         if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
             setscrolled(true)

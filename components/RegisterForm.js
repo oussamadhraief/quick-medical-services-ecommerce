@@ -71,7 +71,7 @@ export default function RegisterForm() {
 
   if(session) {
     router.push('/')
-    return 
+    return null
    }
 
    if (status === 'loading') {

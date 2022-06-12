@@ -7,7 +7,7 @@
 :root {
   --animate-delay: 0.1s;
   --calculatedTop: 0px;
-  --calculatedLeft: 0px;
+  --calculatedLeft: 100vw;
 }
 
 html,
