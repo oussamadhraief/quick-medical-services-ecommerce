@@ -209,7 +209,7 @@ export default function Quote() {
                     quote.price != null && quote.message != null ? 
                     <>
                     <p className='w-fit font-medium text-pinky underline'>Réponse de l&apos;administrateur:</p>
-                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Prix:</span>&nbsp; {quote.price}</p>
+                    <p className='font-medium'> <span className='text-na3ne3i text-lg'>Prix:</span>&nbsp; {quote.price} TND</p>
                     <p className='font-medium break-words overflow-hidden'> <span className='text-na3ne3i text-lg'>Message:</span> &nbsp;{quote.message}</p>
                     </>
                     : <p className='text-third font-medium'>L&apos;administateur n&apos;a pas encore répondu à votre demande.</p>

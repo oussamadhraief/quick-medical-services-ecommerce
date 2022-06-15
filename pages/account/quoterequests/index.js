@@ -150,7 +150,7 @@ export default function Quotes() {
                 
   
           </div>
-          <div className='w-full lg:w-full mx-auto h-fit px-2 py-10 overflow-x-auto relative lg:p-10'>
+          <div className='w-full lg:w-full mx-auto h-fit px-2 py-10 overflow-x-auto relative lg:p-2'>
 
           <table className=' w-full h-fit'>
                 <thead className='w-full h-12 border-b border-zinc-400'>
