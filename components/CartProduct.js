@@ -14,6 +14,7 @@ export default function CartProduct(props){
     const {cartNumber,setCartNumber} = useContext(CartContext)
 
     const handleChange = (e) => {
+      
         if(e.target.value > 1){
             setProductQuantity(parseInt(e.target.value))
             let temp = props.value
@@ -26,6 +27,7 @@ export default function CartProduct(props){
             props.setValue(temp)
         }
         
+
     }
 
     const scrollLeft = () => {
@@ -83,7 +85,7 @@ export default function CartProduct(props){
                 <button className='relative  bg-white w-5 h-full z-[90] grid place-content-center place-items-center font-bold text-2xl' onClick={e => scrollRight()}><Image src={'pfe/arrow-right-3098_eujgfr'} alt='arrow' width={15} height={15} layout='fixed' className='hover:scale-x-125' /></button>
                 </div>
            </td>
-            <td className='text-center'><input type="number" name="produit" value={productQuantity} min={1} onChange={e => handleChange(e)} className='w-20 text-center border border-zinc-400 rounded-lg'/></td>
+            <td className='text-center'><input type="number" name="produit" value={productQuantity} min={1} onChange={e => handleChange(e)} className='w-20 h-10 text-center border border-zinc-400 rounded-lg'/></td>
             <td><Image src={'pfe/trash-can-10417_dtvnpx'} alt='delete' height={25} width={25} className='hover:cursor-pointer' onClick={e => setShow(true)} /></td>
             <Modal show={show} onClose={() => setShow(false)} onConfirm={() => removeProduct(props.reference)} action={'delete'} content={'Êtes-vous sûr de vouloir retirer ce produit de votre panier?'} />
         </tr>

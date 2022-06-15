@@ -76,7 +76,7 @@ export default function OrderForm(props){
                     <p></p>
                     <input required type="text" name="name" onChange={e => handleChange(e)} value={estimateForm.name} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Nom et prénom'/>
 
-                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={estimateForm.phone} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de téléphone'/>
+                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={estimateForm.phone} className='removeArrows my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de téléphone'/>
                     
                     <input required type="email" name="email" onChange={e => handleChange(e)} value={estimateForm.email} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Email'/>
 

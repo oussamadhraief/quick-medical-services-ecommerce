@@ -151,13 +151,13 @@ a {
   scroll-behavior: smooth;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+.removeArrows::-webkit-outer-spin-button,
+.removeArrows::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+.removeArrows {
   -moz-appearance: textfield;
 }
 

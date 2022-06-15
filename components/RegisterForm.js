@@ -115,7 +115,7 @@ export default function RegisterForm() {
         <input
           type='number'
           placeholder='Numéro de tél.'
-          className='h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
+          className='removeArrows h-9 px-1 text-white outline-none border-b-2 bg-transparent placeholder:text-white border-white w-full mb-7'
           required={true}
           max='10000000000000'
           min='10000000'

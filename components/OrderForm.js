@@ -128,7 +128,7 @@ export default function OrderForm(props){
                     <p></p>
                     <input required type="text" name="name" onChange={e => handleChange(e)} value={orderForm.name} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Nom et prénom'/>
 
-                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={orderForm.phone} className='my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de  téléphone'/>
+                    <input required type="number" name="phone" onChange={e => handleChange(e)} value={orderForm.phone} className='removeArrows my-5 h-10 w-11/12 mx-auto border-zinc-400 border-b outline-none bg-transparent' placeholder='Num. de  téléphone'/>
                     
                     <label className='w-11/12 mx-auto font-medium text-sm mt-5 hover:cursor-pointer flex flex-nowrap gap-1 items-center mb-1'>
                     <input type="checkbox" checked={seperateAdresses} name="seperate" onChange={e => {
