@@ -233,7 +233,7 @@ export default function Password() {
                 placeholder='Mot de passe actuel'
               />
               
-              {oldPasswordInvalidError ? <p className='text-red-500 w-full text-left'>Votre mot de passe actuel n'est pas valide</p> : null}
+              {oldPasswordInvalidError ? <p className='text-red-500 w-full text-left'>Votre mot de passe actuel n&apos;est pas valide</p> : null}
             </div>
             <input
               type='password'
@@ -259,7 +259,7 @@ export default function Password() {
             />
 
         {passwordError ? <p className='text-red-500 w-full text-left'>Les mots de passe ne sont pas identiques</p> : null}
-        {oldNewPasswordSimilarError ? <p className='text-red-500 w-full text-left'>Nouveau mot de passe doit être different de l'ancien</p> : null}
+        {oldNewPasswordSimilarError ? <p className='text-red-500 w-full text-left'>Nouveau mot de passe doit être different de l&apos;ancien</p> : null}
 
           
 
