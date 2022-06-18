@@ -1,6 +1,7 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Modal from '../../components/Modal'
+import Notification from '../../components/Notification'
 import { CategoriesContext } from '../../utils/CategoriesContext'
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
@@ -31,6 +32,8 @@ export default function Information () {
   const [editingSecondAddress,setEditingSecondAddress] = useState(false)
   const [NullAddresses,setNullAddresses] = useState(false)
   const [show,setShow] = useState(false)
+  const [showNotification,setShowNotification] = useState(false)
+  const [message,setMessage] = useState('')
   const [open,setOpen] = useState(false)
   const [open2,setOpen2] = useState(false)
   const [cartNumber,setCartNumber] = useState(0)
@@ -249,7 +252,7 @@ export default function Information () {
             <button className='relative bg-white w-7 h-full z-[90] font-bold text-2xl block lg:hidden' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={20} height={20} layout='fixed' className='hover:scale-x-125' /></button>
             <div ref={dashboardScroller} className='noScrollBar w-full h-fit lg:grid overflow-x-auto flex'>
                 <Link href='/account/information'>
-                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Informations personnelles</p></a>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-security-pass-80_cr72so.png'} alt='general informations' width={30} height={25} layout='fixed'  /><p>Informations personnelles</p></a>
                   </Link>
                   
                   <Link href='/account/quoterequests'>
@@ -257,7 +260,7 @@ export default function Information () {
                   </Link>
                   
                   <Link href='/account/orders'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[10px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100'/><p>Historiques des commandes</p></a>
                   </Link>
                   
                   <Link href='/account/password'>
@@ -422,6 +425,7 @@ export default function Information () {
         <Modal key='informations' show={show} onClose={() => setShow(false)} onConfirm={() => handleSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier vos informations?'} />
         <Modal key='adresse1' show={open} onClose={() => setOpen(false)} onConfirm={() => handleFirstAddressSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier votre adresse de facturation?'} />
         <Modal key='adresse2' show={open2} onClose={() => setOpen2(false)} onConfirm={() => handleSecondAddressSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier votre adresse de livraison?'} />
+        <Notification show={showNotification} setShow={setShowNotification} message={message} />
       </main>
       <Footer />
     </div>

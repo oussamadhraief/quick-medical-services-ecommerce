@@ -138,7 +138,7 @@ export default function Orders() {
                   </Link>
                   
                   <Link href='/account/orders'>
-                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t px-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2.5 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='general informations' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
                   </Link>
                   
                   <Link href='/account/password'>
@@ -152,6 +152,7 @@ export default function Orders() {
   
           </div>
           <div className='w-full lg:w-full mx-auto h-fit pl-0 lg:pl-2 overflow-x-auto'>
+          {orders.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
             
             <table className=' w-full h-fit'>
                 <thead className='w-full h-12 border-b border-zinc-400'>
@@ -174,6 +175,7 @@ export default function Orders() {
               })}
               </tbody>
             </table>
+}
           </div>
       </main>
       <Footer />

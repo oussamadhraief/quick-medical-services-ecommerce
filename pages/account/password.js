@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import Notification from '../../components/Notification'
 import Modal from '../../components/Modal'
 import { CategoriesContext } from '../../utils/CategoriesContext'
 import { useEffect, useState, useRef } from 'react'
@@ -24,6 +25,8 @@ export default function Password() {
     []
   )
   const [search, setSearch] = useState('')
+  const [showNotification,setShowNotification] = useState(false)
+  const [message,setMessage] = useState('')
   const [passwordData , setPasswordData] = useState({
     oldPassword : '' ,
     newPassword : '',
@@ -31,6 +34,8 @@ export default function Password() {
   })
   const [cartNumber,setCartNumber] = useState(0)
   const [passwordError,setPasswordError] = useState(false)
+  const [oldNewPasswordSimilarError,setOldNewPasswordSimilarError] = useState(false)
+  const [oldPasswordInvalidError,setOldPasswordInvalidError] = useState(false)
   const [show,setShow] = useState(false)
   const [loading,setLoading] = useState(false)
 
@@ -67,6 +72,8 @@ export default function Password() {
 
   const handleChange = (e) => {
     setPasswordError(false)
+    setOldNewPasswordSimilarError(false)
+    setOldPasswordInvalidError(false)
     setPasswordData({
       ...passwordData,
       [e.target.name]: e.target.value
@@ -95,11 +102,25 @@ export default function Password() {
         },
           body: JSON.stringify(passwordData)
         })
-        setPasswordData({
-          oldPassword : '' ,
-          newPassword : '',
-          newPassword2 : ''
-        })
+        if(res.status == 200){
+          setPasswordData({
+            oldPassword : '' ,
+            newPassword : '',
+            newPassword2 : ''
+          })
+          setShowNotification(false)
+            setMessage('Votre mot de passe a été bien modifié')
+            setShowNotification(true)
+        }
+
+        if(res.status == 403){
+          setOldPasswordInvalidError(true)
+        }
+
+        if(res.status == 401){
+          setOldNewPasswordSimilarError(true)
+        }
+        
       } catch (error) {
         console.error(error)
       }
@@ -176,11 +197,11 @@ export default function Password() {
                   </Link>
                   
                   <Link href='/account/orders'>
-                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[13px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed'/><p>Historiques des commandes</p></a>
+                      <a className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-[10px] py-3 hover:text-black group whitespace-nowrap'><Image src={'pfe/icons8-order-history-50_jafgle.png'} alt='historique' width={25} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Historiques des commandes</p></a>
                   </Link>
                   
                   <Link href='/account/password'>
-                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-2 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /><p>Changer le mot de passe</p> </a>
+                      <a className='text-zinc-600 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-3 border-t pl-3 py-3 bg-harvey whitespace-nowrap'><Image src={'pfe/icons8-password-24_nrik4g.png'} alt='mot de passe' width={22} height={25} layout='fixed' /><p>Changer le mot de passe</p> </a>
                   </Link>
                 
                   <button className='text-zinc-400 font-medium w-full h-fit flex flex-nowrap justify-start items-center pr-5 gap-4 border-y pl-[11px] py-3 hover:cursor-pointer hover:text-black group' onClick={() => signOut({ callbackUrl: window.location.origin+'/login' })} ><Image src={'pfe/icons8-logout-50_ouya9u.png'} alt='Déconnexion' width={20} height={25} layout='fixed' className='contrast-0 group-hover:contrast-100' /> Déconnexion</button>
@@ -198,18 +219,22 @@ export default function Password() {
                 <div className='reverse-spinner '></div>
               </div> :null }
 
-            <input
-              type='password'
-              value= {passwordData.oldPassword}
-              onChange={e=>handleChange(e)}
-              name='oldPassword'
-              required
-              minLength={6}
-              className='outline-none border-b min-w-[300px] w-1/3 mb-10'
-              placeholder='Mot de passe actuel'
-            />
-            
-          
+
+
+            <div className=' w-fit h-fit mb-10'>
+              <input
+                type='password'
+                value= {passwordData.oldPassword}
+                onChange={e=>handleChange(e)}
+                name='oldPassword'
+                required
+                minLength={6}
+                className={oldPasswordInvalidError || oldNewPasswordSimilarError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3' : 'outline-none border-b min-w-[300px] w-1/3'}
+                placeholder='Mot de passe actuel'
+              />
+              
+              {oldPasswordInvalidError ? <p className='text-red-500 w-full text-left'>Votre mot de passe actuel n'est pas valide</p> : null}
+            </div>
             <input
               type='password'
               value= {passwordData.newPassword}
@@ -217,7 +242,7 @@ export default function Password() {
               name='newPassword'
               required
               minLength={6}
-              className={passwordError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 mb-10' : 'outline-none border-b min-w-[300px] w-1/3 mb-10'}
+              className={passwordError || oldNewPasswordSimilarError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 mb-10' : 'outline-none border-b min-w-[300px] w-1/3 mb-10'}
               placeholder='Nouveau mot de passe'
             />
 
@@ -229,16 +254,18 @@ export default function Password() {
               name='newPassword2'
               required
               minLength={6}
-              className={passwordError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 ' : 'outline-none border-b min-w-[300px] w-1/3 '}
+              className={passwordError || oldNewPasswordSimilarError ? 'outline-none border-b border-red-500 placeholder:text-red-500 text-red-500 min-w-[300px] w-1/3 ' : 'outline-none border-b min-w-[300px] w-1/3 '}
               placeholder='Confirmer le nouveau mot de passe'
             />
 
         {passwordError ? <p className='text-red-500 w-full text-left'>Les mots de passe ne sont pas identiques</p> : null}
+        {oldNewPasswordSimilarError ? <p className='text-red-500 w-full text-left'>Nouveau mot de passe doit être different de l'ancien</p> : null}
 
           
 
         <button type="submit" className='w-fit h-fit bg-pinky text-white px-4 py-2 rounded-md shadow-[0px_3px_15px_rgba(247,177,162,0.8)] hover:scale-105 transition-all mt-10'>Enregistrer</button>
         <Modal show={show} onClose={() => setShow(false)} onConfirm={() => handleChangePasswordSubmit()} action={'add'} content={'Êtes-vous sûr de vouloir modifier vos informations?'} />
+        <Notification show={showNotification} setShow={setShowNotification} message={message} />
       </form>
       </main>
       <Footer />
