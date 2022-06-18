@@ -6,7 +6,6 @@ dbConnect();
 
 export default async (req, res) => {
     const session = await getSession({ req })
-
             try {
                 if(session){
                     if(session.user?.isAdmin){

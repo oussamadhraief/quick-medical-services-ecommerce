@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-function useInfiniteScrolling(pageNumber,setAdminLoading,url) {
+function UseInfiniteScrolling(pageNumber,setAdminLoading,url) {
 
     const [loading,setLoading] = useState(true)
     const [Error,setError] = useState(false)
@@ -32,4 +32,4 @@ function useInfiniteScrolling(pageNumber,setAdminLoading,url) {
     return {loading, Error, value, hasMore, setValue}
 }
 
-export default useInfiniteScrolling;
+export default UseInfiniteScrolling;
