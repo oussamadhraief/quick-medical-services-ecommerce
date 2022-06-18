@@ -1,10 +1,7 @@
 import AdminMenu from "../../components/AdminMenu"
 import Gallery from "../../components/Gallery"
-import { useEffect, useState } from "react"
-import { ProductsContext } from "../../utils/ProductsContext"
-import Notification from '../../components/Notification'
+import { useState } from "react"
 import AdminNavbar from '../../components/AdminNavbar'
-import { NotificationContext } from '../../utils/NotificationContext'
 import { LoadingContext } from "../../utils/LoadingContext"
 import { PagesContext } from "../../utils/PagesContext"
 import { PageSelectionContext } from "../../utils/PageSelectionContext"
@@ -12,7 +9,7 @@ import { SearchContext } from "../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
-import UseInfiniteScrolling from "../../utils/UseInfiniteScrolling"
+import UseInfiniteScrollingHook from "../../utils/UseInfiniteScrollingHook"
 import { useRef,useCallback } from "react"
 
 
@@ -30,7 +27,7 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrolling(pageSelection,setAdminLoading,'/api/contact?page=')
+    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/contact?page=')
     const observer = useRef()
     const lastElementRef = useCallback(node => {
         if(loading) return 

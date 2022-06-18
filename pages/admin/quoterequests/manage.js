@@ -7,7 +7,7 @@ import { NotificationContext } from '../../../utils/NotificationContext'
 import { LoadingContext } from "../../../utils/LoadingContext"
 import { PagesContext } from "../../../utils/PagesContext"
 import { PageSelectionContext } from "../../../utils/PageSelectionContext"
-import UseInfiniteScrolling from "../../../utils/UseInfiniteScrolling"
+import UseInfiniteScrollingHook from "../../../utils/UseInfiniteScrollingHook"
 import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
@@ -27,7 +27,7 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrolling(pageSelection,setAdminLoading,'/api/quoterequests?page=')
+    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/quoterequests?page=')
     
     const observer = useRef()
 
