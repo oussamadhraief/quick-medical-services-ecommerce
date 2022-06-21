@@ -22,13 +22,16 @@ class ErrorBoundary extends React.Component {
         // You can render any custom fallback UI
         return (
           <div className="w-screen h-screen flex items-center justify-center">
-            <h2>Oops, there is an error!</h2>
+            <h2>Oops, une erreur est survenue!</h2>
             <button
               type="button"
               className="text-blue-300 hover:underline"
-              onClick={() => this.setState({ hasError: false })}
+              onClick={() => {
+                this.setState({ hasError: false })
+                location.reload()
+              }}
             >
-              Try again?
+              Rafraîchir la page
             </button>
           </div>
         )
