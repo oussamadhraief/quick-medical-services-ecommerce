@@ -121,7 +121,7 @@ console.error(error)
                 <PagesContext.Provider value={{ pages,setPages }}>
                 <PageSelectionContext.Provider value={{ pageSelection,setPageSelection }}>
                     <AdminMenu selected={9} open={open} setOpen={setOpen} />
-                    {value.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
+                    {value?.length <1  ? <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p> :
                     <QuotesTable value={value} setValue={setValue} lastElementRef={lastElementRef} loading={loading}/>}
                     
                 </PageSelectionContext.Provider>

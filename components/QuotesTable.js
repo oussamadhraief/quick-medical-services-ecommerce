@@ -131,7 +131,7 @@ export default function QuotesTable(props){
 
    return (
     <>
-    {props.value.length <1 ?
+    {props.value?.length <1 ?
     <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>
        :
         <div ref={mainScreen} className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
