@@ -10,15 +10,11 @@ export default async (req, res) => {
     case 'GET':
       if(session){
 
-        if(session.user.isAdmin){
+        if(session.user.isAdmin){    
+                    const number = req.query.page*5
+                    const Prvs = await Prv.find({}).sort({createdAt: -1}).skip(number).limit(5)
 
-            const NumberOfPrvs = await Prv.countDocuments({})
-
-                
-                    
-                    const Prvs = await Prv.find({}).sort({createdAt: -1}).skip(req.query.page*5).limit(5)
-
-                    res.status(200).json({ success: true, data: Prvs, number: NumberOfPrvs, index: req.query.page });
+                    res.status(200).json({ success: true, data: Prvs });
 
                     return
       }else{
