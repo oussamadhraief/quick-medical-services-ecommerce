@@ -10,7 +10,7 @@ const getResults = async (req,res) => {
 
     try {
       
-        const AnotherQuotes = await Quote.find().populate('user cart.product')
+        const AnotherQuotes = await Quote.find().populate('user')
         const Quotes = AnotherQuotes.filter(item => regex.test(item.name) || regex.test(item.note) || regex.test(item.email) || regex.test(item.phoneNumber) || regex.test(item.user.name) ||  regex.test(item.user.email) || regex.test(item.user.phoneNumber) || regex.test(item._id) )
         
         if(!Quotes) res.status(400).json({ success: false })
