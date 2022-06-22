@@ -165,7 +165,7 @@ export default function MainContent(){
                 <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/69] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
                     <Image src={'pfe/Untitled_design_4_ad5c55'} alt='contact' layout='fill' />
                     <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2 hover:scale-105 transition-all'>
-                        <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité du service et de produits <br></br> excepionnelle  !&quot;</i>
+                        <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité excepionnelle de produits et  <br></br>  du service !&quot;</i>
                         <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>
                         <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky shadow-[0px_3px_15px_rgba(247,177,162,0.8)] text-white rounded py-1 lg:py-2 hover:scale-105 transition-all'>Envoyer</p>
                     </div>

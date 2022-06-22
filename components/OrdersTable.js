@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState,useRef } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import Modal from './Modal'
 import Notification from './Notification'
@@ -11,7 +11,9 @@ import emailjs from '@emailjs/browser';
 
 export default function OrdersTable(props){
 
-    const Router = useRouter()
+    const mainScreen = useRef()
+    const itemHolder = useRef()
+    const scrollerSection = useRef()
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [loading,setloading] = useState(false)
@@ -21,6 +23,17 @@ export default function OrdersTable(props){
     const [selectedMessage,setSelectedMessage] = useState(0)
     const [showNotification,setShowNotification] = useState(false)
     const [message,setMessage] = useState('')
+
+    useEffect(() => {
+        const mq1 = window.matchMedia("(max-width: 767px)")
+        if(mq1.matches){
+            itemHolder.current.style.height = (mainScreen.current.offsetHeight - 168) + 'px'
+            console.log(itemHolder.current.offsetHeight);
+        }else{
+            itemHolder.current.style.height = (mainScreen.current.offsetHeight - 232) + 'px'
+            console.log(itemHolder.current.offsetHeight);
+        }
+    })
 
     const scrollLeft = () => {
         const galleryScroller = document.querySelector(".galleryScroller")
@@ -102,7 +115,7 @@ export default function OrdersTable(props){
         {props.value.length <1  ? 
         <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>
         :
-         <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
+         <div ref={mainScreen} className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             <Modal show={show} onClose={() => {
                 setShow(false)
@@ -113,8 +126,8 @@ export default function OrdersTable(props){
                 setOpen(false)
             }} onConfirm={() => handleArchive()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver cette commande?'} />
 
-            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-2 md:p-10 flex-auto'>
-            <div className='w-full lg:w-9/12  min-w-[300px] h-full  max-h-[400px] lg:max-h-[450px] 2xl:max-h-[600px] bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
+            <div ref={itemHolder} className='mainScreen w-full bg-harvey flex items-center justify-center relative p-4 lg:p-5 xl:p-10 flex-auto'>
+            <div className='w-full lg:w-11/12 xl:9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
@@ -184,9 +197,9 @@ export default function OrdersTable(props){
                 </div>
             </div>
 
-            <div className=' w-full relative min-w-full h-40 min-h-40 md:h-60 md:min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-2 md:py-10 shadow-form'>
+            <div ref={scrollerSection} className=' w-full relative min-w-full h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-hidden py-2 md:py-10 shadow-form'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative py-1 md:py-5 h-40 min-h-40 md:h-60 md:min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
+            <div className='galleryScroller w-full relative py-1 md:py-5 h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
@@ -194,7 +207,7 @@ export default function OrdersTable(props){
                     <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
-                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>E-mail:</span> {item.email}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Référence:</span> {item._id}</p>
@@ -204,7 +217,7 @@ export default function OrdersTable(props){
                         return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
-                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>E-mail:</span> {item.email}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-sm md:text-base text-emerald-700'>Référence:</span> {item._id}</p>
