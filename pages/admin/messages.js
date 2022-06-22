@@ -1,6 +1,6 @@
 import AdminMenu from "../../components/AdminMenu"
 import Gallery from "../../components/Gallery"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import AdminNavbar from '../../components/AdminNavbar'
 import { LoadingContext } from "../../utils/LoadingContext"
 import { PagesContext } from "../../utils/PagesContext"
@@ -9,7 +9,6 @@ import { SearchContext } from "../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
-import UseInfiniteScrollingHook from "../../utils/UseInfiniteScrollingHook"
 import { useRef,useCallback } from "react"
 
 
@@ -27,7 +26,33 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/contact?page=')
+    const [loading,setLoading] = useState(true)
+    const [Error,setError] = useState(false)
+    const [value,setValue] = useState([])
+    const [hasMore,setHasMore] = useState(false)
+    
+    useEffect(() => {
+        setLoading(true)
+        setError(false)
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/contact?page='+pageSelection)
+                const { data } = await res.json()
+                setValue(prev => {
+                    return [...prev, ...data]
+                })
+                setAdminLoading(false)
+                setHasMore(data.length > 0)
+                setLoading(false)
+            } catch (error) {
+                setError(true)
+            }
+            
+        }
+        fetchData()
+    },[pageSelection])
+    // const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/contact?page=')
+
     const observer = useRef()
     const lastElementRef = useCallback(node => {
         if(loading) return 

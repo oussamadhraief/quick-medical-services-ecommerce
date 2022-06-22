@@ -1,9 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
-
-function UseInfiniteScrollingHook(pageNumber,setAdminLoading,url) {
-
-    const [loading,setLoading] = useState(true)
+const [loading,setLoading] = useState(true)
     const [Error,setError] = useState(false)
     const [value,setValue] = useState([])
     const [hasMore,setHasMore] = useState(false)
@@ -13,7 +8,7 @@ function UseInfiniteScrollingHook(pageNumber,setAdminLoading,url) {
         setError(false)
         async function fetchData() {
             try {
-                const res = await fetch(url+pageNumber)
+                const res = await fetch('/api/quoterequests/archived?page='+pageSelection)
                 const { data } = await res.json()
                 setValue(prev => {
                     return [...prev, ...data]
@@ -23,14 +18,8 @@ function UseInfiniteScrollingHook(pageNumber,setAdminLoading,url) {
                 setLoading(false)
             } catch (error) {
                 setError(true)
-                console.error(error);
             }
             
         }
         fetchData()
-    },[pageNumber])
-
-    return {loading, Error, value, hasMore, setValue}
-}
-
-export default UseInfiniteScrollingHook;
+    },[pageSelection])

@@ -1,8 +1,8 @@
 import AdminMenu from "../../../components/AdminMenu"
 import OrdersTable from "../../../components/OrdersTable"
-import { useState,useRef,useCallback } from "react"
+import { useState,useRef,useCallback,useEffect } from "react"
 import AdminNavbar from '../../../components/AdminNavbar'
-import { NotificationContext } from '../../../utils/NotificationContext'
+// import { NotificationContext } from '../../../utils/NotificationContext'
 import { LoadingContext } from "../../../utils/LoadingContext"
 import { PagesContext } from "../../../utils/PagesContext"
 import { PageSelectionContext } from "../../../utils/PageSelectionContext"
@@ -10,7 +10,7 @@ import { SearchContext } from "../../../utils/SearchContext"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
-import UseInfiniteScrollingHook from "../../../utils/UseInfiniteScrollingHook"
+// import UseInfiniteScrollingHook from "../../../utils/UseInfiniteScrollingHook"
 
 
 
@@ -26,7 +26,32 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/orders?page=')
+    const [loading,setLoading] = useState(true)
+    const [Error,setError] = useState(false)
+    const [value,setValue] = useState([])
+    const [hasMore,setHasMore] = useState(false)
+    
+    useEffect(() => {
+        setLoading(true)
+        setError(false)
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/orders?page='+pageSelection)
+                const { data } = await res.json()
+                setValue(prev => {
+                    return [...prev, ...data]
+                })
+                setAdminLoading(false)
+                setHasMore(data.length > 0)
+                setLoading(false)
+            } catch (error) {
+                setError(true)
+            }
+            
+        }
+        fetchData()
+    },[pageSelection])
+    // const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/orders?page=')
     
     const observer = useRef()
 
