@@ -2,9 +2,7 @@ import AdminMenu from "../../../../components/AdminMenu"
 import ModifyProductsView from "../../../../components/ModifyProductsView"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../../utils/ProductsContext"
-import Notification from '../../../../components/Notification'
 import AdminNavbar from '../../../../components/AdminNavbar'
-import { NotificationContext } from '../../../../utils/NotificationContext'
 import { LoadingContext } from "../../../../utils/LoadingContext"
 import { PagesContext } from "../../../../utils/PagesContext"
 import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
@@ -34,6 +32,11 @@ export default function Admin(){
     useEffect(() => {
         fetchData()
     },[router.query.page])
+
+    useEffect(() => {
+        if(router.query.id)
+        setSearchContext(router.query.id)
+    },[router])
     
     async function fetchData() {
         setLoadingContext(true)

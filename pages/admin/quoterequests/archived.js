@@ -49,7 +49,6 @@ export default function Admin(){
         }
         fetchData()
     },[pageSelection])
-    // const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/quoterequests/archived?page=')
     
     const observer = useRef()
 

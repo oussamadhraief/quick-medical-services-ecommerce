@@ -51,7 +51,6 @@ export default function Admin(){
         }
         fetchData()
     },[pageSelection])
-    // const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,'/api/contact?page=')
 
     const observer = useRef()
     const lastElementRef = useCallback(node => {

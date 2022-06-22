@@ -1,13 +1,10 @@
 import AdminMenu from "../../../../components/AdminMenu"
-import { useState,useRef,useCallback } from "react"
-import Notification from '../../../../components/Notification'
+import { useState,useRef,useCallback,useEffect } from "react"
 import AdminNavbar from '../../../../components/AdminNavbar'
-import { NotificationContext } from '../../../../utils/NotificationContext'
 import { LoadingContext } from "../../../../utils/LoadingContext"
 import { PagesContext } from "../../../../utils/PagesContext"
 import { PageSelectionContext } from "../../../../utils/PageSelectionContext"
 import { SearchContext } from "../../../../utils/SearchContext"
-import UseInfiniteScrollingHook from "../../../../utils/UseInfiniteScrollingHook"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
@@ -27,10 +24,36 @@ export default function Admin(){
     const [open,setOpen] = useState(true)
     const [pageSelection,setPageSelection] = useState(0)
     const [searchContext,setSearchContext] = useState('')
-    const query = '/api/search/quoterequests/'+router.query.id+'?page='
-    const { loading, Error, value, hasMore, setValue} = UseInfiniteScrollingHook(pageSelection,setAdminLoading,query)
+    const [loading,setLoading] = useState(true)
+    const [Error,setError] = useState(false)
+    const [value,setValue] = useState([])
+    const [hasMore,setHasMore] = useState(false)
+    
+    useEffect(() => {
+        setLoading(true)
+        setError(false)
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/search/quoterequests/'+router.query.id+'?page='+pageSelection)
+                const { data } = await res.json()
+                setValue(prev => {
+                    return [...prev, ...data]
+                })
+                setAdminLoading(false)
+                setHasMore(data.length > 0)
+                setLoading(false)
+            } catch (error) {
+                setError(true)
+            }
+            
+        }
+        fetchData()
+    },[pageSelection])
 
-
+    useEffect(() => {
+        if(router.query.id)
+        setSearchContext(router.query.id)
+    },[router])
     
     const observer = useRef()
 
