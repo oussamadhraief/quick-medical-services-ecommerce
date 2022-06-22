@@ -13,7 +13,6 @@ export default function OrdersTable(props){
 
     const mainScreen = useRef()
     const itemHolder = useRef()
-    const scrollerSection = useRef()
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [loading,setloading] = useState(false)
@@ -127,7 +126,7 @@ export default function OrdersTable(props){
             }} onConfirm={() => handleArchive()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver cette commande?'} />
 
             <div ref={itemHolder} className='mainScreen w-full bg-harvey flex items-center justify-center relative p-4 lg:p-5 xl:p-10 flex-auto'>
-            <div className='w-full lg:w-11/12 xl:9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
+            <div className='w-full lg:w-11/12 xl:w-9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>
@@ -197,7 +196,7 @@ export default function OrdersTable(props){
                 </div>
             </div>
 
-            <div ref={scrollerSection} className=' w-full relative min-w-full h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-hidden py-2 md:py-10 shadow-form'>
+            <div className=' w-full relative min-w-full h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-hidden py-2 md:py-10 shadow-form'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
             <div className='galleryScroller w-full relative py-1 md:py-5 h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
@@ -224,8 +223,8 @@ export default function OrdersTable(props){
                         
                     </div>)
                 })}
-           {props.loading ? 
-           <div className='h-40 w-32 min-w-[128px] px-5 py-3 relative'>
+           {true ? 
+           <div className='h-36 w-32 min-w-[128px] px-5 py-3 relative'>
                 <div className='bg-white h-full w-32 rounded-lg overflow-hidden flex items-center absolute left-0 top-0'>
                     <div id="contact-loading" className="w-fit h-fit bg-white/70 mx-auto "></div>
                     <div className="reverse-spinner "></div>

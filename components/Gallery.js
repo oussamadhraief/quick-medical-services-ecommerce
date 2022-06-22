@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import LoadingAnimation from './LoadingAnimation'
 import Modal from './Modal'
 import Notification from './Notification'
@@ -8,6 +8,8 @@ import 'animate.css'
 
 export default function ModifyProductsView(props){
 
+    const mainScreen = useRef()
+    const itemHolder = useRef()
 
     const {loadingContext,setLoadingContext} = useContext(LoadingContext)
     const [loading,setloading] = useState(false)
@@ -17,6 +19,17 @@ export default function ModifyProductsView(props){
     const [selectedMessage,setSelectedMessage] = useState(0)
     const [showNotification,setShowNotification] = useState(false)
     const [message,setMessage] = useState('')
+
+    useEffect(() => {
+        const mq1 = window.matchMedia("(max-width: 767px)")
+        if(mq1.matches){
+            itemHolder.current.style.height = (mainScreen.current.offsetHeight - 168) + 'px'
+            console.log(itemHolder.current.offsetHeight);
+        }else{
+            itemHolder.current.style.height = (mainScreen.current.offsetHeight - 232) + 'px'
+            console.log(itemHolder.current.offsetHeight);
+        }
+    })
 
     const scrollLeft = () => {
         const galleryScroller = document.querySelector(".galleryScroller")
@@ -93,7 +106,7 @@ export default function ModifyProductsView(props){
        {props.value.length <1 ?
         <p className="w-full text-center h-fit mx-auto font-medium text-third mt-2">Pas de résultats trouvés :&#x28; ...</p>
            :
-        <div className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
+        <div ref={mainScreen} className="screenSize h-full relative w-full flex-col justify-between flex max-h-full overflow-hidden">
             {loadingContext ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
             <Modal show={show} onClose={() => {
                 setShow(false)
@@ -103,7 +116,7 @@ export default function ModifyProductsView(props){
                 setShow2(false)
                 setOpen(false)
                 }} onConfirm={() => handleDelete()} action={'add'} content={'Êtes-vous sûr de vouloir supprimer ce message?'} />
-            <div className='mainScreen w-full bg-harvey flex items-center justify-center relative p-1 md:p-10 flex-auto'>
+            <div ref={itemHolder} className='mainScreen w-full bg-harvey flex items-center justify-center relative p-4 lg:p-5 xl:p-10 flex-auto'>
                 <div className='w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 min-w-[300px]  h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
@@ -133,9 +146,9 @@ export default function ModifyProductsView(props){
                 </div>
             </div>
 
-            <div className=' w-full relative min-w-full h-40 min-h-40 md:h-60 md:min-h-60 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
+            <div className=' w-full relative min-w-full h-36 min-h-36 md:h-48 md:min-h-48 bg-white flex flex-nowrap items-center overflow-hidden py-10 shadow-form'>
             <button className='relative bg-white w-10 h-full z-[90] font-bold text-2xl hidden md:block' onClick={e => scrollLeft()}><Image src={'pfe/arrow-right-3098_-_Copy_hsxwaz'} alt='arrow' width={30} height={30} layout='fixed' className='hover:scale-x-125' /></button>
-            <div className='galleryScroller w-full relative h-40 min-h-40  md:h-60 py-5 md:min-h-60 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
+            <div className='galleryScroller w-full relative h-36 min-h-36  md:h-48 py-5 md:min-h-48 bg-white flex flex-nowrap items-center overflow-x-auto overflow-y-hidden md:overflow-hidden px-4 gap-10'>
                 
                 {props.value.map((item,index) => {
                     if(props.value.length == index + 1 ) 
@@ -143,7 +156,7 @@ export default function ModifyProductsView(props){
                     <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
-                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
@@ -153,7 +166,7 @@ export default function ModifyProductsView(props){
                         return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
-                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-40 p-1 md:px-5 md:py-3 rounded'>
+                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
@@ -161,7 +174,7 @@ export default function ModifyProductsView(props){
                     </div>)
                 })}
            {props.loading ? 
-           <div className='h-40 w-32 min-w-[128px] px-5 py-3 relative'>
+           <div className='h-36 w-32 min-w-[128px] px-5 py-3 relative'>
                 <div className='bg-white h-full w-32 rounded-lg overflow-hidden flex items-center absolute left-0 top-0'>
                     <div id="contact-loading" className="w-fit h-fit bg-white/70 mx-auto "></div>
                     <div className="reverse-spinner "></div>
