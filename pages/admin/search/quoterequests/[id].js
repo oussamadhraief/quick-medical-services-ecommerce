@@ -44,14 +44,13 @@ export default function Admin(){
                 setLoading(false)
             } catch (error) {
                 setError(true)
-console.error(error)
+                console.error(error)
             }
             
         }
         if(session && session.user?.isAdmin)
-
         fetchData()
-    },[pageSelection])
+    },[status,pageSelection])
 
     useEffect(() => {
         if(router.query.id)

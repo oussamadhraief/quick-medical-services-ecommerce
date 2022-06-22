@@ -28,10 +28,10 @@ export default function QuotesTable(props){
         const mq1 = window.matchMedia("(max-width: 767px)")
         if(mq1.matches){
             itemHolder.current.style.height = (mainScreen.current.offsetHeight - 168) + 'px'
-            console.log(itemHolder.current.offsetHeight);
+             
         }else{
             itemHolder.current.style.height = (mainScreen.current.offsetHeight - 232) + 'px'
-            console.log(itemHolder.current.offsetHeight);
+             
         }
     })
 
