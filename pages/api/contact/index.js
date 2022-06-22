@@ -16,7 +16,7 @@ export default async (req, res) => {
 
                 
                     
-                    const Prvs = await Prv.find({}).sort({createdAt: -1}).skip(req.query.page* 5).limit( 5)
+                    const Prvs = await Prv.find({}).sort({createdAt: -1}).skip(req.query.page*5).limit(5)
 
                     res.status(200).json({ success: true, data: Prvs, number: NumberOfPrvs, index: req.query.page });
 
