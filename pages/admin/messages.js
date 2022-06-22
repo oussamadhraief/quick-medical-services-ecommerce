@@ -50,6 +50,7 @@ console.error(error)
             }
             
         }
+        if(session && session.user?.isAdmin)
         fetchData()
     },[pageSelection])
 
