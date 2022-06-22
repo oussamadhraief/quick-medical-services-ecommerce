@@ -44,7 +44,7 @@ export default function Admin(){
                 setLoading(false)
             } catch (error) {
                 setError(true)
-console.error(error)
+                console.error(error)
             }
             
         }

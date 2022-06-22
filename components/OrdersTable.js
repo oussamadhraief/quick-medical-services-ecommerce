@@ -223,7 +223,7 @@ export default function OrdersTable(props){
                         
                     </div>)
                 })}
-           {true ? 
+           {props.loading ? 
            <div className='h-36 w-32 min-w-[128px] px-5 py-3 relative'>
                 <div className='bg-white h-full w-32 rounded-lg overflow-hidden flex items-center absolute left-0 top-0'>
                     <div id="contact-loading" className="w-fit h-fit bg-white/70 mx-auto "></div>
