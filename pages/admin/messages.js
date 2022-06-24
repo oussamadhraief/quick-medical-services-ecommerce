@@ -38,6 +38,7 @@ export default function Admin(){
             try {
                 const res = await fetch('/api/contact?page='+pageSelection)
                 const { data } = await res.json()
+                if(res.status == 200)
                 setValue(prev => {
                     return [...prev, ...data]
                 })
