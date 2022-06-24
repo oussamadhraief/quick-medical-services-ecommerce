@@ -61,7 +61,7 @@ export default function MainContent(){
                     <Image src={card4} alt='explorer' layout='fill' />
                 </div>
                 <p className='mx-auto mt-24 w-fit h-fit font-extrabold text-[#FF3874] text-4xl hover:scale-110'>02</p>
-                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third text-center px-2'>Choisissez vos instruments et ajoutez les au panier</p>
+                <p className='font-medium w-fit h-fit mx-auto mt-20 text-lg text-third text-center px-2'>Créez un compte et ajoutez des instruments au panier</p>
                 <div className='w-24 h-3 absolute -bottom-[7px] bg-[#FF3874] rounded-3xl left-0 hover:scale-110 right-0 mx-auto '>
                 </div>
             </div>
@@ -162,12 +162,12 @@ export default function MainContent(){
             <ProductsCarousel id='navigatablefeatured1' />
 
             <div id='encourageSection' className='bg-complementary gap-5 lg:gap-10 xl:gap-20 relative w-full h-fit min-h-fit mt-52 mb-32 sm:my-32 flex flex-col md:flex-row md:flex-nowrap justify-center lg:justify-start items-center py-10 pr-5 md:pr-0 lg:py-10 pl-5 md:pl-2 lg:pl-7 xl:pl-[4.5vw]'>
-                <div className='hoverablecontainer relative hover:cursor-pointer bg-transparent rounded-md transition-all duration-300 aspect-[95/69] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
+                <div className='hoverablecontainer relative bg-transparent rounded-md aspect-[95/69] w-11/12 sm:w-9/12 md:w-5/12 lg:1/2 xl:w-1/3'>
                     <Image src={'pfe/Untitled_design_4_ad5c55'} alt='contact' layout='fill' />
-                    <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2 hover:scale-105 transition-all'>
+                    <div className='absolute bottom-full sm:bottom-[95%] right-0 md:top-[85%] md:left-[85%] lg:top-3/4 lg:left-3/4 w-fit h-fit bg-white shadow-float px-5 lg:px-8 py-3 lg:py-5 grid gap-2'>
                         <i className='font-medium w-fit h-fit text-lg'>&quot;Qualité excepionnelle de produits et  <br></br>  du service !&quot;</i>
                         <p className='font-medium w-full text-right h-fit text-zinc-600'>- Dr. John Doe</p>
-                        <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky shadow-[0px_3px_15px_rgba(247,177,162,0.8)] text-white rounded py-1 lg:py-2 hover:scale-105 transition-all'>Envoyer</p>
+                        <p className='font-medium w-full h-fit mx-auto mt-3 text-center bg-pinky shadow-[0px_3px_15px_rgba(247,177,162,0.8)] text-white rounded py-1 lg:py-2'>Envoyer</p>
                     </div>
                 </div>
                 <div className='w-fit h-fit grid place-items-start lg:place-items-end order-2 md:order-1 mt-5 md:mt-0'>

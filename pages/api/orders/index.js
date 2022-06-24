@@ -10,7 +10,7 @@ export default async (req, res) => {
                 if(session){
                     if(session.user?.isAdmin){
                             const number = req.query.page*5
-                            const Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).skip(number).limit(5).populate('user cart.product')
+                            const Orders = await Amazon.find({status: "En cours"}).sort({createdAt: -1}).skip(number).limit(5).populate([{path: 'user',model: 'Brimstone'},{path: 'cart.product',model: 'Instrument'}])
                             res.status(200).json({ success: true, data: Orders });
 
                             return
