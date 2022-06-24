@@ -16,7 +16,7 @@ export default async function handler (req, res) {
           return
         }
     
-        let commande = await Quote.findOne({user: User, _id: req.query.id}).populate('cart.product')
+        let commande = await Quote.findOne({user: User, _id: req.query.id}).populate([{path: 'user',model: 'Brimstone'},{path: 'cart.product',model: 'Instrument'}])
     
         if(!commande){
             res.status(404).json({success: false, data: 'Order not found'})
