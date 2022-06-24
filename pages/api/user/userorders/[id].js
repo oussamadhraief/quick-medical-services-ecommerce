@@ -17,11 +17,15 @@ export default async function handler (req, res) {
           return
         }
     
-        let commande = await Amazon.findOne({user: User, _id: req.query.id}).populate([{path: 'user',model: 'Brimstone'},{path: 'cart.product',model: 'Instrument'}])
+        let commande = await Amazon.findOne({user: User, _id: req.query.id}).populate('user')
     
         if(!commande){
             res.status(404).json({success: false, data: 'Order not found'})
             return
+        }
+
+        for(let item of commande.cart){
+          item.product = await Instrument.findOne({_id: item.product})
         }
 
         res.status(200).json({ success: true, data: commande })
