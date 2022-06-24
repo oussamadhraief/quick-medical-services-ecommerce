@@ -1,5 +1,6 @@
 import dbConnect from "../../../utils/dbConnect"
 import Amazon from "../../../Models/Amazon"
+import Instrument from "../../../Models/Instrument"
 import { getSession } from "next-auth/react"
 
 dbConnect();
