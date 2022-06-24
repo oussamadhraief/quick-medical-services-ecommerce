@@ -44,6 +44,7 @@ export default function Admin(){
                 setLoading(false)
             } catch (error) {
                 setError(true)
+                console.log(1);
                 console.error(error)
             }
             
@@ -51,7 +52,7 @@ export default function Admin(){
         if(session && session.user?.isAdmin)
 
         fetchData()
-    },[pageSelection])
+    },[status,pageSelection])
     
     const observer = useRef()
 

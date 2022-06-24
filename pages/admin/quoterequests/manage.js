@@ -51,7 +51,7 @@ export default function Admin(){
         if(session && session.user?.isAdmin)
 
         fetchData()
-    },[pageSelection])
+    },[status,pageSelection])
     
     const observer = useRef()
 

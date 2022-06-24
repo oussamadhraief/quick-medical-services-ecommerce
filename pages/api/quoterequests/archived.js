@@ -12,7 +12,7 @@ export default async (req, res) => {
                     if(session.user.isAdmin){
                         
                         const number = req.query.page*5
-                            const quoterequests = await Quote.find({status: {$ne: "En cours"}}).sort({createdAt: -1}).skip(number).limit(5).populate('user cart.product')
+                            const quoterequests = await Quote.find({status: {$ne: "En cours"}}).sort({createdAt: -1}).skip(number).limit(5).populate([{path: 'user',model: 'Brimstone'},{path: 'cart.product',model: 'Instrument'}])
 
                             res.status(200).json({ success: true, data: quoterequests })
 

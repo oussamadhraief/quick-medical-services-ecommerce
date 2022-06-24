@@ -52,7 +52,7 @@ console.error(error)
         }
         if(session && session.user?.isAdmin)
         fetchData()
-    },[pageSelection])
+    },[status,pageSelection])
 
     const observer = useRef()
     const lastElementRef = useCallback(node => {
