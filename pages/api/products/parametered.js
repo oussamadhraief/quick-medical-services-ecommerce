@@ -1,7 +1,6 @@
 import dbConnect from "../../../utils/dbConnect";
 import Instrument from "../../../Models/Instrument";
 dbConnect();
-//POST PUT and DELETE only for admin
 
 export default async (req, res) => {
 const {sort,filter} = req.query

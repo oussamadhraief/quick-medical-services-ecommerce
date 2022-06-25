@@ -5,7 +5,6 @@ import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
 
-// quick note : fel mongo maktouba adress fi 3oudh address
 
 export default async function handler (req, res) {
   const session = await getSession({ req })

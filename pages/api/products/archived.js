@@ -2,7 +2,6 @@ import dbConnect from "../../../utils/dbConnect";
 import Instrument from "../../../Models/Instrument";
 import { getSession } from "next-auth/react"
 dbConnect();
-//POST PUT and DELETE only for admin
 
 export default async (req, res) => {
 

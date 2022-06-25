@@ -3,7 +3,6 @@ import Instrument from '../../../Models/Instrument'
 import dbConnect from '../../../utils/dbConnect'
 import { getSession } from 'next-auth/react'
 dbConnect()
-// change req.body.email to session later
 export default async function handler (req, res) {
   const session = await getSession({ req })
   if (req.method !== 'PATCH') {
