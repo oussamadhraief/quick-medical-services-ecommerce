@@ -273,6 +273,7 @@ a {
   scroll-behavior: smooth;
 }
 
+
 /* :required:where(input):where(:not(:placeholder-shown, :invalid)) {
   outline: 2px solid green;
 }
