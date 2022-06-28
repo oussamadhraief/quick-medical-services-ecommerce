@@ -3,7 +3,7 @@ import Footer from "../../../components/Footer"
 import { useEffect, useState } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
 import SrollableProduct from "../../../components/ScrollableProduct"
-import LoadingAnimation from "../../../components/LoadingAnimation"
+import Notification from "../../../components/Notification"
 import PagesNavigator from "../../../components/PagesNavigator"
 import { PageSelectionContext } from "../../../utils/PageSelectionContext"
 import CategoriesNavigator from "../../../components/CategoriesNavigator"
@@ -30,6 +30,8 @@ export default function Products(){
     const [cartNumber , setCartNumber] = useState(0)
     const [pages , setPages] = useState(1)
     const [search,setSearch] = useState('')
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
     const [loadingContext,setLoadingContext] = useState(true)
@@ -223,7 +225,8 @@ export default function Products(){
                         </div>
                     </div> : null}
 
-                    {value.map(item => <SrollableProduct key={item.name} product={item} />)}
+                    {value.length > 0 ? value.map(item => <SrollableProduct key={item.name} product={item} setShowNotification={setShowNotification} setMessage={setMessage} />) : <p>Résultats non trouvés</p>}
+                    <Notification show={showNotification} setShow={setShowNotification} message={message} />
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center mt-3 lg:mt-0 lg:justify-end items-center mb-32 px-10">

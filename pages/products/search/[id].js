@@ -3,7 +3,7 @@ import Footer from "../../../components/Footer"
 import { useEffect, useState, useRef } from "react"
 import { ProductsContext } from "../../../utils/ProductsContext"
 import SrollableProduct from "../../../components/ScrollableProduct"
-import LoadingAnimation from "../../../components/LoadingAnimation"
+import Notification from "../../../components/Notification"
 import PagesNavigator from "../../../components/PagesNavigator"
 import { PageSelectionContext } from "../../../utils/PageSelectionContext"
 import CategoriesNavigator from "../../../components/CategoriesNavigator"
@@ -33,6 +33,8 @@ export default function Products(){
     const [categoriesAndSubcategories,setCategoriesAndSubcategories] = useState([])
     const [activatedModal,setActivatedModal] = useState(false)
     const [loadingContext,setLoadingContext] = useState(true)
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
     const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
     const [fetchUrl,setFetchUrl] = useState('/api/searchproducts/'+router.query.id+'?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
@@ -224,7 +226,8 @@ export default function Products(){
                         <div className="reverse-spinner "></div>
                         </div>
                     </div> : null}
-                    {value.length > 0 ? value.map(item => <SrollableProduct key={item.name} product={item} />) : <p>Résultats non trouvés</p>}
+                    {value.length > 0 ? value.map(item => <SrollableProduct key={item.name} product={item} setShowNotification={setShowNotification} setMessage={setMessage} />) : <p>Résultats non trouvés</p>}
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center mt-3 lg:mt-0 lg:justify-end items-center mb-32 px-10">

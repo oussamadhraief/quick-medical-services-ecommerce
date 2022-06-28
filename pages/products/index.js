@@ -1,4 +1,5 @@
 import Header from "../../components/Header"
+import Notification from "../../components/Notification"
 import Footer from "../../components/Footer"
 import { useEffect, useState,useRef } from "react"
 import { ProductsContext } from "../../utils/ProductsContext"
@@ -35,6 +36,8 @@ export default function Products(){
     const [loading,setLoading] = useState(true)
     const [loadingContext,setLoadingContext] = useState(true)
     const [hiddenCategories,setHiddenCategories] = useState(false)
+    const [showNotification,setShowNotification] = useState(false)
+    const [message,setMessage] = useState('')
     const [parameters,setParameters] = useState({sort: 'recent',filter: 'all'})
     const [fetchUrl,setFetchUrl] = useState('/api/products/parametered?sort='+parameters.sort+'&filter='+parameters.filter+'&page=')
 
@@ -214,7 +217,9 @@ export default function Products(){
                         </div>
                     </div> : null}
 
-                    {value.map(item => <SrollableProduct key={item.name} product={item} />)}
+                    {value.map(item => <SrollableProduct key={item.name} product={item} setShowNotification={setShowNotification} setMessage={setMessage} />)}
+          <Notification show={showNotification} setShow={setShowNotification} message={message} />
+
                 </div>
             </div>
             <div className="w-full h-fit flex justify-center mt-3 lg:mt-0 lg:justify-end items-center mb-32 px-10">
