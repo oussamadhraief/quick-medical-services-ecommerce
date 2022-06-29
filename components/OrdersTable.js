@@ -126,7 +126,7 @@ export default function OrdersTable(props){
             }} onConfirm={() => handleArchive()} action={'delete'} content={'Êtes-vous sûr de vouloir archiver cette commande?'} />
 
             <div ref={itemHolder} className='mainScreen w-full bg-harvey flex items-center justify-center relative p-4 lg:p-5 xl:p-10 flex-auto'>
-            <div className='w-full lg:w-11/12 xl:w-9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '>
+            <div className={loading ? 'w-full lg:w-11/12 xl:w-9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-hidden animate__animated animate__fadeInUp ' : 'w-full lg:w-11/12 xl:w-9/12  min-w-[300px] h-full bg-white shadow-float rounded-md py-7 px-5 overflow-x-auto md:overflow-x-hidden overflow-y-auto animate__animated animate__fadeInUp '}>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                     <p className='text-sm font-medium text-zinc-600 h-fit'>Cette commande a été passée le <span className='underline'>{`${props.value[selectedMessage]?.createdAt.substr(8,2)} ${Intl.DateTimeFormat('fr', { month: 'long' }).format(new Date(props.value[selectedMessage]?.createdAt.substr(6,2)))} ${props.value[selectedMessage]?.createdAt.substr(0,4)}`}</span>  et elle est actuellement <span className='underline'>{props.value[selectedMessage]?.status}</span>. </p>

@@ -105,8 +105,63 @@ export default function OrderForm(props){
             })
             const {data,user} = await res.json()
             props.setCartNumber(0)
-            setOrderForm({name: '',phone: '',email: '',clinicName: '',taxRegistrationNumber: '',note : '', address: '',address2: '', city: '',city2: '', country: '',country2: '', zipCode: '',zipCode2: ''})
-            setSeperateAdresses(false)
+            if (session.user.address.length == 0) {
+
+                setOrderForm({
+                    ...orderForm,
+                    clinicName: '',
+                    taxRegistrationNumber: '',
+                    note: '',
+                    address: '',
+                    address2: '', 
+                    city: '',
+                    city2: '', 
+                    country: '',
+                    country2: '', 
+                    zipCode: '',
+                    zipCode2: '',
+                    name: session.user.name,
+                    phone: session.user.phone,
+                    email: session.user.email
+                })
+            }
+    
+          if (session.user.address.length == 1) {
+            setOrderForm({
+              ...OrderForm,
+              clinicName: '',
+              taxRegistrationNumber: '',
+              note: '',
+              address: session.user.address[0],
+              city: session.user.city[0],
+              country: session.user.country[0],
+              zipCode: session.user.zipCode[0],
+              name: session.user.name,
+              phone: session.user.phone,
+              email: session.user.email
+            })
+          }
+    
+          if (session.user.address.length == 2) {
+            setSeperateAdresses(true)
+            setOrderForm({
+              ...orderForm,
+              clinicName: '',
+              taxRegistrationNumber: '',
+              note: '',
+              address: session.user.address[0],
+              city: session.user.city[0],
+              country: session.user.country[0],
+              zipCode: session.user.zipCode[0],
+              address2: session.user.address[1],
+              city2: session.user.city[1],
+              country2: session.user.country[1],
+              zipCode2: session.user.zipCode[1],
+              name: session.user.name,
+              phone: session.user.phone,
+              email: session.user.email
+            })
+        }
             emailjs.send("service_gwl2rmp","template_7zya51h",{
                 to_name: user.name,
                 reference: data._id,

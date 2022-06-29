@@ -53,7 +53,12 @@ export default function OrderForm(props){
                 body: JSON.stringify(estimateData)
             })
             const {data,user} = await res.json()
-            setEstimateForm({name: '',phone: '',email: '',note : ''})
+            setEstimateForm({
+                ...estimateForm,
+                name: session.user.name,
+                phone: session.user.phone,
+                email: session.user.email
+            })
             props.setCartNumber(0)
             emailjs.send("service_gwl2rmp","template_opczs0x",{
                 to_name: user.name,

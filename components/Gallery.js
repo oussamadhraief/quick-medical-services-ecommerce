@@ -117,7 +117,7 @@ export default function ModifyProductsView(props){
                 setOpen(false)
                 }} onConfirm={() => handleDelete()} action={'add'} content={'Êtes-vous sûr de vouloir supprimer ce message?'} />
             <div ref={itemHolder} className='mainScreen w-full bg-harvey flex items-center justify-center relative p-4 lg:p-5 xl:p-10 flex-auto'>
-                <div className='w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 min-w-[300px]  h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-y-auto animate__animated animate__fadeInUp '>
+                <div className={loading ? 'w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 min-w-[300px]  h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-hidden animate__animated animate__fadeInUp ' : 'w-11/12 md:w-9/12 lg:w-7/12 xl:w-6/12 min-w-[300px]  h-full max-h-[400px] bg-white shadow-float rounded-md py-7 px-5 overflow-auto animate__animated animate__fadeInUp '}>
                     {loading ? <LoadingAnimation key='delete' bgOpacity={false} /> : null}
                     <div className='flex justify-between items-center border-b border-zinc-400 pb-1'>
                         <p className={props.value[selectedMessage]?.isReview == true ? ' text-emerald-700 bg-emerald-100 px-1 py-0.5 rounded font-medium': ' bg-red-100 text-red-500 px-1 py-0.5 rounded font-medium  h-fit'}>Ce message  <span>{props.value[selectedMessage]?.isReview == true ? 'est affiché' : `n'est pas affiché`}</span>  sur l&apos;écran d&apos;accueil</p>
@@ -156,20 +156,20 @@ export default function ModifyProductsView(props){
                     <div key={index} ref={props.lastElementRef} onClick={e => {
                         setOpen(false)
                         setSelectedMessage(index)
-                    }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
+                    }} className='hover:cursor-pointer bg-white shadow-form max-h-28 h-28 md:h-36 md:max-h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm overflow-hidden max-h-14 md:max-h-20'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
                         
                     </div>)
 
                         return (<div key={index} onClick={e => {
                             setOpen(false)
                             setSelectedMessage(index)
-                        }} className='hover:cursor-pointer bg-white shadow-form h-28 md:h-36 p-1 md:px-5 md:py-3 rounded'>
+                        }} className='hover:cursor-pointer bg-white shadow-form max-h-28 h-28 md:h-36 md:max-h-36 p-1 md:px-5 md:py-3 rounded'>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Nom et prénom:</span> {item.name}</p>
                         <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>E-mail:</span> {item.email}</p>
-                        <p className='w-60 md:w-80 font-medium text-sm'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
+                        <p className='w-60 md:w-80 font-medium text-sm overflow-hidden max-h-14 md:max-h-20'> <span className='text-base text-emerald-700'>Message:</span> {item.message}</p>
                         
                     </div>)
                 })}
